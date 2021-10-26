@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crawler on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/crawler/</link>
+    <description>Recent content in Crawler on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Oct 2020 20:12:03 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/crawler/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crawler Note</title>
+      <link>http://Chasing1020.github.io/post/crawler-note/</link>
+      <pubDate>Mon, 12 Oct 2020 20:12:03 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/crawler-note/</guid>
+      <description>网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）</description>
+    </item>
+    
+  </channel>
+</rss>

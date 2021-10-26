@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/go/</link>
+    <description>Recent content in Go on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go(6) Network</title>
+      <link>http://Chasing1020.github.io/post/go06-network/</link>
+      <pubDate>Tue, 26 Oct 2021 19:35:13 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go06-network/</guid>
+      <description>Part6. Network 1. IO/Polling select 操作的不足之处： 监听能力有限 — 最多只能监听 1024 个文件描述符； 内存拷贝开销大 — 需要维护一个较大的数据结构存储文件描述符，该结构需要拷贝</description>
+    </item>
+    
+    <item>
+      <title>Go(5) Concurrency</title>
+      <link>http://Chasing1020.github.io/post/go05-concurrency/</link>
+      <pubDate>Wed, 13 Oct 2021 20:36:34 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go05-concurrency/</guid>
+      <description>Part5. Concurrency 1. Channel 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 type hchan struct { qcount uint // total data in the queue dataqsiz uint // size of the circular queue buf unsafe.Pointer // points to an array of dataqsiz elements elemsize uint16 closed</description>
+    </item>
+    
+    <item>
+      <title>Go(4) Runtime</title>
+      <link>http://Chasing1020.github.io/post/go04-runtime/</link>
+      <pubDate>Tue, 28 Sep 2021 19:31:04 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go04-runtime/</guid>
+      <description>Part4. Runtime 1. GMP 1.1. Implement 1.1.1. Data Structure 创建、销毁、调度 G 都需要每个 M 获取锁，这就形成了激烈的锁竞争。 M 转移 G 会造成延迟和额外的系统负载。比如当 G 中包含创建新协程</description>
+    </item>
+    
+    <item>
+      <title>Go(3) Common Keywords</title>
+      <link>http://Chasing1020.github.io/post/go03-common-keywords/</link>
+      <pubDate>Mon, 20 Sep 2021 12:27:33 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go03-common-keywords/</guid>
+      <description>Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预</description>
+    </item>
+    
+    <item>
+      <title>Go(2) Language Basic</title>
+      <link>http://Chasing1020.github.io/post/go02-language-basic/</link>
+      <pubDate>Tue, 14 Sep 2021 19:26:33 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go02-language-basic/</guid>
+      <description>Part2. Language Basic 1. Function 1 2 3 4 type funcval struct { fn uintptr // variable-size, fn-specific data here } funcval使用二级指针，可以处理闭包（1.外部定义，内部引用的自由变量 2.脱离闭包上下文也能保</description>
+    </item>
+    
+    <item>
+      <title>Go(1) Builtin Data Structure</title>
+      <link>http://Chasing1020.github.io/post/go01-builtin-data-structure/</link>
+      <pubDate>Thu, 02 Sep 2021 19:22:24 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go01-builtin-data-structure/</guid>
+      <description>Part1. Builtin Data Structure 0. Type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 package builtin type bool bool const ( true = 0</description>
+    </item>
+    
+    <item>
+      <title>Go(0) Compilers Principles</title>
+      <link>http://Chasing1020.github.io/post/go00-compilers-principles/</link>
+      <pubDate>Thu, 26 Aug 2021 15:00:13 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go00-compilers-principles/</guid>
+      <description>Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件</description>
+    </item>
+    
+  </channel>
+</rss>

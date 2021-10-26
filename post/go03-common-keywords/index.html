@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <title>Go(3) Common Keywords - Chasing&#39;s blog</title>
+ <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预" /><meta name="keywords" content="" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/go03-common-keywords/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4573ba89ebe61d47218ac43add406d9e13dd57badf8d68866ca7103bdd69ef3d.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go(3) Common Keywords" />
+<meta property="og:description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/go03-common-keywords/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-09-20T12:27:33+08:00" />
+<meta property="article:modified_time" content="2021-09-20T12:27:33+08:00" />
+
+<meta itemprop="name" content="Go(3) Common Keywords">
+<meta itemprop="description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"><meta itemprop="datePublished" content="2021-09-20T12:27:33+08:00" />
+<meta itemprop="dateModified" content="2021-09-20T12:27:33+08:00" />
+<meta itemprop="wordCount" content="4400">
+<meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go(3) Common Keywords"/>
+<meta name="twitter:description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+ <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/search/">
+        <li class="mobile-menu-item">Search</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+ <div class="container" id="mobile-panel">
+   <header id="header" class="header">
+       <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/search/">Search</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+   </header>
+
+   
+   <main id="main" class="main">
+     <div class="content-wrapper">
+       <div id="content" class="content">
+         <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go(3) Common Keywords</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-09-20 </span>
+        <div class="post-category">
+            <a href="/categories/language/"> Language </a>
+            </div>
+          <span class="more-meta"> 4400 words </span>
+          <span class="more-meta"> 9 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#part3-common-keyword">Part3. Common Keyword</a>
+      <ul>
+        <li><a href="#1-for-and-range">1. For And Range</a></li>
+        <li><a href="#2-defer">2. Defer</a>
+          <ul>
+            <li><a href="#21-implement">2.1. Implement</a></li>
+            <li><a href="#22-execve">2.2. Execve</a></li>
+            <li><a href="#23-version-difference">2.3. Version Difference</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-panic-and-recover">3. Panic And Recover</a>
+          <ul>
+            <li><a href="#31-panic-implement">3.1. Panic Implement</a></li>
+            <li><a href="#32-recover-implement">3.2. Recover Implement</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-make-and-new">4. Make And New</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="part3-common-keyword">Part3. Common Keyword</h1>
+<h2 id="1-for-and-range">1. For And Range</h2>
+<p>对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 <code>ha</code>，在赋值的过程中就发生了拷贝，而我们又通过 <code>len</code> 关键字预先获取了切片的长度，所以在循环中追加新的元素也不会改变循环执行的次数，这也就解释了循环永动机一节提到的现象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">arr</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+	<span class="nx">newArr</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="kt">int</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span>
+		<span class="nx">newArr</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">newArr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">newArr</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">v</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而遇到这种同时遍历索引和元素的 range 循环时，Go 语言会额外创建一个新的 <code>v2</code> 变量存储切片中的元素，<strong>循环中使用的这个变量 v2 会在每一次迭代被重新赋值而覆盖，赋值时也会触发拷贝</strong>。</p>
+<p>在遍历哈希表时，会发生如下操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">ha</span> <span class="o">:=</span> <span class="nx">a</span>
+<span class="nx">hit</span> <span class="o">:=</span> <span class="nf">hiter</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span>
+<span class="nx">th</span> <span class="o">:=</span> <span class="nx">hit</span><span class="p">.</span><span class="nx">Type</span>
+<span class="nf">mapiterinit</span><span class="p">(</span><span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nx">ha</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">hit</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">;</span> <span class="nx">hit</span><span class="p">.</span><span class="nx">key</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nf">mapiternext</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">hit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">key</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">hit</span><span class="p">.</span><span class="nx">key</span>
+    <span class="nx">val</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">hit</span><span class="p">.</span><span class="nx">val</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">mapiternext</span><span class="p">(</span><span class="nx">it</span> <span class="o">*</span><span class="nx">hiter</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">h</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">h</span>
+	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">t</span>
+	<span class="nx">bucket</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bucket</span>
+	<span class="nx">b</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bptr</span>
+	<span class="nx">i</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">i</span>
+	<span class="nx">alg</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">alg</span>
+
+<span class="nx">next</span><span class="p">:</span>
+	<span class="k">if</span> <span class="nx">b</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nx">it</span><span class="p">.</span><span class="nx">startBucket</span> <span class="o">&amp;&amp;</span> <span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">{</span>
+			<span class="nx">it</span><span class="p">.</span><span class="nx">key</span> <span class="p">=</span> <span class="kc">nil</span>
+			<span class="nx">it</span><span class="p">.</span><span class="nx">value</span> <span class="p">=</span> <span class="kc">nil</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="nx">b</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">bucket</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
+		<span class="nx">bucket</span><span class="o">++</span>
+		<span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">bucket</span> <span class="p">=</span> <span class="mi">0</span>
+			<span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">=</span> <span class="kc">true</span>
+		<span class="p">}</span>
+		<span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span>
+	<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>字符串遍历，自动转换为Rune类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">ha</span> <span class="o">:=</span> <span class="nx">s</span>
+<span class="k">for</span> <span class="nx">hv1</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">hv1</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">ha</span><span class="p">);</span> <span class="p">{</span>
+    <span class="nx">hv1t</span> <span class="o">:=</span> <span class="nx">hv1</span>
+    <span class="nx">hv2</span> <span class="o">:=</span> <span class="nb">rune</span><span class="p">(</span><span class="nx">ha</span><span class="p">[</span><span class="nx">hv1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nx">hv2</span> <span class="p">&lt;</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="p">{</span>
+        <span class="nx">hv1</span><span class="o">++</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">hv2</span><span class="p">,</span> <span class="nx">hv1</span> <span class="p">=</span> <span class="nf">decoderune</span><span class="p">(</span><span class="nx">ha</span><span class="p">,</span> <span class="nx">hv1</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span> <span class="p">=</span> <span class="nx">hv1t</span><span class="p">,</span> <span class="nx">hv2</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="2-defer">2. Defer</h2>
+<h3 id="21-implement">2.1. Implement</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A _defer holds an entry on the list of deferred calls.
+</span><span class="c1">// If you add a field here, add code to clear it in freedefer and deferProcStack
+</span><span class="c1">// This struct must match the code in cmd/compile/internal/gc/reflect.go:deferstruct
+</span><span class="c1">// and cmd/compile/internal/gc/ssa.go:(*state).call.
+</span><span class="c1">// Some defers will be allocated on the stack and some on the heap.
+</span><span class="c1">// All defers are logically part of the stack, so write barriers to
+</span><span class="c1">// initialize them are not required. All defers must be manually scanned,
+</span><span class="c1">// and for heap defers, marked.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">_defer</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">siz</span>     <span class="kt">int32</span> <span class="c1">// includes both arguments and results 参数和返回值共占多少空间
+</span><span class="c1"></span>	<span class="nx">started</span> <span class="kt">bool</span>
+	<span class="nx">heap</span>    <span class="kt">bool</span>
+	<span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
+</span><span class="c1"></span>	<span class="c1">// defers. We have only one defer record for the entire frame (which may
+</span><span class="c1"></span>	<span class="c1">// currently have 0, 1, or more defers active).
+</span><span class="c1"></span>	<span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
+</span><span class="c1"></span>	<span class="nx">sp</span>        <span class="kt">uintptr</span>  <span class="c1">// sp at time of defer 栈指针
+</span><span class="c1"></span>	<span class="nx">pc</span>        <span class="kt">uintptr</span>  <span class="c1">// pc at time of defer 调用方的程序计数器；
+</span><span class="c1"></span>	<span class="nx">fn</span>        <span class="o">*</span><span class="nx">funcval</span> <span class="c1">// can be nil for open-coded defers 关键字中传入的函数
+</span><span class="c1"></span>	<span class="nx">_panic</span>    <span class="o">*</span><span class="nx">_panic</span>  <span class="c1">// panic that is running defer 是触发延迟调用的结构体，可能为空；
+</span><span class="c1"></span>	<span class="nx">link</span>      <span class="o">*</span><span class="nx">_defer</span>
+
+	<span class="c1">// If openDefer is true, the fields below record values about the stack
+</span><span class="c1"></span>	<span class="c1">// frame and associated function that has the open-coded defer(s). sp
+</span><span class="c1"></span>	<span class="c1">// above will be the sp for the frame, and pc will be address of the
+</span><span class="c1"></span>	<span class="c1">// deferreturn call in the function.
+</span><span class="c1"></span>	<span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
+</span><span class="c1"></span>	<span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
+</span><span class="c1"></span>	<span class="c1">// framepc is the current pc associated with the stack frame. Together,
+</span><span class="c1"></span>	<span class="c1">// with sp above (which is the sp associated with the stack frame),
+</span><span class="c1"></span>	<span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
+</span><span class="c1"></span>	<span class="c1">// gentraceback().
+</span><span class="c1"></span>	<span class="nx">framepc</span> <span class="kt">uintptr</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li><em>A deferred function’s arguments are evaluated when the defer statement is evaluated.</em></li>
+<li><em>Deferred function calls are executed in Last In First Out order after the surrounding function returns.</em></li>
+<li><em>Deferred functions may read and assign to the returning function’s named return values.</em></li>
+</ol>
+<p>Go 语言在 1.13 中引入栈上分配的结构体，减少了 30% 的额外开销<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-defer/#fn:1">1</a>，并在 1.14 中引入了基于开放编码的 <code>defer</code>，使得该关键字的额外开销可以忽略不计。</p>
+<h3 id="22-execve">2.2. Execve</h3>
+<h4 id="221-in-heap">2.2.1. In Heap</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">stmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="o">...</span>
+	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">hasOpenDefers</span> <span class="p">{</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nf">openDeferRecord</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> <span class="c1">// 开放编码
+</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">d</span> <span class="o">:=</span> <span class="nx">callDefer</span> <span class="c1">// 堆分配
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNever</span> <span class="p">{</span>
+				<span class="nx">d</span> <span class="p">=</span> <span class="nx">callDeferStack</span> <span class="c1">// 栈分配
+</span><span class="c1"></span>			<span class="p">}</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nf">callResult</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>1.12版本前的defer调用函数，函数需要：</p>
+<ol>
+<li>获取需要执行的函数名、闭包指针、代码指针和函数调用的接收方；</li>
+<li>获取栈地址并将函数或者方法的参数写入栈中；</li>
+<li>使用 <a href="https://draveness.me/golang/tree/cmd/compile/internal/gc.state.newValue1A"><code>cmd/compile/internal/gc.state.newValue1A</code></a> 以及相关函数生成函数调用的中间代码；</li>
+<li>如果当前调用的函数是 <code>defer</code>，那么会单独生成相关的结束代码块；</li>
+<li>获取函数的返回值地址并结束当前调用；</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">call</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">k</span> <span class="nx">callKind</span><span class="p">,</span> <span class="nx">returnResultAddr</span> <span class="kt">bool</span><span class="p">)</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span> <span class="p">{</span>
+	<span class="o">...</span>
+	<span class="kd">var</span> <span class="nx">call</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span>
+	<span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDeferStack</span> <span class="p">{</span>
+		<span class="c1">// 在栈上初始化 defer 结构体
+</span><span class="c1"></span>		<span class="o">...</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="o">...</span>
+		<span class="k">switch</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDefer</span><span class="p">:</span>
+			<span class="nx">aux</span> <span class="o">:=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nf">StaticAuxCall</span><span class="p">(</span><span class="nx">deferproc</span><span class="p">,</span> <span class="nx">ACArgs</span><span class="p">,</span> <span class="nx">ACResults</span><span class="p">)</span>
+			<span class="nx">call</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpStaticCall</span><span class="p">,</span> <span class="nx">types</span><span class="p">.</span><span class="nx">TypeMem</span><span class="p">,</span> <span class="nx">aux</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">())</span>
+		<span class="o">...</span>
+		<span class="p">}</span>
+		<span class="nx">call</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">stksize</span>
+	<span class="p">}</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nx">vars</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">memVar</span><span class="p">]</span> <span class="p">=</span> <span class="nx">call</span>
+	<span class="o">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建延迟调用，将defer A() 转换成 defproc(8, A)，整形参数在64位下占用8字节</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deferproc</span><span class="p">(</span><span class="nx">siz</span> <span class="kt">int32</span><span class="p">,</span> <span class="nx">fn</span> <span class="o">*</span><span class="nx">funcval</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+	<span class="nx">argp</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">fn</span><span class="p">))</span> <span class="o">+</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
+	<span class="nx">callerpc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">newdefer</span><span class="p">(</span><span class="nx">siz</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nf">throw</span><span class="p">(</span><span class="s">&#34;deferproc: d.panic != nil after newdefer&#34;</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="nx">fn</span>
+	<span class="nx">d</span><span class="p">.</span><span class="nx">pc</span> <span class="p">=</span> <span class="nx">callerpc</span>
+	<span class="nx">d</span><span class="p">.</span><span class="nx">sp</span> <span class="p">=</span> <span class="nx">sp</span>
+	<span class="k">switch</span> <span class="nx">siz</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+	<span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">))</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="nf">memmove</span><span class="p">(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
+	<span class="p">}</span>
+
+	<span class="nf">return0</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从调度器的延迟调用缓存池 sched.deferpool 中取出结构体并将该结构体追加到当前 Goroutine 的缓存池中；
+从 Goroutine 的延迟调用缓存池 pp.deferpool 中取出结构体；
+通过 runtime.mallocgc 在堆上创建一个新的结构体；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">newdefer</span><span class="p">(</span><span class="nx">siz</span> <span class="kt">int32</span><span class="p">)</span> <span class="o">*</span><span class="nx">_defer</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">d</span> <span class="o">*</span><span class="nx">_defer</span>
+	<span class="nx">sc</span> <span class="o">:=</span> <span class="nf">deferclass</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
+	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">sc</span> <span class="p">&lt;</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">p</span><span class="p">{}.</span><span class="nx">deferpool</span><span class="p">))</span> <span class="p">{</span>
+		<span class="nx">pp</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">ptr</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="p">&lt;</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">d</span> <span class="o">:=</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span>
+				<span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+				<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">],</span> <span class="nx">d</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]);</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">d</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+			<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="kc">nil</span>
+			<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][:</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">total</span> <span class="o">:=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nf">totaldefersize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">)))</span>
+		<span class="nx">d</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_defer</span><span class="p">)(</span><span class="nf">mallocgc</span><span class="p">(</span><span class="nx">total</span><span class="p">,</span> <span class="nx">deferType</span><span class="p">,</span> <span class="kc">true</span><span class="p">))</span>
+	<span class="p">}</span>
+	<span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">=</span> <span class="nx">siz</span>
+	<span class="nx">d</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+	<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span>
+	<span class="k">return</span> <span class="nx">d</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在函数结束前，转为runtime.deferreturn()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deferreturn</span><span class="p">(</span><span class="nx">arg0</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+	<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+	<span class="o">...</span>
+
+	<span class="k">switch</span> <span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+	<span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
+	<span class="k">default</span><span class="p">:</span>
+		<span class="nf">memmove</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
+	<span class="p">}</span>
+	<span class="nx">fn</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">fn</span>
+	<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+	<span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+	<span class="nf">jmpdefer</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">)))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="222-stack">2.2.2. Stack</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deferprocStack</span><span class="p">(</span><span class="nx">d</span> <span class="o">*</span><span class="nx">_defer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">started</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">heap</span> <span class="p">=</span> <span class="kc">false</span> <span class="c1">// 栈上分配的 _defer
+</span><span class="c1"></span>    <span class="nx">d</span><span class="p">.</span><span class="nx">openDefer</span> <span class="p">=</span> <span class="kc">false</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">sp</span> <span class="p">=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">pc</span> <span class="p">=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">framepc</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">varp</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span><span class="p">))</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">.</span><span class="nx">fd</span><span class="p">))</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">d</span><span class="p">.</span><span class="nx">link</span><span class="p">))</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span><span class="p">))</span>
+    <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span><span class="p">))</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
+
+    <span class="nf">return0</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>与堆区类似，该方法没有本质上的不同，可以适用于更多场景。</p>
+<p>但是在循环中注册的defer，还是需要1.12的方式，在堆中分配，所以在defer结构体中新增了字段</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">		<span class="nx">heap</span>    <span class="kt">bool</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="223-open-coded">2.2.3. Open Coded</h4>
+<p>Go 语言在 1.14 中通过开放编码（Open Coded）实现 <code>defer</code> 关键字，该设计使用代码内联优化 <code>defer</code> 关键的额外开销并引入函数数据 <code>funcdata</code> 管理 <code>panic</code> 的调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">maxOpenDefers</span> <span class="p">=</span> <span class="mi">8</span>
+
+<span class="kd">func</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
+		<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetHasDefer</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+		<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span><span class="o">++</span>
+		<span class="k">if</span> <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span> <span class="p">&gt;</span> <span class="nx">maxOpenDefers</span> <span class="p">{</span>
+			<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">!=</span> <span class="nx">EscNever</span> <span class="p">{</span>
+			<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="k">fallthrough</span>
+	<span class="o">...</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>函数的 <code>defer</code> 数量少于或者等于 8 个；</li>
+<li>函数的 <code>defer</code> 关键字不能在循环中执行；</li>
+<li>函数的 <code>return</code> 语句与 <code>defer</code> 语句的乘积小于或者等于 15 个；</li>
+</ol>
+<p>1.14中，使用df来标记每一个defer是否需要执行，将每一个defer放在函数返回处，通过编译阶段插入代码，把defer函数的逻辑展开在所属的函数内，从而省略了defer结构体和链表。</p>
+<p>但是，在函数执行过程中，如果调用了panic，或者是runtime.Goexit()函数，需要额外使用栈扫描方法来实现。</p>
+<p>所以在1.14版本中，新增了如下参数，保证栈扫描能够正确执行，这种情况下，效率要低于1.13版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">	<span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
+</span><span class="c1"></span>	<span class="c1">// defers. We have only one defer record for the entire frame (which may
+</span><span class="c1"></span>	<span class="c1">// currently have 0, 1, or more defers active).
+</span><span class="c1"></span>	<span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
+</span><span class="c1"></span>	<span class="c1">// If openDefer is true, the fields below record values about the stack
+</span><span class="c1"></span>	<span class="c1">// frame and associated function that has the open-coded defer(s). sp
+</span><span class="c1"></span>	<span class="c1">// above will be the sp for the frame, and pc will be address of the
+</span><span class="c1"></span>	<span class="c1">// deferreturn call in the function.
+</span><span class="c1"></span>	<span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
+</span><span class="c1"></span>	<span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
+</span><span class="c1"></span>	<span class="c1">// framepc is the current pc associated with the stack frame. Together,
+</span><span class="c1"></span>	<span class="c1">// with sp above (which is the sp associated with the stack frame),
+</span><span class="c1"></span>	<span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
+</span><span class="c1"></span>	<span class="c1">// gentraceback().
+</span><span class="c1"></span>	<span class="nx">framepc</span> <span class="kt">uintptr</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="23-version-difference">2.3. Version Difference</h3>
+<ul>
+<li>堆上分配 · 1.1 ~ 1.12
+<ul>
+<li>编译期将 <code>defer</code> 关键字转换成 <a href="https://draveness.me/golang/tree/runtime.deferproc"><code>runtime.deferproc</code></a> 并在调用 <code>defer</code> 关键字的函数返回之前插入 <a href="https://draveness.me/golang/tree/runtime.deferreturn"><code>runtime.deferreturn</code></a>；</li>
+<li>运行时调用 <a href="https://draveness.me/golang/tree/runtime.deferproc"><code>runtime.deferproc</code></a> 会将一个新的 <a href="https://draveness.me/golang/tree/runtime._defer"><code>runtime._defer</code></a> 结构体追加到当前 Goroutine 的链表头；</li>
+<li>运行时调用 <a href="https://draveness.me/golang/tree/runtime.deferreturn"><code>runtime.deferreturn</code></a> 会从 Goroutine 的链表中取出 <a href="https://draveness.me/golang/tree/runtime._defer"><code>runtime._defer</code></a> 结构并依次执行；</li>
+</ul>
+</li>
+<li>栈上分配 · 1.13
+<ul>
+<li>当该关键字在函数体中最多执行一次时，编译期间的 <a href="https://draveness.me/golang/tree/cmd/compile/internal/gc.state.call"><code>cmd/compile/internal/gc.state.call</code></a> 会将结构体分配到栈上并调用 <a href="https://draveness.me/golang/tree/runtime.deferprocStack"><code>runtime.deferprocStack</code></a>；</li>
+</ul>
+</li>
+<li>开放编码 · 1.14 ~ 现在
+<ul>
+<li>编译期间判断 <code>defer</code> 关键字、<code>return</code> 语句的个数确定是否开启开放编码优化；</li>
+<li>通过 <code>deferBits</code> 和 <a href="https://draveness.me/golang/tree/cmd/compile/internal/gc.openDeferInfo"><code>cmd/compile/internal/gc.openDeferInfo</code></a> 存储 <code>defer</code> 关键字的相关信息；</li>
+<li>如果 <code>defer</code> 关键字的执行可以在编译期间确定，会在函数返回前直接插入相应的代码，否则会由运行时的 <a href="https://draveness.me/golang/tree/runtime.deferreturn"><code>runtime.deferreturn</code></a> 处理；</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-panic-and-recover">3. Panic And Recover</h2>
+<h3 id="31-panic-implement">3.1. Panic Implement</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A _panic holds information about an active panic.
+</span><span class="c1">//
+</span><span class="c1">// A _panic value must only ever live on the stack.
+</span><span class="c1">//
+</span><span class="c1">// The argp and link fields are stack pointers, but don&#39;t need special
+</span><span class="c1">// handling during stack growth: because they are pointer-typed and
+</span><span class="c1">// _panic values only live on the stack, regular stack pointer
+</span><span class="c1">// adjustment takes care of them.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">_panic</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">argp</span>      <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// pointer to arguments of deferred call run during panic; cannot move - known to liblink      defer的参数空间地址
+</span><span class="c1"></span>    <span class="nx">arg</span>       <span class="kd">interface</span><span class="p">{}</span>    <span class="c1">// argument to panic
+</span><span class="c1"></span>    <span class="nx">link</span>      <span class="o">*</span><span class="nx">_panic</span>        <span class="c1">// link to earlier panic
+</span><span class="c1"></span>    <span class="nx">pc</span>        <span class="kt">uintptr</span>        <span class="c1">// where to return to in runtime if this panic is bypassed
+</span><span class="c1"></span>    <span class="nx">sp</span>        <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// where to return to in runtime if this panic is bypassed
+</span><span class="c1"></span>    <span class="nx">recovered</span> <span class="kt">bool</span>           <span class="c1">// whether this panic is over 是否被恢复
+</span><span class="c1"></span>    <span class="nx">aborted</span>   <span class="kt">bool</span>           <span class="c1">// the panic was aborted  是否终止
+</span><span class="c1"></span>    <span class="nx">goexit</span>    <span class="kt">bool</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在panic执行时，会把_defer的panic置位true，如果能够正常结束，</p>
+<p>然后执行如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">gopanic</span><span class="p">(</span><span class="nx">e</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+	<span class="o">...</span>
+	<span class="kd">var</span> <span class="nx">p</span> <span class="nx">_panic</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">arg</span> <span class="p">=</span> <span class="nx">e</span>
+	<span class="nx">p</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
+	<span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+		<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+
+		<span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
+
+		<span class="nf">reflectcall</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">fn</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
+
+		<span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="kc">nil</span>
+		<span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="kc">nil</span>
+		<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+
+		<span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">{</span>
+			<span class="o">...</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="nf">fatalpanic</span><span class="p">(</span><span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span><span class="p">)</span>
+	<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="kc">nil</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>对于无法修复的崩溃，会调用如下代码打印所有panic信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">fatalpanic</span><span class="p">(</span><span class="nx">msgs</span> <span class="o">*</span><span class="nx">_panic</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">pc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="nf">startpanic_m</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">msgs</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">atomic</span><span class="p">.</span><span class="nf">Xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">runningPanicDefers</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+		<span class="nf">printpanics</span><span class="p">(</span><span class="nx">msgs</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nf">dopanic_m</span><span class="p">(</span><span class="nx">gp</span><span class="p">,</span> <span class="nx">pc</span><span class="p">,</span> <span class="nx">sp</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nf">crash</span><span class="p">()</span>
+	<span class="p">}</span>
+
+	<span class="nf">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="32-recover-implement">3.2. Recover Implement</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">gorecover</span><span class="p">(</span><span class="nx">argp</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
+	<span class="k">if</span> <span class="nx">p</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="o">&amp;&amp;</span> <span class="nx">argp</span> <span class="o">==</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">argp</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">=</span> <span class="kc">true</span>
+		<span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">arg</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>recover将当前panic的recovered等于true，然后移除并且跳出当前的panic</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">gopanic</span><span class="p">(</span><span class="nx">e</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+    <span class="o">...</span>
+
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="c1">// 执行延迟调用函数，可能会设置 p.recovered = true
+</span><span class="c1"></span>        <span class="o">...</span>
+
+        <span class="nx">pc</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">pc</span>
+        <span class="nx">sp</span> <span class="o">:=</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sp</span><span class="p">)</span>
+
+        <span class="o">...</span>
+        <span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">{</span> <span class="c1">// 当标记为为true时，
+</span><span class="c1"></span>            <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">link</span>
+            <span class="k">for</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span><span class="p">.</span><span class="nx">aborted</span> <span class="p">{</span>
+              <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span><span class="p">.</span><span class="nx">link</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+              <span class="nx">gp</span><span class="p">.</span><span class="nx">sig</span> <span class="p">=</span> <span class="mi">0</span>
+            <span class="p">}</span>
+            <span class="nx">gp</span><span class="p">.</span><span class="nx">sigcode0</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">sp</span><span class="p">)</span>
+            <span class="nx">gp</span><span class="p">.</span><span class="nx">sigcode1</span> <span class="p">=</span> <span class="nx">pc</span>
+            <span class="nf">mcall</span><span class="p">(</span><span class="nx">recovery</span><span class="p">)</span>
+            <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;recovery failed&#34;</span><span class="p">)</span>
+      	<span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>编译器会负责做转换关键字的工作；
+1.1. 将 panic 和 recover 分别转换成 runtime.gopanic 和 runtime.gorecover；
+1.2. 将 defer 转换成 runtime.deferproc 函数；
+1.3. 在调用 defer 的函数末尾调用 runtime.deferreturn 函数；</li>
+<li>在运行过程中遇到 runtime.gopanic 方法时，会从 Goroutine 的链表依次取出 runtime._defer 结构体并执行；</li>
+<li>如果调用延迟执行函数时遇到了 runtime.gorecover 就会将 _panic.recovered 标记成 true 并返回 panic 的参数；
+3.1. 在这次调用结束之后，runtime.gopanic 会从 runtime._defer 结构体中取出程序计数器 pc 和栈指针 sp 并调用 runtime.recovery 函数进行恢复程序；
+3.2. runtime.recovery 会根据传入的 pc 和 sp 跳转回 runtime.deferproc；
+3.3. 编译器自动生成的代码会发现 runtime.deferproc 的返回值不为 0，这时会跳回 runtime.deferreturn 并恢复到正常的执行流程；</li>
+<li>如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime._defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2；</li>
+</ol>
+<h2 id="4-make-and-new">4. Make And New</h2>
+<ul>
+<li><code>make</code> 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:2">2</a>；</li>
+<li><code>new</code> 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:3">3</a>；</li>
+</ul>
+<p>Go 语言会将代表 <code>make</code> 关键字的 <code>OMAKE</code> 节点根据参数类型的不同转换成了 <code>OMAKESLICE</code>、<code>OMAKEMAP</code> 和 <code>OMAKECHAN</code> 三种不同类型的节点，这些节点会调用不同的运行时函数来初始化相应的数据结构。</p>
+<p>分别对应如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Data</span> <span class="kt">uintptr</span>
+	<span class="nx">Len</span>  <span class="kt">int</span>
+	<span class="nx">Cap</span>  <span class="kt">int</span>
+<span class="p">}</span>
+<span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
+</span><span class="c1"></span>	<span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.
+</span><span class="c1"></span>	<span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)
+</span><span class="c1"></span>	<span class="nx">flags</span>     <span class="kt">uint8</span>
+	<span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+</span><span class="c1"></span>	<span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details
+</span><span class="c1"></span>	<span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed
+</span><span class="c1"></span>
+	<span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.
+</span><span class="c1"></span>	<span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing
+</span><span class="c1"></span>	<span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)
+</span><span class="c1"></span>
+	<span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kd">type</span> <span class="nx">hchan</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">qcount</span>   <span class="kt">uint</span>           <span class="c1">// total data in the queue
+</span><span class="c1"></span>	<span class="nx">dataqsiz</span> <span class="kt">uint</span>           <span class="c1">// size of the circular queue
+</span><span class="c1"></span>	<span class="nx">buf</span>      <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// points to an array of dataqsiz elements
+</span><span class="c1"></span>	<span class="nx">elemsize</span> <span class="kt">uint16</span>
+	<span class="nx">closed</span>   <span class="kt">uint32</span>
+	<span class="nx">elemtype</span> <span class="o">*</span><span class="nx">_type</span> <span class="c1">// element type
+</span><span class="c1"></span>	<span class="nx">sendx</span>    <span class="kt">uint</span>   <span class="c1">// send index
+</span><span class="c1"></span>	<span class="nx">recvx</span>    <span class="kt">uint</span>   <span class="c1">// receive index
+</span><span class="c1"></span>	<span class="nx">recvq</span>    <span class="nx">waitq</span>  <span class="c1">// list of recv waiters
+</span><span class="c1"></span>	<span class="nx">sendq</span>    <span class="nx">waitq</span>  <span class="c1">// list of send waiters
+</span><span class="c1"></span>
+	<span class="c1">// lock protects all fields in hchan, as well as several
+</span><span class="c1"></span>	<span class="c1">// fields in sudogs blocked on this channel.
+</span><span class="c1"></span>	<span class="c1">//
+</span><span class="c1"></span>	<span class="c1">// Do not change another G&#39;s status while holding this lock
+</span><span class="c1"></span>	<span class="c1">// (in particular, do not ready a G), as this can deadlock
+</span><span class="c1"></span>	<span class="c1">// with stack shrinking.
+</span><span class="c1"></span>	<span class="nx">lock</span> <span class="nx">mutex</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>在调用new时，则会分为以下操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="o">...</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">ONEWOBJ</span><span class="p">,</span> <span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="o">...</span>
+	<span class="k">return</span> <span class="nx">n</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">expr</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span> <span class="p">{</span>
+	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">ONEWOBJ</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">Size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpAddr</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span> <span class="nx">zerobaseSym</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">sb</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">typ</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">expr</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+		<span class="nx">vv</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">rtcall</span><span class="p">(</span><span class="nx">newobject</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[]</span><span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Type</span><span class="p">{</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">},</span> <span class="nx">typ</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nx">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，无论是直接使用 new，还是使用 var 初始化变量，它们在编译器看来都是 ONEW 和 ODCL 节点。如果变量会逃逸到堆上，这些节点在这一阶段都会被 cmd/compile/internal/gc.walkstmt 转换成通过 runtime.newobject 函数并在堆上申请内存</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
+	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="nx">ODCL</span><span class="p">:</span>
+		<span class="nx">v</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span>
+		<span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PAUTOHEAP</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">v</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="nx">nn</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Param</span><span class="p">.</span><span class="nx">Heapaddr</span><span class="p">,</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span>
+			<span class="nx">nn</span><span class="p">.</span><span class="nf">SetColas</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+			<span class="nx">nn</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">nn</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
+			<span class="k">return</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">nn</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="k">case</span> <span class="nx">ONEW</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNone</span> <span class="p">{</span>
+			<span class="nx">r</span> <span class="o">:=</span> <span class="nf">temp</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
+			<span class="nx">init</span><span class="p">.</span><span class="nf">Append</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OADDR</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+			<span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxExpr</span><span class="p">)</span>
+			<span class="nx">n</span> <span class="p">=</span> <span class="nx">r</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">n</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>不过这也不是绝对的，如果通过 var 或者 new 创建的变量不需要在当前作用域外生存，例如不用作为返回值返回给调用方，那么就不需要初始化在堆上。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-09-20
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/go04-runtime/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Go(4) Runtime</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/go02-language-basic/">
+            <span class="next-text nav-default">Go(2) Language Basic</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+       </div>
+       
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+     </div>
+   </main>
+   
+
+   
+   <footer id="footer" class="footer">
+     <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+   </footer>
+   
+
+   <div class="back-to-top" id="back-to-top">
+     <i class="iconfont icon-up"></i>
+   </div>
+ </div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

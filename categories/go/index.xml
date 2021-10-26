@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/categories/go/</link>
+    <description>Recent content in Go on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 26 Oct 2021 15:00:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go(0) Compilers Principles</title>
+      <link>http://Chasing1020.github.io/post/go01-compilers-principles/</link>
+      <pubDate>Tue, 26 Oct 2021 15:00:13 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/go01-compilers-principles/</guid>
+      <description>Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件</description>
+    </item>
+    
+  </channel>
+</rss>

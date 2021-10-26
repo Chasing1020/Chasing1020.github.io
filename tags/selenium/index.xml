@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Selenium on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/selenium/</link>
+    <description>Recent content in Selenium on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Oct 2020 11:13:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/selenium/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Selenium Automation</title>
+      <link>http://Chasing1020.github.io/post/selenium-automation/</link>
+      <pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/selenium-automation/</guid>
+      <description>Selenium3实现网页自动化 1.初步工作 1.1 环境配置 安装Selenium 本文使用的是python3.8.4 64bit 使用pip指令安装seleni</description>
+    </item>
+    
+    <item>
+      <title>SHU AutoSelfReport</title>
+      <link>http://Chasing1020.github.io/post/shu-autoselfreport/</link>
+      <pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/shu-autoselfreport/</guid>
+      <description>SHU每日两报脚本 1. 实现原理 利用python中的Selenium库，并结合浏览器驱动，来自动完成每日两报的操作，最后测试结果将每天的体温设置</description>
+    </item>
+    
+  </channel>
+</rss>

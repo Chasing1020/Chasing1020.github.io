@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/</link>
+    <description>Recent content in Tags on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go</title>
+      <link>http://Chasing1020.github.io/tags/go/</link>
+      <pubDate>Tue, 26 Oct 2021 19:35:13 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Design Pattern</title>
+      <link>http://Chasing1020.github.io/tags/design-pattern/</link>
+      <pubDate>Tue, 01 Jun 2021 10:18:40 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/design-pattern/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQl</title>
+      <link>http://Chasing1020.github.io/tags/mysql/</link>
+      <pubDate>Sat, 20 Mar 2021 10:15:30 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Materials</title>
+      <link>http://Chasing1020.github.io/tags/materials/</link>
+      <pubDate>Sat, 28 Nov 2020 13:11:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/materials/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Essay</title>
+      <link>http://Chasing1020.github.io/tags/essay/</link>
+      <pubDate>Tue, 17 Nov 2020 00:26:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/essay/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Selenium</title>
+      <link>http://Chasing1020.github.io/tags/selenium/</link>
+      <pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/selenium/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Analyzation</title>
+      <link>http://Chasing1020.github.io/tags/data-analyzation/</link>
+      <pubDate>Sun, 25 Oct 2020 19:13:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/data-analyzation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenCV</title>
+      <link>http://Chasing1020.github.io/tags/opencv/</link>
+      <pubDate>Sun, 18 Oct 2020 10:30:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crawler</title>
+      <link>http://Chasing1020.github.io/tags/crawler/</link>
+      <pubDate>Mon, 12 Oct 2020 20:12:03 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/crawler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>http://Chasing1020.github.io/tags/python/</link>
+      <pubDate>Tue, 06 Oct 2020 15:53:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>http://Chasing1020.github.io/tags/test/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://Chasing1020.github.io/tags/test/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

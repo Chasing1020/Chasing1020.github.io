@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/python/</link>
+    <description>Recent content in Python on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 06 Oct 2020 15:53:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Note</title>
+      <link>http://Chasing1020.github.io/post/python-note/</link>
+      <pubDate>Tue, 06 Oct 2020 15:53:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/python-note/</guid>
+      <description>第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之</description>
+    </item>
+    
+  </channel>
+</rss>

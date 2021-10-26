@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <title>Go(0) Compilers Principles - Chasing&#39;s blog</title>
+ <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件" /><meta name="keywords" content="Compilers" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/go01-compilers-principles/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8dade6898aae3b269c651e8bb766fbbe83289846b446c3ce06fcc77645fd064f.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Go(0) Compilers Principles" />
+<meta property="og:description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/go01-compilers-principles/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-26T15:00:13+08:00" />
+<meta property="article:modified_time" content="2021-10-26T15:00:13+08:00" />
+
+<meta itemprop="name" content="Go(0) Compilers Principles">
+<meta itemprop="description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件"><meta itemprop="datePublished" content="2021-10-26T15:00:13+08:00" />
+<meta itemprop="dateModified" content="2021-10-26T15:00:13+08:00" />
+<meta itemprop="wordCount" content="4414">
+<meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go(0) Compilers Principles"/>
+<meta name="twitter:description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+ <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/search/">
+        <li class="mobile-menu-item">Search</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+ <div class="container" id="mobile-panel">
+   <header id="header" class="header">
+       <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/search/">Search</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+   </header>
+
+   
+   <main id="main" class="main">
+     <div class="content-wrapper">
+       <div id="content" class="content">
+         <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Go(0) Compilers Principles</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-26 </span>
+        <div class="post-category">
+            <a href="/categories/go/"> Go </a>
+            </div>
+          <span class="more-meta"> 4414 words </span>
+          <span class="more-meta"> 9 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#part0-compilers-principles">Part0. Compilers Principles</a>
+      <ul>
+        <li><a href="#1-stage">1. Stage</a></li>
+        <li><a href="#2-lexical-analysis">2. Lexical Analysis</a></li>
+        <li><a href="#3-syntax-analysis">3. Syntax Analysis</a>
+          <ul>
+            <li><a href="#31-definition">3.1. Definition</a></li>
+            <li><a href="#32-ast">3.2. AST</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-after-ast">4. After AST</a>
+          <ul>
+            <li><a href="#41-type-checker">4.1. Type Checker</a></li>
+            <li><a href="#43-function-inline">4.3. Function Inline</a></li>
+            <li><a href="#44-escape-analysis">4.4. Escape Analysis</a></li>
+            <li><a href="#45-closure-rewriting">4.5. Closure Rewriting</a></li>
+            <li><a href="#46-function-traversal">4.6. Function Traversal</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-ssa">5. SSA</a></li>
+        <li><a href="#6-machine-code-generation">6. Machine Code Generation</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="part0-compilers-principles">Part0. Compilers Principles</h1>
+<h2 id="1-stage">1. Stage</h2>
+<p>编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。</p>
+<p>体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件能力的机会。</p>
+<p>Go语言的编译执行流程阶段：词法解析、语法分析、AST构建、类型检查、变量捕获、函数内联、逃逸分析、闭包重写、遍历函数、SSA生成、机器码生成。</p>
+<h2 id="2-lexical-analysis">2. Lexical Analysis</h2>
+<p>Lex 是用于生成词法分析器的工具，Lex 生成的代码能够将一个文件中的字符分解成 Token 序列，很多语言在设计早期都会使用它快速设计出原型。词法分析作为具有固定模式的任务，出现这种更抽象的工具必然的，Lex 作为一个代码生成器，使用了类似 C 语言的语法，可以将 Lex 理解为正则匹配的生成器，它会使用正则匹配扫描输入的字符流。这里以最简单的helloworld程序为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用lex命令转化为C语言代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kt">int</span> <span class="nf">yylex</span> <span class="p">(</span><span class="nx">void</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="nf">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="nx">yy_match</span><span class="p">:</span>
+    <span class="nx">do</span> <span class="p">{</span>
+      <span class="nx">register</span> <span class="nx">YY_CHAR</span> <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_ec</span><span class="p">[</span><span class="nf">YY_SC_TO_UI</span><span class="p">(</span><span class="o">*</span><span class="nx">yy_cp</span><span class="p">)];</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_accept</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="p">(</span><span class="nx">yy_last_accepting_state</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_current_state</span><span class="p">;</span>
+        <span class="p">(</span><span class="nx">yy_last_accepting_cpos</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_cp</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_chk</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="nx">yy_c</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">yy_current_state</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nx">yy_def</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_current_state</span> <span class="o">&gt;=</span> <span class="mi">30</span> <span class="p">)</span>
+          <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_meta</span><span class="p">[(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
+        <span class="p">}</span>
+      <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="nx">yy_nxt</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
+      <span class="o">++</span><span class="nx">yy_cp</span><span class="p">;</span>
+    <span class="p">}</span> <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">37</span> <span class="p">);</span>
+    <span class="o">...</span>
+
+<span class="nx">do_action</span><span class="p">:</span>
+    <span class="k">switch</span> <span class="p">(</span> <span class="nx">yy_act</span> <span class="p">)</span>
+      <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="o">...</span>
+
+      <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+          <span class="nx">YY_RULE_SETUP</span>
+          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;PACKAGE &#34;</span><span class="p">);</span>
+          <span class="nx">YY_BREAK</span>
+      <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>除了基本的宏定义以外，全部函数都使用有限自动机模型来解析输入的字符串，将上述Go代码作为lex输入可得：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">PACKAGE  IDENT
+
+IMPORT  LPAREN
+  QUOTE IDENT QUOTE
+RPAREN
+
+IDENT  IDENT LPAREN RPAREN  LBRACE
+  IDENT DOT IDENT LPAREN QUOTE IDENT QUOTE RPAREN
+RBRACE
+</code></pre></td></tr></table>
+</div>
+</div><p>Go语言的词法解析通过scanner结构体实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">scanner</span> <span class="kd">struct</span> <span class="p">{</span>
+  <span class="nx">source</span>
+  <span class="nx">mode</span>   <span class="kt">uint</span>
+  <span class="nx">nlsemi</span> <span class="kt">bool</span>
+
+  <span class="c1">// current token, valid after calling next()
+</span><span class="c1"></span>  <span class="nx">line</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">uint</span>
+  <span class="nx">blank</span>     <span class="kt">bool</span> <span class="c1">// line is blank up to col
+</span><span class="c1"></span>  <span class="nx">tok</span>       <span class="nx">token</span>
+  <span class="nx">lit</span>       <span class="kt">string</span>   <span class="c1">// valid if tok is _Name, _Literal, or _Semi (&#34;semicolon&#34;, &#34;newline&#34;, or &#34;EOF&#34;); may be malformed if bad is true
+</span><span class="c1"></span>  <span class="nx">bad</span>       <span class="kt">bool</span>     <span class="c1">// valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
+</span><span class="c1"></span>  <span class="nx">kind</span>      <span class="nx">LitKind</span>  <span class="c1">// valid if tok is _Literal
+</span><span class="c1"></span>  <span class="nx">op</span>        <span class="nx">Operator</span> <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
+</span><span class="c1"></span>  <span class="nx">prec</span>      <span class="kt">int</span>      <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其定义的next获取未解析的下一个字符，根据字符类型决定下一个case。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
+  <span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+  <span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+  <span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
+  <span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+  <span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
+    <span class="k">return</span>
+  <span class="p">}</span>
+
+  <span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_EOF</span>
+
+  <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="sc">&#39;1&#39;</span><span class="p">,</span> <span class="sc">&#39;2&#39;</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="sc">&#39;4&#39;</span><span class="p">,</span> <span class="sc">&#39;5&#39;</span><span class="p">,</span> <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;7&#39;</span><span class="p">,</span> <span class="sc">&#39;8&#39;</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">:</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">number</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="3-syntax-analysis">3. Syntax Analysis</h2>
+<h3 id="31-definition">3.1. Definition</h3>
+<p>一般使用一个四元组(N, Σ, P, S)来定义一个文法，其作为形式化描述语言的有效工具。</p>
+<ul>
+<li>N 有限个非终结符的集合；</li>
+<li>Σ 有限个终结符的集合；</li>
+<li>P 有限个生产规则的集合；</li>
+<li>S 非终结符集合中唯一的开始符号；</li>
+</ul>
+<p>每一个Go语言源码被编译为AST时，其最顶层的结构都是SourceFile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">SourceFile</span> <span class="p">=</span> <span class="nx">PackageClause</span> <span class="s">&#34;;&#34;</span> <span class="p">{</span> <span class="nx">ImportDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">{</span> <span class="nx">TopLevelDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>每一个文件都包含一个 <code>package</code> 的定义以及可选的 <code>import</code> 声明和其他的顶层声明，其还包括syntax结构体。</p>
+<p>最顶层的声名包括了五大基本类型：常量、类型、变量、函数、方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">ConstDecl</span> <span class="p">=</span> <span class="s">&#34;const&#34;</span> <span class="p">(</span> <span class="nx">ConstSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">ConstSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+<span class="nx">ConstSpec</span> <span class="p">=</span> <span class="nx">IdentifierList</span> <span class="p">[</span> <span class="p">[</span> <span class="nx">Type</span> <span class="p">]</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">.</span>
+
+<span class="nx">TypeDecl</span>  <span class="p">=</span> <span class="s">&#34;type&#34;</span> <span class="p">(</span> <span class="nx">TypeSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">TypeSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+<span class="nx">TypeSpec</span>  <span class="p">=</span> <span class="nx">AliasDecl</span> <span class="p">|</span> <span class="nx">TypeDef</span> <span class="p">.</span>
+<span class="nx">AliasDecl</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="s">&#34;=&#34;</span> <span class="nx">Type</span> <span class="p">.</span>
+<span class="nx">TypeDef</span>   <span class="p">=</span> <span class="nx">identifier</span> <span class="nx">Type</span> <span class="p">.</span>
+
+<span class="nx">VarDecl</span> <span class="p">=</span> <span class="s">&#34;var&#34;</span> <span class="p">(</span> <span class="nx">VarSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">VarSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+<span class="nx">VarSpec</span> <span class="p">=</span> <span class="nf">IdentifierList</span> <span class="p">(</span> <span class="nx">Type</span> <span class="p">[</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">|</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">)</span> <span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>此即对应着const、type 和 var，而函数和函数和方法的定义就更加复杂</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">FunctionDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">FunctionName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
+<span class="nx">FunctionName</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="p">.</span>
+<span class="nx">FunctionBody</span> <span class="p">=</span> <span class="nx">Block</span> <span class="p">.</span>
+
+<span class="nx">MethodDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">Receiver</span> <span class="nx">MethodName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
+<span class="nx">Receiver</span>   <span class="p">=</span> <span class="nx">Parameters</span> <span class="p">.</span>
+
+<span class="nx">Block</span> <span class="p">=</span> <span class="s">&#34;{&#34;</span> <span class="nx">StatementList</span> <span class="s">&#34;}&#34;</span> <span class="p">.</span>
+<span class="nx">StatementList</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">Statement</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
+
+<span class="nx">Statement</span> <span class="p">=</span>
+  <span class="nx">Declaration</span> <span class="p">|</span> <span class="nx">LabeledStmt</span> <span class="p">|</span> <span class="nx">SimpleStmt</span> <span class="p">|</span>
+  <span class="nx">GoStmt</span> <span class="p">|</span> <span class="nx">ReturnStmt</span> <span class="p">|</span> <span class="nx">BreakStmt</span> <span class="p">|</span> <span class="nx">ContinueStmt</span> <span class="p">|</span> <span class="nx">GotoStmt</span> <span class="p">|</span>
+  <span class="nx">FallthroughStmt</span> <span class="p">|</span> <span class="nx">Block</span> <span class="p">|</span> <span class="nx">IfStmt</span> <span class="p">|</span> <span class="nx">SwitchStmt</span> <span class="p">|</span> <span class="nx">SelectStmt</span> <span class="p">|</span> <span class="nx">ForStmt</span> <span class="p">|</span>
+  <span class="nx">DeferStmt</span> <span class="p">.</span>
+
+<span class="nx">SimpleStmt</span> <span class="p">=</span> <span class="nx">EmptyStmt</span> <span class="p">|</span> <span class="nx">ExpressionStmt</span> <span class="p">|</span> <span class="nx">SendStmt</span> <span class="p">|</span> <span class="nx">IncDecStmt</span> <span class="p">|</span> <span class="nx">Assignment</span> <span class="p">|</span> <span class="nx">ShortVarDecl</span> <span class="p">.</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的语法结构就对应了常见的 switch/case、if/else、for 循环以及 select 等语句。</p>
+<p>这里再次以基础的程序为示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>  <span class="c1">// PkgName
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>  <span class="c1">// ImportDecl
+</span><span class="c1"></span>
+<span class="kd">const</span> <span class="nx">word</span> <span class="p">=</span> <span class="s">&#34;world!&#34;</span>  <span class="c1">// ConstDecl
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">mystr</span> <span class="kt">string</span>  <span class="c1">// TypeDecl
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">hello</span> <span class="nx">mystr</span> <span class="p">=</span> <span class="s">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="nx">world</span> <span class="c1">// VarDecl
+</span><span class="c1"></span>
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">hello</span><span class="p">)</span>  <span class="c1">// FuncDecl  -&gt;  CallExpr  
+</span><span class="c1"></span>                      <span class="c1">//-&gt; SelectorExpr(Name:fmt, Name:Println), Name = hello
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在执行语法分析的过程中，常见两种方法：</p>
+<p>自顶向下：可以被看作找到当前输入流最左推导的过程，对于任意一个输入流，根据当前的输入符号，确定一个生产规则，使用生产规则右侧的符号替代相应的非终结符向下推导</p>
+<p>自底向上：语法分析器从输入流开始，每次都尝试重写最右侧的多个符号，这其实是说解析器会从最简单的符号进行推导，在解析的最后合并成开始符号</p>
+<p>和大多数语言一样，Go语言的解析器使用了 LALR(1) 的文法来解析词法分析过程中输出的 Token 序列。</p>
+<h3 id="32-ast">3.2. AST</h3>
+<p><code>stringer</code> 充分利用了 Go 语言标准库对编译器各种能力的支持，其中包括用于解析抽象语法树的 <code>go/ast</code>、用于格式化代码的 <code>go/fmt</code>等，Go 通过标准库中的这些包对外直接提供了编译器的相关能力，让使用者可以直接在它们上面构建复杂的代码生成机制并实施元编程技术。</p>
+<p>作为二进制文件，<code>stringer</code> 命令的入口就是如下所示的 <code>golang/tools/main.main</code>函数，在下面的代码中，我们初始化了一个用于解析源文件和生成代码的 <code>golang/tools/main.Generator</code>，然后开始拼接生成的文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">types</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="o">*</span><span class="nx">typeNames</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="nx">g</span> <span class="o">:=</span> <span class="nx">Generator</span><span class="p">{</span>
+    <span class="nx">trimPrefix</span><span class="p">:</span>  <span class="o">*</span><span class="nx">trimprefix</span><span class="p">,</span>
+    <span class="nx">lineComment</span><span class="p">:</span> <span class="o">*</span><span class="nx">linecomment</span><span class="p">,</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;// Code generated by \&#34;stringer %s\&#34;; DO NOT EDIT.\n&#34;</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s">&#34; &#34;</span><span class="p">))</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;package %s&#34;</span><span class="p">,</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;import \&#34;strconv\&#34;\n&#34;</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">typeName</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">types</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">src</span> <span class="o">:=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">format</span><span class="p">()</span>
+
+  <span class="nx">baseName</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s_string.go&#34;</span><span class="p">,</span> <span class="nx">types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="nx">outputName</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">baseName</span><span class="p">))</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputName</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;writing output: %s&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从这段代码中我们能看到最终生成文件的轮廓，最上面的调用的几次 <code>golang/tools/main.Generator.Printf</code> 会在内存中写入文件头的注释、当前包名以及引入的包等，随后会为待处理的类型依次调用 <code>golang/tools/main.Generator.generate</code>，这里会生成一个签名为 <code>_</code> 的函数，通过编译器保证枚举类型的值不会改变：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">values</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Value</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">files</span> <span class="p">{</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">typeName</span> <span class="p">=</span> <span class="nx">typeName</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">values</span> <span class="p">=</span> <span class="kc">nil</span>
+    <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">file</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+      <span class="nx">ast</span><span class="p">.</span><span class="nf">Inspect</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">file</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">genDecl</span><span class="p">)</span>
+      <span class="nx">values</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">values</span><span class="o">...</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;func _() {\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// An \&#34;invalid array index\&#34; compiler error signifies that the constant values have changed.\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// Re-run the stringer command to generate them again.\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\tvar x [1]struct{}\n&#34;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">values</span> <span class="p">{</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t_ = x[%s - %s]\n&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">originalName</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">str</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;}\n&#34;</span><span class="p">)</span>
+  <span class="nx">runs</span> <span class="o">:=</span> <span class="nf">splitIntoRuns</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+  <span class="k">switch</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="nb">len</span><span class="p">(</span><span class="nx">runs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nx">g</span><span class="p">.</span><span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>随后调用的 <code>golang/tools/main.Generator.buildOneRun</code> 会生成两个常量的声明语句并为类型定义 <code>String</code> 方法，其中引用的 <code>stringOneRun</code> 常量是方法的模板，与 Web 服务的前端 HTML 模板比较相似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span> <span class="p">[][]</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">values</span> <span class="o">:=</span> <span class="nx">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">declareIndexAndNameVar</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
+  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nx">stringOneRun</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">,</span> <span class="nf">usize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">values</span><span class="p">)),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">stringOneRun</span> <span class="p">=</span> <span class="err">`</span><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="o">%</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="nx">si</span> <span class="o">&gt;=</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nf">s</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">&#34;%[1]s(&#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_name</span><span class="p">[</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="p">]:</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>整个生成代码的过程就是使用编译器提供的库解析源文件并按照已有的模板生成新的代码，这与 Web 服务中利用模板生成 HTML 文件没有太多的区别，只是生成文件的用途稍微有一些不同。</p>
+<h2 id="4-after-ast">4. After AST</h2>
+<h3 id="41-type-checker">4.1. Type Checker</h3>
+<p>在完成AST的构建后，会对一些类型做特别的语法和语义检查，其不仅使用静态类型检查来保证程序运行的类型安全，还会在编程期间引入类型信息，让工程师能够使用反射来判断参数和变量的类型。当我们想要将 <code>interface{}</code> 转换成具体类型时会进行动态类型检查，如果无法发生转换就会发生程序崩溃。</p>
+<p>此外，这个阶段还会进行编译时常量，标识符声明绑定等。</p>
+<h4 id="42-variable-capture">4.2. Variable Capture</h4>
+<p>完成类型检查后，编译器会对AST分析重构，完成一些列优化，这部分主要针对Closures实现，会专门检查闭包变量捕获的情况</p>
+<h3 id="43-function-inline">4.3. Function Inline</h3>
+<p>函数调用的主要成本在于参数与返回值的栈复制，较小的栈寄存器开销以及函数序言部分检查栈扩容等。</p>
+<p>Go编译器会对函数内联成本做估计，当函数有for，range，go，select，递归调用，存在//go:noinline时，编译器不会进行优化。</p>
+<p>调试过程中，添加-gcflags=&quot;-l&quot;也不会发生内联</p>
+<h3 id="44-escape-analysis">4.4. Escape Analysis</h3>
+<p>Go的内存模型严格要求栈的对象指针不能存放到堆中，栈上对象的指针不能超过该栈对象的声明周期。</p>
+<p>通过对AST的静态数据流分析（static data-flow analysis），可以实现带权重有向图的分析来做逃逸判断。被引用的对象权重-1（即&amp;），而权重大于0则表示存在解引用操作（即*）</p>
+<h3 id="45-closure-rewriting">4.5. Closure Rewriting</h3>
+<p>闭包重写分为定义后立即调用和不被立即调用两种情况，在立即调用的情况下，会转换成普通的函数调用的形式，而不被立即调用，则会创建一个闭包对象。</p>
+<p>如果对象是按值应用的，切空间小于2*sizeof(int)，那么通过在函数体内创建局部变量的形式来产生该变量。如果存在指针或者引用，那么捕获的变量转换成指针类型的&amp;var，会初始化为捕获变量的值。</p>
+<h3 id="46-function-traversal">4.6. Function Traversal</h3>
+<p>遍历函数，在gc/walk.go中，会识别出生命但是未被使用的变量，带节点的操作转换为具体函数执行，如map获取值会转换为mapaccess_fast64函数，字符串拼接转换为concatstrings，forrange拆开等，同时会根据需要引入临时变量以及语句重排序，如x/=y拆成x=x/y</p>
+<h2 id="5-ssa">5. SSA</h2>
+<p>Go在1.7版本引入并成为现代的编译器后端，此时会用于处理 <code>defer</code> 关键字的 <a href="https://draveness.me/golang/tree/runtime.deferproc"><code>runtime.deferproc</code></a>、用于创建 Goroutine 的 <a href="https://draveness.me/golang/tree/runtime.newproc"><code>runtime.newproc</code></a> 和扩容切片的 <a href="https://draveness.me/golang/tree/runtime.growslice"><code>runtime.growslice</code></a> 等，</p>
+<p>这里会对关键字或者内建函数到运行时函数的映射其中涉及 Channel、哈希、<code>make</code>、<code>new</code> 关键字以及控制流中的关键字 <code>select</code> 等，经过walk函数遍历之后，SAA便不会再改变。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">compileSSA</span><span class="p">(</span><span class="nx">fn</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">worker</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">f</span> <span class="o">:=</span> <span class="nf">buildssa</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
+  <span class="nx">pp</span> <span class="o">:=</span> <span class="nf">newProgs</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
+  <span class="nf">genssa</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">pp</span><span class="p">)</span>
+
+  <span class="nx">pp</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以通过GOSSAFUNC=hello go build hello.go来查看SSA生成的过程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">stmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="nx">OCALLMETH</span><span class="p">,</span> <span class="nx">OCALLINTER</span><span class="p">:</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">callNormal</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">OCALLFUNC</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">ONAME</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PFUNC</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="nx">fn</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Name</span><span class="p">;</span> <span class="nx">compiling_runtime</span> <span class="o">&amp;&amp;</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throw&#34;</span> <span class="o">||</span>
+        <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Pkg</span> <span class="o">==</span> <span class="nx">Runtimepkg</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throwinit&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;gopanic&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicwrap&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;block&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicelen&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicecap&#34;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">m</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">()</span>
+        <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">endBlock</span><span class="p">()</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nx">Kind</span> <span class="p">=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nx">BlockExit</span>
+        <span class="nx">b</span><span class="p">.</span><span class="nf">SetControl</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callDefer</span><span class="p">)</span>
+  <span class="k">case</span> <span class="nx">OGO</span><span class="p">:</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callGo</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从AST到SAA的转换可以发现，在遇到函数调用、方法调用、使用 defer 或者 go 关键字时都会执行 <code>cmd/compile/internal/gc.state.callResult</code> 和 <code>cmd/compile/internal/gc.state.call</code>生成调用函数的 SSA 节点，这些在开发者看来不同的概念在编译器中都会被实现成静态的函数调用，上层的关键字和方法只是语言为我们提供的语法糖。</p>
+<p>某些中间代码仍然需要编译器优化以去掉无用代码并精简操作数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Compile</span><span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Log</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;compiling %s\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">phaseName</span> <span class="o">:=</span> <span class="s">&#34;init&#34;</span>
+
+  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">passes</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">.</span><span class="nx">pass</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">p</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nf">fn</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="nx">phaseName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="6-machine-code-generation">6. Machine Code Generation</h2>
+<p>SSA 降级是在中间代码生成的过程中完成的，其中将近 50 轮处理的过程中，<code>lower</code> 以及后面的阶段都属于 SSA 降级这一过程，这么多轮的处理会将 SSA 转换成机器特定的操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">passes</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="nx">pass</span><span class="p">{</span>
+  <span class="o">...</span>
+  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lower&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">lower</span><span class="p">,</span> <span class="nx">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered deadcode for cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">deadcode</span><span class="p">},</span> <span class="c1">// deadcode immediately before CSE avoids CSE making dead values live again
+</span><span class="c1"></span>  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">cse</span><span class="p">},</span>
+  <span class="o">...</span>
+  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;trim&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">trim</span><span class="p">},</span> <span class="c1">// remove empty blocks
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>转换过程会对应CPU的架构做分析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">rewriteValue386</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="nx">Op386ADCL</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+  <span class="k">case</span> <span class="nx">Op386ADDL</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADDL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_10</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_20</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+  <span class="o">...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+  <span class="c1">// match: (ADCL x (MOVLconst [c]) f)
+</span><span class="c1"></span>  <span class="c1">// cond:
+</span><span class="c1"></span>  <span class="c1">// result: (ADCLconst [c] x f)
+</span><span class="c1"></span>  <span class="k">for</span> <span class="p">{</span>
+    <span class="nx">_</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="nx">x</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">v_1</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">Op</span> <span class="o">!=</span> <span class="nx">Op386MOVLconst</span> <span class="p">{</span>
+      <span class="k">break</span>
+    <span class="p">}</span>
+    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">AuxInt</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="nx">v</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">Op386ADCLconst</span><span class="p">)</span>
+    <span class="nx">v</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">c</span>
+    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">true</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Go 语言的汇编器是基于 Plan 9 汇编器的输入类型设计的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">hello</span>
+
+<span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+  <span class="nx">c</span> <span class="o">:=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">2</span>
+  <span class="k">return</span> <span class="nx">c</span>
+<span class="p">}</span>
+<span class="err">$</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">linux</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span> <span class="k">go</span> <span class="nx">tool</span> <span class="nx">compile</span> <span class="o">-</span><span class="nx">S</span> <span class="nx">hello</span><span class="p">.</span><span class="k">go</span>
+<span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">hello</span> <span class="nx">STEXT</span> <span class="nx">nosplit</span> <span class="nx">size</span><span class="p">=</span><span class="mi">15</span> <span class="nx">args</span><span class="p">=</span><span class="mh">0x10</span> <span class="nx">locals</span><span class="p">=</span><span class="mh">0x0</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">TEXT</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nf">hello</span><span class="p">(</span><span class="nx">SB</span><span class="p">),</span> <span class="nx">NOSPLIT</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span><span class="o">-</span><span class="mi">16</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">1</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">3</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
+  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">a</span><span class="o">+</span><span class="mi">8</span><span class="p">(</span><span class="nx">SP</span><span class="p">),</span> <span class="nx">AX</span>
+  <span class="mh">0x0005</span> <span class="mo">00005</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">ADDQ</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="nx">AX</span>
+  <span class="mh">0x0009</span> <span class="mo">0000</span><span class="mi">9</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="nx">AX</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">.</span><span class="err">~</span><span class="nx">r1</span><span class="o">+</span><span class="mi">16</span><span class="p">(</span><span class="nx">SP</span><span class="p">)</span>
+  <span class="mh">0x000e</span> <span class="mo">00014</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">RET</span>
+  <span class="mh">0x0000</span> <span class="mi">48</span> <span class="mi">8</span><span class="nx">b</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">48</span> <span class="mi">83</span> <span class="nx">c0</span> <span class="mo">02</span> <span class="mi">48</span> <span class="mi">89</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">10</span> <span class="nx">c3</span>     <span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">.</span><span class="nx">H</span><span class="o">...</span><span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">..</span>
+<span class="o">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上述汇编代码都是由 <a href="https://draveness.me/golang/tree/cmd/internal/obj.Flushplist"><code>cmd/internal/obj.Flushplist</code></a> 这个函数生成的，该函数会调用架构特定的 <code>Preprocess</code> 和 <code>Assemble</code> 方法。自此完成最终的机器码生成。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-10-26
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">Go</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/first/">
+            <span class="next-text nav-default">First</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+       </div>
+       
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+     </div>
+   </main>
+   
+
+   
+   <footer id="footer" class="footer">
+     <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+   </footer>
+   
+
+   <div class="back-to-top" id="back-to-top">
+     <i class="iconfont icon-up"></i>
+   </div>
+ </div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
