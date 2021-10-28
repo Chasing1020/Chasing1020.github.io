@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Oct 2021 13:44:47 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis Data Structure</title>
+      <link>http://Chasing1020.github.io/post/redis-data-structure/</link>
+      <pubDate>Thu, 28 Oct 2021 13:44:47 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/redis-data-structure/</guid>
+      <description>Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样</description>
+    </item>
+    
     <item>
       <title>Go(6) Network</title>
       <link>http://Chasing1020.github.io/post/go06-network/</link>

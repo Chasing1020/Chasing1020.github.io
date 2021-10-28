@@ -6,14 +6,14 @@
     <description>Recent content on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Oct 2021 13:44:47 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Search</title>
       <link>http://Chasing1020.github.io/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://Chasing1020.github.io/search/</guid>
-      <description></description>
+      <description>Please enter a word or phrase above.</description>
     </item>
     
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://Chasing1020.github.io/friends/</guid>
-      <description>The following links are from my friends, you can also send me your blog links in any means you like. And I would appreciate it if you could add my blog to your links. Name: Chasing’s Blog Url: https://chasing1020.github.io Avatar: https://z3.ax1x.com/2021/10/26/5olW4O.jpg Description: if err != nil For some reason, the blog is not yet able to display personal avatars. ​ name: sls</description>
+      <description>The following links are from my friends, you can also send me your blog links in any means you like. And I would appreciate it if you could add my blog to your links. Name: Chasing Url: https://chasing1020.github.io Avatar: https://z3.ax1x.com/2021/10/26/5olW4O.jpg Description: if err != nil For some reason, the blog is not yet able to display personal avatars. name: sls link: https://www.slsblog.cn/ name: Silence link: https://shu-silence.github.io/ name: luminolt link: https://luminolt.cn/friends/</description>
     </item>
     
     <item>
@@ -35,6 +35,15 @@
   To achieve faster access, I have rebuilt this blog by it in replacing of hexo.
   The frequency of updating this blog is unknown, depending on the state of my recent studies.
   About me   I am a college student majoring in Computer Science in Shanghai University.</description>
+    </item>
+    
+    <item>
+      <title>Redis Data Structure</title>
+      <link>http://Chasing1020.github.io/post/redis-data-structure/</link>
+      <pubDate>Thu, 28 Oct 2021 13:44:47 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/redis-data-structure/</guid>
+      <description>Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样</description>
     </item>
     
     <item>

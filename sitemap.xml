@@ -22,14 +22,49 @@
   
   <url>
     <loc>http://Chasing1020.github.io/categories/</loc>
-    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://Chasing1020.github.io/</loc>
-    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/note/</loc>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/</loc>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/redis/</loc>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/redis-data-structure/</loc>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/</loc>
+    <lastmod>2021-10-28T13:44:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -50,20 +85,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/categories/language/</loc>
-    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/</loc>
-    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/</loc>
     <lastmod>2021-10-26T19:35:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -120,13 +141,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/design-pattern-note/</loc>
-    <lastmod>2021-06-01T10:18:40+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/note/</loc>
     <lastmod>2021-06-01T10:18:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
