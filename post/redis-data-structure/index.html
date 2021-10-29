@@ -315,7 +315,7 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </code></pre></td></tr></table>
 </div>
 </div><p>Redis的字典与Java的HashMap接近，采用分桶解决哈希冲突，即一维数组+二维链表的方式。</p>
-<p>当hash表中元素等于一维数组的长度时，开始扩容，如果Redis在做bgsave，为了减少内存页的过多分离(COW)，	就不会扩容，但是如果元素个数达到了5倍，还是会发生强制扩容。</p>
+<p>当hash表中元素等于一维数组的长度时，开始扩容，如果Redis在做bgsave，为了减少内存页的过多分离(COW)，就不会扩容，但是如果元素个数达到了5倍，还是会发生强制扩容。</p>
 <p>扩容时，如果全部重新申请数组，并将链表元素挂在新的数组下，耗时O(n)，对于单线程而言很难接受，所以Redis采用渐进式扩容策略</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -628,7 +628,7 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
           </div>
       <nav class="post-nav">
         
-        <a class="next" href="/post/go06-network/">
+        <a class="next" href="/post/golang/go06-network/">
             <span class="next-text nav-default">Go(6) Network</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
