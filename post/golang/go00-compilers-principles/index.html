@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(0) Compilers Principles">
 <meta itemprop="description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件"><meta itemprop="datePublished" content="2021-08-26T15:00:13+08:00" />
 <meta itemprop="dateModified" content="2021-08-26T15:00:13+08:00" />
-<meta itemprop="wordCount" content="4414">
+<meta itemprop="wordCount" content="5149">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(0) Compilers Principles"/>
 <meta name="twitter:description" content="Part0. Compilers Principles 1. Stage 编译器技术影响了计算机的体系结构，同时也受到体系结构发展的影响。 体系结构的很多现代创新都依赖于编译器能从源程序中抽取出有效利用硬件"/>
@@ -145,8 +145,8 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 4414 words </span>
-          <span class="more-meta"> 9 mins read </span>
+          <span class="more-meta"> 5149 words </span>
+          <span class="more-meta"> 11 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -169,6 +169,7 @@
         <li><a href="#4-after-ast">4. After AST</a>
           <ul>
             <li><a href="#41-type-checker">4.1. Type Checker</a></li>
+            <li><a href="#42-variable-capturing">4.2. Variable Capturing</a></li>
             <li><a href="#43-function-inline">4.3. Function Inline</a></li>
             <li><a href="#44-escape-analysis">4.4. Escape Analysis</a></li>
             <li><a href="#45-closure-rewriting">4.5. Closure Rewriting</a></li>
@@ -407,6 +408,41 @@ RBRACE
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
+</div><p>此外，在go/scanner和go/token也提供了一些接口用以扫描源代码，示例如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">src</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;cos(x)+2i*sin(x)&#34;</span><span class="p">)</span> <span class="c1">//So God exists
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">s</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scanner</span>
+	<span class="nx">fset</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">NewFileSet</span><span class="p">()</span>
+	<span class="nx">file</span> <span class="o">:=</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">AddFile</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Base</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span>
+	<span class="nx">s</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">ScanComments</span><span class="p">)</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">pos</span><span class="p">,</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nx">tok</span> <span class="o">==</span> <span class="nx">token</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+			<span class="k">break</span>
+		<span class="p">}</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s\t%s\t%q\n&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Position</span><span class="p">(</span><span class="nx">pos</span><span class="p">),</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
 </div><h2 id="3-syntax-analysis">3. Syntax Analysis</h2>
 <h3 id="31-definition">3.1. Definition</h3>
 <p>一般使用一个四元组(N, Σ, P, S)来定义一个文法，其作为形式化描述语言的有效工具。</p>
@@ -531,7 +567,91 @@ RBRACE
 <p>自底向上：语法分析器从输入流开始，每次都尝试重写最右侧的多个符号，这其实是说解析器会从最简单的符号进行推导，在解析的最后合并成开始符号</p>
 <p>和大多数语言一样，Go语言的解析器使用了 LALR(1) 的文法来解析词法分析过程中输出的 Token 序列。</p>
 <h3 id="32-ast">3.2. AST</h3>
-<p><code>stringer</code> 充分利用了 Go 语言标准库对编译器各种能力的支持，其中包括用于解析抽象语法树的 <code>go/ast</code>、用于格式化代码的 <code>go/fmt</code>等，Go 通过标准库中的这些包对外直接提供了编译器的相关能力，让使用者可以直接在它们上面构建复杂的代码生成机制并实施元编程技术。</p>
+<p>对于Go源文件的每一个import，type，const，func都是一个根节点。在此之下包含当前声明的子节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// noder transforms package syntax&#39;s AST into a Node tree.
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">noder</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">posMap</span>
+
+	<span class="nx">file</span>           <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">File</span>
+	<span class="nx">linknames</span>      <span class="p">[]</span><span class="nx">linkname</span>
+	<span class="nx">pragcgobuf</span>     <span class="p">[][]</span><span class="kt">string</span>
+	<span class="nx">err</span>            <span class="kd">chan</span> <span class="nx">syntax</span><span class="p">.</span><span class="nx">Error</span>
+	<span class="nx">importedUnsafe</span> <span class="kt">bool</span>
+	<span class="nx">importedEmbed</span>  <span class="kt">bool</span>
+	<span class="nx">trackScopes</span>    <span class="kt">bool</span>
+
+	<span class="nx">funcState</span> <span class="o">*</span><span class="nx">funcState</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>利用decls将源文件的所有声明语句转换为Node数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nf">unc</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">noder</span><span class="p">)</span> <span class="nf">decls</span><span class="p">(</span><span class="nx">decls</span> <span class="p">[]</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">Decl</span><span class="p">)</span> <span class="p">(</span><span class="nx">l</span> <span class="p">[]</span><span class="nx">ir</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">cs</span> <span class="nx">constState</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">decls</span> <span class="p">{</span>
+		<span class="nx">p</span><span class="p">.</span><span class="nf">setlineno</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
+		<span class="k">switch</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="nx">decl</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ImportDecl</span><span class="p">:</span>
+			<span class="nx">p</span><span class="p">.</span><span class="nf">importDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">VarDecl</span><span class="p">:</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">varDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ConstDecl</span><span class="p">:</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">constDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">cs</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">TypeDecl</span><span class="p">:</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">typeDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
+		<span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">FuncDecl</span><span class="p">:</span>
+			<span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">funcDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
+		<span class="k">default</span><span class="p">:</span>
+			<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;unhandled Decl&#34;</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>stringer</code> 充分利用了 Go 语言标准库对编译器各种能力的支持，其中包括用于解析抽象语法树的 <code>go/ast</code>、用于格式化代码的 <code>go/fmt</code>等，Go 通过标准库中的这些包对外直接提供了编译器的相关能力，让使用者可以直接在它们上面构建复杂的代码生成机制并实施元编程技术。</p>
 <p>作为二进制文件，<code>stringer</code> 命令的入口就是如下所示的 <code>golang/tools/main.main</code>函数，在下面的代码中，我们初始化了一个用于解析源文件和生成代码的 <code>golang/tools/main.Generator</code>，然后开始拼接生成的文件：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -675,7 +795,7 @@ RBRACE
   <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nx">stringOneRun</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">,</span> <span class="nf">usize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">values</span><span class="p">)),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="kd">const</span> <span class="nx">stringOneRun</span> <span class="p">=</span> <span class="err">`</span><span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">stringOneRun</span> <span class="p">=</span> <span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
   <span class="k">if</span> <span class="o">%</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="nx">si</span> <span class="o">&gt;=</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nf">s</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="s">&#34;%[1]s(&#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span>
   <span class="p">}</span>
@@ -688,22 +808,46 @@ RBRACE
 <h3 id="41-type-checker">4.1. Type Checker</h3>
 <p>在完成AST的构建后，会对一些类型做特别的语法和语义检查，其不仅使用静态类型检查来保证程序运行的类型安全，还会在编程期间引入类型信息，让工程师能够使用反射来判断参数和变量的类型。当我们想要将 <code>interface{}</code> 转换成具体类型时会进行动态类型检查，如果无法发生转换就会发生程序崩溃。</p>
 <p>此外，这个阶段还会进行编译时常量，标识符声明绑定等。</p>
-<h4 id="42-variable-capture">4.2. Variable Capture</h4>
-<p>完成类型检查后，编译器会对AST分析重构，完成一些列优化，这部分主要针对Closures实现，会专门检查闭包变量捕获的情况</p>
+<h3 id="42-variable-capturing">4.2. Variable Capturing</h3>
+<p>完成类型检查后，编译器会对AST分析重构，完成一些列优化，这部分主要针对Closures实现，会专门检查闭包变量捕获的情况。</p>
 <h3 id="43-function-inline">4.3. Function Inline</h3>
 <p>函数调用的主要成本在于参数与返回值的栈复制，较小的栈寄存器开销以及函数序言部分检查栈扩容等。</p>
-<p>Go编译器会对函数内联成本做估计，当函数有for，range，go，select，递归调用，存在//go:noinline时，编译器不会进行优化。</p>
-<p>调试过程中，添加-gcflags=&quot;-l&quot;也不会发生内联</p>
+<p>Go编译器会对函数内联成本做估计，当函数有for，range，go，select，递归调用，存在//go:noinline这种编译器指示时，编译器不会进行优化。调试过程中，添加-gcflags=&quot;-l&quot;也不会发生内联。在编译时，添加-m=2可以查看不会被内联的原因</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">index</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">//cannot inline fib: recursive
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>附其余编译器指示：</p>
+<p>//go:noescape 指令后面必须跟一个没有主体的函数声明（意味着该函数的实现不是用 Go 编写的）</p>
+<p>//go:uintptrescapes 指令后面必须跟一个函数声明。它指定函数的 uintptr 参数可能是已转换为 uintptr 的指针值，并且必须由垃圾收集器进行处理。</p>
+<p>//go:noinline 指令后面必须跟一个函数声明。它指定不应内联对函数的调用，从而覆盖编译器的通常优化规则。这通常仅在特殊运行时函数或调试编译器时需要。</p>
+<p>//go:norace 指令后面必须跟一个函数声明。它指定竞争检测器必须忽略函数的内存访问。这最常用于在调用竞争检测器运行时不安全时调用的低级代码。</p>
+<p>//go:nosplit 指令后面必须跟一个函数声明。它指定函数必须省略其通常的堆栈溢出检查。这最常用于在调用 goroutine 被抢占是不安全的时候调用的低级运行时代码。</p>
 <h3 id="44-escape-analysis">4.4. Escape Analysis</h3>
 <p>Go的内存模型严格要求栈的对象指针不能存放到堆中，栈上对象的指针不能超过该栈对象的声明周期。</p>
-<p>通过对AST的静态数据流分析（static data-flow analysis），可以实现带权重有向图的分析来做逃逸判断。被引用的对象权重-1（即&amp;），而权重大于0则表示存在解引用操作（即*）</p>
+<p>通过对AST的静态数据流分析（static data-flow analysis），可以实现带权重有向图的分析来做逃逸判断。被引用的对象权重-1（即&amp;），而权重大于0则表示存在解引用操作（即*），对于小于0且超过了当前生命周期的变量，进行逃逸处理。</p>
 <h3 id="45-closure-rewriting">4.5. Closure Rewriting</h3>
 <p>闭包重写分为定义后立即调用和不被立即调用两种情况，在立即调用的情况下，会转换成普通的函数调用的形式，而不被立即调用，则会创建一个闭包对象。</p>
-<p>如果对象是按值应用的，切空间小于2*sizeof(int)，那么通过在函数体内创建局部变量的形式来产生该变量。如果存在指针或者引用，那么捕获的变量转换成指针类型的&amp;var，会初始化为捕获变量的值。</p>
+<p>如果对象是按值应用的，且空间小于2*sizeof(int)，那么通过在函数体内创建局部变量的形式来产生该变量。如果存在指针或者引用，那么捕获的变量转换成指针类型的&amp;var，会初始化为捕获变量的值。</p>
 <h3 id="46-function-traversal">4.6. Function Traversal</h3>
 <p>遍历函数，在gc/walk.go中，会识别出生命但是未被使用的变量，带节点的操作转换为具体函数执行，如map获取值会转换为mapaccess_fast64函数，字符串拼接转换为concatstrings，forrange拆开等，同时会根据需要引入临时变量以及语句重排序，如x/=y拆成x=x/y</p>
 <h2 id="5-ssa">5. SSA</h2>
-<p>Go在1.7版本引入并成为现代的编译器后端，此时会用于处理 <code>defer</code> 关键字的 <a href="https://draveness.me/golang/tree/runtime.deferproc"><code>runtime.deferproc</code></a>、用于创建 Goroutine 的 <a href="https://draveness.me/golang/tree/runtime.newproc"><code>runtime.newproc</code></a> 和扩容切片的 <a href="https://draveness.me/golang/tree/runtime.growslice"><code>runtime.growslice</code></a> 等，</p>
+<p>SSA生成阶段是编译器进行后续优化的保证，如常量传播，无效代码消除，冗余消除，强度降低等。</p>
+<p>Go在1.7版本引入并成为现代的编译器后端，此时会用于处理 <code>defer</code> 关键字的 <code>runtime.deferproc</code>、用于创建 Goroutine 的 <code>runtime.newproc</code> 和扩容切片的 <code>runtime.growslice</code> 等，</p>
 <p>这里会对关键字或者内建函数到运行时函数的映射其中涉及 Channel、哈希、<code>make</code>、<code>new</code> 关键字以及控制流中的关键字 <code>select</code> 等，经过walk函数遍历之后，SAA便不会再改变。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

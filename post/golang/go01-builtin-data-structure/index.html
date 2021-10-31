@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(1) Builtin Data Structure">
 <meta itemprop="description" content="Part1. Builtin Data Structure 0. Type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 package builtin type bool bool const ( true = 0"><meta itemprop="datePublished" content="2021-09-02T19:22:24+08:00" />
 <meta itemprop="dateModified" content="2021-09-02T19:22:24+08:00" />
-<meta itemprop="wordCount" content="5709">
+<meta itemprop="wordCount" content="5935">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(1) Builtin Data Structure"/>
 <meta name="twitter:description" content="Part1. Builtin Data Structure 0. Type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 package builtin type bool bool const ( true = 0"/>
@@ -145,7 +145,7 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 5709 words </span>
+          <span class="more-meta"> 5935 words </span>
           <span class="more-meta"> 12 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -357,7 +357,10 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="1-array">1. Array</h2>
+</div><p>特别的，在IEEE-754中，对于NaN的定义分为sNaN和qNaN。</p>
+<p>sNaN代表无效的操作，指数位全是1，小数位第一位是0</p>
+<p>qNaN代表无效或者异常的结果，指数位全是1，小数位第一位是1</p>
+<h2 id="1-array">1. Array</h2>
 <h3 id="11-new-array">1.1. New Array</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -676,16 +679,12 @@
     <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">slice</span><span class="p">))</span> <span class="c1">// 8 2
 </span></code></pre></td></tr></table>
 </div>
-</div><pre><code>  创建后，长度默认是切片范围，但是容量会一直从切片起始值延续到数组的最后一位
+</div><p>​      创建后，长度默认是切片范围，但是容量会一直从切片起始值延续到数组的最后一位
+2. 使用字面量初始化新的切片：slice := []int{1, 2, 3}</p>
+<pre><code>创建一个数组并初始化，将静态存储区的数组，再用[:]获得一个切片
 </code></pre>
-<ol start="2">
-<li>
-<p>使用字面量初始化新的切片：slice := []int{1, 2, 3}</p>
-<p>创建一个数组并初始化，将静态存储区的数组，再用[:]获得一个切片</p>
-</li>
-<li>
-<p>使用关键字 <code>make</code> 创建切片：slice := make([]int, 2, 5)，这样Len=2，数组里前两个元素是默认零值的，剩余三个元素保留为0，并非真正可访问的值，同时在创建时会发生以下校验：</p>
-</li>
+<ol start="3">
+<li>使用关键字 <code>make</code> 创建切片：slice := make([]int, 2, 5)，这样Len=2，数组里前两个元素是默认零值的，剩余三个元素保留为0，并非真正可访问的值，同时在创建时会发生以下校验：</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -747,7 +746,8 @@
 <span class="c1">// Can&#39;t (*slice)[0] = &#34;abc&#34;
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="22-slice-grow">2.2. Slice Grow</h3>
+</div><p>如果使用[]int{1, 2, 3}这样的字面量初始化，会创建一个array存储到静态区，程序启动时，将静态区的数据拷贝到堆区。</p>
+<h3 id="22-slice-grow">2.2. Slice Grow</h3>
 <p>使用append扩容，如果没有覆盖原始变量，则直接返回</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -861,6 +861,7 @@
 <li>如果期望容量大于当前容量的两倍就会使用期望容量；</li>
 <li>如果当前切片的长度小于 1024 就会将容量翻倍；</li>
 <li>如果当前切片的长度大于 1024 就会每次增加 25% 的容量，直到新容量大于期望容量；</li>
+<li>如果最终容量过大导致溢出，则直接将最终容量设置为新申请容量。</li>
 </ol>
 <p>此外，分配空间时，会考虑到内存对齐问题。会选择向上取整的内存段为切片分配，提高内存分配效率以减少外部碎片。</p>
 <p>比如当运行如下代码：</p>
@@ -1550,6 +1551,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="42-concat-string">4.2. Concat String</h3>
+<p>在编译的AST阶段，调用strings.Join函数来完成字符串常量数组的拼接。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1

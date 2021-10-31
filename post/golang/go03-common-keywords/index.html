@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(3) Common Keywords">
 <meta itemprop="description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"><meta itemprop="datePublished" content="2021-09-20T12:27:33+08:00" />
 <meta itemprop="dateModified" content="2021-09-20T12:27:33+08:00" />
-<meta itemprop="wordCount" content="4400">
+<meta itemprop="wordCount" content="4506">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(3) Common Keywords"/>
 <meta name="twitter:description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"/>
@@ -145,7 +145,7 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 4400 words </span>
+          <span class="more-meta"> 4506 words </span>
           <span class="more-meta"> 9 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -1057,7 +1057,42 @@
 3.3. 编译器自动生成的代码会发现 runtime.deferproc 的返回值不为 0，这时会跳回 runtime.deferreturn 并恢复到正常的执行流程；</li>
 <li>如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime._defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2；</li>
 </ol>
-<h2 id="4-make-and-new">4. Make And New</h2>
+<p>如在Go的compile.Main执行期间，加入了defer hidePanic()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">hidePanic</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">base</span><span class="p">.</span><span class="nx">Debug</span><span class="p">.</span><span class="nx">Panic</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">base</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">// If we&#39;ve already complained about things
+</span><span class="c1"></span>		<span class="c1">// in the program, don&#39;t bother complaining
+</span><span class="c1"></span>		<span class="c1">// about a panic too; let the user clean up
+</span><span class="c1"></span>		<span class="c1">// the code and try again.
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="s">&#34;-h&#34;</span> <span class="p">{</span>
+				<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="nx">base</span><span class="p">.</span><span class="nf">ErrorExit</span><span class="p">()</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="4-make-and-new">4. Make And New</h2>
 <ul>
 <li><code>make</code> 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:2">2</a>；</li>
 <li><code>new</code> 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:3">3</a>；</li>

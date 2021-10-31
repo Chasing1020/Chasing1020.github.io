@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <title>Kubernetes - Chasing&#39;s blog</title>
+ <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/cloud-native/kubernetes/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4573ba89ebe61d47218ac43add406d9e13dd57badf8d68866ca7103bdd69ef3d.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Kubernetes" />
+<meta property="og:description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/cloud-native/kubernetes/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-29T15:40:00+08:00" />
+<meta property="article:modified_time" content="2021-10-29T15:40:00+08:00" />
+
+<meta itemprop="name" content="Kubernetes">
+<meta itemprop="description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、"><meta itemprop="datePublished" content="2021-10-29T15:40:00+08:00" />
+<meta itemprop="dateModified" content="2021-10-29T15:40:00+08:00" />
+<meta itemprop="wordCount" content="1421">
+<meta itemprop="keywords" content="Cloud," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes"/>
+<meta name="twitter:description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+ <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/search/">
+        <li class="mobile-menu-item">Search</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+ <div class="container" id="mobile-panel">
+   <header id="header" class="header">
+       <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/search/">Search</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+   </header>
+
+   
+   <main id="main" class="main">
+     <div class="content-wrapper">
+       <div id="content" class="content">
+         <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Kubernetes</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-10-29 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 1421 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#kubernetes">Kubernetes</a>
+      <ul>
+        <li><a href="#1-component">1. Component</a>
+          <ul>
+            <li><a href="#11-control-plane-components">1.1. Control Plane Components</a></li>
+            <li><a href="#12-node-component">1.2. Node Component</a></li>
+            <li><a href="#13-objects">1.3. Objects</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-minikube-quick-start">2. Minikube Quick Start</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="kubernetes">Kubernetes</h1>
+<p>场景：管理容器化的工作负载和服务，可促进声明式配置和自动化</p>
+<p>功能：<strong>服务发现和负载均衡</strong>、<strong>存储编排</strong>、<strong>自动部署和回滚</strong>、<strong>自动完成装箱计算</strong>、<strong>自我修复</strong>、<strong>密钥与配置管理</strong></p>
+<h2 id="1-component">1. Component</h2>
+<p>一个 Kubernetes 集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。集群具有至少一个工作节点。</p>
+<p>工作节点托管作为应用负载的组件的 Pod 。控制平面管理集群中的工作节点和 Pod 。 为集群提供故障转移和高可用性，这些控制平面一般跨多主机运行，集群跨多个节点运行。</p>
+<p><img src="https://d33wubrfki0l68.cloudfront.net/2475489eaf20163ec0f54ddc1d92aa8d4c87c96b/e7c81/images/docs/components-of-kubernetes.svg" alt="Kubernetes 组件"></p>
+<h3 id="11-control-plane-components">1.1. Control Plane Components</h3>
+<p>控制面板用于控制整个集群的工作，其包含多个组件，可以运行在单个主机上或者通过副本分别不是在多个主节点用以确保高可用</p>
+<h4 id="kube-apiserver">kube-apiserver</h4>
+<p>API 服务器是 Kubernetes 控制面的组件， 该组件公开了 Kubernetes API。 API 服务器是 Kubernetes 控制面的前端。</p>
+<h4 id="etcd">etcd</h4>
+<p>etcd 是兼具一致性和高可用性的键值数据库，可以作为保存 Kubernetes 所有集群数据的后台数据库。</p>
+<h4 id="kube-scheduler">kube-scheduler</h4>
+<p>控制平面组件，负责监视新创建的、未指定运行节点（node）的 Pods，选择节点让 Pod 在上面运行。</p>
+<h4 id="kube-controller-manager">kube-controller-manager</h4>
+<p>从逻辑上讲，每个控制器都是一个单独的进程， 但是为了降低复杂性，它们都被编译到同一个可执行文件，并在一个进程中运行。</p>
+<ul>
+<li>节点控制器（Node Controller）: 负责在节点出现故障时进行通知和响应</li>
+<li>任务控制器（Job controller）: 监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成</li>
+<li>端点控制器（Endpoints Controller）: 填充端点(Endpoints)对象(即加入 Service 与 Pod)</li>
+<li>服务帐户和令牌控制器（Service Account &amp; Token Controllers）: 为新的命名空间创建默认帐户和 API 访问令牌</li>
+</ul>
+<h4 id="cloud-controller-manager">cloud-controller-manager</h4>
+<p>云控制器管理器是指嵌入特定云的控制逻辑的 控制平面组件。 云控制器管理器使得你可以将你的集群连接到云提供商的 API 之上， 并将与该云平台交互的组件同与你的集群交互的组件分离开来。
+cloud-controller-manager 仅运行特定于云平台的控制回路。 如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境， 所部署的环境中不需要云控制器管理器。</p>
+<h3 id="12-node-component">1.2. Node Component</h3>
+<h4 id="kubelet">kubelet</h4>
+<p>一个在集群中每个<a href="https://kubernetes.io/zh/docs/concepts/architecture/nodes/">节点（node）</a>上运行的代理。 它保证<a href="https://kubernetes.io/zh/docs/concepts/overview/what-is-kubernetes/#why-containers">容器（containers）</a>都 运行在 <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/">Pod</a> 中。</p>
+<p>kubelet 接收一组通过各类机制提供给它的 PodSpecs，确保这些 PodSpecs 中描述的容器处于运行状态且健康。 kubelet 不会管理不是由 Kubernetes 创建的容器。</p>
+<h4 id="kube-proxy">kube-proxy</h4>
+<p><a href="https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/">kube-proxy</a> 是集群中每个节点上运行的网络代理， 实现 Kubernetes <a href="https://kubernetes.io/zh/docs/concepts/services-networking/service/">服务（Service）</a> 概念的一部分，负责组件之间的负载均衡网络流量。</p>
+<p>kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内部或外部的网络会话与 Pod 进行网络通信。</p>
+<h4 id="container-runtime">Container Runtime</h4>
+<p>容器运行环境是负责运行容器的软件。</p>
+<p>Kubernetes 支持多个容器运行环境: <a href="https://kubernetes.io/zh/docs/reference/kubectl/docker-cli-to-kubectl/">Docker</a>、 <a href="https://containerd.io/docs/">containerd</a>、<a href="https://cri-o.io/#what-is-cri-o">CRI-O</a> 以及任何实现 <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md">Kubernetes CRI (容器运行环境接口)</a>。</p>
+<h3 id="13-objects">1.3. Objects</h3>
+<p>在 Kubernetes 系统中，<em>Kubernetes 对象</em> 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。特别地，它们描述了如下信息：</p>
+<ul>
+<li>哪些容器化应用在运行（以及在哪些节点上）</li>
+<li>可以被应用使用的资源</li>
+<li>关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略</li>
+</ul>
+<h2 id="2-minikube-quick-start">2. Minikube Quick Start</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube start
+
+minikube dashboard
+</code></pre></td></tr></table>
+</div>
+</div><p>在浏览器出现minikube仪表盘即安装成功。</p>
+<p>使用 <code>kubectl create</code> 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker 镜像运行 Container。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl create deployment hello-node --image<span class="o">=</span>k8s.gcr.io/echoserver:1.4
+</code></pre></td></tr></table>
+</div>
+</div><p>查看 Deployment：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl get deployments
+</code></pre></td></tr></table>
+</div>
+</div><p>查看 Pod：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl get pods
+</code></pre></td></tr></table>
+</div>
+</div><p>输出结果类似于这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">NAME                          READY     STATUS    RESTARTS   AGE
+hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
+</code></pre></td></tr></table>
+</div>
+</div><p>每当运行kubectl时，即像RESTAPI服务器发送请求，创建Pod并且调度到工作节点，kubetlet收到通知，再去告诉Docker运行镜像</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-10-29
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/cloud/">Cloud</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/redis-data-structure/">
+            <span class="next-text nav-default">Redis Data Structure</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+       </div>
+       
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+     </div>
+   </main>
+   
+
+   
+   <footer id="footer" class="footer">
+     <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+   </footer>
+   
+
+   <div class="back-to-top" id="back-to-top">
+     <i class="iconfont icon-up"></i>
+   </div>
+ </div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Oct 2021 13:44:47 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Oct 2021 15:40:00 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes</title>
+      <link>http://Chasing1020.github.io/post/cloud-native/kubernetes/</link>
+      <pubDate>Fri, 29 Oct 2021 15:40:00 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/cloud-native/kubernetes/</guid>
+      <description>Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、</description>
+    </item>
+    
     <item>
       <title>Redis Data Structure</title>
       <link>http://Chasing1020.github.io/post/redis-data-structure/</link>

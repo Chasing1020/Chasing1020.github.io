@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(2) Language Basic">
 <meta itemprop="description" content="Part2. Language Basic 1. Function 1 2 3 4 type funcval struct { fn uintptr // variable-size, fn-specific data here } funcval使用二级指针，可以处理闭包（1.外部定义，内部引用的自由变量 2.脱离闭包上下文也能保"><meta itemprop="datePublished" content="2021-09-14T19:26:33+08:00" />
 <meta itemprop="dateModified" content="2021-09-14T19:26:33+08:00" />
-<meta itemprop="wordCount" content="3568">
+<meta itemprop="wordCount" content="3577">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(2) Language Basic"/>
 <meta name="twitter:description" content="Part2. Language Basic 1. Function 1 2 3 4 type funcval struct { fn uintptr // variable-size, fn-specific data here } funcval使用二级指针，可以处理闭包（1.外部定义，内部引用的自由变量 2.脱离闭包上下文也能保"/>
@@ -145,7 +145,7 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 3568 words </span>
+          <span class="more-meta"> 3577 words </span>
           <span class="more-meta"> 8 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -574,7 +574,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>runtime的包的type类型是非导出的，所以在reflect包下重写了一遍，并实现了Type接口</p>
+</div><p>runtime的包的_type类型是非导出的，所以在reflect包下重写了一遍，称为rtype，并实现了Type接口</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1

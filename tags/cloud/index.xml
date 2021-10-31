@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/cloud/</link>
+    <description>Recent content in Cloud on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 29 Oct 2021 15:40:00 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes</title>
+      <link>http://Chasing1020.github.io/post/cloud-native/kubernetes/</link>
+      <pubDate>Fri, 29 Oct 2021 15:40:00 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/cloud-native/kubernetes/</guid>
+      <description>Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、</description>
+    </item>
+    
+  </channel>
+</rss>
