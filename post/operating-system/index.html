@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+ <title> - Chasing&#39;s blog</title>
+ <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing" /><meta name="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/operating-system/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.4573ba89ebe61d47218ac43add406d9e13dd57badf8d68866ca7103bdd69ef3d.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/operating-system/" /><meta property="article:section" content="post" />
+
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限">
+
+<meta itemprop="wordCount" content="3069">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+ <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/search/">
+        <li class="mobile-menu-item">Search</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+ <div class="container" id="mobile-panel">
+   <header id="header" class="header">
+       <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/search/">Search</a>
+      </li>
+  </ul>
+</nav>
+
+   </header>
+
+   
+   <main id="main" class="main">
+     <div class="content-wrapper">
+       <div id="content" class="content">
+         <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 0001-01-01 </span>
+        
+          <span class="more-meta"> 3069 words </span>
+          <span class="more-meta"> 7 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-overview">1. Overview</a></li>
+    <li><a href="#2-hardware-infrastructure">2. Hardware Infrastructure</a></li>
+    <li><a href="#3-operating-system-architecture">3. Operating System Architecture</a></li>
+    <li><a href="#4-memory-management">4. Memory Management</a>
+      <ul>
+        <li><a href="#41-virtual-memory">4.1. Virtual Memory</a></li>
+        <li><a href="#42-paging">4.2. Paging</a></li>
+        <li><a href="#43-strategy">4.3. Strategy</a></li>
+        <li><a href="#44-virtual-memory">4.4. Virtual Memory</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="1-overview">1. Overview</h1>
+<p>什么是操作系统？</p>
+<p>硬件角度：</p>
+<ul>
+<li>
+<ol>
+<li>管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>对硬件进行抽象：抽象成不依赖具体硬件特性的资源。</li>
+</ol>
+<p>将有限的，离散的资源高效地抽象成无限的、连续的资源，并提交接口给上层系统调用。</p>
+</li>
+</ul>
+<p>应用角度：</p>
+<ul>
+<li>
+<ol>
+<li>服务于应用：提供不同层次，不同功能的接口以满足应用需求</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>管理应用：负责应用生命周期管理，包括加载，启动，切换，调度等。</li>
+</ol>
+</li>
+</ul>
+<h1 id="2-hardware-infrastructure">2. Hardware Infrastructure</h1>
+<p>冯诺依曼架构：中央处理单元，存储器，输入输出</p>
+<p>缓存结构：CPU缓存是由若干个缓存行决定的，每个缓存行包括一个有效位（valid bit），一个标记地址（tag address）。物理地址在逻辑上分为三段。Tag、Index(Set)、Way。物理地址能表示Index(Set)的最大数目为组，支持Tag最大的数目为路（Way）。</p>
+<p>CPU访问设备的方式：内存映射输入输出（Memory-Mapped I/O），将IO设备和物理内存放到同一个存储空间。</p>
+<p>如果CPU通过不断轮询，查看MMIO是否有输入效率会很低，所以更高效的做法是利用中断，主动通知CPU。</p>
+<h1 id="3-operating-system-architecture">3. Operating System Architecture</h1>
+<p>设计上，策略（Policy，“要做什么”）和机制（Mechanism，“怎么做”）隔离。</p>
+<p>内核架构</p>
+<ol>
+<li>
+<p>简要结构：以DOS典型，没有现代意义的内存管理单元（Memory Management Unit，MMU）</p>
+</li>
+<li>
+<p>宏内核架构（Monolithic Kernel）：又称单内核，现代Unix，Linux，Windows都采用宏内核。</p>
+<ul>
+<li>模块化：使用可加载内核模块（Loadable Kernel Module）机制，使内核与其他模块（如驱动）解耦；</li>
+<li>抽象：采用“Everything is a file”思想，为上层应用提供统一接口，降低复杂性，增强维护性。</li>
+<li>分层：Dijkstra提出的“THE”操作系统，分为6层，更好地组织各种功能</li>
+<li>层级：应用于资源管理，如调度算法优先级分类，控制组（cgroup）分类</li>
+</ul>
+</li>
+<li>
+<p>微内核架构：以Mach为代表，将单个功能或模块从内核中拆分出来，提高安全性。由于Mach对IPC设计过于通用，以至于自身资源占用过大，效率并不及同期的宏内核。但是微内核具有弹性拓展的能力，硬件异构，并且具有功能安全与信息安全，并且调用具有确定的时延。</p>
+</li>
+<li>
+<p>外核架构：库操作系统LibOS，可以按照应用领域的特点与需求，安装最适合的LibOS，最小化非必要代码，多个LibOS之间的隔离很强，具有很好的安全性。还有云计算的容器，基于Unikernel将虚拟机监控器作为支撑Unikernel/LibOS运行的内核。</p>
+</li>
+</ol>
+<p>其他框架结构：以Android为例，其包含硬件抽象层，Android库，Android运行环境，Android运行框架。</p>
+<h1 id="4-memory-management">4. Memory Management</h1>
+<p>现代操作系统采用虚拟内存，以下作为设计目标</p>
+<ul>
+<li>高效性：虚拟内存没有明显性能开销。</li>
+<li>安全性：使应用之间的内存相互隔离。</li>
+<li>透明性：虚拟内存抽象对程序员透明。</li>
+</ul>
+<p>CPU的内存管理单元（Memory Management Unit，MMU）负责虚拟地址到物理地址的转换，此外，还有地址旁路缓存（Translation Lookaside Buffer，TLB）</p>
+<p>分段机制：如将应用分成代码段，数据段。每个段表，作为段内地址与段内偏移来确定位置。很容易产生外部碎片。</p>
+<p>分页机制：用虚拟页号与页内偏移量，按固定大小管理，减少外部碎片。</p>
+<h2 id="41-virtual-memory">4.1. Virtual Memory</h2>
+<p>64位系统下的4级页表：每个页4KB，最低12位（2^12=4KB）来表示页内偏移。每个页表页也占用物理内存的一个物理页（4KB），每个页表项8字节，所以一个页表页可以对应512页表项（4KB/8B=512）。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。</p>
+<p>32位系统下的2级页表：每个页4KB，最低12位（2^12=4KB）来表示页内偏移。每个页表页也占用物理内存的一个物理页（4KB），每个页表项4字节，所以一个页表页可以对应1024页表项（4KB/4B=1024=2^10）。所以，20+12分别对应二级页表（2*10），和页表内偏移量。</p>
+<p>对于32bit操作系统，通过物理地址扩展（Physical Address Extension，PAE），CPU执行单元发出的地址将被MMU截获，进行一次地址转换后才传给内存。这样允许多个进程的使用内存加起来超过4GB。</p>
+<p>TLB硬件一般采用分层结构，L1部分分为指令TLB与数据TLB，L2不区分指令与数据，作为CPU内部硬件。</p>
+<p>在切换应用刷新时，为每个TLB打上标签（在AArch称为Address Space IDentifier，ASID；x86-64中称为Process Context IDentifier），操作系统为每一个应用分配不同的标签，这个标签记录在页表基址寄存器，这样TLB的缓存项就被应用区分开，切换应用时不用清空TLB。</p>
+<h2 id="42-paging">4.2. Paging</h2>
+<p>在虚拟页使用后，不一定会在页表中。当物理内存不够的时候，应该将物理页的内容写入到磁盘中，同时记录物理页的位置，这个流程称之为换出。</p>
+<p>当访问未映射到内存的虚拟页时，发生缺页异常，将所有磁盘的数据加到物理页，再填写物理页的映射，这个流程称为换入。</p>
+<p>预取（Prefetching）：当换入时，猜测还有哪些页会被访问，提前换入内存，减少缺页此数</p>
+<p>按需分配（Demand Paging）：将分配的虚拟页标记为“已经分配，但是没有映射到物理内存”的状态，有效提高资源利用率。</p>
+<h2 id="43-strategy">4.3. Strategy</h2>
+<p>MIN/OPT（Minimum，Optimal）：优先选择未来不会访问的页，理论最优，实践困难。</p>
+<p>FIFO（First-In First-Out）：时间开销低，但是实际表现不佳，先后顺序和使用频繁关系与否不大。</p>
+<p>Second Chance：给队列每一个访问到的设置标志位，按FIFO的“逻辑”，每次将换出时，标志清零，并移到队尾；如果没有标志，且在队头，则会被换出。当所有标志失效时，弱化为FIFO。此外，还有可能发生（Belady异常）</p>
+<p>LRU（Least Recently Used）：被换出时，优先选择最久未被访问到的，链表尾放最常用的，首端放最不常用的，每次淘汰首端。</p>
+<p>MRU（Most Recently Used）：用LRU相反的策略，基于假设“程序不会反复访问相同的地址”。</p>
+<p>Clock Algorithm：类似于Second Chance，但是不需要移动链表中的页号，效率更高。</p>
+<h2 id="44-virtual-memory">4.4. Virtual Memory</h2>
+<p>COW（Copy On Write）：用于动态链接库，fork等。用只读的方式共享内存。一旦发生写操作，产生缺页异常，触发COW机制。</p>
+<p>KSM（Kernel Same-page Merging）：基于COW，定期扫描相同的物理页，进行合并，减少内存占用。</p>
+<p>zswap：在换出内存时，使用压缩算法，将数据压缩后，存放至缓冲区，而不直接存磁盘，可以有效避免磁盘IO。</p>
+<p>buddy system：需求m页时，分裂($2^{n-1}&lt; m ≤ 2^n$)至合适的物理块，释放时合并空闲块，这两个操作是级联的，减少外部碎片。</p>
+<p>SLAB：一般为SLUB，SLOB，SLAB的统称。为高效分配较小的内存块提高速度，SLAB只会分配固定大小的内存块($2^n$, $3≤ n &lt;12$)，实际还会有特殊值避免内部碎片，这些块称为slab，每个slab会被分成小块，用链表链接，其中current指向当前的slab，partial指向所有空闲的slab，分配时，先去current取，current空了再取一个partial的slab交给current。</p>
+<p>Implicit Free List：每个内存块的头部，用链表维护是否空闲，块大小的信息，分配请求时，依次合并。</p>
+<p>Explicit Free List：仅仅把空闲的链接起来，所以每个空闲块只用维护两个指针和块大小，分配速度比隐式快。</p>
+<p>Segregated Free List：找到块大小最合适的空闲块，有空余则插入空闲链表中。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        0001-01-01
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/python-note/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Python Note</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/first/">
+            <span class="next-text nav-default">First</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+       </div>
+       
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+     </div>
+   </main>
+   
+
+   
+   <footer id="footer" class="footer">
+     <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+   </footer>
+   
+
+   <div class="back-to-top" id="back-to-top">
+     <i class="iconfont icon-up"></i>
+   </div>
+ </div>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

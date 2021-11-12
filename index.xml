@@ -8,15 +8,6 @@
     <language>en</language>
     <lastBuildDate>Fri, 29 Oct 2021 15:40:00 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Search</title>
-      <link>http://Chasing1020.github.io/search/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://Chasing1020.github.io/search/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Friends</title>
       <link>http://Chasing1020.github.io/friends/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -215,6 +206,24 @@
       
       <guid>http://Chasing1020.github.io/post/python-note/</guid>
       <description>第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://Chasing1020.github.io/post/operating-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/operating-system/</guid>
+      <description>1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限</description>
+    </item>
+    
+    <item>
+      <title>Search</title>
+      <link>http://Chasing1020.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://Chasing1020.github.io/search/</guid>
+      <description></description>
     </item>
     
     <item>

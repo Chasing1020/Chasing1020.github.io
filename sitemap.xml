@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://Chasing1020.github.io/search/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://Chasing1020.github.io/friends/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -317,6 +311,18 @@
   <url>
     <loc>http://Chasing1020.github.io/post/python-note/</loc>
     <lastmod>2020-10-06T15:53:09+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/operating-system/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/search/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

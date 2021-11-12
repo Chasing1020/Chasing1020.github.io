@@ -188,6 +188,15 @@
     </item>
     
     <item>
+      <title></title>
+      <link>http://Chasing1020.github.io/post/operating-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/operating-system/</guid>
+      <description>1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限</description>
+    </item>
+    
+    <item>
       <title>First</title>
       <link>http://Chasing1020.github.io/post/first/</link>
       <pubDate>Sat, 01 Jan 0000 14:21:27 +0800</pubDate>
