@@ -232,12 +232,6 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/search/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://Chasing1020.github.io/tags/test/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
