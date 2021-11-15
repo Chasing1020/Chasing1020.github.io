@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="6735">
+<meta itemprop="wordCount" content="8173">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -145,8 +145,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 6735 words </span>
-          <span class="more-meta"> 14 mins read </span>
+          <span class="more-meta"> 8173 words </span>
+          <span class="more-meta"> 17 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -175,6 +175,9 @@
     <li><a href="#6-operating-system-scheduling">6. Operating System Scheduling</a></li>
     <li><a href="#7-inter-process-communication">7. Inter-Process Communication</a></li>
     <li><a href="#8-synchronization-primitives">8. Synchronization Primitives</a></li>
+    <li><a href="#9-file-system">9. File System</a></li>
+    <li><a href="#10-device-management">10. Device Management</a></li>
+    <li><a href="#11-system-virtualization">11. System Virtualization</a></li>
   </ul>
 </nav>
   </div>
@@ -944,6 +947,80 @@
 <p>银行家算法：假设系统有M个资源，N个线程。</p>
 <p>全局可利用资源Available[M]，每个线程最大需求Max[N][M]，已分配资源Allocation[N][M]，还需要分配的资源Need[N][M]。同时，保证供给关系固定。线程的需求不能超过总量，任意线程分配的资源加上还需要的资源小雨该线程的最大需求。线程获得资源后，有限时间能完成，并且最后会释放这些资源。</p>
 <p>优先级反转避免：优先级继承协议（Priority Inheritance protocol）：高优先级等待锁时，会使持有者继承其优先级，避免临界区被低优先级打断。</p>
+<h1 id="9-file-system">9. File System</h1>
+<p>Index Node：记录文件索引节点（即存储块，使用ls -i查看，stat），inode保存三块指针，一种直接指向数据块，一种是间接指向一个一级索引块，一种是二级指针指向一级索引。</p>
+<p>inode也保存着文件模式、链接数、拥有者用户组，大小、访问时间等信息。</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>File type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>Ordinary or regular files</td>
+<td>Contain data of various content types such as text, script, image, videos, etc.</td>
+</tr>
+<tr>
+<td>d</td>
+<td>Directory files</td>
+<td>Contain the name and address of other files.</td>
+</tr>
+<tr>
+<td>b &amp; c</td>
+<td>Block or character special files</td>
+<td>Represent device files such as hard drives, monitors, etc.</td>
+</tr>
+<tr>
+<td>l</td>
+<td>Link files</td>
+<td>Point or mirror other files</td>
+</tr>
+<tr>
+<td>s</td>
+<td>Socket files</td>
+<td>Provide inter-process communication</td>
+</tr>
+<tr>
+<td>p</td>
+<td>Named pipe files</td>
+<td>Allow processes to send data to other processes or receive data from other processes.</td>
+</tr>
+</tbody>
+</table>
+<p>目录大小即记录的文件数量以及文件名长度的大小</p>
+<p>每个inode可以被多个目录项指向，该链接数为0时，inode资源和数据可以被销毁。</p>
+<p>Virtual File System：通过基于inode设计了一系列数据结构，包括超级快，inode，目录项等，VFS隐蔽了实现细节。</p>
+<p>mount：文件访问到挂载点，就会跳转到挂载点的根目录访问。</p>
+<p>Pseudo File System（Synthetic file system）：常见的伪文件系统如/proc，/sys，/sys/kernel/config等。</p>
+<h1 id="10-device-management">10. Device Management</h1>
+<p>Peripheral Component Interconnect：PCI标准，满足用于PCI插槽与CPU高效通信</p>
+<p>Data Memory Access，DMA：设备与内存之间高效数据传输形式。一般有三个流程</p>
+<ul>
+<li>处理器向DMA发送至缓冲区的位置和长度，以及数据方向。</li>
+<li>DMA获得总线控制权，可以直接和内存与设备进行通信。</li>
+<li>DMA控制器将根据处理器获得的命令，将设备数据拷贝至内存，这期间处理器可以执行其他任务</li>
+<li>完成后，DMA控制器向处理器发送中断，此时处理器重新获得总线的控制权。</li>
+</ul>
+<p>Generic Interrupt Controller：ARM下的通用中断控制器，负责对设备的中断信号处理。每个中断有四种状态：</p>
+<ul>
+<li>Inactive：无效，此时中断未到来</li>
+<li>Pending：有效状态，中断已发生，CPU未响应中断。</li>
+<li>Active：CPU处于响应并处理中断的过程中。</li>
+<li>Active &amp; Pending：处理中断时，有相同的中断号发生。</li>
+</ul>
+<p>Linux操作系统中，中断分为上半部和下半部。上半部处理时，关闭中断。完成后向中断控制器声明中断处理器并开中断，设备驱动通过request_irq()来注册相应设备硬中断。</p>
+<p>软中断：处理函数要求是可重入的，要求软中断的执行过程中可以被硬中断抢占。所以，软中断时应该避免全局变量，或者加锁保护关键数据结构。Linux共有10种中断信号，从TASKLET_HI往下包括定时器，网卡收发，块设备中断等。内核会选择恰当时机来处理软中断（大多数时间在硬中断得到处理后，除非CPU还持有未执行的软中断）。</p>
+<p>tasklet：软中断只能编译时静态分配，为了动态分配设计了tasklet，每个tasklet只有SCHED（已被调度未执行）和RUN（正在执行），将所有tasklet用链表串起来。此外tasklet不允许多CPU并发执行，同时保证原子性，不允许被其他下半部机制抢占，满足可重入性。</p>
+<p>Work Queue：把需要推迟的函数放在下半部，用内核线程来执行。Work Queue由驱动开发者自己定义，并且由于其是串行的，可能产生阻塞，也会浪费PID资源。</p>
+<p>Concurrency Managed WorkQueue：将工作队列管理还给内核，同一个队列的work不遵守串行，可以并发执行，如果有任务长时间足额，那么CMWQ会自动创建一个新的工作线程去处理该任务后续的工作。</p>
+<h1 id="11-system-virtualization">11. System Virtualization</h1>
+<p>CPU虚拟化：通过vCPU抽象执行指令，直接运行在物理机上，使用物理ISA。虚拟机模拟一个安全的下陷的过程。</p>
+<p>内存虚拟化：使用客户物理地址与主机物理地址，影子页表机制</p>
+<p>IO虚拟化：主引导记录，全局唯一标识分区表。</p>
 
     </div>
 
@@ -971,8 +1048,8 @@
           </div>
       <nav class="post-nav">
         
-        <a class="next" href="/post/cloud-native/kubernetes/">
-            <span class="next-text nav-default">Kubernetes</span>
+        <a class="next" href="/post/redis-data-structure/">
+            <span class="next-text nav-default">Redis Data Structure</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
