@@ -15,14 +15,28 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/categories/</loc>
-    <lastmod>2021-11-12T19:33:04+08:00</lastmod>
+    <loc>http://Chasing1020.github.io/</loc>
+    <lastmod>2021-11-18T18:46:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/</loc>
+    <loc>http://Chasing1020.github.io/post/</loc>
+    <lastmod>2021-11-18T18:46:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/test1/</loc>
+    <lastmod>2021-11-18T18:46:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/</loc>
     <lastmod>2021-11-12T19:33:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -44,13 +58,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/operating-system/</loc>
-    <lastmod>2021-11-12T19:33:04+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/</loc>
     <lastmod>2021-11-12T19:33:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
