@@ -531,7 +531,7 @@ public class Employee {
    private String dept;
    private int salary;
    private List<Employee> subordinates;
- 
+
    //构造函数
    public Employee(String name,String dept, int sal) {
       this.name = name;
