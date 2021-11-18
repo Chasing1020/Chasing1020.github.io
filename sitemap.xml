@@ -232,6 +232,12 @@
   </url>
   
   <url>
+    <loc>http://Chasing1020.github.io/post/2-1docker-run-name-zookeeper-p-21812818-p-28882888-p-38883888-restart-always-d-zookeeper2bash/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://Chasing1020.github.io/tags/test/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

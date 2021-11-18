@@ -107,6 +107,15 @@
     </item>
     
     <item>
+      <title></title>
+      <link>http://Chasing1020.github.io/post/2-1docker-run-name-zookeeper-p-21812818-p-28882888-p-38883888-restart-always-d-zookeeper2bash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/2-1docker-run-name-zookeeper-p-21812818-p-28882888-p-38883888-restart-always-d-zookeeper2bash/</guid>
+      <description>1 2  docker run --name zookeeper -p 2181:2818 -p 2888:2888 -p 3888:3888 --restart always -d zookeeper   </description>
+    </item>
+    
+    <item>
       <title>First</title>
       <link>http://Chasing1020.github.io/post/first/</link>
       <pubDate>Sat, 01 Jan 0000 14:21:27 +0800</pubDate>
