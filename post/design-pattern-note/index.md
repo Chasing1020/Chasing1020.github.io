@@ -561,7 +561,7 @@ public class Employee {
 ```
 常用于前端表示与图形打交道的用户界面组件或代码的层次结构
 ```java
-public class Container extends Component {{   
+public class Container extends Component {   
     public Component add(Component comp) {
         addImpl(comp, null, -1);
         return comp;
