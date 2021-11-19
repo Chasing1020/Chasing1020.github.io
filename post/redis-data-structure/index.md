@@ -5,7 +5,7 @@
 
 ```C
 struct RedisObject {
-    int4 type;      // 4bits   \
+    int4 type;      // 4bits   \ 
     int4 enconding; // 4bits   = 4bytes
     int24 lru;      // 24bits /
     int32 refcount; // 4bytes

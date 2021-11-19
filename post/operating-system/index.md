@@ -543,7 +543,7 @@ inode也保存着文件模式、链接数、拥有者用户组，大小、访问
 | s | Socket files                     | Provide inter-process communication                          |
 | p | Named pipe files                 | Allow processes to send data to other processes or receive data from other processes. |
 
-目录大小即记录的文件数量以及文件名长度的大小
+目录大小即记录的文件数量以及文件名长度的大小。
 
 每个inode可以被多个目录项指向，该链接数为0时，inode资源和数据可以被销毁。
 
