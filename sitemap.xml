@@ -64,6 +64,20 @@
   </url>
   
   <url>
+    <loc>http://Chasing1020.github.io/tags/cloud/</loc>
+    <lastmod>2021-10-29T15:40:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/cloud-native/kubernetes/</loc>
+    <lastmod>2021-10-29T15:40:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://Chasing1020.github.io/tags/redis/</loc>
     <lastmod>2021-10-28T13:44:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -73,6 +87,69 @@
   <url>
     <loc>http://Chasing1020.github.io/post/redis-data-structure/</loc>
     <lastmod>2021-10-28T13:44:47+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/go/</loc>
+    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go06-network/</loc>
+    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/language/</loc>
+    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go05-concurrency/</loc>
+    <lastmod>2021-10-26T19:33:34+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go04-runtime/</loc>
+    <lastmod>2021-09-28T19:31:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go03-common-keywords/</loc>
+    <lastmod>2021-09-20T12:27:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go02-language-basic/</loc>
+    <lastmod>2021-09-14T19:26:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go01-builtin-data-structure/</loc>
+    <lastmod>2021-09-02T19:22:24+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go00-compilers-principles/</loc>
+    <lastmod>2021-08-26T15:00:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -211,13 +288,6 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/categories/language/</loc>
-    <lastmod>2020-10-06T15:53:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://Chasing1020.github.io/tags/python/</loc>
     <lastmod>2020-10-06T15:53:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -227,12 +297,6 @@
   <url>
     <loc>http://Chasing1020.github.io/post/python-note/</loc>
     <lastmod>2020-10-06T15:53:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/2-1docker-run-name-zookeeper-p-21812818-p-28882888-p-38883888-restart-always-d-zookeeper2bash/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
