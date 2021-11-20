@@ -13,8 +13,7 @@
       <pubDate>Sat, 20 Nov 2021 21:48:46 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/mathematic-fomulars/</guid>
-      <description>Mathematic Fomulars The basics about math symbols in Latex.
-Greek Letters    αA $\alpha A$ νN $\nu N$     βB $\beta B$ ξΞ $\xi\Xi$   γΓ $\gamma \Gamma$ oO $o O$ (omicron)   δΔ $\delta \Delta$ πΠ $\pi \Pi$   ϵεE $\epsilon \varepsilon E$ ρϱP $\rho\varrho P$   ζZ $\zeta Z \sigma \,\!$ ΣΣ $\sigma \Sigma$   ηH $\eta H$ τT $\tau T$   θϑ $\theta \vartheta \Theta$ υΥ $\upsilon \Upsilon$   ιI $\iota I$ ϕφΦ $\phi \varphi \Phi$   κK $\kappa K$ χX $\chi X$   λΛ $\lambda \Lambda$ ψΨ $\psi \Psi$   μM $\mu M$ ωΩ $\omega \Omega$    Operators    Symbol Script     $\cos$ \cos   $\sin$ \sin   $\lim$ \lim   $\exp$ \exp   $\to$ \to   $\infty$ \infty   $\equiv$ \equiv   $\bmod$ \bmod   $\times$ \times    Power and Indices    Symbol Script     $k_{n+1}$ k_{n+1}   $n^2$ n^2   $k_n^2$ k_n^2    Fractions and Binomials    Symbol Script     $\frac{n!</description>
+      <description>Mathematic Fomulars The mathematical typesetting is based on LaTeX, so if you need to search for the way to make a particular symbol, include latex in your search. But note: Not all LaTeX macros are available without using additional packages, and those packages likely will only work if you are creating a PDF. On the plus side, if you are working in PDF, you can use additional packages that give much better control and/or easier syntax.</description>
     </item>
     
     <item>

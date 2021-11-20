@@ -1,7 +1,9 @@
 
 # Mathematic Fomulars
 
-The basics about math symbols in Latex.
+The mathematical typesetting is based on LaTeX, so if you need to search for the way to make a particular symbol, include `latex` in your search. But note: Not all LaTeX macros are available without using additional packages, and those packages likely will only work if you are creating a PDF. On the plus side, if you are working in PDF, you can use additional packages that give much better control and/or easier syntax.
+
+This article is about the basics about math symbols in Latex.
 
 ### Greek Letters
 
