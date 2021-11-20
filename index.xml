@@ -6,7 +6,7 @@
     <description>Recent content on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 12 Nov 2021 19:33:04 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Nov 2021 21:48:46 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Friends</title>
       <link>http://Chasing1020.github.io/friends/</link>
@@ -26,6 +26,25 @@
   To achieve faster access, I have rebuilt this blog by it in replacing of hexo.
   The frequency of updating this blog is unknown, depending on the state of my recent studies.
   About me   I am a college student majoring in Computer Science in Shanghai University.</description>
+    </item>
+    
+    <item>
+      <title>Mathematic Fomulars</title>
+      <link>http://Chasing1020.github.io/post/mathematic-fomulars/</link>
+      <pubDate>Sat, 20 Nov 2021 21:48:46 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/mathematic-fomulars/</guid>
+      <description>Mathematic Fomulars The basics about math symbols in Latex.
+Greek Letters    αA $\alpha A$ νN $\nu N$     βB $\beta B$ ξΞ $\xi\Xi$   γΓ $\gamma \Gamma$ oO $o O$ (omicron)   δΔ $\delta \Delta$ πΠ $\pi \Pi$   ϵεE $\epsilon \varepsilon E$ ρϱP $\rho\varrho P$   ζZ $\zeta Z \sigma \,\!$ ΣΣ $\sigma \Sigma$   ηH $\eta H$ τT $\tau T$   θϑ $\theta \vartheta \Theta$ υΥ $\upsilon \Upsilon$   ιI $\iota I$ ϕφΦ $\phi \varphi \Phi$   κK $\kappa K$ χX $\chi X$   λΛ $\lambda \Lambda$ ψΨ $\psi \Psi$   μM $\mu M$ ωΩ $\omega \Omega$    Operators    Symbol Script     $\cos$ \cos   $\sin$ \sin   $\lim$ \lim   $\exp$ \exp   $\to$ \to   $\infty$ \infty   $\equiv$ \equiv   $\bmod$ \bmod   $\times$ \times    Power and Indices    Symbol Script     $k_{n+1}$ k_{n+1}   $n^2$ n^2   $k_n^2$ k_n^2    Fractions and Binomials    Symbol Script     $\frac{n!</description>
+    </item>
+    
+    <item>
+      <title>MQ</title>
+      <link>http://Chasing1020.github.io/post/mq/</link>
+      <pubDate>Fri, 19 Nov 2021 20:25:20 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/mq/</guid>
+      <description>1 2 3 4  rabbitmqctl add_user &amp;lt;username&amp;gt; &amp;lt;passwd&amp;gt; rabbitmqctl set_permissions -p / &amp;lt;username&amp;gt; &amp;#34;.*&amp;#34; &amp;#34;.*&amp;#34; &amp;#34;.*&amp;#34; rabbitmqctl set_user_tag myuser administrator   </description>
     </item>
     
     <item>
