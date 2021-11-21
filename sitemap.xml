@@ -148,13 +148,6 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/golang/go02-language-basic/</loc>
-    <lastmod>2021-09-14T19:26:33+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>http://Chasing1020.github.io/post/golang/go01-builtin-data-structure/</loc>
     <lastmod>2021-09-02T19:22:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -311,6 +304,12 @@
   <url>
     <loc>http://Chasing1020.github.io/post/python-note/</loc>
     <lastmod>2020-10-06T15:53:09+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/golang/go02-language-basic/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

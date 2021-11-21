@@ -33,11 +33,11 @@
 ### 
 >    name: xzablog
 >    
->    link: https://xzablog.cn
+>    link: http://www.xzalab.top:8088/
 ### 
 >    name: zedia
 >    
->    link: http://zidea.xyz:233/
+>    link: http://blog.zidea.site/
 ### 
 >    name: syyan
 >    

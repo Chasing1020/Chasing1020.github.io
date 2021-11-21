@@ -44,15 +44,6 @@
     </item>
     
     <item>
-      <title>Go(2) Language Basic</title>
-      <link>http://Chasing1020.github.io/post/golang/go02-language-basic/</link>
-      <pubDate>Tue, 14 Sep 2021 19:26:33 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/golang/go02-language-basic/</guid>
-      <description>Part2. Language Basic 1. Function 1 2 3 4 type funcval struct { fn uintptr // variable-size, fn-specific data here } funcval使用二级指针，可以处理闭包（1.外部定义，内部引用的自由变量 2.脱离闭包上下文也能保</description>
-    </item>
-    
-    <item>
       <title>Go(1) Builtin Data Structure</title>
       <link>http://Chasing1020.github.io/post/golang/go01-builtin-data-structure/</link>
       <pubDate>Thu, 02 Sep 2021 19:22:24 +0800</pubDate>
