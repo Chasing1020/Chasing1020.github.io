@@ -58,7 +58,7 @@ Data Model: is a collection of concepts for describing the data in a database." 
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="2442">
+<meta itemprop="wordCount" content="3290">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="1. Relational Model  Definition
@@ -152,8 +152,8 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 2442 words </span>
-          <span class="more-meta"> 12 mins read </span>
+          <span class="more-meta"> 3290 words </span>
+          <span class="more-meta"> 16 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -167,6 +167,7 @@ Data Model: is a collection of concepts for describing the data in a database."/
     <li><a href="#2-advanced-sql">2. Advanced SQL</a></li>
     <li><a href="#3-database-storage-1">3. Database Storage (1)</a></li>
     <li><a href="#4-database-storage-2">4. DataBase Storage (2)</a></li>
+    <li><a href="#5-buffer-pools">5. Buffer Pools</a></li>
   </ul>
 </nav>
   </div>
@@ -231,9 +232,13 @@ Schema: is a description of a particular collection of data, using a given data 
 </blockquote>
 <p>Methods to store and retrieve information from a database.</p>
 <p><strong>Procedural:</strong> (Relational Algebra)</p>
-<p>→ The query specifies the (high-level) strategythe DBMS should use to find the desired result.</p>
+<ul>
+<li>The query specifies the (high-level) strategythe DBMS should use to find the desired result.</li>
+</ul>
 <p><strong>Non-Procedural (Declarative):</strong> (Relational Calculus)</p>
-<p>→ The query specifies only what data is wanted and not how to find it.</p>
+<ul>
+<li>The query specifies only what data is wanted and not how to find it.</li>
+</ul>
 <blockquote>
 <p>Relational Algebra</p>
 </blockquote>
@@ -372,8 +377,14 @@ Schema: is a description of a particular collection of data, using a given data 
 </blockquote>
 <p>Store query results in another table: 1.Table must not already be defined. 2.Table will have the same # of columns with the same types as the input.</p>
 <p>Insert tuples from query into another table:</p>
-<p>→Inner <strong>SELECT</strong> must generate the same columns as the target table.</p>
-<p>→DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).</p>
+<ul>
+<li>
+<p>Inner <strong>SELECT</strong> must generate the same columns as the target table.</p>
+</li>
+<li>
+<p>DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).</p>
+</li>
+</ul>
 <blockquote>
 <p>Output Control</p>
 </blockquote>
@@ -646,6 +657,229 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>OLAP = Column Store</p>
 </li>
 </ol>
+<h1 id="5-buffer-pools">5. Buffer Pools</h1>
+<blockquote>
+<p>Meta Data</p>
+</blockquote>
+<p>Memory region organized as an array of fixed-size pages.An array entry is called a <strong>frame</strong>.</p>
+<p>When the DBMS requests a page, an exact copy is placed into one of these frames.</p>
+<p>The <strong>page table</strong> keeps track of pages that are currently in memory.</p>
+<p>Also maintains additional meta-data per page:</p>
+<ol>
+<li>Dirty Flag, 2. Pin/Reference Counter</li>
+</ol>
+<blockquote>
+<p>Locks and Latches</p>
+</blockquote>
+<p><strong>Locks:</strong></p>
+<ol>
+<li>
+<p>Protects the database&rsquo;s logical contents from other transactions.</p>
+</li>
+<li>
+<p>Held for transaction duration.</p>
+</li>
+<li>
+<p>Need to be able to rollback changes.</p>
+</li>
+</ol>
+<p><strong>Latches:</strong></p>
+<ol>
+<li>
+<p>Protects the critical sections of the DBMS&rsquo;s internal data structure from other threads.</p>
+</li>
+<li>
+<p>Held for operation duration.</p>
+</li>
+<li>
+<p>Do not need to be able to rollback changes.</p>
+</li>
+</ol>
+<blockquote>
+<p>Page directory</p>
+</blockquote>
+<p>The **page directory **is the mapping from page ids to page locations in the database files.</p>
+<ul>
+<li>All changes must be recorded on disk to allow the DBMS to find on restart.</li>
+</ul>
+<p>The <strong>page table</strong> is the mapping from page ids to a copy of the page in buffer pool frames.</p>
+<ul>
+<li>This is an in-memory data structure that does not need to be stored on disk.</li>
+</ul>
+<p><strong>Global Policies:</strong></p>
+<ul>
+<li>Make decisions for all active txns.</li>
+</ul>
+<p><strong>Local Policies:</strong></p>
+<ul>
+<li>
+<p>Allocate frames to a specific txn without considering the behavior of concurrent txns.</p>
+</li>
+<li>
+<p>Still need to support sharing pages.</p>
+</li>
+</ul>
+<blockquote>
+<p>Buffer Pool Optimizations</p>
+</blockquote>
+<p>The DBMS does not always have a single buffer pool for the entire system.</p>
+<ul>
+<li>
+<p>Multiple buffer pool instances</p>
+</li>
+<li>
+<p>Per-database buffer pool</p>
+</li>
+<li>
+<p>Per-page type buffer pool</p>
+</li>
+</ul>
+<p>Helps reduce latch contention and improve locality.</p>
+<ul>
+<li>
+<p>Embed an object identifier in record ids and then maintain a mapping from objects to specific buffer pools.</p>
+</li>
+<li>
+<p>Hash the page id to select whichbuffer pool to access.</p>
+</li>
+</ul>
+<blockquote>
+<p>Prefetching</p>
+</blockquote>
+<p>The DBMS can also prefetch pages based on a query plan.</p>
+<ol>
+<li>Sequential Scans, 2. Index Scans</li>
+</ol>
+<blockquote>
+<p>Scan Sharing</p>
+</blockquote>
+<p>Queries can reuse data retrieved from storage or operator computations.</p>
+<ul>
+<li>
+<p>Also called synchronized scans.</p>
+</li>
+<li>
+<p>This is different from result caching.</p>
+</li>
+</ul>
+<p>Allow multiple queries to attach to a single cursor that scans a table.</p>
+<ul>
+<li>
+<p>Queries do not have to be the same.</p>
+</li>
+<li>
+<p>Can also share intermediate results.</p>
+</li>
+</ul>
+<p>If a query wants to scan a table and another query is already doing this, then the DBMS will attach the second query&rsquo;s cursor to the existing cursor.</p>
+<p>The sequential scan operator will not store fetched pages in the buffer pool to avoid overhead.</p>
+<ul>
+<li>
+<p>Memory is local to running query.</p>
+</li>
+<li>
+<p>Works well if operator needs to read a large sequence of pages that are contiguous on disk.</p>
+</li>
+<li>
+<p>Can also be used for temporary data (sorting, joins).</p>
+</li>
+</ul>
+<blockquote>
+<p>OS Page Caching</p>
+</blockquote>
+<p>Most disk operations go through the OS API.</p>
+<p>Unless you tell it not to, the OS maintains its own filesystem cache (i.e., the page cache).</p>
+<p>Most DBMSs use direct I/O (<strong>O_DIRECT</strong>) to bypass the OS’s page cache.</p>
+<ul>
+<li>
+<p>Redundant copies of pages.</p>
+</li>
+<li>
+<p>Different eviction policies.</p>
+</li>
+<li>
+<p>Loss of control over file I/O.</p>
+</li>
+</ul>
+<blockquote>
+<p>Buffer Replacement Policies</p>
+</blockquote>
+<p>When the DBMS needs to free up a frame to make room for a new page, it must decide which page to evictfrom the buffer pool.</p>
+<p>Goals: Correctness, Accuracy, Speed, Meta-data overhead</p>
+<p>Maintain a single timestamp of when each page was last accessed.</p>
+<p>When the DBMS needs to evict a page, select the one with the oldest timestamp.</p>
+<ul>
+<li>Keep the pages in sorted order to reduce the search time on eviction.</li>
+</ul>
+<p>Approximation of LRU that does not need a separate timestamp per page.</p>
+<ul>
+<li>
+<p>Each page has a reference bit.</p>
+</li>
+<li>
+<p>When a page is accessed, set to 1.</p>
+</li>
+</ul>
+<p>Organize the pages in a circular buffer with a &ldquo;clock hand&rdquo;:</p>
+<ul>
+<li>
+<p>Upon sweeping, check if a page&rsquo;s bit is set to 1.</p>
+</li>
+<li>
+<p>If yes, set to zero. If no, then evict.</p>
+</li>
+</ul>
+<p><strong>Problems</strong></p>
+<p>LRU and CLOCK replacement policies are susceptible to sequential flooding.</p>
+<ul>
+<li>
+<p>A query performs a sequential scan that reads every page.</p>
+</li>
+<li>
+<p>This pollutes the buffer pool with pages that are read once and then never again.</p>
+</li>
+</ul>
+<p>In some workloads the most recently used page is the most unneeded page.</p>
+<p>Track the history of last <em>K</em>references to each page as timestamps and compute the interval between subsequent accesses.</p>
+<p>The DBMS then uses this history to estimate the next time that page is going to be accessed.</p>
+<blockquote>
+<p>Localization</p>
+</blockquote>
+<p>The DBMS chooses which pages to evict on a per txn/query basis. This minimizes the pollution of the buffer pool from each query.</p>
+<ul>
+<li>Keep track of the pages that a query has accessed.</li>
+</ul>
+<p>Example: Postgres maintains a small ring buffer that is private to the query.</p>
+<p>The DBMS knows about the context of each page during query execution.</p>
+<p>It can provide hints to the buffer pool on whether a page is important or not.</p>
+<blockquote>
+<p>Diary Pages</p>
+</blockquote>
+<p><strong>FAST:</strong> If a page in the buffer pool is notdirty, then the DBMS can simply &ldquo;drop&rdquo; it.</p>
+<p><strong>SLOW:</strong> If a page is dirty, then the DBMS must write back to disk to ensure that its changes are persisted.</p>
+<p>Trade-off between fast evictions versus dirty writing pages that will not be read again in the future.</p>
+<blockquote>
+<p>Other Memory Pools</p>
+</blockquote>
+<p>The DBMS needs memory for things other than just tuples and indexes.</p>
+<p>These other memory pools may not always backed by disk. Depends on implementation.</p>
+<ul>
+<li>
+<p>Sorting + Join Buffers</p>
+</li>
+<li>
+<p>Query Caches</p>
+</li>
+<li>
+<p>Maintenance Buffers</p>
+</li>
+<li>
+<p>Log Buffers</p>
+</li>
+<li>
+<p>Dictionary Caches</p>
+</li>
+</ul>
 
     </div>
 

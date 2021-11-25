@@ -39,11 +39,11 @@ Methods to store and retrieve information from a database.
 
 **Procedural:** (Relational Algebra)
 
-→ The query specifies the (high-level) strategythe DBMS should use to find the desired result.
+-  The query specifies the (high-level) strategythe DBMS should use to find the desired result.
 
 **Non-Procedural (Declarative):** (Relational Calculus)
 
-→ The query specifies only what data is wanted and not how to find it.
+-  The query specifies only what data is wanted and not how to find it.
 
 >   Relational Algebra
 
@@ -138,9 +138,9 @@ Store query results in another table: 1.Table must not already be defined. 2.Tab
 
 Insert tuples from query into another table:
 
-→Inner **SELECT** must generate the same columns as the target table.
+- Inner **SELECT** must generate the same columns as the target table.
 
-→DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).
+- DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).
 
 >   Output Control
 
@@ -392,11 +392,191 @@ It is important to choose the right storage model for the target workload:
 
 2.   OLAP = Column Store
 
+# 5. Buffer Pools
 
+>   Meta Data
 
+Memory region organized as an array of fixed-size pages.An array entry is called a **frame**.
 
+When the DBMS requests a page, an exact copy is placed into one of these frames.
 
+The **page table** keeps track of pages that are currently in memory.
 
+Also maintains additional meta-data per page:
+
+1.   Dirty Flag, 2. Pin/Reference Counter
+
+>   Locks and Latches
+
+**Locks:**
+
+1.   Protects the database's logical contents from other transactions.
+
+2.   Held for transaction duration.
+
+3. Need to be able to rollback changes.
+
+**Latches:**
+
+1.   Protects the critical sections of the DBMS's internal data structure from other threads.
+
+2.   Held for operation duration.
+
+3.   Do not need to be able to rollback changes.
+
+>   Page directory
+
+The **page directory **is the mapping from page ids to page locations in the database files.
+
+-   All changes must be recorded on disk to allow the DBMS to find on restart.
+
+The **page table** is the mapping from page ids to a copy of the page in buffer pool frames.
+
+-   This is an in-memory data structure that does not need to be stored on disk.
+
+**Global Policies:**
+
+-   Make decisions for all active txns.
+
+**Local Policies:**
+
+-   Allocate frames to a specific txn without considering the behavior of concurrent txns.
+
+-   Still need to support sharing pages.
+
+>   Buffer Pool Optimizations
+
+The DBMS does not always have a single buffer pool for the entire system.
+
+-   Multiple buffer pool instances
+
+-   Per-database buffer pool
+
+-   Per-page type buffer pool
+
+Helps reduce latch contention and improve locality.
+
+- Embed an object identifier in record ids and then maintain a mapping from objects to specific buffer pools.
+
+-   Hash the page id to select whichbuffer pool to access.
+
+>    Prefetching
+
+The DBMS can also prefetch pages based on a query plan.
+
+1.   Sequential Scans, 2. Index Scans
+
+>   Scan Sharing
+
+Queries can reuse data retrieved from storage or operator computations.
+
+-   Also called synchronized scans.
+
+-   This is different from result caching.
+
+Allow multiple queries to attach to a single cursor that scans a table.
+
+- Queries do not have to be the same.
+
+-   Can also share intermediate results.
+
+If a query wants to scan a table and another query is already doing this, then the DBMS will attach the second query's cursor to the existing cursor.
+
+The sequential scan operator will not store fetched pages in the buffer pool to avoid overhead.
+
+- Memory is local to running query.
+
+-   Works well if operator needs to read a large sequence of pages that are contiguous on disk.
+
+-   Can also be used for temporary data (sorting, joins).
+
+>   OS Page Caching
+
+Most disk operations go through the OS API.
+
+Unless you tell it not to, the OS maintains its own filesystem cache (i.e., the page cache).
+
+Most DBMSs use direct I/O (**O_DIRECT**) to bypass the OS’s page cache.
+
+- Redundant copies of pages.
+
+- Different eviction policies.
+
+- Loss of control over file I/O.
+
+>   Buffer Replacement Policies
+
+When the DBMS needs to free up a frame to make room for a new page, it must decide which page to evictfrom the buffer pool.
+
+Goals: Correctness, Accuracy, Speed, Meta-data overhead
+
+Maintain a single timestamp of when each page was last accessed.
+
+When the DBMS needs to evict a page, select the one with the oldest timestamp.
+
+-   Keep the pages in sorted order to reduce the search time on eviction.
+
+Approximation of LRU that does not need a separate timestamp per page.
+
+-   Each page has a reference bit.
+
+-   When a page is accessed, set to 1.
+
+Organize the pages in a circular buffer with a "clock hand":
+
+- Upon sweeping, check if a page's bit is set to 1.
+
+- If yes, set to zero. If no, then evict.
+
+**Problems**
+
+LRU and CLOCK replacement policies are susceptible to sequential flooding.
+
+- A query performs a sequential scan that reads every page.
+
+- This pollutes the buffer pool with pages that are read once and then never again.
+
+In some workloads the most recently used page is the most unneeded page.
+
+Track the history of last *K*references to each page as timestamps and compute the interval between subsequent accesses.
+
+The DBMS then uses this history to estimate the next time that page is going to be accessed.
+
+>   Localization
+
+The DBMS chooses which pages to evict on a per txn/query basis. This minimizes the pollution of the buffer pool from each query.
+
+- Keep track of the pages that a query has accessed.
+
+Example: Postgres maintains a small ring buffer that is private to the query.
+
+The DBMS knows about the context of each page during query execution.
+
+It can provide hints to the buffer pool on whether a page is important or not.
+
+>   Diary Pages
+
+**FAST:** If a page in the buffer pool is notdirty, then the DBMS can simply "drop" it.
+
+**SLOW:** If a page is dirty, then the DBMS must write back to disk to ensure that its changes are persisted.
+
+Trade-off between fast evictions versus dirty writing pages that will not be read again in the future.
+
+>   Other Memory Pools
+
+The DBMS needs memory for things other than just tuples and indexes.
+
+These other memory pools may not always backed by disk. Depends on implementation.
+
+-   Sorting + Join Buffers
+
+-   Query Caches
+
+-   Maintenance Buffers
+
+- Log Buffers
+
+-   Dictionary Caches
 
 
 
