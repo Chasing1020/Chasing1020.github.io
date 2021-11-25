@@ -6,7 +6,16 @@
     <description>Recent content in Language on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Nov 2021 18:23:54 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/language/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Concurrency Programming</title>
+      <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
+      <pubDate>Wed, 24 Nov 2021 18:23:54 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
+      <description>Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s</description>
+    </item>
+    
     <item>
       <title>Go(6) Network</title>
       <link>http://Chasing1020.github.io/post/golang/go06-network/</link>
@@ -72,10 +81,10 @@
     
     <item>
       <title>Python Note</title>
-      <link>http://Chasing1020.github.io/post/python-note/</link>
+      <link>http://Chasing1020.github.io/post/python/python-note/</link>
       <pubDate>Tue, 06 Oct 2020 15:53:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/python-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/python-note/</guid>
       <description>第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之</description>
     </item>
     

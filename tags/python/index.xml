@@ -9,10 +9,10 @@
     <lastBuildDate>Tue, 06 Oct 2020 15:53:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python Note</title>
-      <link>http://Chasing1020.github.io/post/python-note/</link>
+      <link>http://Chasing1020.github.io/post/python/python-note/</link>
       <pubDate>Tue, 06 Oct 2020 15:53:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/python-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/python-note/</guid>
       <description>第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之</description>
     </item>
     

@@ -6,7 +6,19 @@
     <description>Recent content in Note on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 20 Nov 2021 21:48:46 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Nov 2021 14:11:42 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Database Systems</title>
+      <link>http://Chasing1020.github.io/post/database/database-systems/</link>
+      <pubDate>Thu, 25 Nov 2021 14:11:42 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/database/database-systems/</guid>
+      <description>1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database.</description>
+    </item>
+    
     <item>
       <title>Mathematic Fomulars</title>
       <link>http://Chasing1020.github.io/post/mathematic-fomulars/</link>
@@ -18,10 +30,10 @@
     
     <item>
       <title>Operating System</title>
-      <link>http://Chasing1020.github.io/post/operating-system/</link>
+      <link>http://Chasing1020.github.io/post/basic/operating-system/</link>
       <pubDate>Fri, 12 Nov 2021 19:33:04 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/operating-system/</guid>
+      <guid>http://Chasing1020.github.io/post/basic/operating-system/</guid>
       <description>1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限</description>
     </item>
     
@@ -36,46 +48,46 @@
     
     <item>
       <title>Redis Data Structure</title>
-      <link>http://Chasing1020.github.io/post/redis-data-structure/</link>
+      <link>http://Chasing1020.github.io/post/database/redis-data-structure/</link>
       <pubDate>Thu, 28 Oct 2021 13:44:47 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/redis-data-structure/</guid>
+      <guid>http://Chasing1020.github.io/post/database/redis-data-structure/</guid>
       <description>Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样</description>
     </item>
     
     <item>
       <title>Design Pattern Note</title>
-      <link>http://Chasing1020.github.io/post/design-pattern-note/</link>
+      <link>http://Chasing1020.github.io/post/design/design-pattern-note/</link>
       <pubDate>Tue, 01 Jun 2021 10:18:40 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/design-pattern-note/</guid>
+      <guid>http://Chasing1020.github.io/post/design/design-pattern-note/</guid>
       <description>设计模式 1. 创建型模式 1.1. 工厂方法模式（Factory Method） 工厂方法模式是一种创建型设计模式， 其在父类中提供一个创建对象的方法， 允许子类</description>
     </item>
     
     <item>
       <title>MySQL Basic Note</title>
-      <link>http://Chasing1020.github.io/post/mysql-basic-note/</link>
+      <link>http://Chasing1020.github.io/post/database/mysql-basic-note/</link>
       <pubDate>Sat, 20 Mar 2021 10:15:30 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/mysql-basic-note/</guid>
+      <guid>http://Chasing1020.github.io/post/database/mysql-basic-note/</guid>
       <description>MySQL基础笔记 1. 数据库简介 1.1.数据库的优势 使用数据库的优点 实现数据持久化 使用完整的管理系统，易于查询 成本低，开源，性能高，使用简单 移</description>
     </item>
     
     <item>
       <title>Data Analyzation Note</title>
-      <link>http://Chasing1020.github.io/post/data-analyzation-note/</link>
+      <link>http://Chasing1020.github.io/post/python/data-analyzation-note/</link>
       <pubDate>Sun, 25 Oct 2020 19:13:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/data-analyzation-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/data-analyzation-note/</guid>
       <description>创建数组对象 一维数组 1 2 3 name=np.array([&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]) print(name.ndim)#维数 print(name.size)#大小 二维数组 创建 1 2 import numpy as np name=np.array([[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]]) 查看属性 1</description>
     </item>
     
     <item>
       <title>Crawler Note</title>
-      <link>http://Chasing1020.github.io/post/crawler-note/</link>
+      <link>http://Chasing1020.github.io/post/python/crawler-note/</link>
       <pubDate>Mon, 12 Oct 2020 20:12:03 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/crawler-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/crawler-note/</guid>
       <description>网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）</description>
     </item>
     

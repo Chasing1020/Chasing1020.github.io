@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Database Systems - Chasing&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/database/database-systems/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Database Systems" />
+<meta property="og:description" content="1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/database/database-systems/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-25T14:11:42+08:00" />
+<meta property="article:modified_time" content="2021-11-25T14:11:42+08:00" />
+
+<meta itemprop="name" content="Database Systems">
+<meta itemprop="description" content="1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
+<meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
+<meta itemprop="wordCount" content="2437">
+<meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Database Systems"/>
+<meta name="twitter:description" content="1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Database Systems</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-11-25 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 2437 words </span>
+          <span class="more-meta"> 12 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-relational-model">1. Relational Model</a></li>
+    <li><a href="#2-advanced-sql">2. Advanced SQL</a></li>
+    <li><a href="#3-database-storage-1">3. Database Storage (1)</a></li>
+    <li><a href="#4-database-storage-2">4. DataBase Storage (2)</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="1-relational-model">1. Relational Model</h1>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<p>DataBase: Organized collection of inter-related data that models some aspect of the real-world.
+Databases are the core component of most computer applications.</p>
+<p>A database management system (DBMS) is software that allows applications to store and analyze information in a database.
+A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.</p>
+<p>Data Model: is a collection of concepts for describing the data in a database.
+Schema: is a description of a particular collection of data, using a given data model.</p>
+<blockquote>
+<p>Kinds of DataModels</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Relational</td>
+<td>Most DBMSs</td>
+</tr>
+<tr>
+<td>K-V, Graph, Document, Column-family</td>
+<td>NoSQL</td>
+</tr>
+<tr>
+<td>Array / Matrix</td>
+<td>Machine Learning</td>
+</tr>
+<tr>
+<td>Hierarchical, Network, Multi-Value</td>
+<td>Obsolete / Legacy / Rare</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Relational Model</p>
+</blockquote>
+<p><strong>Structure</strong>: The definition of the database&rsquo;s relations and their contents.
+<strong>Integrity</strong>: Ensure the database&rsquo;s contents satisfy constraints.
+<strong>Manipulation</strong>: Programming interface for accessing and modifying a database&rsquo;s contents.</p>
+<p>A relationis an unordered set that contain the relationship of attributes that represent entities.</p>
+<ul>
+<li>
+<p>A relation&rsquo;s primary keyuniquely identifies a single tuple.</p>
+</li>
+<li>
+<p>foreign keyspecifies that an attribute from one relation has to map to a tuple in another relation.</p>
+</li>
+</ul>
+<blockquote>
+<p>Data Manipulation Languages</p>
+</blockquote>
+<p>Methods to store and retrieve information from a database.</p>
+<p><strong>Procedural:</strong> (Relational Algebra)</p>
+<p>→ The query specifies the (high-level) strategythe DBMS should use to find the desired result.</p>
+<p><strong>Non-Procedural (Declarative):</strong> (Relational Calculus)</p>
+<p>→ The query specifies only what data is wanted and not how to find it.</p>
+<blockquote>
+<p>Relational Algebra</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>σ</td>
+<td>Select</td>
+<td>Choose a subset of the tuples from a relation that satisfies a selection predicate.</td>
+</tr>
+<tr>
+<td>π</td>
+<td>Projection</td>
+<td>Generate a relation with tuples that contains only the specified attributes.</td>
+</tr>
+<tr>
+<td>⋃</td>
+<td>Union</td>
+<td>Generate a relation that contains all tuples that appear in either only one or both input relations.</td>
+</tr>
+<tr>
+<td>⋂</td>
+<td>Intersection</td>
+<td>Generate a relation that contains only the tuples that appear in both of the inputrelations.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>Difference</td>
+<td>Generate a relation that contains only the tuples that appear in the first and not the second of the input relations.</td>
+</tr>
+<tr>
+<td>×</td>
+<td>Product</td>
+<td>Generate a relation that contains all possible combinations of tuples from the input relations.</td>
+</tr>
+<tr>
+<td>⋈</td>
+<td>Join</td>
+<td>Generate a relation that contains all tuples that are a combination of two tuples (one from each input relation) with a common value(s) for one or more attributes.</td>
+</tr>
+</tbody>
+</table>
+<p>Extra Operations:</p>
+<p>Rename (ρ), Assignment (R←S), Duplicate Elimination (δ), Aggregation (γ), Sorting (τ), Division (R÷S).</p>
+<p>The relational model is independent of any query language implementation. <strong>SQL</strong> is the <em>de facto</em> standard (many dialects).</p>
+<h1 id="2-advanced-sql">2. Advanced SQL</h1>
+<blockquote>
+<p>SQL Standard</p>
+</blockquote>
+<p>ANSI Standard in 1986. ISO in 1987. Structured Query Language</p>
+<p><strong>SQL:2016</strong>:  JSON, Polymorphic tables</p>
+<p><strong>SQL:2011</strong>: Temporal DBs, Pipelined DML</p>
+<p><strong>SQL:2008</strong>: Truncation, Fancy Sorting</p>
+<p><strong>SQL:2003</strong>: XML, Windows, Sequences, Auto-Gen IDs.</p>
+<p><strong>SQL:1999</strong>: Regex, Triggers, OO</p>
+<p>Data Manipulation Language (DML): SELECT, INSERT, UPDATE, and DELETE statements.</p>
+<p>Data Definition Language (DDL): Schema definitions for tables, indexes, views, and other objects.</p>
+<p>Data Control Language (DCL): Security, access controls.</p>
+<ul>
+<li>Important: SQL is based on <strong>bags</strong>(duplicates) not <strong>sets</strong>(no duplicates).</li>
+</ul>
+<blockquote>
+<p>Aggregates</p>
+</blockquote>
+<p>Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the <strong>SELECT</strong>output list.</p>
+<p><strong>AVG(col)</strong>: Return the average col value.</p>
+<p><strong>MIN(col)</strong>: Return minimum col value.</p>
+<p><strong>MAX(col)</strong>: Return maximum col value.</p>
+<p><strong>SUM(col)</strong>: Return sum of values in col.</p>
+<p><strong>COUNT(col)</strong>: Return # of values for col.</p>
+<blockquote>
+<p>Group by</p>
+</blockquote>
+<p>Project tuples into subsets and calculate aggregates againsteach subset.</p>
+<p>Non-aggregated values in <strong>SELECT</strong>output clause must appear in <strong>GROUPBY</strong> clause.</p>
+<p>Filters results based on aggregation computation. Like a <strong>WHERE</strong> clause for a <strong>GROUPBY</strong>.</p>
+<blockquote>
+<p>String / Date / Time Operations</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>String Case</th>
+<th>String Quotes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SQL-92</strong></td>
+<td><strong>Sensitive</strong></td>
+<td><strong>SingleOnly</strong></td>
+</tr>
+<tr>
+<td>Postgres</td>
+<td>Sensitive</td>
+<td>SingleOnly</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>Insensitive</td>
+<td>Single/Double</td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>Sensitive</td>
+<td>Single/Double</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>Sensitive</td>
+<td>SingleOnly</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>Sensitive</td>
+<td>Single Only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LIKE</strong> is used for string matching. String-matching operators.</p>
+<p>&lsquo;%&rsquo; Matches any substring (including empty strings). &lsquo;_&rsquo; Match any one character.</p>
+<p>SQL-92 defines string functions, whereas many DBMSs also have their own unique functions.</p>
+<p>SQL standard says to use <strong>||</strong> operator to concatenate two or more strings together.</p>
+<p>Operations to manipulate and modify <strong>DATE</strong>/<strong>TIME</strong>attributes.</p>
+<p>Can be used in both output and predicates.</p>
+<blockquote>
+<p>Output Redirection</p>
+</blockquote>
+<p>Store query results in another table: 1.Table must not already be defined. 2.Table will have the same # of columns with the same types as the input.</p>
+<p>Insert tuples from query into another table:</p>
+<p>→Inner <strong>SELECT</strong> must generate the same columns as the target table.</p>
+<p>→DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).</p>
+<blockquote>
+<p>Output Control</p>
+</blockquote>
+<p>Order the output tuples by the values in one or more of their columns.</p>
+<p>Limit the # of tuples returned in output. Can set an offset to return a “range”</p>
+<blockquote>
+<p>Nested Queries</p>
+</blockquote>
+<p>Queries containing other queries.</p>
+<p>They are often difficult to optimize.</p>
+<p>Inner queries can appear (almost) anywhere in query.</p>
+<p><strong>ALL</strong>: Must satisfy expression for all rows in the sub-query.</p>
+<p><strong>ANY</strong>: Must satisfy expression for at least one row in the sub-query.</p>
+<p><strong>IN</strong>: Equivalent to &lsquo;<strong>=ANY()</strong>&rsquo; .</p>
+<p><strong>EXISTS</strong>: At least one row is returned.</p>
+<blockquote>
+<p>Window functions</p>
+</blockquote>
+<p>Performs a &ldquo;sliding&rdquo; calculation across a set of tuples that are related.</p>
+<p>Like an aggregation but tuples are not grouped into a single output tuples.</p>
+<h1 id="3-database-storage-1">3. Database Storage (1)</h1>
+<blockquote>
+<p>Storage</p>
+</blockquote>
+<p>Volatile Devices: (CPU Registers, CPU Caches, DRAM)</p>
+<ul>
+<li>Volatile means that if you pull the power from the machine, then the data is lost.</li>
+<li>Volatile storage supports fast random access with byte-addressable locations. This means that the program can jump to any byte address and get the data that is there.</li>
+<li>For our purposes, we will always refer to this storage class as &ldquo;memory.&rdquo;</li>
+</ul>
+<p>Non-Volatile Devices: (SSD, HDD, Network Storage)</p>
+<ul>
+<li>Non-volatile means that the storage device does not require continuous power in order for the device to retain the bits that it is storing.</li>
+<li>It is also block/page addressable. This means that in order to read a value at a particular offset, the program first has to load the 4 KB page into memory that holds the value the program wants to read.</li>
+<li>Non-volatile storage is traditionally better at sequential access (reading multiple contiguous chunks of data at the same time).</li>
+<li>We will refer to this as &ldquo;disk&rdquo;. We will not make a (major) distinction between solid-state storage (SSD) and spinning hard drives (HDD).</li>
+</ul>
+<p>The DBMS assumes that the primary storage location of the database is on non-volatile disk.</p>
+<p>The DBMS&rsquo;s components manage the movement of data between non-volatile and volatile storage.</p>
+<p>Random access on non-volatile storage is usually much slower than sequential access. So DBMS will want to maximize sequential access.</p>
+<ul>
+<li>
+<p>Algorithms try to reduce number of writes to random pages so that data is stored in contiguous blocks.</p>
+</li>
+<li>
+<p>Allocating multiple pages at the same time is called an extent.</p>
+</li>
+</ul>
+<blockquote>
+<p>DBMS vs OS</p>
+</blockquote>
+<p>It is possible to use the OS by using mmap. Regarding correctness and performance reasons, mmap hits a page fault, the process will be blocked:</p>
+<ul>
+<li>
+<p>You never want to use mmap in your DBMS if you need to write.</p>
+</li>
+<li>
+<p>The DBMS (almost) always wants to control things itself and can do a better job at it since it knows more about the data being accessed and the queries being processed.</p>
+</li>
+</ul>
+<p>It is possible to use the OS by using:</p>
+<ul>
+<li>madvise: Tells the OS know when you are planning on reading certain pages.</li>
+<li>mlock: Tells the OS to not swap memory ranges out to disk.</li>
+<li>msync: Tells the OS to flush memory ranges out to disk.</li>
+</ul>
+<p>Why not use the OS? DBMS (almost) always wants to control things itself and can do a better job than the OS.</p>
+<ol>
+<li>
+<p>Flushing dirty pages to disk in the correct order.</p>
+</li>
+<li>
+<p>Specialized prefetching.</p>
+</li>
+<li>
+<p>Buffer replacement policy.</p>
+</li>
+<li>
+<p>Thread/process scheduling.</p>
+</li>
+</ol>
+<blockquote>
+<p>Storage Manager</p>
+</blockquote>
+<p>The DBMS’s storage manager is responsible for managing a database’s files. It represents the files as a collection of pages. It also keeps track of what data has been read and written to pages as well how much free space there is in these pages.</p>
+<blockquote>
+<p>DataBase Pages</p>
+</blockquote>
+<p>The DBMS organizes the database across one or more files in fixed-size blocks of data called pages.</p>
+<ol>
+<li>
+<p>Pages can contain different kinds of data (tuples, indexes, etc).</p>
+</li>
+<li>
+<p>Most systems will not mix these types within pages.</p>
+</li>
+<li>
+<p>Some systems will require that pages are self-contained, meaning that all the information needed to read each page is on the page itself.</p>
+</li>
+</ol>
+<p>Each page is given a unique identifier. If the database is a single file, then the page id can just be the file offset. Most DBMSs have an indirection layer that maps a page id to a file path and offset. The upper levels of the system will ask for a specific page number. Then, the storage manager will have to turn that page number into a file and an offset to find the page.</p>
+<p>Most DBMSs uses fixed-size pages to avoid the engineering overhead needed to support variable-sized pages. For example, with variable-size pages, deleting a page could create a hole in files that the DBMS cannot easily fill with new pages. There are three concepts of pages in DBMS:</p>
+<ol>
+<li>Hardware page (usually 4 KB).</li>
+<li>OS page (4 KB).</li>
+<li>Database page (0.5-16 KB). (4KB: SqLite, DB2, Oracle; 8KB: SQL Server, PostgreSQL; 16KB: MySQL)</li>
+</ol>
+<p>The storage device guarantees an atomic write of the size of the hardware page.</p>
+<p>A hardware page is the largest block of data that the storage device can guarantee failsafe writes. So if the hardware page is 4 KB and the system tries to write 4 KB to the disk, either all 4 KB will be written, or none of it will.</p>
+<p>This means that if our database page is larger than our hardware page, the DBMS will have to take extra measures to ensure that the data gets written out safely since the program can get partway through writing a database page to disk when the system crashes.</p>
+<blockquote>
+<p>DataBase Heap</p>
+</blockquote>
+<p>A heap file is an unordered collection of pages with tuples that are stored in random order.</p>
+<ol>
+<li>
+<p>Create / Get / Write / Delete Page</p>
+</li>
+<li>
+<p>Must also support iterating over all pages.</p>
+</li>
+</ol>
+<p>Maintain a header pageat the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.</p>
+<p>Each page keeps track of how many free slots they currently have.</p>
+<p>The DBMS maintains special pages that tracks the location of data pages in the database files. The directory also records the number of free slots per page. Must make sure that the directory pages are in sync with the data pages.</p>
+<blockquote>
+<p>Page Layout</p>
+</blockquote>
+<p>Every page contains a headerof meta-data about the page&rsquo;s contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.</p>
+<p>The most common layout scheme is called slotted pages. The slot array maps &ldquo;slots&rdquo; to the tuples' starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.</p>
+<p>Each tuple is assigned a unique record identifier. Most common: <strong>page_id</strong>+ <strong>offset/slot</strong>, Can also contain file location info.</p>
+<p>Each tuple is prefixed with a headerthat contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
+<p>DBMS can physically <strong>denormalize</strong> (e.g., &ldquo;pre join&rdquo;) related tuples and store them together in the same page.</p>
+<h1 id="4-database-storage-2">4. DataBase Storage (2)</h1>
+<blockquote>
+<p>Data Represtentation</p>
+</blockquote>
+<p>Instead of storing tuples in pages, the DBMS only stores log records.</p>
+<p>The system appends log records to the file of how the database was modified:</p>
+<ol>
+<li>
+<p>Inserts store the entire tuple.</p>
+</li>
+<li>
+<p>Deletes mark the tuple as deleted.</p>
+</li>
+<li>
+<p>Updates contain the delta of just the attributes that were modified.</p>
+</li>
+</ol>
+<p>To read a record, the DBMS scans the log backwards and &ldquo;recreates&rdquo; the tuple to find what it needs. Build indexes to allow it to jump to locations in the log. And periodically compact the log.</p>
+<p>Compaction coalesces larger log files into smaller files by removing unnecessary records.</p>
+<p>Numeric data types with (potentially) arbitrary precision and scale. Used when rounding errors. Many different implementations. Example: NUMERIC, DECIMAL</p>
+<ul>
+<li>
+<p>Example: Store in an exact, variable-length binary representation with additional meta-data.</p>
+</li>
+<li>
+<p>Can be less expensive if you give up arbitrary precision.</p>
+</li>
+</ul>
+<p>Most DBMSs don&rsquo;t allow a tuple to exceed the size of a single page.</p>
+<p>To store values that are larger than a page, the DBMS uses separate <strong>overflow</strong>storage pages.</p>
+<ul>
+<li>
+<p>Postgres: TOAST (&gt;2KB)</p>
+</li>
+<li>
+<p>MySQL: Overflow (&gt;$1/2$ size of page)</p>
+</li>
+<li>
+<p>SQL Server: Overflow (&gt;size of page)</p>
+</li>
+</ul>
+<p>Some systems allow you to store a really largevalue in an external file.Treated as a <strong>BLOB</strong>type.</p>
+<ul>
+<li>
+<p>Oracle: <strong>BFILE</strong>data type</p>
+</li>
+<li>
+<p>Microsoft: <strong>FILESTREAM</strong>data type</p>
+</li>
+</ul>
+<p>The DBMS <strong>cannot</strong> manipulate the contents of an external file. No durability protections. No transaction protections.</p>
+<blockquote>
+<p>System Catalogs</p>
+</blockquote>
+<p>A DBMS stores meta-data about databases in its internal catalogs.</p>
+<ul>
+<li>Tables, columns, indexes, views; Users, permissions; Internal statistics</li>
+</ul>
+<p>Almost every DBMS stores the database&rsquo;s catalog inside itself (i.e., as tables). You can query the DBMS’s internal <strong>INFORMATION_SCHEMA</strong>catalog to get info about the database.</p>
+<ul>
+<li>ANSI standard set of read-only views that provide info about all the tables, views, columns, and procedures in a database</li>
+</ul>
+<blockquote>
+<p>DataBase WorkLoads</p>
+</blockquote>
+<p><strong>On-Line Transaction Processing (OLTP)</strong>:</p>
+<ul>
+<li>
+<p>Fast operations that only read/update a small amount of data each time.</p>
+</li>
+<li>
+<p>Simple queries that read/update a small amount of data that is related to a single entity in the database.</p>
+</li>
+<li>
+<p>This is usually the kind of application that people build first.</p>
+</li>
+</ul>
+<p><strong>On-Line Analytical Processing (OLAP)</strong>:</p>
+<ul>
+<li>
+<p>Complex queries that read a lot of data to compute aggregates.</p>
+</li>
+<li>
+<p>Complex queries that read large portions of the database spanning multiple entities.</p>
+</li>
+</ul>
+<p><strong>Hybrid Transaction + Analytical Processing</strong>: OLTP + OLAP together on the same database instance</p>
+<p>Ideal for OLTP workloads where queries tend to operate only on an individual entity and insert-heavy workloads.</p>
+<p>The relational model does <strong>not</strong> specify that we have to store all of a tuple&rsquo;s attributes together in a single page.</p>
+<blockquote>
+<p>N-ARY Storage Model</p>
+</blockquote>
+<p>The DBMS can store tuples in different ways that are better for either OLTP or OLAP workloads.</p>
+<p>We have been assuming the <strong>n-ary storage model</strong>(aka &ldquo;row storage&rdquo;) so far this semester.</p>
+<p>Example: MySQL, PostgreSQL</p>
+<p><strong>Advantages</strong></p>
+<ol>
+<li>
+<p>Fast inserts, updates, and deletes.</p>
+</li>
+<li>
+<p>Good for queries that need the entire tuple.</p>
+</li>
+</ol>
+<p><strong>Disadvantages</strong></p>
+<ol>
+<li>Not good for scanning large portions of the table and/or a subset of the attributes.</li>
+</ol>
+<p>Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.</p>
+<blockquote>
+<p>Decomposition Storage Model</p>
+</blockquote>
+<p>The DBMS stores the values of a single attribute for all tuples contiguously in a page.</p>
+<p>→Also known as a &ldquo;column store&rdquo;</p>
+<p>Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.</p>
+<p><strong>Advantages</strong></p>
+<ol>
+<li>
+<p>Reduces the amount wasted I/O because the DBMS only reads the data that it needs.</p>
+</li>
+<li>
+<p>Better query processing and data compression (more on this later).</p>
+</li>
+</ol>
+<p><strong>Disadvantages</strong></p>
+<ol>
+<li>Slow for point queries, inserts, updates, and deletes because of tuple splitting/stitching.</li>
+</ol>
+<blockquote>
+<p>Conclusion</p>
+</blockquote>
+<p>It is important to choose the right storage model for the target workload:</p>
+<ol>
+<li>
+<p>OLTP = Row Store</p>
+</li>
+<li>
+<p>OLAP = Column Store</p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-11-25
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/database/">DataBase</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/java/concurrency-programming/">
+            <span class="next-text nav-default">Java Concurrency Programming</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

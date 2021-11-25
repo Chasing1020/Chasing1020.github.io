@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 12 Oct 2020 20:12:03 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/crawler/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Crawler Note</title>
-      <link>http://Chasing1020.github.io/post/crawler-note/</link>
+      <link>http://Chasing1020.github.io/post/python/crawler-note/</link>
       <pubDate>Mon, 12 Oct 2020 20:12:03 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/crawler-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/crawler-note/</guid>
       <description>网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）</description>
     </item>
     

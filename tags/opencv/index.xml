@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 18 Oct 2020 10:30:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>OpenCV Human Detection</title>
-      <link>http://Chasing1020.github.io/post/opencv-human-detection/</link>
+      <link>http://Chasing1020.github.io/post/python/opencv-human-detection/</link>
       <pubDate>Sun, 18 Oct 2020 10:30:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/opencv-human-detection/</guid>
+      <guid>http://Chasing1020.github.io/post/python/opencv-human-detection/</guid>
       <description>利用opencv进行人脸检测与识别 1. OpenCV基本操作 1.1 配置环境 按win+R输入cmd打开命令行，在命令行下，输入 pip install numpy pip install opencv-python 1 2 3 #程序</description>
     </item>
     

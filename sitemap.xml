@@ -16,27 +16,76 @@
   
   <url>
     <loc>http://Chasing1020.github.io/categories/</loc>
-    <lastmod>2021-11-20T21:48:46+08:00</lastmod>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://Chasing1020.github.io/</loc>
-    <lastmod>2021-11-20T21:48:46+08:00</lastmod>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/mathematic-fomulars/</loc>
-    <lastmod>2021-11-20T21:48:46+08:00</lastmod>
+    <loc>http://Chasing1020.github.io/tags/database/</loc>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/database/database-systems/</loc>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://Chasing1020.github.io/categories/note/</loc>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/</loc>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/</loc>
+    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/concurrency/</loc>
+    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/java/concurrency-programming/</loc>
+    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/language/</loc>
+    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/mathematic-fomulars/</loc>
     <lastmod>2021-11-20T21:48:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -50,28 +99,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/</loc>
-    <lastmod>2021-11-20T21:48:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/</loc>
-    <lastmod>2021-11-20T21:48:46+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/mq/</loc>
-    <lastmod>2021-11-19T20:25:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/operating-system/</loc>
+    <loc>http://Chasing1020.github.io/post/basic/operating-system/</loc>
     <lastmod>2021-11-12T19:33:04+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -99,7 +127,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/redis-data-structure/</loc>
+    <loc>http://Chasing1020.github.io/post/database/redis-data-structure/</loc>
     <lastmod>2021-10-28T13:44:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -114,13 +142,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/golang/go06-network/</loc>
-    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/language/</loc>
     <lastmod>2021-10-26T19:35:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -176,7 +197,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/design-pattern-note/</loc>
+    <loc>http://Chasing1020.github.io/post/design/design-pattern-note/</loc>
     <lastmod>2021-06-01T10:18:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -190,14 +211,14 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/mysql-basic-note/</loc>
+    <loc>http://Chasing1020.github.io/post/database/mysql-basic-note/</loc>
     <lastmod>2021-03-20T10:15:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/community-college-materials/</loc>
+    <loc>http://Chasing1020.github.io/post/materials/community-college-materials/</loc>
     <lastmod>2020-11-28T13:11:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -239,14 +260,14 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/selenium-automation/</loc>
+    <loc>http://Chasing1020.github.io/post/python/selenium-automation/</loc>
     <lastmod>2020-10-28T11:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/shu-autoselfreport/</loc>
+    <loc>http://Chasing1020.github.io/post/python/shu-autoselfreport/</loc>
     <lastmod>2020-10-28T11:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -260,7 +281,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/data-analyzation-note/</loc>
+    <loc>http://Chasing1020.github.io/post/python/data-analyzation-note/</loc>
     <lastmod>2020-10-25T19:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -274,14 +295,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/opencv-human-detection/</loc>
-    <lastmod>2020-10-18T10:30:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/projects/</loc>
+    <loc>http://Chasing1020.github.io/post/python/opencv-human-detection/</loc>
     <lastmod>2020-10-18T10:30:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -295,7 +309,7 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/crawler-note/</loc>
+    <loc>http://Chasing1020.github.io/post/python/crawler-note/</loc>
     <lastmod>2020-10-12T20:12:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -309,27 +323,8 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/python-note/</loc>
+    <loc>http://Chasing1020.github.io/post/python/python-note/</loc>
     <lastmod>2020-10-06T15:53:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/test/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/test/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/first/</loc>
-    <lastmod>0000-01-01T14:21:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

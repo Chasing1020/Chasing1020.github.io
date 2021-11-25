@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Project on Chasing&#39;s blog</title>
+    <title>project on Chasing&#39;s blog</title>
     <link>http://Chasing1020.github.io/categories/project/</link>
-    <description>Recent content in Project on Chasing&#39;s blog</description>
+    <description>Recent content in project on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 28 Oct 2020 11:13:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SHU AutoSelfReport</title>
-      <link>http://Chasing1020.github.io/post/shu-autoselfreport/</link>
+      <link>http://Chasing1020.github.io/post/python/shu-autoselfreport/</link>
       <pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/shu-autoselfreport/</guid>
+      <guid>http://Chasing1020.github.io/post/python/shu-autoselfreport/</guid>
       <description>SHU每日两报脚本 1. 实现原理 利用python中的Selenium库，并结合浏览器驱动，来自动完成每日两报的操作，最后测试结果将每天的体温设置</description>
+    </item>
+    
+    <item>
+      <title>OpenCV Human Detection</title>
+      <link>http://Chasing1020.github.io/post/python/opencv-human-detection/</link>
+      <pubDate>Sun, 18 Oct 2020 10:30:09 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/python/opencv-human-detection/</guid>
+      <description>利用opencv进行人脸检测与识别 1. OpenCV基本操作 1.1 配置环境 按win+R输入cmd打开命令行，在命令行下，输入 pip install numpy pip install opencv-python 1 2 3 #程序</description>
     </item>
     
   </channel>

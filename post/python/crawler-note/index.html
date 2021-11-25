@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Crawler Note - Chasing&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/python/crawler-note/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Crawler Note" />
+<meta property="og:description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/python/crawler-note/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-10-12T20:12:03+08:00" />
+<meta property="article:modified_time" content="2020-10-12T20:12:03+08:00" />
+
+<meta itemprop="name" content="Crawler Note">
+<meta itemprop="description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）"><meta itemprop="datePublished" content="2020-10-12T20:12:03+08:00" />
+<meta itemprop="dateModified" content="2020-10-12T20:12:03+08:00" />
+<meta itemprop="wordCount" content="6730">
+<meta itemprop="keywords" content="Crawler," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Crawler Note"/>
+<meta name="twitter:description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Crawler Note</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-12 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 6730 words </span>
+          <span class="more-meta"> 14 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#网页爬虫项目实战经验">网页爬虫项目实战经验</a></li>
+    <li><a href="#1bs4">1.Bs4</a>
+      <ul>
+        <li><a href="#11-analyze">1.1 analyze</a></li>
+        <li><a href="#12-traversal">1.2 Traversal</a></li>
+        <li><a href="#13-find">1.3 find</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-re">2. Re</a>
+      <ul>
+        <li><a href="#21-new-object">2.1 new object</a></li>
+        <li><a href="#22-findall">2.2 findall</a></li>
+        <li><a href="#23-sub">2.3 sub</a></li>
+        <li><a href="#24-demo">2.4 demo</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-urllib">3. Urllib</a>
+      <ul>
+        <li><a href="#31-get">3.1 get</a></li>
+        <li><a href="#32-post">3.2 post</a></li>
+        <li><a href="#33-418-error">3.3 418 error</a></li>
+        <li><a href="#34-test">3.4 test</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-xwlt">4. Xwlt</a>
+      <ul>
+        <li><a href="#41-new">4.1 new</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-release">5. Release</a>
+      <ul>
+        <li><a href="#51-top250">5.1 Top250</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-csdn">6. CSDN</a>
+      <ul>
+        <li><a href="#61-for-a-certain-passage">6.1 for a certain passage</a></li>
+        <li><a href="#62-all-passages">6.2 All passages</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="网页爬虫项目实战经验">网页爬虫项目实战经验</h1>
+<p>此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。
+同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）。
+以及对于CSDN的博主主页单个以及多个文章的爬取，并利用工具将其转换为pdf格式</p>
+<h1 id="1bs4">1.Bs4</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">bs4将复杂html文档转换成一个复杂的树形结构</span><span class="err">，</span><span class="n">每个节点都是python对象</span><span class="err">，</span><span class="n">所有对象可以分为4种</span>
+
+<span class="o">-</span><span class="n">Tag</span>
+<span class="o">-</span><span class="n">NavigableString</span>
+<span class="o">-</span><span class="n">BeautifulSoup</span>
+<span class="o">-</span><span class="n">Comment</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="11-analyze">1.1 analyze</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#bs4分析文档</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./baidu.html&#34;</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&#34;html.parser&#34;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">head</span><span class="p">))</span><span class="c1">#&lt;class &#39;bs4.element.Tag&#39;&gt;标签及其内容</span>
+<span class="c1">#1.tag  标签及内容：拿到它所找到的第一个内容</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">string</span><span class="p">))</span><span class="c1">#&lt;class &#39;bs4.element.NavigableString&#39;&gt;标签里的内容</span>
+<span class="c1">#2.NavigableString标签里的内容</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">attrs</span><span class="p">))</span><span class="c1">#&lt;class &#39;dict&#39;&gt;#&lt;class &#39;dict&#39;&gt;</span>
+<span class="c1">#3.标签内部的字典信息</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bs</span><span class="p">))</span><span class="c1">#&lt;class &#39;bs4.BeautifulSoup&#39;&gt;</span>
+<span class="c1">#4.表示整个文档</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">string</span><span class="p">))</span><span class="c1">#&lt;class &#39;bs4.element.Comment&#39;&gt;</span>
+<span class="c1">#5.第一个a中的注释里的内容,不包含注释符号</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="12-traversal">1.2 Traversal</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#文档的遍历</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./baidu.html&#34;</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&#34;html.parser&#34;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span><span class="c1">#列表类型，可以用下标访问</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bs</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="13-find">1.3 find</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#文档搜索</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./baidu.html&#34;</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&#34;html.parser&#34;</span><span class="p">)</span>
+
+<span class="c1">#1.find_all()</span>
+<span class="c1">#查找与字符串完全匹配的内容</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">)</span>
+<span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="c1">#所有&lt;a&gt;标签下面的内容</span>
+
+<span class="c1">#2.search()</span>
+<span class="c1">#正则表达式来搜索</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">))</span><span class="c1">#匹配与正则表达式a有关的全部内容</span>
+<span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">#3.根据函数的要求来搜索</span>
+<span class="c1">#自定义函数查找</span>
+<span class="k">def</span> <span class="nf">name_is_exists</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tag</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">)</span>
+
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">name_is_exists</span><span class="p">)</span>
+<span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">#4.kwargs</span>
+<span class="n">寻找id</span><span class="o">=</span><span class="s2">&#34;head&#34;</span><span class="n">内的全部内容</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&#34;head&#34;</span><span class="p">)</span>
+<span class="k">for</span>  <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">#5.文本参数</span>
+<span class="n">寻找文本的内容</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;hao123&#34;</span><span class="p">,</span><span class="s2">&#34;贴吧&#34;</span><span class="p">,</span><span class="s2">&#34;地图&#34;</span><span class="p">])</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&#34;\d&#34;</span><span class="p">))</span>  <span class="c1">#寻找符合正则表达式的项目，这里是寻找所有整数</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">#6.limit参数</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span><span class="n">limit</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>   <span class="c1">#只搜索三个</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">#7.css选择器</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;.mnav&#34;</span><span class="p">)</span><span class="c1">#寻找类名</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;#u1&#39;</span><span class="p">)</span><span class="c1">#通过id来查找</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;a[class=&#39;bri&#39;]&#34;</span><span class="p">)</span><span class="c1">#通过属性来查找</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;head&gt;title&#34;</span><span class="p">)</span><span class="c1">#通过子标签来查找</span>
+<span class="n">t_list</span><span class="o">=</span><span class="n">bs</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;.mnav ~ .bri&#34;</span><span class="p">)</span><span class="c1">#通过子标签来查找</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span><span class="c1">#获取文本</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">t_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="2-re">2. Re</h1>
+<hr>
+<p>#正则表达式：字符串模式（判断字符串是否符合一定标准）
+import re
+#创建模式对象</p>
+<h2 id="21-new-object">2.1 new object</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#search</span>
+<span class="n">pat</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&#34;AA&#34;</span><span class="p">)</span><span class="c1">#此处的AA属于正则表达式</span>
+<span class="n">ans</span><span class="o">=</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&#34;ABC&#34;</span><span class="p">)</span><span class="c1">#这里的search内部属于被搜索的内容</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="c1">#输出None</span>
+<span class="n">ans2</span><span class="o">=</span><span class="n">pat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&#34;AABCAA&#34;</span><span class="p">)</span><span class="c1">#优先找到第一个结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ans2</span><span class="p">)</span><span class="c1">#输出&lt;re.Match object; span=(3, 5), match=&#39;AA&#39;&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="22-findall">2.2 findall</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#findall</span>
+<span class="n">ans</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&#34;a+&#34;</span><span class="p">,</span><span class="s2">&#34;aaabc&#34;</span><span class="p">)</span><span class="c1">#前面是正则表达式，后面是待求的结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span><span class="c1">#输出[&#39;aaa&#39;]</span>
+</code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="23-sub">2.3 sub</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#sub(1,2,3)</span>
+<span class="n">ans</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">,</span><span class="s2">&#34;A&#34;</span><span class="p">,</span><span class="s2">&#34;abcdcasd&#34;</span><span class="p">)</span><span class="c1">#对于最后一个表达式，用a换成A</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
+<span class="c1">#建议在正则表达式种，被比较的字符前面加上r，不用担心转义字符的问题</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="24-demo">2.4 demo</h2>
+<p>1、匹配中文:[\u4e00-\u9fa5]</p>
+<p>2、英文字母:[a-zA-Z]</p>
+<p>3、数字:[0-9]</p>
+<p>4、匹配中文，英文字母和数字及下划线：^[\u4e00-\u9fa5_a-zA-Z0-9]+$
+同时判断输入长度：
+[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}</p>
+<p>5、
+(?!<em>)　　不能以_开头
+(?!.*?</em>$)　　不能以_结尾
+[a-zA-Z0-9_\u4e00-\u9fa5]+　　至少一个汉字、数字、字母、下划线
+$　　与字符串结束的地方匹配</p>
+<p>6、只含有汉字、数字、字母、下划线，下划线位置不限：
+^[a-zA-Z0-9_\u4e00-\u9fa5]+$</p>
+<p>7、由数字、26个英文字母或者下划线组成的字符串
+^\w+$</p>
+<p>8、2~4个汉字
+&ldquo;^[\u4E00-\u9FA5]{2,4}$&quot;;</p>
+<p>9、最长不得超过7个汉字，或14个字节(数字，字母和下划线)正则表达式
+^[\u4e00-\u9fa5]{1,7}$|^[\dA-Za-z_]{1,14}$</p>
+<p>10、匹配双字节字符(包括汉字在内)：[^x00-xff]
+评注：可以用来计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）</p>
+<p>11、匹配空白行的正则表达式：ns*r
+评注：可以用来删除空白行</p>
+<p>12、匹配HTML标记的正则表达式：&lt;(S*?)[^&gt;]*&gt;.*?|&lt;.*? /&gt;
+评注：网上流传的版本太糟糕，上面这个也仅仅能匹配部分，对于复杂的嵌套标记依旧无能为力</p>
+<p>13、匹配首尾空白字符的正则表达式：^s*|s*$
+评注：可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式</p>
+<p>14、匹配Email地址的正则表达式：^[a-zA-Z0-9][\w.-]<em>[a-zA-Z0-9]@[a-zA-Z0-9][\w.-]</em>[a-zA-Z0-9].[a-zA-Z][a-zA-Z.]*[a-zA-Z]$</p>
+<p>评注：表单验证时很实用</p>
+<p>15、手机号：^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$</p>
+<p>16、身份证：(^\d{15}$)|(^\d{17}([0-9]|X|x)$)</p>
+<p>17、匹配网址URL的正则表达式：[a-zA-z]+://[^s]*
+评注：网上流传的版本功能很有限，上面这个基本可以满足需求</p>
+<p>18、匹配帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$
+评注：表单验证时很实用</p>
+<p>19、匹配国内电话号码：d{3}-d{8}|d{4}-d{7}
+评注：匹配形式如 0511-4405222 或 021-87888822</p>
+<p>20、匹配腾讯QQ号：[1-9][0-9]{4,}
+评注：腾讯QQ号从10000开始</p>
+<p>21、匹配中国邮政编码：[1-9]d{5}(?!d)
+评注：中国邮政编码为6位数字</p>
+<p>22、匹配身份证：d{15}|d{18}
+评注：中国的身份证为15位或18位</p>
+<p>23、匹配ip地址：d+.d+.d+.d+
+评注：提取ip地址时有用</p>
+<p>24、匹配特定数字：
+^[1-9]d*$　 　 //匹配正整数
+^-[1-9]d*$ 　 //匹配负整数
+^-?[1-9]d*$　　 //匹配整数
+^[1-9]d*|0$　 //匹配非负整数（正整数 + 0）
+^-[1-9]d*|0$　　 //匹配非正整数（负整数 + 0）
+^[1-9]d*.d*|0.d*[1-9]d*$　　 //匹配正浮点数
+^-([1-9]d*.d*|0.d*[1-9]d*)$　 //匹配负浮点数
+^-?([1-9]d*.d*|0.d*[1-9]d*|0?.0+|0)$　 //匹配浮点数
+^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$　　 //匹配非负浮点数（正浮点数 + 0）
+^(-([1-9]d*.d*|0.d*[1-9]d*))|0?.0+|0$　　//匹配非正浮点数（负浮点数 + 0）
+评注：处理大量数据时有用，具体应用时注意修正</p>
+<p>25、匹配特定字符串：
+^[A-Za-z]+$　　//匹配由26个英文字母组成的字符串
+^[A-Z]+$　　//匹配由26个英文字母的大写组成的字符串
+^[a-z]+$　　//匹配由26个英文字母的小写组成的字符串
+^[A-Za-z0-9]+$　　//匹配由数字和26个英文字母组成的字符串
+^w+$　　//匹配由数字、26个英文字母或者下划线组成的字符串</p>
+<p>26、
+在使用RegularExpressionValidator验证控件时的验证功能及其验证表达式介绍如下:
+只能输入数字：“^[0-9]<em>$”
+只能输入n位的数字：“^d{n}$”
+只能输入至少n位数字：“^d{n,}$”
+只能输入m-n位的数字：“^d{m,n}$”
+只能输入零和非零开头的数字：“^(0|[1-9][0-9]</em>)$”
+只能输入有两位小数的正实数：“^[0-9]+(.[0-9]{2})?$”
+只能输入有1-3位小数的正实数：“^[0-9]+(.[0-9]{1,3})?$”
+只能输入非零的正整数：“^+?[1-9][0-9]<em>$”
+只能输入非零的负整数：“^-[1-9][0-9]</em>$”
+只能输入长度为3的字符：“^.{3}$”
+只能输入由26个英文字母组成的字符串：“^[A-Za-z]+$”
+只能输入由26个大写英文字母组成的字符串：“^[A-Z]+$”
+只能输入由26个小写英文字母组成的字符串：“^[a-z]+$”
+只能输入由数字和26个英文字母组成的字符串：“^[A-Za-z0-9]+$”
+只能输入由数字、26个英文字母或者下划线组成的字符串：“^w+$”
+验证用户密码:“^[a-zA-Z]w{5,17}$”正确格式为：以字母开头，长度在6-18之间，
+只能包含字符、数字和下划线。
+验证是否含有^%&amp;',;=?$&ldquo;等字符：“[^%&amp;',;=?$x22]+”
+只能输入汉字：“^[u4e00-u9fa5],{0,}$”
+验证Email地址：“^w+[-+.]w+)<em>@w+([-.]w+)</em>.w+([-.]w+)<em>$”
+验证InternetURL：“^http://([w-]+.)+[w-]+(/[w-./?%&amp;=]</em>)?$”
+验证身份证号（15位或18位数字）：“^d{15}|d{}18$”
+验证一年的12个月：“^(0?[1-9]|1[0-2])$”正确格式为：“01”-“09”和“1”“12”
+验证一个月的31天：“^((0?[1-9])|((1|2)[0-9])|30|31)$”
+正确格式为：“01”“09”和“1”“31”。
+匹配中文字符的正则表达式： [u4e00-u9fa5]
+匹配双字节字符(包括汉字在内)：[^x00-xff]
+匹配空行的正则表达式：n[s| ]<em>r
+匹配HTML标记的正则表达式：/&lt;(.</em>)&gt;.<em>|&lt;(.</em>) /&gt;/
+匹配首尾空格的正则表达式：(^s*)|(s*$)
+匹配Email地址的正则表达式：w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*
+匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?</p>
+<h1 id="3-urllib">3. Urllib</h1>
+<hr>
+<h2 id="31-get">3.1 get</h2>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="c1">#1、获取一个get请求</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">responce</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&#34;http://httpbin.org/get&#34;</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">responce</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>  <span class="c1">#对获取到的网页源码进行utf-8解码</span>
+<span class="k">except</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">URLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;time out&#34;</span><span class="p">)</span>   <span class="c1">#超时处理</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="32-post">3.2 post</h2>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#2、获取一个post请求</span>
+<span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s2">&#34;hello&#34;</span><span class="p">:</span> <span class="s2">&#34;world&#34;</span><span class="p">}),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&#34;http://httpbin.org/post&#34;</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+
+<span class="n">responce</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s2">&#34;http://www.baidu.com&#34;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">responce</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>  <span class="c1">#获取状态码</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">responce</span><span class="o">.</span><span class="n">getheaders</span><span class="p">())</span>   <span class="c1">#获取全部信息</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">responce</span><span class="o">.</span><span class="n">getheader</span><span class="p">(</span><span class="s2">&#34;Server&#34;</span><span class="p">))</span>    <span class="c1">#获取全部信息</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="33-418-error">3.3 418 error</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#3、post请求，反418</span>
+<span class="n">url</span><span class="o">=</span><span class="s2">&#34;http://httpbin.org/post&#34;</span>
+<span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&#34;User-Agent&#34;</span> <span class="p">:</span> <span class="s2">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.44&#34;</span>
+<span class="p">}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s2">&#34;hello&#34;</span><span class="p">:</span><span class="s2">&#34;world&#34;</span><span class="p">}),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+<span class="n">req</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&#34;POST&#34;</span><span class="p">)</span>
+<span class="n">response</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="34-test">3.4 test</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#4、爬取豆瓣</span>
+<span class="n">url</span><span class="o">=</span><span class="s2">&#34;https://www.douban.com&#34;</span>
+<span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&#34;User-Agent&#34;</span><span class="p">:</span> <span class="s2">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.44&#34;</span>
+<span class="p">}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s2">&#34;hello&#34;</span><span class="p">:</span><span class="s2">&#34;world&#34;</span><span class="p">}),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+<span class="n">req</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="n">response</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="4-xwlt">4. Xwlt</h1>
+<h2 id="41-new">4.1 new</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">xlwt</span>
+
+<span class="n">workbook</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span><span class="c1">#创建对象</span>
+<span class="n">worksheet</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_sheet</span><span class="p">(</span><span class="s1">&#39;sheet1&#39;</span><span class="p">)</span><span class="c1">#创建工作表</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">*</span><span class="si">%d</span><span class="s1">=</span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">j</span><span class="p">))</span>  <span class="c1"># 行,列，内容</span>
+
+<span class="n">workbook</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;student.xls&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="5-release">5. Release</h1>
+<h2 id="51-top250">5.1 Top250</h2>
+<p>爬取豆瓣电影Top250，并将其保存在sql数据库中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#-*- coding = utf-8 -*-</span>
+<span class="c1">#@Time : 2020/10/6 21:00</span>
+<span class="c1">#@Author : chasing</span>
+<span class="c1">#@File : spyder.py</span>
+<span class="c1">#@Software: PyCharm</span>
+
+
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>  <span class="c1"># 网页解析，获取数据</span>
+<span class="kn">import</span> <span class="nn">re</span>  <span class="c1"># 正则表达式，进行文字匹配</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">import</span> <span class="nn">urllib.error</span>  <span class="c1"># 制定URL，获取网页数据</span>
+<span class="kn">import</span> <span class="nn">xlwt</span>  <span class="c1"># 进行excel操作</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>  <span class="c1"># 进行SQLite数据库操作</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&#34;https://movie.douban.com/top250?start=&#34;</span>
+    <span class="c1"># 1.爬取网页</span>
+    <span class="n">datalist</span> <span class="o">=</span> <span class="n">getData</span><span class="p">(</span><span class="n">baseurl</span><span class="p">)</span>
+    <span class="c1">#savepath = &#34;豆瓣电影Top250.xls&#34;</span>
+    <span class="n">dbpath</span> <span class="o">=</span> <span class="s2">&#34;movie.db&#34;</span>
+    <span class="c1"># 3.保存数据</span>
+    <span class="c1"># saveData(datalist,savepath)</span>
+    <span class="n">saveData2DB</span><span class="p">(</span><span class="n">datalist</span><span class="p">,</span> <span class="n">dbpath</span><span class="p">)</span>
+
+    <span class="c1"># askURL(&#34;https://movie.douban.com/top250?start=&#34;)</span>
+
+
+<span class="c1"># 影片详情链接的规则</span>
+<span class="n">findLink</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;a href=&#34;(.*?)&#34;&gt;&#39;</span><span class="p">)</span>  <span class="c1"># 创建正则表达式对象，表示规则（字符串的模式）</span>
+<span class="c1"># 影片图片</span>
+<span class="n">findImgSrc</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;img.*src=&#34;(.*?)&#34;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>  <span class="c1"># re.S 让换行符包含在字符中</span>
+<span class="c1"># 影片片名</span>
+<span class="n">findTitle</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;span class=&#34;title&#34;&gt;(.*)&lt;/span&gt;&#39;</span><span class="p">)</span>
+<span class="c1"># 影片评分</span>
+<span class="n">findRating</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s1">&#39;&lt;span class=&#34;rating_num&#34; property=&#34;v:average&#34;&gt;(.*)&lt;/span&gt;&#39;</span><span class="p">)</span>
+<span class="c1"># 找到评价人数</span>
+<span class="n">findJudge</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;span&gt;(\d*)人评价&lt;/span&gt;&#39;</span><span class="p">)</span>
+<span class="c1"># 找到概况</span>
+<span class="n">findInq</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;span class=&#34;inq&#34;&gt;(.*)&lt;/span&gt;&#39;</span><span class="p">)</span>
+<span class="c1"># 找到影片的相关内容</span>
+<span class="n">findBd</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;p class=&#34;&#34;&gt;(.*?)&lt;/p&gt;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>
+
+<span class="c1"># 爬取网页</span>
+<span class="k">def</span> <span class="nf">getData</span><span class="p">(</span><span class="n">baseurl</span><span class="p">):</span>
+    <span class="n">datalist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>  <span class="c1"># 调用获取页面信息的函数，10次</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">baseurl</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">25</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">askURL</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>  <span class="c1"># 保存获取到的网页源码</span>
+
+        <span class="c1"># 2.逐一解析数据</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&#34;html.parser&#34;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&#34;item&#34;</span><span class="p">):</span> <span class="c1">#查找符合要求的字符串，形成列表</span>
+            <span class="c1"># print(item)   #测试：查看电影item全部信息</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># 保存一部电影的所有信息</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+            <span class="c1"># 影片详情的链接</span>
+            <span class="n">link</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findLink</span><span class="p">,</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># re库用来通过正则表达式查找指定的字符串</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>  <span class="c1"># 添加链接</span>
+
+            <span class="n">imgSrc</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findImgSrc</span><span class="p">,</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">imgSrc</span><span class="p">)</span>  <span class="c1"># 添加图片</span>
+
+            <span class="n">titles</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findTitle</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>  <span class="c1"># 片名可能只有一个中文名，没有外国名</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">ctitle</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 添加中文名</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctitle</span><span class="p">)</span>
+                <span class="n">otitle</span> <span class="o">=</span> <span class="n">titles</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>  <span class="c1"># 去掉无关的符号</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">otitle</span><span class="p">)</span>  <span class="c1"># 添加外国名</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>  <span class="c1"># 外国名字留空</span>
+
+            <span class="n">rating</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findRating</span><span class="p">,</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span>  <span class="c1"># 添加评分</span>
+
+            <span class="n">judgeNum</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findJudge</span><span class="p">,</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">judgeNum</span><span class="p">)</span>  <span class="c1"># 提加评价人数</span>
+
+            <span class="n">inq</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findInq</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inq</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">inq</span> <span class="o">=</span> <span class="n">inq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;。&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>  <span class="c1"># 去掉句号</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inq</span><span class="p">)</span>                <span class="c1"># 添加概述</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">)</span>  <span class="c1"># 留空</span>
+
+            <span class="n">bd</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findBd</span><span class="p">,</span> <span class="n">item</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bd</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&lt;br(\s+)?/&gt;(\s+)?&#39;</span><span class="p">,</span> <span class="s2">&#34; &#34;</span><span class="p">,</span> <span class="n">bd</span><span class="p">)</span>  <span class="c1"># 去掉&lt;br/&gt;</span>
+            <span class="n">bd</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s2">&#34; &#34;</span><span class="p">,</span> <span class="n">bd</span><span class="p">)</span>  <span class="c1"># 替换/</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bd</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  <span class="c1"># 去掉前后的空格</span>
+
+            <span class="n">datalist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># 把处理好的一部电影信息放入datalist</span>
+
+    <span class="k">return</span> <span class="n">datalist</span>
+
+
+<span class="c1"># 得到指定一个URL的网页内容</span>
+<span class="k">def</span> <span class="nf">askURL</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># 模拟浏览器头部信息，向豆瓣服务器发送消息</span>
+        <span class="s2">&#34;User-Agent&#34;</span><span class="p">:</span> <span class="s2">&#34;Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 80.0.3987.122  Safari / 537.36&#34;</span>
+    <span class="p">}</span>
+    <span class="c1"># 用户代理，表示告诉豆瓣服务器，我们是什么类型的机器、浏览器（本质上是告诉浏览器，我们可以接收什么水平的文件内容）</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">head</span><span class="p">)</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+        <span class="c1"># print(html)</span>
+    <span class="k">except</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">URLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&#34;code&#34;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&#34;reason&#34;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html</span>
+
+
+<span class="c1"># 保存数据</span>
+<span class="k">def</span> <span class="nf">saveData</span><span class="p">(</span><span class="n">datalist</span><span class="p">,</span> <span class="n">savepath</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;save....&#34;</span><span class="p">)</span>
+    <span class="n">book</span> <span class="o">=</span> <span class="n">xlwt</span><span class="o">.</span><span class="n">Workbook</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="n">style_compression</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 创建workbook对象</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">add_sheet</span><span class="p">(</span><span class="s1">&#39;豆瓣电影Top250&#39;</span><span class="p">,</span> <span class="n">cell_overwrite_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 创建工作表</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;电影详情链接&#34;</span><span class="p">,</span> <span class="s2">&#34;图片链接&#34;</span><span class="p">,</span> <span class="s2">&#34;影片中文名&#34;</span><span class="p">,</span> <span class="s2">&#34;影片外国名&#34;</span><span class="p">,</span> <span class="s2">&#34;评分&#34;</span><span class="p">,</span> <span class="s2">&#34;评价数&#34;</span><span class="p">,</span> <span class="s2">&#34;概况&#34;</span><span class="p">,</span> <span class="s2">&#34;相关信息&#34;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># 列名</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">250</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第</span><span class="si">%d</span><span class="s2">条&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">datalist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+            <span class="n">sheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>  <span class="c1"># 数据</span>
+
+    <span class="n">book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">savepath</span><span class="p">)</span>  <span class="c1"># 保存</span>
+
+
+<span class="k">def</span> <span class="nf">saveData2DB</span><span class="p">(</span><span class="n">datalist</span><span class="p">,</span> <span class="n">dbpath</span><span class="p">):</span>
+    <span class="n">init_db</span><span class="p">(</span><span class="n">dbpath</span><span class="p">)</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbpath</span><span class="p">)</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">datalist</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#34;&#39;</span><span class="o">+</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;&#34;&#39;</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">                insert into movie250 (
+</span><span class="s1">                info_link,pic_link,cname,ename,score,rated,instroduction,info) 
+</span><span class="s1">                values(</span><span class="si">%s</span><span class="s1">)&#39;&#39;&#39;</span> <span class="o">%</span> <span class="s2">&#34;,&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">init_db</span><span class="p">(</span><span class="n">dbpath</span><span class="p">):</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">        create table movie250 
+</span><span class="s1">        (
+</span><span class="s1">        id integer primary key autoincrement,
+</span><span class="s1">        info_link text,
+</span><span class="s1">        pic_link text,
+</span><span class="s1">        cname varchar,
+</span><span class="s1">        ename varchar,
+</span><span class="s1">        score numeric ,
+</span><span class="s1">        rated numeric ,
+</span><span class="s1">        instroduction text,
+</span><span class="s1">        info text
+</span><span class="s1">        )
+</span><span class="s1">    
+</span><span class="s1">    &#39;&#39;&#39;</span>  <span class="c1"># 创建数据表</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbpath</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>  <span class="c1"># 当程序执行时</span>
+    <span class="c1"># 调用函数</span>
+    <span class="n">main</span><span class="p">()</span>
+    <span class="c1"># init_db(&#34;movietest.db&#34;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;爬取完毕！&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="6-csdn">6. CSDN</h1>
+<h2 id="61-for-a-certain-passage">6.1 for a certain passage</h2>
+<p>对于一个博主的确切的文章链接，可以使用以下代码爬取其中的文章内容，并保存为pdf格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#-*- coding = utf-8 -*-</span>
+<span class="c1">#@Time : 2020-10-12 18:08</span>
+<span class="c1">#@Author : chasing</span>
+<span class="c1">#@File : csdn.py</span>
+<span class="c1">#@Software: PyCharm</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">parsel</span>
+<span class="kn">import</span> <span class="nn">pdfkit</span>
+<span class="n">BaseUrl</span><span class="o">=</span><span class="s1">&#39;https://blog.csdn.net/justidle/article/details/106850487&#39;</span>
+<span class="n">cmp</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;meta name=&#34;keywords&#34; content=&#34;(.*?)&#34;&gt;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36 Edg/86.0.622.38&#39;</span><span class="p">}</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BaseUrl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;响应体：&#34;</span><span class="o">+</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">Title</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">cmp</span><span class="p">,</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">FileUrl</span><span class="o">=</span><span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">desktop</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Title</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.pdf&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;期望保存位置：&#34;</span><span class="o">+</span><span class="n">FileUrl</span><span class="p">)</span>
+<span class="n">Html1</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&#34;UTF-8&#34;&gt;&lt;title&gt;&#39;</span>
+<span class="n">Html2</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;</span><span class="si">{content}</span><span class="s1">&lt;/body&gt;&lt;/html&gt;&#39;</span>
+<span class="n">html</span><span class="o">=</span><span class="n">Html1</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Title</span><span class="p">)</span><span class="o">+</span><span class="n">Html2</span>
+<span class="n">selector</span> <span class="o">=</span> <span class="n">parsel</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="n">article</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;文章本体：&#34;</span><span class="o">+</span><span class="n">article</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;1.html&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">article</span><span class="p">))</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">pdfkit</span><span class="o">.</span><span class="n">configuration</span><span class="p">(</span><span class="n">wkhtmltopdf</span><span class="o">=</span><span class="s1">&#39;E:</span><span class="se">\\</span><span class="s1">wkhtmltopdf</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">wkhtmltopdf.exe&#39;</span><span class="p">)</span>
+<span class="n">pdfkit</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s2">&#34;1.html&#34;</span><span class="p">,</span><span class="n">FileUrl</span><span class="p">,</span><span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;文件保存成功，保存文件的路径为：&#34;</span><span class="o">+</span><span class="n">FileUrl</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello World!&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="62-all-passages">6.2 All passages</h2>
+<p>对于博主的全部文章，可以使用以下方法，获取其所有文章的链接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#-*- coding = utf-8 -*-</span>
+<span class="c1">#@Time : 2020-10-12 20:09</span>
+<span class="c1">#@Author : chasing</span>
+<span class="c1">#@File : Release.py</span>
+<span class="c1">#@Software: PyCharm</span>
+
+<span class="c1">#导入相应的模块</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">parsel</span>
+<span class="kn">import</span> <span class="nn">pdfkit</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Pages=askPages(BaseUrl)</span>
+    <span class="c1"># print(Pages)</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">askUrl</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">tempUrl</span> <span class="o">=</span> <span class="n">baseUrl</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">askUrl</span><span class="p">(</span><span class="n">tempUrl</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">Response</span><span class="p">()</span>
+
+<span class="n">findChinese</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[\u4e00-\u9fa5]+&#39;</span><span class="p">,</span><span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span><span class="c1">#pdfkit不能能保存含有特殊符号名称的文件</span>
+<span class="n">findBranch</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;a href=&#34;(.*?)&#34; target=&#34;_blank&#34;&gt;&#39;</span><span class="p">)</span>
+<span class="n">findFile</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;meta name=&#34;keywords&#34; content=&#34;(.*?)&#34;&gt;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">S</span><span class="p">)</span>
+<span class="c1"># findPages=re.compile(r&#39;&lt;li data-page=&#34;(\d+)&#34; class=&#34;ui-pager&#34;&gt;.*?&lt;/li&gt;&#39;,re.S)</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s2">&#34;user-agent&#34;</span><span class="p">:</span><span class="s2">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36 Edg/86.0.622.38&#34;</span>
+<span class="p">}</span>
+<span class="n">baseUrl</span><span class="o">=</span><span class="s1">&#39;https://blog.csdn.net/qq_27133869&#39;</span>
+<span class="c1"># 页面数量为动态</span>
+<span class="c1"># def askPages(BaseUrl):#js</span>
+<span class="c1">#     response = requests.get(BaseUrl, headers=headers)</span>
+<span class="c1">#     print(response.text)</span>
+<span class="c1">#     Pages = re.findall(FindPages, response.text)</span>
+<span class="c1">#     return Pages</span>
+<span class="k">def</span> <span class="nf">askUrl</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">baseResponse</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="c1"># print(baseResponse.text)</span>
+    <span class="n">branchUrls</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findBranch</span><span class="p">,</span><span class="n">baseResponse</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">branchUrls</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+        <span class="n">branchUrls</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span><span class="c1">#删除帮助文档</span>
+    <span class="k">assert</span> <span class="n">branchUrls</span><span class="c1">#为空直接跳出，节省资源</span>
+    <span class="c1"># print(branchUrls)</span>
+    <span class="n">times</span><span class="o">=</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">BranchUrl</span> <span class="ow">in</span> <span class="n">branchUrls</span><span class="p">:</span>
+        <span class="n">branchResponse</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BranchUrl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="c1">#保存的文件名</span>
+        <span class="n">tempTitle</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findFile</span><span class="p">,</span> <span class="n">branchResponse</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">tempTitle</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findChinese</span><span class="p">,</span> <span class="n">tempTitle</span><span class="p">))</span>
+        <span class="n">finalTitle</span> <span class="o">=</span> <span class="s2">&#34; &#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">findChinese</span><span class="p">,</span> <span class="n">tempTitle</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第 </span><span class="si">%d</span><span class="s2"> 面的 </span><span class="si">%d</span><span class="s2"> 篇文章名为:&#34;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">finalTitle</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1">#最终网页源代码</span>
+        <span class="n">finalHtml</span> <span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&#34;UTF-8&#34;&gt;&lt;title&gt;&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">finalTitle</span><span class="p">)</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;</span><span class="si">{content}</span><span class="s1">&lt;/body&gt;&lt;/html&gt;&#39;</span>
+        <span class="c1">#pdf文件的保存位置</span>
+        <span class="n">fileUrl</span> <span class="o">=</span> <span class="s1">&#39;D:</span><span class="se">\\</span><span class="s1">desktop</span><span class="se">\\</span><span class="s1">CSDN</span><span class="se">\\</span><span class="s1">littlePING</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">finalTitle</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.pdf&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第 </span><span class="si">%d</span><span class="s2"> 面的 </span><span class="si">%d</span><span class="s2"> 篇文章保存路径为:&#34;</span> <span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">fileUrl</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">selector</span> <span class="o">=</span> <span class="n">parsel</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span><span class="n">branchResponse</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">article</span> <span class="o">=</span> <span class="n">selector</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="c1">#文件保存的位置</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;temp.html&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">finalHtml</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">article</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">pdfkit</span><span class="o">.</span><span class="n">configuration</span><span class="p">(</span><span class="n">wkhtmltopdf</span><span class="o">=</span><span class="s1">&#39;E:</span><span class="se">\\</span><span class="s1">wkhtmltopdf</span><span class="se">\\</span><span class="s1">bin</span><span class="se">\\</span><span class="s1">wkhtmltopdf.exe&#39;</span><span class="p">)</span>
+            <span class="c1"># config = pdfkit.configuration(wkhtmltopdf=path_wk)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;temp.html&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">pdfkit</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fileUrl</span><span class="p">,</span> <span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第 </span><span class="si">%d</span><span class="s2"> 面的 </span><span class="si">%d</span><span class="s2"> 篇文章pdf文件保存成功！&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;第 </span><span class="si">%d</span><span class="s2"> 面的 </span><span class="si">%d</span><span class="s2"> 篇文章pdf文件保存失败！&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">times</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">pass</span>
+            <span class="c1"># continue</span>
+        <span class="n">times</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;页面 </span><span class="si">%d</span><span class="s2"> 中的所有文件保存成功&#34;</span><span class="o">%</span><span class="n">i</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">Response</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>  <span class="c1"># 当程序执行时</span>
+    <span class="c1"># 调用函数</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-10-12
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/crawler/">Crawler</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python/opencv-human-detection/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">OpenCV Human Detection</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/python/python-note/">
+            <span class="next-text nav-default">Python Note</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        tags: 'ams',
+        }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

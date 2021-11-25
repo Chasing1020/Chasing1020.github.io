@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Concurrency on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/concurrency/</link>
+    <description>Recent content in Concurrency on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 24 Nov 2021 18:23:54 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Concurrency Programming</title>
+      <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
+      <pubDate>Wed, 24 Nov 2021 18:23:54 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
+      <description>Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s</description>
+    </item>
+    
+  </channel>
+</rss>

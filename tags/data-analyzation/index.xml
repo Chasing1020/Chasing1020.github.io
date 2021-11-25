@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 25 Oct 2020 19:13:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/data-analyzation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Analyzation Note</title>
-      <link>http://Chasing1020.github.io/post/data-analyzation-note/</link>
+      <link>http://Chasing1020.github.io/post/python/data-analyzation-note/</link>
       <pubDate>Sun, 25 Oct 2020 19:13:09 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/data-analyzation-note/</guid>
+      <guid>http://Chasing1020.github.io/post/python/data-analyzation-note/</guid>
       <description>创建数组对象 一维数组 1 2 3 name=np.array([&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]) print(name.ndim)#维数 print(name.size)#大小 二维数组 创建 1 2 import numpy as np name=np.array([[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]]) 查看属性 1</description>
     </item>
     

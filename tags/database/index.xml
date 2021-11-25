@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DataBase on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/database/</link>
+    <description>Recent content in DataBase on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 25 Nov 2021 14:11:42 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Database Systems</title>
+      <link>http://Chasing1020.github.io/post/database/database-systems/</link>
+      <pubDate>Thu, 25 Nov 2021 14:11:42 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/database/database-systems/</guid>
+      <description>1. Relational Model  Definition
+ DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
+Data Model: is a collection of concepts for describing the data in a database.</description>
+    </item>
+    
+  </channel>
+</rss>
