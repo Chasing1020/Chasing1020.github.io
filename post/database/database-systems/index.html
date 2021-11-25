@@ -58,7 +58,7 @@ Data Model: is a collection of concepts for describing the data in a database." 
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="2437">
+<meta itemprop="wordCount" content="2442">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="1. Relational Model  Definition
@@ -152,7 +152,7 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 2437 words </span>
+          <span class="more-meta"> 2442 words </span>
           <span class="more-meta"> 12 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -496,16 +496,16 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Must also support iterating over all pages.</p>
 </li>
 </ol>
-<p>Maintain a header pageat the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.</p>
+<p>Maintain a header page at the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.</p>
 <p>Each page keeps track of how many free slots they currently have.</p>
 <p>The DBMS maintains special pages that tracks the location of data pages in the database files. The directory also records the number of free slots per page. Must make sure that the directory pages are in sync with the data pages.</p>
 <blockquote>
 <p>Page Layout</p>
 </blockquote>
-<p>Every page contains a headerof meta-data about the page&rsquo;s contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.</p>
+<p>Every page contains a header of meta-data about the page&rsquo;s contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.</p>
 <p>The most common layout scheme is called slotted pages. The slot array maps &ldquo;slots&rdquo; to the tuples' starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.</p>
 <p>Each tuple is assigned a unique record identifier. Most common: <strong>page_id</strong>+ <strong>offset/slot</strong>, Can also contain file location info.</p>
-<p>Each tuple is prefixed with a headerthat contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
+<p>Each tuple is prefixed with a header that contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
 <p>DBMS can physically <strong>denormalize</strong> (e.g., &ldquo;pre join&rdquo;) related tuples and store them together in the same page.</p>
 <h1 id="4-database-storage-2">4. DataBase Storage (2)</h1>
 <blockquote>
@@ -536,28 +536,28 @@ Schema: is a description of a particular collection of data, using a given data 
 </li>
 </ul>
 <p>Most DBMSs don&rsquo;t allow a tuple to exceed the size of a single page.</p>
-<p>To store values that are larger than a page, the DBMS uses separate <strong>overflow</strong>storage pages.</p>
+<p>To store values that are larger than a page, the DBMS uses separate <strong>overflow</strong> storage pages.</p>
 <ul>
 <li>
 <p>Postgres: TOAST (&gt;2KB)</p>
 </li>
 <li>
-<p>MySQL: Overflow (&gt;$1/2$ size of page)</p>
+<p>MySQL: Overflow (&gt;1/2 size of page)</p>
 </li>
 <li>
 <p>SQL Server: Overflow (&gt;size of page)</p>
 </li>
 </ul>
-<p>Some systems allow you to store a really largevalue in an external file.Treated as a <strong>BLOB</strong>type.</p>
+<p>Some systems allow you to store a really largevalue in an external file.Treated as a <strong>BLOB</strong> type.</p>
 <ul>
 <li>
-<p>Oracle: <strong>BFILE</strong>data type</p>
+<p>Oracle: <strong>BFILE</strong> data type</p>
 </li>
 <li>
-<p>Microsoft: <strong>FILESTREAM</strong>data type</p>
+<p>Microsoft: <strong>FILESTREAM</strong> data type</p>
 </li>
 </ul>
-<p>The DBMS <strong>cannot</strong> manipulate the contents of an external file. No durability protections. No transaction protections.</p>
+<p>The DBMS <strong>can not</strong> manipulate the contents of an external file. No durability protections. No transaction protections.</p>
 <blockquote>
 <p>System Catalogs</p>
 </blockquote>
@@ -565,7 +565,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <ul>
 <li>Tables, columns, indexes, views; Users, permissions; Internal statistics</li>
 </ul>
-<p>Almost every DBMS stores the database&rsquo;s catalog inside itself (i.e., as tables). You can query the DBMS’s internal <strong>INFORMATION_SCHEMA</strong>catalog to get info about the database.</p>
+<p>Almost every DBMS stores the database&rsquo;s catalog inside itself (i.e., as tables). You can query the DBMS’s internal <strong>INFORMATION_SCHEMA</strong> catalog to get info about the database.</p>
 <ul>
 <li>ANSI standard set of read-only views that provide info about all the tables, views, columns, and procedures in a database</li>
 </ul>
@@ -619,8 +619,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <blockquote>
 <p>Decomposition Storage Model</p>
 </blockquote>
-<p>The DBMS stores the values of a single attribute for all tuples contiguously in a page.</p>
-<p>→Also known as a &ldquo;column store&rdquo;</p>
+<p>The DBMS stores the values of a single attribute for all tuples contiguously in a page(aka &ldquo;column store&rdquo;).</p>
 <p>Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.</p>
 <p><strong>Advantages</strong></p>
 <ol>

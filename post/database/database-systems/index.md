@@ -257,7 +257,7 @@ A heap file is an unordered collection of pages with tuples that are stored in r
 
 2.   Must also support iterating over all pages.
 
-Maintain a header pageat the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.
+Maintain a header page at the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.
 
 Each page keeps track of how many free slots they currently have.
 
@@ -265,13 +265,13 @@ The DBMS maintains special pages that tracks the location of data pages in the d
 
 >   Page Layout
 
-Every page contains a headerof meta-data about the page's contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.
+Every page contains a header of meta-data about the page's contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.
 
 The most common layout scheme is called slotted pages. The slot array maps "slots" to the tuples' starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.
 
 Each tuple is assigned a unique record identifier. Most common: **page_id**+ **offset/slot**, Can also contain file location info. 
 
-Each tuple is prefixed with a headerthat contains meta-data about it. Visibility info (concurrency control), Bit Map for **NULL** values.
+Each tuple is prefixed with a header that contains meta-data about it. Visibility info (concurrency control), Bit Map for **NULL** values.
 
 DBMS can physically **denormalize** (e.g., "pre join") related tuples and store them together in the same page.
 
@@ -301,21 +301,21 @@ Numeric data types with (potentially) arbitrary precision and scale. Used when r
 
 Most DBMSs don't allow a tuple to exceed the size of a single page.
 
-To store values that are larger than a page, the DBMS uses separate **overflow**storage pages.
+To store values that are larger than a page, the DBMS uses separate **overflow** storage pages.
 
 -   Postgres: TOAST (>2KB)
 
--   MySQL: Overflow (>$1/2$ size of page)
+-   MySQL: Overflow (>1/2 size of page)
 
 -   SQL Server: Overflow (>size of page)
 
-Some systems allow you to store a really largevalue in an external file.Treated as a **BLOB**type.
+Some systems allow you to store a really largevalue in an external file.Treated as a **BLOB** type.
 
--   Oracle: **BFILE**data type
+-   Oracle: **BFILE** data type
 
--   Microsoft: **FILESTREAM**data type
+-   Microsoft: **FILESTREAM** data type
 
-The DBMS **cannot** manipulate the contents of an external file. No durability protections. No transaction protections.
+The DBMS **can not** manipulate the contents of an external file. No durability protections. No transaction protections.
 
 >   System Catalogs
 
@@ -323,7 +323,7 @@ A DBMS stores meta-data about databases in its internal catalogs.
 
 -   Tables, columns, indexes, views; Users, permissions; Internal statistics
 
-Almost every DBMS stores the database's catalog inside itself (i.e., as tables). You can query the DBMS’s internal **INFORMATION_SCHEMA**catalog to get info about the database.
+Almost every DBMS stores the database's catalog inside itself (i.e., as tables). You can query the DBMS’s internal **INFORMATION_SCHEMA** catalog to get info about the database.
 
 -   ANSI standard set of read-only views that provide info about all the tables, views, columns, and procedures in a database
 
@@ -370,9 +370,7 @@ Ideal for OLAP workloads where read-only queries perform large scans over a subs
 
 >   Decomposition Storage Model
 
-The DBMS stores the values of a single attribute for all tuples contiguously in a page.
-
-→Also known as a "column store"
+The DBMS stores the values of a single attribute for all tuples contiguously in a page(aka "column store").
 
 Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.
 
