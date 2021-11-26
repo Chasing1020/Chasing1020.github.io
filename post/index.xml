@@ -133,7 +133,7 @@ Data Model: is a collection of concepts for describing the data in a database.</
       <pubDate>Tue, 01 Jun 2021 10:18:40 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/design/design-pattern-note/</guid>
-      <description>设计模式 1. 创建型模式 1.1. 工厂方法模式（Factory Method） 工厂方法模式是一种创建型设计模式， 其在父类中提供一个创建对象的方法， 允许子类</description>
+      <description>Design Pattern 1. Creational Patterns 1.1.Factory Method 工厂方法模式是一种创建型设计模式， 其在父类中提供一个创建对象的方法， 允许子类决定实例化对象的类型。 Usage 无法预知对象确切类别及其依</description>
     </item>
     
     <item>

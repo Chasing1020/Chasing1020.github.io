@@ -578,5 +578,424 @@ These other memory pools may not always backed by disk. Depends on implementatio
 
 -   Dictionary Caches
 
+# 6. Hash Tables
 
+>   Definition
 
+A **hash table** implements an unordered associative array that maps keys to values.
+
+It uses a **hash function** to compute an offset into the array for a given key, from which the desired value can be found.
+
+Space Complexity: **O(n)** Time Complexity:
+
+- Average: **O(1)**
+
+- Worst: **O(n)**
+
+To find an entry, mod the key by the number of elements to find the offset in the array.
+
+>   Hash Function
+
+We do not want to use a crypto graphic hash function for DBMS hash tables.
+
+We want something that is fast and has a low collision rate.
+| Name                  | Usage                                                 |
+| --------------------- | ----------------------------------------------------- |
+| CRC-64(1975)          | Used in networking for error detection.               |
+| MurmurHash(2008)      | Designed as a fast, general-purpose hash function.    |
+| Google CityHash(2011) | Designed to be faster for short keys (<64 bytes).     |
+| Facebook XXHash(2012) | From the creator of zstdcompression.                  |
+| Google FarmHash(2014) | Newer version of CityHashwith better collision rates. |
+
+>   Static Hash Shemes
+
+1.   Lingering Probing Hashing
+
+Resolve collisions by linearly searching for the next free slot in the table.
+
+- To determine whether an element is present, hash to a location in the index and scan for it.
+
+- Must store the key in the index to know when to stop scanning.
+
+- Insertions and deletions are generalizations of lookups.
+
+2.   Robin Hood Hashing
+
+Variant of linear probe hashing that steals slots from "rich" keys and give them to "poor" keys.
+
+- Each key tracks the number of positions they are from where its optimal position in the table.
+
+- On insert, a key takes the slot of another key if the first key is farther away from its optimal position than the second key.
+
+```C++
+iterator find(const FindKey& key) {
+    size_t index = hash_policy.index_for_hash(hash_object(key), num_slots_minus_one);
+    EntryPointer it = entries + ptrdiff_t(index);
+    for (int8_t distance = 0; it->distance_from_desired >= distance;
+         ++distance, ++it) {
+        if (compares_equal(key, it->value)) return {it};
+    }
+    return end();
+}
+```
+
+3.   Cuckoo Hasing
+
+Use multiple hash tables with different hash function seeds.
+
+- On insert, check every table and pick anyone that has a free slot.
+
+- If no table has a free slot, evict the element from one of them and then re-hash it find a new location.
+
+Look-ups and deletions are always **O(1)** because only one location per hash table is checked.
+
+>   Dynamic hashing Shemes
+
+The previous hash tables require the DBMS to know the number of elements it wants to store.
+
+- Otherwise, it must rebuild the table if it needs to grow/shrink in size.
+
+Dynamic hash tables resize themselves on demand.
+
+1.   Chained Hashing
+
+Maintain a linked list of buckets for each slot in the hash table.
+
+Resolve collisions by placing all elements with the same hash key into the same bucket.
+
+- To determine whether an element is present, hash to its bucket and scan for it.
+
+- Insertions and deletions are generalizations of lookups.
+
+2.   Extendible Hashing
+
+Chained-hashing approach where we split buckets instead of letting the linked list grow forever.
+
+Multiple slot locations can point to the same bucket chain.
+
+Reshuffle bucket entries on split and increase the number of bits to examine.
+
+- Data movement is localized to just the split chain.
+
+3.   Linear Hashing
+
+The hash table maintains a pointer that tracks the next bucket to split.
+
+- When anybucket overflows, split the bucket at the pointer location.
+
+Use multiple hashes to find the right bucket for a given key.
+
+Can use different overflow criterion:
+
+- Space Utilization
+
+- Average Length of Overflow Chains
+
+# 7. Tree Indexes
+
+A **table index** is a replica of a subset of a table's attributes that are organized and/or sorted for efficient access using those attributes.
+
+The DBMS ensures that the contents of the table and the index are logically synchronized.
+
+There is a trade-off regarding the number of indexes to create per database.
+
+- Storage Overhead
+
+- Maintenance Overhead
+
+People also use the term to generally refer to a class of balanced tree data structures:
+
+- B-Tree(1971), B+Tree(1973), B\*Tre(1977?), Blink-Tree(1981)
+
+A **B+Tree** is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in **O(log n)**.  
+
+- Generalization of a binary search tree, since a node can have more than two children. 
+
+- Optimized for systems that read and write large blocks of data.
+
+>   B+ Tree Properties
+
+A B+Treeis an M-way search tree with the following properties: 
+
+- It is perfectly balanced (i.e., every leaf node is at the same depth in the tree)
+
+- Every node other than the root is at least half-full **M/2-1 ≤ #keys ≤ M-1**
+
+- Every inner node with **k** keys has **k+1** non-null children
+
+>   Nodes
+
+Every B+ Treenode is comprised of an array of key/value pairs.
+
+It contains level, slots, previous, next, sorted keys and values.
+
+- The keys are derived from the attribute(s) that the index is based on. 
+
+- The values will differ based on whether the node is classified as an **inner node**or a **leaf node.**
+
+The arrays are (usually) kept in sorted key order.
+
+Values Approach: 
+
+1.   Record IDs(Usage: PostgreSQL, SQLServer, DB2, Oracle): A pointer to the location of the tuple to which the index entry corresponds.
+2.   Tuple Data(Usage: SQLite, SQLServer, MySQL, Oracle): The leaf nodes store the actual contents of the tuple. Secondary indexes must store the Record ID as their values.
+
+>   B Tree vs B+Tree
+
+The original **B-Tree** from 1972 stored keys and values in all nodes in the tree.
+
+- More space-efficient, since each key only appears once in the tree.
+
+A **B+Tree** only stores values in leaf nodes. Inner nodes only guide the search process.
+
+>   B+Tree Insert
+
+Find correct leaf node **L**.Put data entry into **L**in sorted order.
+
+If **L** has enough space, done!
+
+Otherwise, split **L** keys into **L** and a new node **L2**
+
+- Redistribute entries evenly, copy up middle key.
+
+- Insert index entry pointing to **L2** into parent of **L**.
+
+To split inner node, redistribute entries evenly, but push up middle key. 
+
+Duplicate Keys
+
+**Approach #1: Append Record ID**
+
+- Add the tuple's unique Record ID as part of the key to ensure that all keys are unique.
+
+- The DBMS can still use partial keys to find tuples.
+
+**Approach #2: Overflow Leaf Nodes**
+
+- Allow leaf nodes to spill into overflow nodes that contain the duplicate keys.
+
+- This is more complex to maintain and modify.
+
+>   B+Tree Delete
+
+Start at root, find leaf **L** where entry belongs. Remove the entry. If **L**is at least half-full, done! If **L** has only **M/2-1** entries, then: 
+
+- Try to re-distribute, borrowing from sibling (adjacent node with same parent as **L**).
+
+- If re-distribution fails, merge **L**and sibling.
+
+If merge occurred, must delete entry (pointing to **L** or sibling) from parent of **L**.
+
+Some DBMSs do not always merge nodes when they are half full.
+
+Delaying a merge operation may reduce the amount of reorganization.
+
+It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.
+
+>   Clustered Indexs
+
+The table is stored in the sort order specified by the primary key.
+
+- Can be either heap-or index-organized storage.
+
+Some DBMSs always use a clustered index.
+
+- If a table does not contain a primary key, the DBMS will automatically make a hidden primary key.
+
+Other DBMSs cannot use them at all.
+
+Traverse to the left-most leaf page and then retrieve tuples from all leaf pages.
+
+This will always be better than external sorting.
+
+Retrieving tuples in the order they appear in a non-clustered index can be very inefficient.
+
+The DBMS can first figure out all the tuples that it needs and then sort them based on their Page ID.
+
+>   Node Size
+
+The slower the storage device, the larger the optimal node size for a B+Tree.
+
+- HDD: ~1MB
+
+- SSD: ~10KB 
+
+- In-Memory: ~512B
+
+Optimal sizes can vary depending on the workload
+
+- Leaf Node Scans vs. Root-to-Leaf Traversals.
+
+>   Merge Threshold
+
+Some DBMSs do not always merge nodes when they are half full.
+
+Delaying a merge operation may reduce the amount of reorganization.
+
+It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.
+
+>   Optimizations
+
+1.   Perfix Compression
+
+Sorted keys in the same leaf node are likely to have the same prefix.
+
+Instead of storing the entire key each time, extract common prefix and store only unique suffix for each key.
+
+- Many variations.
+
+2.   Deduplication
+
+Non-unique indexes can end up storing multiple copies of the same key in leaf nodes.
+
+The leaf node can store the key once and then maintain a list of tuples with that key (similar towhat we discussed for hash tables).
+
+3.   Bulk insert
+
+The fastest way to build a new B+Treefor an existing table is to first sort the keys and then build the index from the bottom up.
+
+# 8. Index Concurrency Control
+
+A **concurrency control** protocol is the method that the DBMS uses to ensure “correct” results for concurrent operations on a shared object.
+
+|          | Locks                               | Latches                   |
+| -------- | ----------------------------------- | ------------------------- |
+| Separate | User Transactions                   | Threads                   |
+| Protect  | Database Contents                   | In-Memory Data Structures |
+| During   | Entire Transactions                 | Critical Sections         |
+| Modes    | Shared,Exclusive, Update, Intention | Read, Write               |
+| Deadlock | Detection & Resolution              | Avoidance                 |
+| by       | Waits-for, Timeout, Aborts          | Coding Discipline         |
+| Keptin   | LockManager                         | Protected Data Structure  |
+
+>   Latch Mode
+
+**Read Mode**
+
+- Multiple threads can read the same object at the same time.
+
+-   A thread can acquire the read latch if another thread has it in read mode.
+
+**Write Mode**
+
+-   Only one thread can access the object.
+
+-   A thread cannot acquire a write latch if another thread has it in any mode.
+
+>   Approach
+
+1.   Blocking OS Mutex
+
+Simple to use; Non-scalable (about 25ns per lock/unlock invocation); 
+
+Example: std::mutex.
+
+Reference: https://en.wikipedia.org/wiki/Futex
+
+2.   Test-and-Set Spin Latch (TAS)
+
+Very efficient (single instruction to latch/unlatch); Non-scalable, not cache-friendly, not OS-friendly; 
+
+Example: std::atomic\<T\>.
+
+"do not use spinlocks in user space, unless you actually know what you're doing."
+
+3.   Reader-Writer Latches
+
+Allows for concurrent readers;
+Must manage read/write queues to avoid starvation;
+Can be implemented on top of spin latches.
+
+>   Hash Table Latch
+
+Easy to support concurrent access due to the limited ways threads access the data structure.
+
+-   All threads move in the same direction and only access a single page/slot at a time.
+
+-   Deadlocks are not possible.
+
+To resize the table, take a global write latch on the entire table (e.g., in the header page).
+
+1.   Approach #1: Page Latches: 
+
+     Each page has its own reader-writer latch that protects its entire contents.
+
+     Threads acquire either a read or write latch before they access a page.
+
+2.   Approach #2: Slot Latches
+
+     Each slot has its own latch.
+
+     Can use a single-mode latch to reduce meta-data and computational overhead.
+
+Atomic instruction that compares contents of a memory location **M** to a given value **V**
+
+-   If values are equal, installs new given value **V’** in **M**
+
+-   Otherwise, operation fails
+
+>   B+ Tree Concurrency Control
+
+We want to allow multiple threads to read and update a B+Treeat the same time.
+
+We need to protect against two types of problems: 
+
+-   Threads trying to modify the contents of a node at the same time.
+
+-   One thread traversing the tree while another thread splits/merges nodes.
+
+Protocol to allow multiple threads to access/modify B+Treeat the same time.
+
+**Basic Idea:**
+
+-   Get latch for parent
+
+-   Get latch for child
+
+-   Release latch for parent if “safe”
+
+A **safe node** is one that will not split or merge when updated.
+
+- Not full (on insertion)
+
+-   More than half-full (on deletion)
+
+**Find**: Start at root and go down; repeatedly,
+
+-   Acquire **R** latch on child
+
+- Then unlatch parent
+
+**Insert/Delete**: Start at root and go down, obtaining **W** latches as needed. Once child is latched, check if it is safe:
+
+-   If child is safe, release all latches on ancestors
+
+>   Better Latching Algorithm
+
+It depends on it that most modifications to a B+ Tree will not require a split or merge.
+
+**Search**: Same as before.
+
+**Insert/Delete**: 
+
+-   Set latches as if for search, get to leaf, and set **W** latch on leaf.
+
+-   If leaf is not safe, release all latches, and restart thread using previous insert/delete protocol with write latches.
+
+This approach optimistically assumes that only leaf node will be modified; if not, **R** latches set on the first pass to leaf are wasteful.
+
+>   Observation
+
+The threads in all the examples so far have acquired latches in a “top-down” manner.
+
+-   A thread can only acquire a latch from a node that is below its current node.
+
+-   If the desired latch is unavailable, the thread must wait until it becomes available.
+
+>   Leaf Node Scans
+
+Latches do not support deadlock detection or avoidance. The only way we can deal with this problem is through coding discipline.
+
+The leaf node sibling latch acquisition protocol must support a “no-wait” mode.
+
+The DBMS's data structures must cope with failed latch acquisitions.

@@ -58,7 +58,7 @@ Data Model: is a collection of concepts for describing the data in a database." 
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="3290">
+<meta itemprop="wordCount" content="5342">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="1. Relational Model  Definition
@@ -152,8 +152,8 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 3290 words </span>
-          <span class="more-meta"> 16 mins read </span>
+          <span class="more-meta"> 5342 words </span>
+          <span class="more-meta"> 26 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -168,6 +168,9 @@ Data Model: is a collection of concepts for describing the data in a database."/
     <li><a href="#3-database-storage-1">3. Database Storage (1)</a></li>
     <li><a href="#4-database-storage-2">4. DataBase Storage (2)</a></li>
     <li><a href="#5-buffer-pools">5. Buffer Pools</a></li>
+    <li><a href="#6-hash-tables">6. Hash Tables</a></li>
+    <li><a href="#7-tree-indexes">7. Tree Indexes</a></li>
+    <li><a href="#8-index-concurrency-control">8. Index Concurrency Control</a></li>
   </ul>
 </nav>
   </div>
@@ -880,6 +883,554 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Dictionary Caches</p>
 </li>
 </ul>
+<h1 id="6-hash-tables">6. Hash Tables</h1>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<p>A <strong>hash table</strong> implements an unordered associative array that maps keys to values.</p>
+<p>It uses a <strong>hash function</strong> to compute an offset into the array for a given key, from which the desired value can be found.</p>
+<p>Space Complexity: <strong>O(n)</strong> Time Complexity:</p>
+<ul>
+<li>
+<p>Average: <strong>O(1)</strong></p>
+</li>
+<li>
+<p>Worst: <strong>O(n)</strong></p>
+</li>
+</ul>
+<p>To find an entry, mod the key by the number of elements to find the offset in the array.</p>
+<blockquote>
+<p>Hash Function</p>
+</blockquote>
+<p>We do not want to use a crypto graphic hash function for DBMS hash tables.</p>
+<p>We want something that is fast and has a low collision rate.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRC-64(1975)</td>
+<td>Used in networking for error detection.</td>
+</tr>
+<tr>
+<td>MurmurHash(2008)</td>
+<td>Designed as a fast, general-purpose hash function.</td>
+</tr>
+<tr>
+<td>Google CityHash(2011)</td>
+<td>Designed to be faster for short keys (&lt;64 bytes).</td>
+</tr>
+<tr>
+<td>Facebook XXHash(2012)</td>
+<td>From the creator of zstdcompression.</td>
+</tr>
+<tr>
+<td>Google FarmHash(2014)</td>
+<td>Newer version of CityHashwith better collision rates.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Static Hash Shemes</p>
+</blockquote>
+<ol>
+<li>Lingering Probing Hashing</li>
+</ol>
+<p>Resolve collisions by linearly searching for the next free slot in the table.</p>
+<ul>
+<li>
+<p>To determine whether an element is present, hash to a location in the index and scan for it.</p>
+</li>
+<li>
+<p>Must store the key in the index to know when to stop scanning.</p>
+</li>
+<li>
+<p>Insertions and deletions are generalizations of lookups.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Robin Hood Hashing</li>
+</ol>
+<p>Variant of linear probe hashing that steals slots from &ldquo;rich&rdquo; keys and give them to &ldquo;poor&rdquo; keys.</p>
+<ul>
+<li>
+<p>Each key tracks the number of positions they are from where its optimal position in the table.</p>
+</li>
+<li>
+<p>On insert, a key takes the slot of another key if the first key is farther away from its optimal position than the second key.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">FindKey</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
+    <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
+         <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>Cuckoo Hasing</li>
+</ol>
+<p>Use multiple hash tables with different hash function seeds.</p>
+<ul>
+<li>
+<p>On insert, check every table and pick anyone that has a free slot.</p>
+</li>
+<li>
+<p>If no table has a free slot, evict the element from one of them and then re-hash it find a new location.</p>
+</li>
+</ul>
+<p>Look-ups and deletions are always <strong>O(1)</strong> because only one location per hash table is checked.</p>
+<blockquote>
+<p>Dynamic hashing Shemes</p>
+</blockquote>
+<p>The previous hash tables require the DBMS to know the number of elements it wants to store.</p>
+<ul>
+<li>Otherwise, it must rebuild the table if it needs to grow/shrink in size.</li>
+</ul>
+<p>Dynamic hash tables resize themselves on demand.</p>
+<ol>
+<li>Chained Hashing</li>
+</ol>
+<p>Maintain a linked list of buckets for each slot in the hash table.</p>
+<p>Resolve collisions by placing all elements with the same hash key into the same bucket.</p>
+<ul>
+<li>
+<p>To determine whether an element is present, hash to its bucket and scan for it.</p>
+</li>
+<li>
+<p>Insertions and deletions are generalizations of lookups.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Extendible Hashing</li>
+</ol>
+<p>Chained-hashing approach where we split buckets instead of letting the linked list grow forever.</p>
+<p>Multiple slot locations can point to the same bucket chain.</p>
+<p>Reshuffle bucket entries on split and increase the number of bits to examine.</p>
+<ul>
+<li>Data movement is localized to just the split chain.</li>
+</ul>
+<ol start="3">
+<li>Linear Hashing</li>
+</ol>
+<p>The hash table maintains a pointer that tracks the next bucket to split.</p>
+<ul>
+<li>When anybucket overflows, split the bucket at the pointer location.</li>
+</ul>
+<p>Use multiple hashes to find the right bucket for a given key.</p>
+<p>Can use different overflow criterion:</p>
+<ul>
+<li>
+<p>Space Utilization</p>
+</li>
+<li>
+<p>Average Length of Overflow Chains</p>
+</li>
+</ul>
+<h1 id="7-tree-indexes">7. Tree Indexes</h1>
+<p>A <strong>table index</strong> is a replica of a subset of a table&rsquo;s attributes that are organized and/or sorted for efficient access using those attributes.</p>
+<p>The DBMS ensures that the contents of the table and the index are logically synchronized.</p>
+<p>There is a trade-off regarding the number of indexes to create per database.</p>
+<ul>
+<li>
+<p>Storage Overhead</p>
+</li>
+<li>
+<p>Maintenance Overhead</p>
+</li>
+</ul>
+<p>People also use the term to generally refer to a class of balanced tree data structures:</p>
+<ul>
+<li>B-Tree(1971), B+Tree(1973), B*Tre(1977?), Blink-Tree(1981)</li>
+</ul>
+<p>A <strong>B+Tree</strong> is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in <strong>O(log n)</strong>.</p>
+<ul>
+<li>
+<p>Generalization of a binary search tree, since a node can have more than two children.</p>
+</li>
+<li>
+<p>Optimized for systems that read and write large blocks of data.</p>
+</li>
+</ul>
+<blockquote>
+<p>B+ Tree Properties</p>
+</blockquote>
+<p>A B+Treeis an M-way search tree with the following properties:</p>
+<ul>
+<li>
+<p>It is perfectly balanced (i.e., every leaf node is at the same depth in the tree)</p>
+</li>
+<li>
+<p>Every node other than the root is at least half-full <strong>M/2-1 ≤ #keys ≤ M-1</strong></p>
+</li>
+<li>
+<p>Every inner node with <strong>k</strong> keys has <strong>k+1</strong> non-null children</p>
+</li>
+</ul>
+<blockquote>
+<p>Nodes</p>
+</blockquote>
+<p>Every B+ Treenode is comprised of an array of key/value pairs.</p>
+<p>It contains level, slots, previous, next, sorted keys and values.</p>
+<ul>
+<li>
+<p>The keys are derived from the attribute(s) that the index is based on.</p>
+</li>
+<li>
+<p>The values will differ based on whether the node is classified as an <strong>inner node</strong>or a <strong>leaf node.</strong></p>
+</li>
+</ul>
+<p>The arrays are (usually) kept in sorted key order.</p>
+<p>Values Approach:</p>
+<ol>
+<li>Record IDs(Usage: PostgreSQL, SQLServer, DB2, Oracle): A pointer to the location of the tuple to which the index entry corresponds.</li>
+<li>Tuple Data(Usage: SQLite, SQLServer, MySQL, Oracle): The leaf nodes store the actual contents of the tuple. Secondary indexes must store the Record ID as their values.</li>
+</ol>
+<blockquote>
+<p>B Tree vs B+Tree</p>
+</blockquote>
+<p>The original <strong>B-Tree</strong> from 1972 stored keys and values in all nodes in the tree.</p>
+<ul>
+<li>More space-efficient, since each key only appears once in the tree.</li>
+</ul>
+<p>A <strong>B+Tree</strong> only stores values in leaf nodes. Inner nodes only guide the search process.</p>
+<blockquote>
+<p>B+Tree Insert</p>
+</blockquote>
+<p>Find correct leaf node <strong>L</strong>.Put data entry into <strong>L</strong>in sorted order.</p>
+<p>If <strong>L</strong> has enough space, done!</p>
+<p>Otherwise, split <strong>L</strong> keys into <strong>L</strong> and a new node <strong>L2</strong></p>
+<ul>
+<li>
+<p>Redistribute entries evenly, copy up middle key.</p>
+</li>
+<li>
+<p>Insert index entry pointing to <strong>L2</strong> into parent of <strong>L</strong>.</p>
+</li>
+</ul>
+<p>To split inner node, redistribute entries evenly, but push up middle key.</p>
+<p>Duplicate Keys</p>
+<p><strong>Approach #1: Append Record ID</strong></p>
+<ul>
+<li>
+<p>Add the tuple&rsquo;s unique Record ID as part of the key to ensure that all keys are unique.</p>
+</li>
+<li>
+<p>The DBMS can still use partial keys to find tuples.</p>
+</li>
+</ul>
+<p><strong>Approach #2: Overflow Leaf Nodes</strong></p>
+<ul>
+<li>
+<p>Allow leaf nodes to spill into overflow nodes that contain the duplicate keys.</p>
+</li>
+<li>
+<p>This is more complex to maintain and modify.</p>
+</li>
+</ul>
+<blockquote>
+<p>B+Tree Delete</p>
+</blockquote>
+<p>Start at root, find leaf <strong>L</strong> where entry belongs. Remove the entry. If <strong>L</strong>is at least half-full, done! If <strong>L</strong> has only <strong>M/2-1</strong> entries, then:</p>
+<ul>
+<li>
+<p>Try to re-distribute, borrowing from sibling (adjacent node with same parent as <strong>L</strong>).</p>
+</li>
+<li>
+<p>If re-distribution fails, merge <strong>L</strong>and sibling.</p>
+</li>
+</ul>
+<p>If merge occurred, must delete entry (pointing to <strong>L</strong> or sibling) from parent of <strong>L</strong>.</p>
+<p>Some DBMSs do not always merge nodes when they are half full.</p>
+<p>Delaying a merge operation may reduce the amount of reorganization.</p>
+<p>It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.</p>
+<blockquote>
+<p>Clustered Indexs</p>
+</blockquote>
+<p>The table is stored in the sort order specified by the primary key.</p>
+<ul>
+<li>Can be either heap-or index-organized storage.</li>
+</ul>
+<p>Some DBMSs always use a clustered index.</p>
+<ul>
+<li>If a table does not contain a primary key, the DBMS will automatically make a hidden primary key.</li>
+</ul>
+<p>Other DBMSs cannot use them at all.</p>
+<p>Traverse to the left-most leaf page and then retrieve tuples from all leaf pages.</p>
+<p>This will always be better than external sorting.</p>
+<p>Retrieving tuples in the order they appear in a non-clustered index can be very inefficient.</p>
+<p>The DBMS can first figure out all the tuples that it needs and then sort them based on their Page ID.</p>
+<blockquote>
+<p>Node Size</p>
+</blockquote>
+<p>The slower the storage device, the larger the optimal node size for a B+Tree.</p>
+<ul>
+<li>
+<p>HDD: ~1MB</p>
+</li>
+<li>
+<p>SSD: ~10KB</p>
+</li>
+<li>
+<p>In-Memory: ~512B</p>
+</li>
+</ul>
+<p>Optimal sizes can vary depending on the workload</p>
+<ul>
+<li>Leaf Node Scans vs. Root-to-Leaf Traversals.</li>
+</ul>
+<blockquote>
+<p>Merge Threshold</p>
+</blockquote>
+<p>Some DBMSs do not always merge nodes when they are half full.</p>
+<p>Delaying a merge operation may reduce the amount of reorganization.</p>
+<p>It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.</p>
+<blockquote>
+<p>Optimizations</p>
+</blockquote>
+<ol>
+<li>Perfix Compression</li>
+</ol>
+<p>Sorted keys in the same leaf node are likely to have the same prefix.</p>
+<p>Instead of storing the entire key each time, extract common prefix and store only unique suffix for each key.</p>
+<ul>
+<li>Many variations.</li>
+</ul>
+<ol start="2">
+<li>Deduplication</li>
+</ol>
+<p>Non-unique indexes can end up storing multiple copies of the same key in leaf nodes.</p>
+<p>The leaf node can store the key once and then maintain a list of tuples with that key (similar towhat we discussed for hash tables).</p>
+<ol start="3">
+<li>Bulk insert</li>
+</ol>
+<p>The fastest way to build a new B+Treefor an existing table is to first sort the keys and then build the index from the bottom up.</p>
+<h1 id="8-index-concurrency-control">8. Index Concurrency Control</h1>
+<p>A <strong>concurrency control</strong> protocol is the method that the DBMS uses to ensure “correct” results for concurrent operations on a shared object.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Locks</th>
+<th>Latches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate</td>
+<td>User Transactions</td>
+<td>Threads</td>
+</tr>
+<tr>
+<td>Protect</td>
+<td>Database Contents</td>
+<td>In-Memory Data Structures</td>
+</tr>
+<tr>
+<td>During</td>
+<td>Entire Transactions</td>
+<td>Critical Sections</td>
+</tr>
+<tr>
+<td>Modes</td>
+<td>Shared,Exclusive, Update, Intention</td>
+<td>Read, Write</td>
+</tr>
+<tr>
+<td>Deadlock</td>
+<td>Detection &amp; Resolution</td>
+<td>Avoidance</td>
+</tr>
+<tr>
+<td>by</td>
+<td>Waits-for, Timeout, Aborts</td>
+<td>Coding Discipline</td>
+</tr>
+<tr>
+<td>Keptin</td>
+<td>LockManager</td>
+<td>Protected Data Structure</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Latch Mode</p>
+</blockquote>
+<p><strong>Read Mode</strong></p>
+<ul>
+<li>
+<p>Multiple threads can read the same object at the same time.</p>
+</li>
+<li>
+<p>A thread can acquire the read latch if another thread has it in read mode.</p>
+</li>
+</ul>
+<p><strong>Write Mode</strong></p>
+<ul>
+<li>
+<p>Only one thread can access the object.</p>
+</li>
+<li>
+<p>A thread cannot acquire a write latch if another thread has it in any mode.</p>
+</li>
+</ul>
+<blockquote>
+<p>Approach</p>
+</blockquote>
+<ol>
+<li>Blocking OS Mutex</li>
+</ol>
+<p>Simple to use; Non-scalable (about 25ns per lock/unlock invocation);</p>
+<p>Example: std::mutex.</p>
+<p>Reference: <a href="https://en.wikipedia.org/wiki/Futex">https://en.wikipedia.org/wiki/Futex</a></p>
+<ol start="2">
+<li>Test-and-Set Spin Latch (TAS)</li>
+</ol>
+<p>Very efficient (single instruction to latch/unlatch); Non-scalable, not cache-friendly, not OS-friendly;</p>
+<p>Example: std::atomic&lt;T&gt;.</p>
+<p>&ldquo;do not use spinlocks in user space, unless you actually know what you&rsquo;re doing.&rdquo;</p>
+<ol start="3">
+<li>Reader-Writer Latches</li>
+</ol>
+<p>Allows for concurrent readers;
+Must manage read/write queues to avoid starvation;
+Can be implemented on top of spin latches.</p>
+<blockquote>
+<p>Hash Table Latch</p>
+</blockquote>
+<p>Easy to support concurrent access due to the limited ways threads access the data structure.</p>
+<ul>
+<li>
+<p>All threads move in the same direction and only access a single page/slot at a time.</p>
+</li>
+<li>
+<p>Deadlocks are not possible.</p>
+</li>
+</ul>
+<p>To resize the table, take a global write latch on the entire table (e.g., in the header page).</p>
+<ol>
+<li>
+<p>Approach #1: Page Latches:</p>
+<p>Each page has its own reader-writer latch that protects its entire contents.</p>
+<p>Threads acquire either a read or write latch before they access a page.</p>
+</li>
+<li>
+<p>Approach #2: Slot Latches</p>
+<p>Each slot has its own latch.</p>
+<p>Can use a single-mode latch to reduce meta-data and computational overhead.</p>
+</li>
+</ol>
+<p>Atomic instruction that compares contents of a memory location <strong>M</strong> to a given value <strong>V</strong></p>
+<ul>
+<li>
+<p>If values are equal, installs new given value <strong>V’</strong> in <strong>M</strong></p>
+</li>
+<li>
+<p>Otherwise, operation fails</p>
+</li>
+</ul>
+<blockquote>
+<p>B+ Tree Concurrency Control</p>
+</blockquote>
+<p>We want to allow multiple threads to read and update a B+Treeat the same time.</p>
+<p>We need to protect against two types of problems:</p>
+<ul>
+<li>
+<p>Threads trying to modify the contents of a node at the same time.</p>
+</li>
+<li>
+<p>One thread traversing the tree while another thread splits/merges nodes.</p>
+</li>
+</ul>
+<p>Protocol to allow multiple threads to access/modify B+Treeat the same time.</p>
+<p><strong>Basic Idea:</strong></p>
+<ul>
+<li>
+<p>Get latch for parent</p>
+</li>
+<li>
+<p>Get latch for child</p>
+</li>
+<li>
+<p>Release latch for parent if “safe”</p>
+</li>
+</ul>
+<p>A <strong>safe node</strong> is one that will not split or merge when updated.</p>
+<ul>
+<li>
+<p>Not full (on insertion)</p>
+</li>
+<li>
+<p>More than half-full (on deletion)</p>
+</li>
+</ul>
+<p><strong>Find</strong>: Start at root and go down; repeatedly,</p>
+<ul>
+<li>
+<p>Acquire <strong>R</strong> latch on child</p>
+</li>
+<li>
+<p>Then unlatch parent</p>
+</li>
+</ul>
+<p><strong>Insert/Delete</strong>: Start at root and go down, obtaining <strong>W</strong> latches as needed. Once child is latched, check if it is safe:</p>
+<ul>
+<li>If child is safe, release all latches on ancestors</li>
+</ul>
+<blockquote>
+<p>Better Latching Algorithm</p>
+</blockquote>
+<p>It depends on it that most modifications to a B+ Tree will not require a split or merge.</p>
+<p><strong>Search</strong>: Same as before.</p>
+<p><strong>Insert/Delete</strong>:</p>
+<ul>
+<li>
+<p>Set latches as if for search, get to leaf, and set <strong>W</strong> latch on leaf.</p>
+</li>
+<li>
+<p>If leaf is not safe, release all latches, and restart thread using previous insert/delete protocol with write latches.</p>
+</li>
+</ul>
+<p>This approach optimistically assumes that only leaf node will be modified; if not, <strong>R</strong> latches set on the first pass to leaf are wasteful.</p>
+<blockquote>
+<p>Observation</p>
+</blockquote>
+<p>The threads in all the examples so far have acquired latches in a “top-down” manner.</p>
+<ul>
+<li>
+<p>A thread can only acquire a latch from a node that is below its current node.</p>
+</li>
+<li>
+<p>If the desired latch is unavailable, the thread must wait until it becomes available.</p>
+</li>
+</ul>
+<blockquote>
+<p>Leaf Node Scans</p>
+</blockquote>
+<p>Latches do not support deadlock detection or avoidance. The only way we can deal with this problem is through coding discipline.</p>
+<p>The leaf node sibling latch acquisition protocol must support a “no-wait” mode.</p>
+<p>The DBMS&rsquo;s data structures must cope with failed latch acquisitions.</p>
 
     </div>
 
