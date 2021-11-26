@@ -146,7 +146,7 @@ Insert tuples from query into another table:
 
 Order the output tuples by the values in one or more of their columns.
 
-Limit the # of tuples returned in output. Can set an offset to return a “range”
+Limit the # of tuples returned in output. Can set an offset to return a "range"
 
 >   Nested Queries
 
@@ -681,7 +681,7 @@ Reshuffle bucket entries on split and increase the number of bits to examine.
 
 The hash table maintains a pointer that tracks the next bucket to split.
 
-- When anybucket overflows, split the bucket at the pointer location.
+- When any bucket overflows, split the bucket at the pointer location.
 
 Use multiple hashes to find the right bucket for a given key.
 
@@ -705,7 +705,7 @@ There is a trade-off regarding the number of indexes to create per database.
 
 People also use the term to generally refer to a class of balanced tree data structures:
 
-- B-Tree(1971), B+Tree(1973), B\*Tre(1977?), Blink-Tree(1981)
+- B-Tree(1971), B+Tree(1973), B\*Tree(1977?), Blink-Tree(1981)
 
 A **B+Tree** is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in **O(log n)**.  
 
@@ -715,7 +715,7 @@ A **B+Tree** is a self-balancing tree data structure that keeps data sorted and 
 
 >   B+ Tree Properties
 
-A B+Treeis an M-way search tree with the following properties: 
+A B+Tree is an M-way search tree with the following properties: 
 
 - It is perfectly balanced (i.e., every leaf node is at the same depth in the tree)
 
@@ -731,14 +731,14 @@ It contains level, slots, previous, next, sorted keys and values.
 
 - The keys are derived from the attribute(s) that the index is based on. 
 
-- The values will differ based on whether the node is classified as an **inner node**or a **leaf node.**
+- The values will differ based on whether the node is classified as an **inner node** or a **leaf node.**
 
 The arrays are (usually) kept in sorted key order.
 
 Values Approach: 
 
-1.   Record IDs(Usage: PostgreSQL, SQLServer, DB2, Oracle): A pointer to the location of the tuple to which the index entry corresponds.
-2.   Tuple Data(Usage: SQLite, SQLServer, MySQL, Oracle): The leaf nodes store the actual contents of the tuple. Secondary indexes must store the Record ID as their values.
+1.   Record IDs(Used: PostgreSQL, SQLServer, DB2, Oracle): A pointer to the location of the tuple to which the index entry corresponds.
+2.   Tuple Data(Used: SQLite, SQLServer, MySQL, Oracle): The leaf nodes store the actual contents of the tuple. Secondary indexes must store the Record ID as their values.
 
 >   B Tree vs B+Tree
 
@@ -782,7 +782,7 @@ Start at root, find leaf **L** where entry belongs. Remove the entry. If **L**is
 
 - Try to re-distribute, borrowing from sibling (adjacent node with same parent as **L**).
 
-- If re-distribution fails, merge **L**and sibling.
+- If re-distribution fails, merge **L** and sibling.
 
 If merge occurred, must delete entry (pointing to **L** or sibling) from parent of **L**.
 
@@ -842,13 +842,11 @@ Sorted keys in the same leaf node are likely to have the same prefix.
 
 Instead of storing the entire key each time, extract common prefix and store only unique suffix for each key.
 
-- Many variations.
-
 2.   Deduplication
 
 Non-unique indexes can end up storing multiple copies of the same key in leaf nodes.
 
-The leaf node can store the key once and then maintain a list of tuples with that key (similar towhat we discussed for hash tables).
+The leaf node can store the key once and then maintain a list of tuples with that key (similar to what we discussed for hash tables).
 
 3.   Bulk insert
 
@@ -856,7 +854,7 @@ The fastest way to build a new B+Treefor an existing table is to first sort the 
 
 # 8. Index Concurrency Control
 
-A **concurrency control** protocol is the method that the DBMS uses to ensure “correct” results for concurrent operations on a shared object.
+A **concurrency control** protocol is the method that the DBMS uses to ensure "correct" results for concurrent operations on a shared object.
 
 |          | Locks                               | Latches                   |
 | -------- | ----------------------------------- | ------------------------- |
@@ -896,9 +894,7 @@ Reference: https://en.wikipedia.org/wiki/Futex
 
 Very efficient (single instruction to latch/unlatch); Non-scalable, not cache-friendly, not OS-friendly; 
 
-Example: std::atomic\<T\>.
-
-"do not use spinlocks in user space, unless you actually know what you're doing."
+Example: std::atomic\<T\>. "do not use spinlocks in user space, unless you actually know what you're doing."
 
 3.   Reader-Writer Latches
 
@@ -952,7 +948,7 @@ Protocol to allow multiple threads to access/modify B+Treeat the same time.
 
 -   Get latch for child
 
--   Release latch for parent if “safe”
+-   Release latch for parent if "safe"
 
 A **safe node** is one that will not split or merge when updated.
 
@@ -986,7 +982,7 @@ This approach optimistically assumes that only leaf node will be modified; if no
 
 >   Observation
 
-The threads in all the examples so far have acquired latches in a “top-down” manner.
+The threads in all the examples so far have acquired latches in a "top-down" manner.
 
 -   A thread can only acquire a latch from a node that is below its current node.
 
@@ -996,6 +992,327 @@ The threads in all the examples so far have acquired latches in a “top-down”
 
 Latches do not support deadlock detection or avoidance. The only way we can deal with this problem is through coding discipline.
 
-The leaf node sibling latch acquisition protocol must support a “no-wait” mode.
+The leaf node sibling latch acquisition protocol must support a "no-wait" mode.
 
 The DBMS's data structures must cope with failed latch acquisitions.
+
+# 9. Sorting & Aggregations
+
+Just like it cannot assume that a table fits entirely in memory, a disk-oriented DBMS cannot assume that query results fit in memory.
+
+We are going to rely on the buffer pool to implement algorithms that need to spill to disk.
+
+We are also going to prefer algorithms that maximize the amount of sequential I/O.
+
+>   External Merge Sort
+
+Divide-and-conquer algorithm that splits data into separate **runs**, sorts them individually, and then combines them into longer sorted runs.
+
+1.   Sorting
+
+-   Sort chunks of data that fit in memory and then write back the sorted chunks to a file on disk.
+
+2. Merging
+
+-   Combine sorted runs into larger chunks. 
+
+The DBMS has a finite number of **B** buffer pool pages to hold input and output data.
+
+Steps: 
+
+1. Read all B pages of the table into memory;
+
+2.   Sort pages into runs and write them back to disk;
+
+3.   Recursively merge pairs of runs into runs twice as long.
+4.   Uses three buffer pages (2 for input pages, 1 for output)
+
+In each pass, we read and writeevery page in the file.
+
+$Number \ of \  passes \ =\   1 + ⌈\log_2N⌉ $
+
+$Total\  I/O\  cost\ =\  2N \times (Nums \ of\ passes)$
+
+This algorithm only requires three buffer pool pages to perform the sorting ($B=3$): Two input pages, one output page.
+
+But even if we have more buffer space available ($B > 3$), it does not effectively utilize them if the worker must block on disk I/O. Although we can get the equation: 
+
+$Number\ of\ passes\ with\ N\ pages\ and\ B\ buffer\ pools\ =\ 1+⌈\log_B-1⌈N/ B⌉⌉$
+
+>   Double Buffering Optimization
+
+Prefetch the next run in the background and store it in a second buffer while the system is processing the current run.
+
+-   Reduces the wait time for I/O requests at each step by continuously utilizing the disk.
+
+>   B+ Trees for Sorting
+
+If the table that must be sorted already has a B+Tree index on the sort attribute(s), then we can use that to accelerate sorting.
+
+Retrieve tuples in desired sort order by simply traversing the leaf pages of the tree.
+
+1.   Clustered B+ Tree
+
+Traverse to the left-most leaf page, and then retrieve tuples from all leaf pages.
+
+This is always better than external sorting because there is no computational cost, and all disk access is sequential.
+
+2.   Unclustered B+ Tree
+
+Chase each pointer to the page that contains the data.
+
+This is almost always a bad idea. In general, one I/O per data record. 
+
+>   Aggregations
+
+Collapse values for a single attribute from multiple tuples into a single scalar value.
+
+What if we do not need the data to be ordered?
+
+-   Forming groups in **GROUPBY** (no ordering)
+
+-   Removing duplicates in **DISTINCT** (no ordering)
+
+Hashing is a better alternative in this scenario.
+
+-   Only need to remove duplicates, no need for ordering.
+
+-   Can be computationally cheaper than sorting.
+
+Populate an ephemeral hash table as the DBMS scans the table. For each record, check whether there is already an entry in the hash table:
+
+DISTINCT: Discard duplicate
+
+GROUPBY: Perform aggregate computation
+
+>   External Hashing Aggregate
+
+**Phase #1 Partition**
+
+-   Divide tuples into buckets based on hash key
+
+- Write them out to disk when they get full
+
+**Phase #2 ReHash**
+
+-   Build in-memory hash table for each partition and compute the aggregation
+
+>   Partition
+
+Use a hash function $h_1$ to split tuples into **partitions** on disk.
+
+-   A partition is one or more pages that contain the set of keys with the same hash value. 
+
+-   Partitions are “spilled” to disk via output buffers.
+
+Assume that we have B buffers.
+
+We will use B-1 buffers for the partitions and 1 buffer for the input data.
+
+>   ReHash
+
+For each partition on disk:
+
+- Read it into memory and build an in-memory hash table based on a second hash function $h_2$.
+
+-   Then go through each bucket of this hash table to bring together matching tuples.
+
+This assumes that each partition fits in memory.
+
+# 10. Join Algorithms
+
+We will focus on performing binary joins (two tables) using **inner equi join** algorithms.
+
+-   These algorithms can be tweaked to support other joins.
+
+-   Multi-way joins exist primarily in research literature.
+
+In general, we want the smaller table to always be the left table ("outer table") in the query plan.
+
+**Decision #1: Output**
+
+-   What data does the join operator emit to its parent operator in the query plan tree?
+
+**Decision #2: Cost Analysis Criteria**
+
+-   How do we determine whether one join algorithm is better than another?
+
+Subsequent operators in the query plan never need to go back to the base tables to get more data.
+
+>   Materialization
+
+**Early Materialization:**
+
+-   Copy the values for the attributes in outer and inner tuples into a new output tuple.
+
+Subsequent operators in the query plan never need to go back to the base tables to get more data.
+
+**Late Materialization:**
+
+-   Only copy the joins keys along with the Record IDs of the matching tuples.
+
+Ideal for column stores because the DBMS does not copy data that is not needed for the query.
+
+>   Analysis Criteria
+
+Assume:
+
+-   **M** pages in table **R**, **m** tuples in **R**
+
+-   **N** pages in table **S**, **n** tuples in **S**
+
+**Cost Metric:** **# of IOs to compute join**
+
+We will ignore output costs since that depends on the data and we cannot compute that yet.
+
+
+$R\ ⨝\ S$ is the most common operation and thus must be carefully optimized.
+
+$R\ \times\ S$ followed by a selection is inefficient because the cross-product is large.
+
+There are many algorithms for reducing join cost, but no algorithm works well in all scenarios.
+
+>   Nested Loop Join
+
+1.   Stupid: For every tuple in **R**, it scans **S**once 
+     Cost: $M + (m\ \times\ N)$
+
+2.   Block Nested Loop Join: For every block in **R**, it scans **S** once.
+     Cost: $M+(M\ \times\ N)$
+
+If we have B buffers available:
+1. Use B-2 buffers for scanning the outer table.
+2. Use one buffer for the inner table, one buffer for storing
+output.
+
+This algorithm uses B-2 buffers for scanning R. 
+Cost: $M+ ( ⌈M / (B-2) ⌉\times  N)$, if $B>M+2$, then will be $M+N$
+
+3.   Index Nested Join: Assume the cost of each index probe is some constant C per tuple.
+     Cost: $M + (m \times C)$
+
+>   Sort Merge Join
+
+**Phase #1: Sort**
+
+1.   Sort both tables on the join key(s).
+
+2.   We can use the external merge sort algorithm that we talked about last class.
+
+**Phase #2: Merge**
+
+1. Step through the two sorted tables with cursors and emit matching tuples.
+
+2.   May need to backtrack depending on the join type.
+
+Sort Cost (R): $2M \times (1 + ⌈ logB-1 ⌈M/ B⌉ ⌉)$
+Sort Cost (S): $2N \times (1 + ⌈ logB-1 ⌈N / B⌉ ⌉)$
+Merge Cost: $(M+ N)$
+Total Cost: Sort + Merge
+
+The worst case for the merging phase is when the join attribute of all the tuples in both relations contains the same value.
+
+The input relations may be sorted either by an explicit sort operator, or by scanning the relation using an index on the join key.
+
+>   Hash Join
+
+**Phase #1: Build**
+
+-   Scan the outer relation and populate a hash table using the hash function **h****1**on the join attributes.
+
+**Phase #2: Probe**
+
+-   Scan the inner relation and use **h****1**on each tuple to jump to a location in the hash table and find a matching tuple.
+
+
+
+**Approach #1: Full Tuple**
+
+-   Avoid having to retrieve the outer relation's tuple contents on a match.
+
+-   Takes up more space in memory.
+
+**Approach #2: Tuple Identifier**
+
+-   Could be to either the base tables or the intermediate output from child operators in the query plan.
+
+- Ideal for column stores because the DBMS does not fetch data from disk that it does not need.
+
+-   Also better if join selectivity is low.
+
+Optimization: 
+Create a Bloom Filterduring the build phase when the key is likely to not exist in the hash table.
+
+-   Threads check the filter before probing the hash table. This will be faster since the filter will fit in CPU caches.
+
+- Sometimes called (sideways information passing.)
+
+
+
+>   Grace Hash Join
+
+If the buckets do not fit in memory, then use **recursive partitioning**to split the tables into chunks that will fit.
+
+- Build another hash table for $bucket_{R,i}$,  using hash function $h_2$ (with $h_2≠h_1$).
+-   Then probe it for each tuple of the other table's bucket at that level.
+
+Cost of hash join?
+
+- Assume that we have enough buffers.
+-   Cost: $3(M+ N)$
+
+**Partitioning Phase:**
+
+-   Read+Write both tables
+-   Cost: $2(M+N)$
+
+**Probing Phase:**
+
+-   Read both tables
+-   $M+N$
+
+> Summary
+> 
+
+| **Algorithm**           | **IO Cost**        | **Example**  |
+| ----------------------- | ------------------ | ------------ |
+| Simple Nested Loop Join | $M+(m\times N)$    | 1.3 hours    |
+| Block Nested Loop Join  | $M+(M\times N)$    | 50 seconds   |
+| Index Nested Loop Join  | $M+(M\times C)$    | Variable     |
+| Sort-Merge Join         | $M+N+(sort\ cost)$ | 0.75 seconds |
+| Hash Join               | $3\times(M+N)$     | 0.45 seconds |
+
+Hashing is almost always better than sorting for operator execution.
+
+Caveats:
+
+-   Sorting is better on non-uniform data.
+
+-   Sorting is better when result needs to be sorted.
+
+# 11. Query Execution (1)
+
+>   Iterator Model
+
+Each query plan operator implements a **Next()**function.
+
+-   On each invocation, the operator returns either a single tuple or a **null**marker if there are no more tuples.
+
+-   The operator implements a loop that calls **Next()**on its children to retrieve their tuples and then process them.
+
+Also called **Volcano**or **Pipeline** Model.
+
+This is used in almost every DBMS. Allows for tuple pipelining.
+
+Some operators must block until their children emit all their tuples.
+
+-   Joins, Subqueries, Order By
+
+
+
+Output control works easily with this approach.
+
+
+
+
+
