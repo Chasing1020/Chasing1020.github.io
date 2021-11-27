@@ -6,14 +6,23 @@
     <description>Recent content in Materials on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 28 Nov 2020 13:11:09 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/materials/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Nov 2021 14:25:59 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/materials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CES Materials</title>
+      <link>http://Chasing1020.github.io/post/materials/ces-materials/</link>
+      <pubDate>Sat, 27 Nov 2021 14:25:59 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/materials/ces-materials/</guid>
+      <description>SHU计算机学院资料整理 填完埋了很久的坑，补全了计算机学院相关的资料。 本文仅包含相关电子书，已公开的历年试卷等资源。 本文不含任何教师的个人课</description>
+    </item>
+    
     <item>
       <title>Community College Materials</title>
       <link>http://Chasing1020.github.io/post/materials/community-college-materials/</link>
       <pubDate>Sat, 28 Nov 2020 13:11:09 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/materials/community-college-materials/</guid>
-      <description>SHU社区学院资料整理 本着开源的原则，加之疫情期间在家全程的线上教学，在本人爱好收集文件的习惯之下，留下了一系列在社区学院期间学习的资料。涵</description>
+      <description>SHU社区学院资料整理 本着开源的原则，加之疫情期间在家全程的线上教学，在本人爱好收集文件的习惯之下，留下了一系列在社区学院期间学习的资料。 本</description>
     </item>
     
   </channel>

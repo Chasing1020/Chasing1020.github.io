@@ -6,7 +6,7 @@
     <description>Recent content on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 25 Nov 2021 14:11:42 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Nov 2021 14:25:59 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Friends</title>
       <link>http://Chasing1020.github.io/friends/</link>
@@ -29,24 +29,25 @@
     </item>
     
     <item>
+      <title>CES Materials</title>
+      <link>http://Chasing1020.github.io/post/materials/ces-materials/</link>
+      <pubDate>Sat, 27 Nov 2021 14:25:59 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/materials/ces-materials/</guid>
+      <description>SHU计算机学院资料整理 填完埋了很久的坑，补全了计算机学院相关的资料。 本文仅包含相关电子书，已公开的历年试卷等资源。 本文不含任何教师的个人课</description>
+    </item>
+    
+    <item>
       <title>Database Systems</title>
       <link>http://Chasing1020.github.io/post/database/database-systems/</link>
       <pubDate>Thu, 25 Nov 2021 14:11:42 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/database/database-systems/</guid>
-      <description>1. Relational Model  Definition
+      <description>1. Relational Model Readings: Chapters 1-2, 6
+ Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database.</description>
-    </item>
-    
-    <item>
-      <title>Java Concurrency Programming</title>
-      <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
-      <pubDate>Wed, 24 Nov 2021 18:23:54 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
-      <description>Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s</description>
     </item>
     
     <item>
@@ -172,7 +173,7 @@ Data Model: is a collection of concepts for describing the data in a database.</
       <pubDate>Sat, 28 Nov 2020 13:11:09 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/materials/community-college-materials/</guid>
-      <description>SHU社区学院资料整理 本着开源的原则，加之疫情期间在家全程的线上教学，在本人爱好收集文件的习惯之下，留下了一系列在社区学院期间学习的资料。涵</description>
+      <description>SHU社区学院资料整理 本着开源的原则，加之疫情期间在家全程的线上教学，在本人爱好收集文件的习惯之下，留下了一系列在社区学院期间学习的资料。 本</description>
     </item>
     
     <item>

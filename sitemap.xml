@@ -16,14 +16,49 @@
   
   <url>
     <loc>http://Chasing1020.github.io/categories/</loc>
-    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/materials/ces-materials/</loc>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://Chasing1020.github.io/</loc>
-    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/materials/</loc>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/materials/</loc>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/</loc>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/</loc>
+    <lastmod>2021-11-27T14:25:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -45,41 +80,6 @@
   <url>
     <loc>http://Chasing1020.github.io/categories/note/</loc>
     <lastmod>2021-11-25T14:11:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/</loc>
-    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/</loc>
-    <lastmod>2021-11-25T14:11:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/concurrency/</loc>
-    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/java/concurrency-programming/</loc>
-    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/language/</loc>
-    <lastmod>2021-11-24T18:23:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -142,6 +142,13 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/golang/go06-network/</loc>
+    <lastmod>2021-10-26T19:35:13+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/language/</loc>
     <lastmod>2021-10-26T19:35:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -219,20 +226,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/materials/community-college-materials/</loc>
-    <lastmod>2020-11-28T13:11:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/materials/</loc>
-    <lastmod>2020-11-28T13:11:09+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/materials/</loc>
     <lastmod>2020-11-28T13:11:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

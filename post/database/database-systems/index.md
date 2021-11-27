@@ -1,6 +1,8 @@
 
 # 1. Relational Model
 
+**Readings:** Chapters 1-2, 6
+
 >   Definition
 
 DataBase: Organized collection of inter-related data that models some aspect of the real-world.
@@ -65,6 +67,8 @@ The relational model is independent of any query language implementation. **SQL*
 
 # 2. Advanced SQL
 
+**Readings:** Chapters 3-5
+
 >   SQL Standard
 
 ANSI Standard in 1986. ISO in 1987. Structured Query Language
@@ -89,7 +93,7 @@ Data Control Language (DCL): Security, access controls.
 
 >   Aggregates
 
-Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the **SELECT**output list.
+Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the **SELECT** output list.
 
 **AVG(col)**: Return the average col value.
 
@@ -105,7 +109,7 @@ Functions that return a single value from a bag of tuples. Aggregate functions c
 
 Project tuples into subsets and calculate aggregates againsteach subset. 
 
-Non-aggregated values in **SELECT**output clause must appear in **GROUPBY** clause.
+Non-aggregated values in **SELECT** output clause must appear in **GROUPBY** clause.
 
 Filters results based on aggregation computation. Like a **WHERE** clause for a **GROUPBY**.
 
@@ -128,7 +132,7 @@ SQL-92 defines string functions, whereas many DBMSs also have their own unique f
 
 SQL standard says to use **||** operator to concatenate two or more strings together.
 
-Operations to manipulate and modify **DATE**/**TIME**attributes.
+Operations to manipulate and modify **DATE**/**TIME** attributes.
 
 Can be used in both output and predicates.
 
@@ -171,6 +175,8 @@ Performs a "sliding" calculation across a set of tuples that are related.
 Like an aggregation but tuples are not grouped into a single output tuples.
 
 # 3. Database Storage (1)
+
+**Readings:** Chapter 10.1-10.2, 10.5-10.6
 
 >   Storage
 
@@ -276,6 +282,8 @@ Each tuple is prefixed with a header that contains meta-data about it. Visibilit
 DBMS can physically **denormalize** (e.g., "pre join") related tuples and store them together in the same page.
 
 # 4. DataBase Storage (2)
+
+**Readings:** Chapter 10.5-10.8
 
 >   Data Represtentation
 
@@ -393,6 +401,8 @@ It is important to choose the right storage model for the target workload:
 2.   OLAP = Column Store
 
 # 5. Buffer Pools
+
+**Readings:** Chapter 10.5-10.8
 
 >   Meta Data
 
@@ -580,6 +590,8 @@ These other memory pools may not always backed by disk. Depends on implementatio
 
 # 6. Hash Tables
 
+**Readings:** Chapter 11.6-11.7
+
 >   Definition
 
 A **hash table** implements an unordered associative array that maps keys to values.
@@ -692,6 +704,8 @@ Can use different overflow criterion:
 - Average Length of Overflow Chains
 
 # 7. Tree Indexes
+
+**Readings:** Chapter 11.1-11.4
 
 A **table index** is a replica of a subset of a table's attributes that are organized and/or sorted for efficient access using those attributes.
 
@@ -854,6 +868,8 @@ The fastest way to build a new B+Treefor an existing table is to first sort the 
 
 # 8. Index Concurrency Control
 
+**Readings:** Chapter 15.10
+
 A **concurrency control** protocol is the method that the DBMS uses to ensure "correct" results for concurrent operations on a shared object.
 
 |          | Locks                               | Latches                   |
@@ -998,6 +1014,8 @@ The DBMS's data structures must cope with failed latch acquisitions.
 
 # 9. Sorting & Aggregations
 
+**Readings:** Chapter 12.4-12.5
+
 Just like it cannot assume that a table fits entirely in memory, a disk-oriented DBMS cannot assume that query results fit in memory.
 
 We are going to rely on the buffer pool to implement algorithms that need to spill to disk.
@@ -1120,6 +1138,8 @@ For each partition on disk:
 This assumes that each partition fits in memory.
 
 # 10. Join Algorithms
+
+**Readings:** Chapter 12.4-12.6
 
 We will focus on performing binary joins (two tables) using **inner equi join** algorithms.
 
@@ -1291,6 +1311,8 @@ Caveats:
 -   Sorting is better when result needs to be sorted.
 
 # 11. Query Execution (1)
+
+**Readings:** Chapter 13
 
 >   Iterator Model
 

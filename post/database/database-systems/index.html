@@ -16,7 +16,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Relational Model  Definition
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Relational Model Readings: Chapters 1-2, 6
+ Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database." /><meta name="keywords" content="Hugo, theme, even" />
@@ -43,7 +44,8 @@ Data Model: is a collection of concepts for describing the data in a database." 
 
 
 <meta property="og:title" content="Database Systems" />
-<meta property="og:description" content="1. Relational Model  Definition
+<meta property="og:description" content="1. Relational Model Readings: Chapters 1-2, 6
+ Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database." />
@@ -53,15 +55,17 @@ Data Model: is a collection of concepts for describing the data in a database." 
 <meta property="article:modified_time" content="2021-11-25T14:11:42+08:00" />
 
 <meta itemprop="name" content="Database Systems">
-<meta itemprop="description" content="1. Relational Model  Definition
+<meta itemprop="description" content="1. Relational Model Readings: Chapters 1-2, 6
+ Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="6886">
+<meta itemprop="wordCount" content="6924">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
-<meta name="twitter:description" content="1. Relational Model  Definition
+<meta name="twitter:description" content="1. Relational Model Readings: Chapters 1-2, 6
+ Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."/>
@@ -152,7 +156,7 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 6886 words </span>
+          <span class="more-meta"> 6924 words </span>
           <span class="more-meta"> 33 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -180,6 +184,7 @@ Data Model: is a collection of concepts for describing the data in a database."/
 </div>
     <div class="post-content">
       <h1 id="1-relational-model">1. Relational Model</h1>
+<p><strong>Readings:</strong> Chapters 1-2, 6</p>
 <blockquote>
 <p>Definition</p>
 </blockquote>
@@ -298,6 +303,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Rename (ρ), Assignment (R←S), Duplicate Elimination (δ), Aggregation (γ), Sorting (τ), Division (R÷S).</p>
 <p>The relational model is independent of any query language implementation. <strong>SQL</strong> is the <em>de facto</em> standard (many dialects).</p>
 <h1 id="2-advanced-sql">2. Advanced SQL</h1>
+<p><strong>Readings:</strong> Chapters 3-5</p>
 <blockquote>
 <p>SQL Standard</p>
 </blockquote>
@@ -316,7 +322,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <blockquote>
 <p>Aggregates</p>
 </blockquote>
-<p>Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the <strong>SELECT</strong>output list.</p>
+<p>Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the <strong>SELECT</strong> output list.</p>
 <p><strong>AVG(col)</strong>: Return the average col value.</p>
 <p><strong>MIN(col)</strong>: Return minimum col value.</p>
 <p><strong>MAX(col)</strong>: Return maximum col value.</p>
@@ -326,7 +332,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Group by</p>
 </blockquote>
 <p>Project tuples into subsets and calculate aggregates againsteach subset.</p>
-<p>Non-aggregated values in <strong>SELECT</strong>output clause must appear in <strong>GROUPBY</strong> clause.</p>
+<p>Non-aggregated values in <strong>SELECT</strong> output clause must appear in <strong>GROUPBY</strong> clause.</p>
 <p>Filters results based on aggregation computation. Like a <strong>WHERE</strong> clause for a <strong>GROUPBY</strong>.</p>
 <blockquote>
 <p>String / Date / Time Operations</p>
@@ -376,7 +382,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>&lsquo;%&rsquo; Matches any substring (including empty strings). &lsquo;_&rsquo; Match any one character.</p>
 <p>SQL-92 defines string functions, whereas many DBMSs also have their own unique functions.</p>
 <p>SQL standard says to use <strong>||</strong> operator to concatenate two or more strings together.</p>
-<p>Operations to manipulate and modify <strong>DATE</strong>/<strong>TIME</strong>attributes.</p>
+<p>Operations to manipulate and modify <strong>DATE</strong>/<strong>TIME</strong> attributes.</p>
 <p>Can be used in both output and predicates.</p>
 <blockquote>
 <p>Output Redirection</p>
@@ -412,6 +418,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Performs a &ldquo;sliding&rdquo; calculation across a set of tuples that are related.</p>
 <p>Like an aggregation but tuples are not grouped into a single output tuples.</p>
 <h1 id="3-database-storage-1">3. Database Storage (1)</h1>
+<p><strong>Readings:</strong> Chapter 10.1-10.2, 10.5-10.6</p>
 <blockquote>
 <p>Storage</p>
 </blockquote>
@@ -525,6 +532,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Each tuple is prefixed with a header that contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
 <p>DBMS can physically <strong>denormalize</strong> (e.g., &ldquo;pre join&rdquo;) related tuples and store them together in the same page.</p>
 <h1 id="4-database-storage-2">4. DataBase Storage (2)</h1>
+<p><strong>Readings:</strong> Chapter 10.5-10.8</p>
 <blockquote>
 <p>Data Represtentation</p>
 </blockquote>
@@ -664,6 +672,7 @@ Schema: is a description of a particular collection of data, using a given data 
 </li>
 </ol>
 <h1 id="5-buffer-pools">5. Buffer Pools</h1>
+<p><strong>Readings:</strong> Chapter 10.5-10.8</p>
 <blockquote>
 <p>Meta Data</p>
 </blockquote>
@@ -887,6 +896,7 @@ Schema: is a description of a particular collection of data, using a given data 
 </li>
 </ul>
 <h1 id="6-hash-tables">6. Hash Tables</h1>
+<p><strong>Readings:</strong> Chapter 11.6-11.7</p>
 <blockquote>
 <p>Definition</p>
 </blockquote>
@@ -1052,6 +1062,7 @@ Schema: is a description of a particular collection of data, using a given data 
 </li>
 </ul>
 <h1 id="7-tree-indexes">7. Tree Indexes</h1>
+<p><strong>Readings:</strong> Chapter 11.1-11.4</p>
 <p>A <strong>table index</strong> is a replica of a subset of a table&rsquo;s attributes that are organized and/or sorted for efficient access using those attributes.</p>
 <p>The DBMS ensures that the contents of the table and the index are logically synchronized.</p>
 <p>There is a trade-off regarding the number of indexes to create per database.</p>
@@ -1227,6 +1238,7 @@ Schema: is a description of a particular collection of data, using a given data 
 </ol>
 <p>The fastest way to build a new B+Treefor an existing table is to first sort the keys and then build the index from the bottom up.</p>
 <h1 id="8-index-concurrency-control">8. Index Concurrency Control</h1>
+<p><strong>Readings:</strong> Chapter 15.10</p>
 <p>A <strong>concurrency control</strong> protocol is the method that the DBMS uses to ensure &ldquo;correct&rdquo; results for concurrent operations on a shared object.</p>
 <table>
 <thead>
@@ -1431,6 +1443,7 @@ Can be implemented on top of spin latches.</p>
 <p>The leaf node sibling latch acquisition protocol must support a &ldquo;no-wait&rdquo; mode.</p>
 <p>The DBMS&rsquo;s data structures must cope with failed latch acquisitions.</p>
 <h1 id="9-sorting--aggregations">9. Sorting &amp; Aggregations</h1>
+<p><strong>Readings:</strong> Chapter 12.4-12.5</p>
 <p>Just like it cannot assume that a table fits entirely in memory, a disk-oriented DBMS cannot assume that query results fit in memory.</p>
 <p>We are going to rely on the buffer pool to implement algorithms that need to spill to disk.</p>
 <p>We are also going to prefer algorithms that maximize the amount of sequential I/O.</p>
@@ -1563,6 +1576,7 @@ Can be implemented on top of spin latches.</p>
 </ul>
 <p>This assumes that each partition fits in memory.</p>
 <h1 id="10-join-algorithms">10. Join Algorithms</h1>
+<p><strong>Readings:</strong> Chapter 12.4-12.6</p>
 <p>We will focus on performing binary joins (two tables) using <strong>inner equi join</strong> algorithms.</p>
 <ul>
 <li>
@@ -1779,6 +1793,7 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 </li>
 </ul>
 <h1 id="11-query-execution-1">11. Query Execution (1)</h1>
+<p><strong>Readings:</strong> Chapter 13</p>
 <blockquote>
 <p>Iterator Model</p>
 </blockquote>
@@ -1824,9 +1839,13 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
           <a href="/tags/database/">DataBase</a>
           </div>
       <nav class="post-nav">
-        
-        <a class="next" href="/post/java/concurrency-programming/">
-            <span class="next-text nav-default">Java Concurrency Programming</span>
+        <a class="prev" href="/post/materials/ces-materials/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">CES Materials</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/mathematic-fomulars/">
+            <span class="next-text nav-default">Mathematic Fomulars</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -1899,18 +1918,43 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 
 <script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        tags: 'ams',
-        }
-    };
+  
+  
+  
+  
+  
   </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 
-
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
 
 
 
