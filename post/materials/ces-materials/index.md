@@ -9,7 +9,7 @@
 4. 本文的资料仅供参考，请自己判断其适用性。
 5. 本文一些文件如侵犯了您的权益，请[向我邮件](mailto:chasing1020@gmail.com)，我会及时彻底清除这些文件。
 
->   本文许可：[CC-BY-NC-SA：署名-非商业性使用-相同方式共享](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
+>   本文许可：[CC-BY-NC-SA：署名-非商业性使用-相同方式共享](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 >
 >   文章版权归个人所有，未经作者授权禁止转载（或注明出处），不得将其中的资料用作任何商业用途。
 

@@ -61,7 +61,7 @@ Data Model: is a collection of concepts for describing the data in a database." 
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
 Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="6924">
+<meta itemprop="wordCount" content="11110">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="1. Relational Model Readings: Chapters 1-2, 6
@@ -156,8 +156,8 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 6924 words </span>
-          <span class="more-meta"> 33 mins read </span>
+          <span class="more-meta"> 11110 words </span>
+          <span class="more-meta"> 53 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -169,7 +169,7 @@ Data Model: is a collection of concepts for describing the data in a database."/
   <ul>
     <li><a href="#1-relational-model">1. Relational Model</a></li>
     <li><a href="#2-advanced-sql">2. Advanced SQL</a></li>
-    <li><a href="#3-database-storage-1">3. Database Storage (1)</a></li>
+    <li><a href="#3-database-storage-1">3. DataBase Storage (1)</a></li>
     <li><a href="#4-database-storage-2">4. DataBase Storage (2)</a></li>
     <li><a href="#5-buffer-pools">5. Buffer Pools</a></li>
     <li><a href="#6-hash-tables">6. Hash Tables</a></li>
@@ -178,6 +178,11 @@ Data Model: is a collection of concepts for describing the data in a database."/
     <li><a href="#9-sorting--aggregations">9. Sorting &amp; Aggregations</a></li>
     <li><a href="#10-join-algorithms">10. Join Algorithms</a></li>
     <li><a href="#11-query-execution-1">11. Query Execution (1)</a></li>
+    <li><a href="#12-query-execution-2">12. Query Execution (2)</a></li>
+    <li><a href="#13-optimization-1">13. Optimization (1)</a></li>
+    <li><a href="#14-optimization-2">14. Optimization (2)</a></li>
+    <li><a href="#15-concurrency-control-theory">15. Concurrency Control Theory</a></li>
+    <li><a href="#16-two-phase-locking">16. Two Phase Locking</a></li>
   </ul>
 </nav>
   </div>
@@ -417,7 +422,7 @@ Schema: is a description of a particular collection of data, using a given data 
 </blockquote>
 <p>Performs a &ldquo;sliding&rdquo; calculation across a set of tuples that are related.</p>
 <p>Like an aggregation but tuples are not grouped into a single output tuples.</p>
-<h1 id="3-database-storage-1">3. Database Storage (1)</h1>
+<h1 id="3-database-storage-1">3. DataBase Storage (1)</h1>
 <p><strong>Readings:</strong> Chapter 10.1-10.2, 10.5-10.6</p>
 <blockquote>
 <p>Storage</p>
@@ -1797,22 +1802,1013 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 <blockquote>
 <p>Iterator Model</p>
 </blockquote>
-<p>Each query plan operator implements a **Next()**function.</p>
+<p>Each query plan operator implements a <strong>Next()</strong> function.</p>
 <ul>
 <li>
-<p>On each invocation, the operator returns either a single tuple or a <strong>null</strong>marker if there are no more tuples.</p>
+<p>On each invocation, the operator returns either a single tuple or a <strong>null</strong> marker if there are no more tuples.</p>
 </li>
 <li>
-<p>The operator implements a loop that calls **Next()**on its children to retrieve their tuples and then process them.</p>
+<p>The operator implements a loop that calls <strong>Next()</strong> on its children to retrieve their tuples and then process them.</p>
 </li>
 </ul>
-<p>Also called <strong>Volcano</strong>or <strong>Pipeline</strong> Model.</p>
-<p>This is used in almost every DBMS. Allows for tuple pipelining.</p>
-<p>Some operators must block until their children emit all their tuples.</p>
+<p>Also called <strong>Volcano</strong> or <strong>Pipeline</strong> Model.</p>
+<p>This is used in almost every DBMS. Allows for tuple pipelining. Some operators must block until their children emit all their tuples.</p>
 <ul>
 <li>Joins, Subqueries, Order By</li>
 </ul>
-<p>Output control works easily with this approach.</p>
+<blockquote>
+<p>Materialization Model</p>
+</blockquote>
+<p>Each operator processes its input all at once and then emits its output all at once.</p>
+<ul>
+<li>
+<p>The operator &ldquo;materializes&rdquo; its output as a single result.</p>
+</li>
+<li>
+<p>The DBMS can push down hints (e.g., <strong>LIMIT</strong>) to avoid scanning too many tuples.</p>
+</li>
+<li>
+<p>Can send either a materialized row or a single column.</p>
+</li>
+</ul>
+<p>The output can be either whole tuples (NSM) or subsets of columns (DSM).</p>
+<p>Better for OLTP workloads because queries only access a small number of tuples at a time.</p>
+<ul>
+<li>
+<p>Lower execution / coordination overhead.</p>
+</li>
+<li>
+<p>Fewer function calls.</p>
+</li>
+</ul>
+<p>Not good for OLAP queries with large intermediate results.</p>
+<blockquote>
+<p>Vectorization Model</p>
+</blockquote>
+<p>Like the Iterator Model where each operator implements a <strong>Next()</strong> function, but…</p>
+<p>Each operator emits a <strong>batch</strong> of tuples instead of a single tuple.</p>
+<ul>
+<li>
+<p>The operator&rsquo;s internal loop processes multiple tuples at a time.</p>
+</li>
+<li>
+<p>The size of the batch can vary based on hardware or query properties.</p>
+</li>
+</ul>
+<p>Ideal for OLAP queries because it greatly reduces the number of invocations per operator.</p>
+<p>Allows for operators to more easily use vectorized (SIMD) instructions to process batches of tuples.</p>
+<blockquote>
+<p>Sequential Scan</p>
+</blockquote>
+<p>For each page in the table:</p>
+<ul>
+<li>
+<p>Retrieve it from the buffer pool.</p>
+</li>
+<li>
+<p>Iterate over each tuple and check whether to include it.</p>
+</li>
+</ul>
+<p>The DBMS maintains an internal <strong>cursor</strong>that tracks the last page / slot it examined.</p>
+<p>This is almost always the worst thing that the DBMS can do to execute a query.</p>
+<p>Sequential Scan Optimizations: Prefetching, Buffer Pool Bypass, Parallelization, Heap Clustering, Zone Maps, Late Materialization.</p>
+<ol>
+<li>
+<p>Zone Maps: Pre-computed aggregates for the attribute values in a page. DBMS checks the zone map first to decide whether it wants to access the page.</p>
+</li>
+<li>
+<p>Late Materialization: DSM DBMSs can delay stitching together tuples until the upper parts of the query plan.</p>
+</li>
+</ol>
+<blockquote>
+<p>Index Scan</p>
+</blockquote>
+<p>The DBMS picks an index to find the tuples that the query needs.
+Which index to use depends on:
+→ What attributes the index contains
+→ What attributes the query references
+→ The attribute&rsquo;s value domains
+→ Predicate composition
+→ Whether the index has unique or non-unique keys</p>
+<blockquote>
+<p>Multi Index Scan</p>
+</blockquote>
+<p>Set intersection can be done with bitmaps, hash tables, or Bloom filters.</p>
+<p>Operators that modify the database (<strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>DELETE</strong>) are responsible for checking constraints and updating indexes.</p>
+<p><strong>UPDATE</strong>/<strong>DELETE</strong>:</p>
+<ul>
+<li>Child operators pass Record IDs for target tuples.</li>
+<li>Must keep track of previously seen tuples.</li>
+</ul>
+<p><strong>INSERT</strong>:</p>
+<ul>
+<li>
+<p><strong>Choice #1</strong>: Materialize tuples inside of the operator.</p>
+</li>
+<li>
+<p><strong>Choice #2</strong>: Operator inserts any tuple passed in from child operators.</p>
+</li>
+</ul>
+<p>Halloween Problem: Anomaly where an update operation changes the physical location of a tuple, which causes a scan operator to visit the tuple multiple times.</p>
+<ul>
+<li>Can occur on clustered tables or index scans.</li>
+</ul>
+<p>First discoveredby IBM researchers while working on System R on Halloween day in 1976.</p>
+<blockquote>
+<p>Expression Evaluation</p>
+</blockquote>
+<p>The DBMS represents a <strong>WHERE</strong> clause as an <strong>expression tree</strong>.</p>
+<p>The nodes in the tree represent different expression types:</p>
+<p>Comparisons (<strong>=</strong>, <strong>&lt;</strong>, <strong>&gt;</strong>, <strong>!=</strong>); Conjunction (<strong>AND</strong>), Disjunction (<strong>OR</strong>); Arithmetic Operators (<strong>+</strong>, <strong>-</strong>, *****, <strong>/</strong>, <strong>%</strong>); Constant Values; Tuple Attribute References.</p>
+<p>Evaluating predicates in this manner is slow.</p>
+<p>The DBMS traverses the tree and for each node that it visits it must figure out what the operator needs to do.</p>
+<p>A better approach is to just evaluate the expression directly. (Think JIT compilation)</p>
+<h1 id="12-query-execution-2">12. Query Execution (2)</h1>
+<blockquote>
+<p>Parallel DBMSs vs Distributed DBMSs</p>
+</blockquote>
+<p>Database is spread out across multiple <strong>resources</strong> to improve different aspects of the DBMS.</p>
+<p>Appears as a single logical database instance to the application, regardless of physical organization.</p>
+<ul>
+<li>SQL query for a single-resource DBMS should generate same result on a parallel or distributed DBMS.</li>
+</ul>
+<p><strong>Parallel DBMSs</strong></p>
+<ul>
+<li>
+<p>Resources are physically close to each other.</p>
+</li>
+<li>
+<p>Resources communicate over high-speed interconnect.</p>
+</li>
+<li>
+<p>Communication is assumed to be cheap and reliable.</p>
+</li>
+</ul>
+<p><strong>Distributed DBMSs</strong></p>
+<ul>
+<li>
+<p>Resources can be far from each other.</p>
+</li>
+<li>
+<p>Resources communicate using slow(er) interconnect.</p>
+</li>
+<li>
+<p>Communication cost and problems cannot be ignored.</p>
+</li>
+</ul>
+<blockquote>
+<p>Process Model</p>
+</blockquote>
+<p>A DBMS’s <strong>process model</strong> defines how the system is architected to support concurrent requests from a multi-user application.</p>
+<p>A <strong>worker</strong> is the DBMS component that is responsible for executing tasks on behalf of the client and returning the results.</p>
+<ol>
+<li>Process per DBMS Worker</li>
+</ol>
+<p>Each worker is a separate OS process.</p>
+<ul>
+<li>Relies on OS scheduler.</li>
+<li>Use shared-memory for global data structures.</li>
+<li>A process crash doesn’t take down entire system.</li>
+<li>Examples: IBM DB2, Postgres, Oracle</li>
+</ul>
+<ol start="2">
+<li>Process Pool</li>
+</ol>
+<p>A worker uses any free process from the pool.</p>
+<ul>
+<li>Still relies on OS scheduler and shared memory.</li>
+<li>Bad for CPU cache locality.</li>
+<li>Examples: IBM DB2, Postgres (2015)</li>
+</ul>
+<ol start="3">
+<li>Thread per DBMS Worker</li>
+</ol>
+<p>Single process with multiple worker threads.</p>
+<ul>
+<li>DBMS manages its own scheduling.</li>
+<li>May or may not use a dispatcher thread.</li>
+<li>Thread crash (may) kill the entire system.</li>
+<li>Examples: IBM DB2, MSSQL, MySQL, Oracle (2014)</li>
+</ul>
+<p>Advantages of a multi-threaded architecture:</p>
+<ul>
+<li>Less overhead per context switch.</li>
+<li>Do not have to manage shared memory.
+The thread per worker model does not mean that the DBMS supports intra-query parallelism.</li>
+</ul>
+<blockquote>
+<p>Inter- vs Intra- Query Parallelism</p>
+</blockquote>
+<p>Inter-Query: Different queries are executed concurrently.
+→ Increases throughput &amp; reduces latency.
+Intra-Query: Execute the operations of a single query in parallel.
+→ Decreases latency for long-running queries.</p>
+<p>Improve overall performance by allowing multiple queries to execute simultaneously.
+If queries are read-only, then this requires little coordination between queries.
+If multiple queries are updating the database at the same time, then this is hard to do correctly.</p>
+<blockquote>
+<p>Inter Query Parallelism</p>
+</blockquote>
+<p>Improve overall performance by allowing multiple queries to execute simultaneously.</p>
+<p>If queries are read-only, then this requires little coordination between queries.</p>
+<p>If multiple queries are updating the database at the same time, then this is hard to do correctly…</p>
+<blockquote>
+<p>Intra Query Parallelism</p>
+</blockquote>
+<p>Improve the performance of a single query by executing its operators in parallel.
+Think of organization of operators in terms of a producer/consumer paradigm.
+There are parallel versions of every operator.</p>
+<ul>
+<li>Can either have multiple threads access centralized data structures or use partitioning to divide work up.</li>
+</ul>
+<p>Parallel Grace Hash Join: Use a separate worker to perform the join for each level of buckets for <strong>R</strong> and <strong>S</strong> after partitioning.</p>
+<blockquote>
+<p>Intra Operator(Horizontal)</p>
+</blockquote>
+<p>Decompose operators into independent <strong>fragments</strong> that perform the same function on different subsets of data.</p>
+<p>The DBMS inserts an <strong>exchange</strong> operator into the query plan to coalesce/split results from multiple children/parent operators.</p>
+<p>Exchange Operator has three types as follows:</p>
+<p><strong>Exchange Type #1 –Gather</strong></p>
+<p>→Combine the results from multiple workers into a single output stream.</p>
+<p><strong>Exchange Type #2 –Distribute</strong></p>
+<p>→Split a single input stream into multiple output streams.</p>
+<p><strong>Exchange Type #3 –Repartition</strong></p>
+<p>→Shuffle multiple input streams across multiple output streams.</p>
+<blockquote>
+<p>Inter Operator(Vertical)</p>
+</blockquote>
+<p>Operations are overlapped in order to pipeline data from one stage to the next without materialization.</p>
+<p>Workers execute operators from different segments of a query plan at the same time.</p>
+<p>Also called <strong>pipeline parallelism</strong>.</p>
+<blockquote>
+<p><strong>Bushy Parallelism</strong></p>
+</blockquote>
+<p>Hybrid of intra-and inter-operator parallelism where workers execute multiple operators from different segments of a query plan at the same time.</p>
+<p>Still need exchange operators to combine intermediate results from segments.</p>
+<blockquote>
+<p>Observation</p>
+</blockquote>
+<p>Using additional processes/threads to execute queries in parallel won&rsquo;t help if the disk is always the main bottleneck.</p>
+<ul>
+<li>In fact, it can make things worse if each worker is working on different segments of the disk.</li>
+</ul>
+<blockquote>
+<p>I/O Parallelism</p>
+</blockquote>
+<p>Configure OS/hardware to store the DBMS&rsquo;s files across multiple storage devices.</p>
+<ul>
+<li>Storage Appliances, RAID Configuration</li>
+</ul>
+<p>This is <strong>transparent</strong> to the DBMS.</p>
+<blockquote>
+<p>DataBase Partition</p>
+</blockquote>
+<p>Some DBMSs allow you to specify the disk location of each individual database.</p>
+<p>→The buffer pool manager maps a page to a disk location.</p>
+<p>This is also easy to do at the filesystem level if the DBMS stores each database in a separate directory.</p>
+<p>→The DBMS recovery log file might still be shared if transactions can update multiple databases.</p>
+<blockquote>
+<p>Partitioning</p>
+</blockquote>
+<p>Split single logical table into disjoint physical segments that are stored/managed separately.</p>
+<p>Partitioning should (ideally) be transparent to the application.</p>
+<p>→The application should only access logical tables and not have to worry about how things are physically stored.</p>
+<ol>
+<li>Vertical Partioning</li>
+</ol>
+<p>Store a table’s attributes in a separate location (e.g., file, disk volume).</p>
+<p>Must store tuple information to reconstruct the original record.</p>
+<ol start="2">
+<li>Horizontal Partioning</li>
+</ol>
+<p>Divide table into disjoint segments based on some partitioning key. Hash Partitioning</p>
+<ul>
+<li>
+<p>Range Partitioning</p>
+</li>
+<li>
+<p>Predicate Partitioning</p>
+</li>
+</ul>
+<h1 id="13-optimization-1">13. Optimization (1)</h1>
+<p>Remember that SQL is declarative. User tells the DBMS what answer they want, not how to get the answer.</p>
+<p>First implementation of a query optimizer from the 1970s. People argued that the DBMS could never choose a query plan better than what a human could write.</p>
+<p><strong>Heuristics / Rules</strong></p>
+<ul>
+<li>
+<p>Rewrite the query to remove stupid / inefficient things.</p>
+</li>
+<li>
+<p>These techniques may need to examine catalog, but they do notneed to examine data.</p>
+</li>
+</ul>
+<p><strong>Cost-based Search</strong></p>
+<ul>
+<li>
+<p>Use a model to estimate the cost of executing a plan.</p>
+</li>
+<li>
+<p>Evaluate multiple equivalent plans for a query and pick the one with the lowest cost.</p>
+</li>
+</ul>
+<blockquote>
+<p>Logical vs Physical Plans</p>
+</blockquote>
+<p>The optimizer generates a mapping of a logical algebra expression to the optimal equivalent physical algebra expression.</p>
+<p>Physical operators define a specific execution strategy using an access path.</p>
+<ul>
+<li>
+<p>They can depend on the physical format of the data that they process (i.e., sorting, compression).</p>
+</li>
+<li>
+<p>Not always a 1:1 mapping from logical to physical.</p>
+</li>
+</ul>
+<blockquote>
+<p>Relational Algebra Equivalences</p>
+</blockquote>
+<p>Two relational algebra expressions are equivalent if they generate the same set of tuples.</p>
+<p>The DBMS can identify better query plans without a cost model.</p>
+<p>This is often called query rewriting.</p>
+<blockquote>
+<p>Predicate Pushdown</p>
+</blockquote>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">studnet</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>The algrbra expression is:</p>
+<p>$\pi_{name,cid}(\sigma_{grade=&lsquo;A&rsquo;}(student⋈enrolled))$</p>
+<p>which is equal to the expression:</p>
+<p>$\pi_{name,cid}(student⋈\sigma_{grade={&lsquo;A&rsquo;}}(enrolled))$</p>
+<p><strong>Selections Optimize:</strong></p>
+<p>Perform filters as early as possible. Break a complex predicate, and push down:</p>
+<p>$\sigma_{p1 \wedge p2\wedge &hellip;\wedge pn}(R)=\sigma_{p1}(\sigma_{p2}(&hellip;\sigma_{pn}(R)))$</p>
+<p><strong>Joins Optimize:</strong></p>
+<p>$R⋈S=S⋈R, \ (R⋈S⋈T) =R⋈(S⋈T)$</p>
+<p>The number of different join orderings for an n-way join is a <strong>Catalan Number</strong> ($≈4^n$)</p>
+<p>Exhaustive enumeration will be too slow.</p>
+<p><strong>Projections Optimize</strong> (Not important for a column store) <strong>:</strong></p>
+<ul>
+<li>Perform them early to create smaller tuples and reduce intermediate results (if duplicates are eliminated)</li>
+<li>Project out all attributes except the ones requested or required (e.g., joining keys)</li>
+</ul>
+<p>Let&rsquo;s see the example again:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>$\pi_{name,cid}(student⋈\sigma_{grade={&lsquo;A&rsquo;}}(enrolled))$</p>
+<p>$\pi_{name,cid}(\pi_{sid,name}(student)⋈\pi_{cid,sid}(\sigma_{grade={&lsquo;A&rsquo;}}(enrolled)))$</p>
+<blockquote>
+<p>Logical Query Optimization</p>
+</blockquote>
+<p>Transform a logical plan into an equivalent logical plan using pattern matching rules.</p>
+<p>The goal is to increase the likelihood of enumerating the optimal plan in the search.</p>
+<p>Cannot compare plans because there is no cost model but can &ldquo;direct&rdquo; a transformation to a preferred side.</p>
+<p>Split Conjunctive predicates</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">NAME</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">,</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">,</span><span class="w"> </span><span class="n">ALBUM</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ARTIST_ID</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ALBUM_ID</span><span class="o">=</span><span class="n">ALBUM</span><span class="p">.</span><span class="n">ID</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">ALBUM</span><span class="p">.</span><span class="n">NAME</span><span class="o">=</span><span class="s2">&#34;Andy&#39;s OG Remix&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.</p>
+<p>$\pi_{name}(\sigma_{id=artist_id  \wedge album_id=album.id \wedge name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))$</p>
+<p>Using selections optimization, break a complex predicate, and push down:</p>
+<p>$\pi_{name}(\sigma_{id=artist_id }(\sigma_{album_id=album.id }(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))))$</p>
+<p>Move the predicate to the lowest applicable point in the plan:</p>
+<p>$\pi_{name}(\sigma_{album_id=album.id }(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)\times(\sigma_{id=artist_id }(artist\times appears))))$</p>
+<p>Replace all Cartesian Products with inner joins using the join predicates:</p>
+<p>$\pi_{name}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } (artist ⋈_{id=artist_id} appears))$</p>
+<p>Eliminate redundant attributes before pipeline breakers to reduce materialization cost:</p>
+<p>$\pi_{name}(\pi_{id}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } $\<br>
+$(\pi_{id}(\pi_{id, name}(artist) ⋈_{id=artist_{id}} \pi_{artist_{id}, album_{id}}(appears))))$</p>
+<blockquote>
+<p>Nested Sub-Queries</p>
+</blockquote>
+<p>The DBMS treats nested sub-queries in the where clause as functions that take parameters and return a single value or set of values.
+Two Approaches:</p>
+<ul>
+<li>Rewrite to de-correlate and/or flatten them</li>
+<li>Decompose nested query and store result to temporary
+table</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>Decompose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- For each sailor with the highest rating (over all sailors) and at least 
+</span><span class="c1">-- two reservations for red boats, find the sailor id and the earliest date 
+</span><span class="c1">-- on which the sailor has a reservation for a red boat.
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">boats</span><span class="w"> </span><span class="n">B</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">bid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">bid</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="w">
+</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">S2</span><span class="p">.</span><span class="n">rating</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S2</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>For harder queries, the optimizer breaks up queries into blocks and then concentrates on one block at a time.</p>
+<p>Sub-queries are written to a temporary table that are discarded after the query finishes.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="c1">-- Nested Block
+</span></code></pre></td></tr></table>
+</div>
+</div><p>An optimizer transforms a query&rsquo;s expressions (e.g., <strong>WHERE</strong> clause predicates) into the optimal/minimal set of expressions.</p>
+<p>Implemented using if/then/else clauses or a pattern-matching rule engine.</p>
+<ul>
+<li>
+<p>Search for expressions that match a pattern.</p>
+</li>
+<li>
+<p>When a match is found, rewrite the expression.</p>
+</li>
+<li>
+<p>Halt if there are no more rules that match.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Impossible / Unnecessary Predicates
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">-- return empty set
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">-- remove where predicate
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="c1">-- Join Elimination
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- after optimize 
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="c1">-- after optimize
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- Merging Predicates
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span><span class="w"></span><span class="k">OR</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">-- after optimize
+</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Cost-based Query Planning</p>
+</blockquote>
+<p>Generate an estimate of the cost of executing a particular query plan for the current state of the database.</p>
+<p>→Estimates are only meaningful internally.</p>
+<p>This is independent of the plan enumeration step that we will talk about next class.</p>
+<p><strong>Choice #1: Physical Costs</strong></p>
+<ul>
+<li>
+<p>Predict CPU cycles, I/O, cache misses, RAM consumption, pre-fetching, etc…</p>
+</li>
+<li>
+<p>Depends heavily on hardware.</p>
+</li>
+</ul>
+<p><strong>Choice #2: Logical Costs</strong></p>
+<ul>
+<li>
+<p>Estimate result sizes per operator.</p>
+</li>
+<li>
+<p>Independent of the operator algorithm.</p>
+</li>
+<li>
+<p>Need estimations for operator result sizes.</p>
+</li>
+</ul>
+<p><strong>Choice #3: Algorithmic Costs</strong></p>
+<ul>
+<li>Complexity of the operator algorithm implementation.</li>
+</ul>
+<blockquote>
+<p>Disk based DBMS cost Model</p>
+</blockquote>
+<p>The number of disk accesses will always dominate the execution time of a query.</p>
+<ul>
+<li>
+<p>CPU costs are negligible.</p>
+</li>
+<li>
+<p>Must consider sequential vs. random I/O.</p>
+</li>
+</ul>
+<p>This is easier to model if the DBMS has full control over buffer management.</p>
+<ul>
+<li>We will know the replacement strategy, pinning, and assume exclusive access to disk.</li>
+</ul>
+<blockquote>
+<p>Postages cost Model</p>
+</blockquote>
+<p>Uses a combination of CPU and I/O costs that are weighted by “magic” constant factors.</p>
+<p>Default settings are obviously for a disk-resident database without a lot of memory:</p>
+<ul>
+<li>
+<p>Processing a tuple in memory is <strong>400x</strong> faster than reading a tuple from disk.</p>
+</li>
+<li>
+<p>Sequential I/O is <strong>4x</strong> faster than random I/O.</p>
+</li>
+</ul>
+<blockquote>
+<p>Example (IBM DB2 cost Model)</p>
+</blockquote>
+<p>Database characteristics in system catalogs; Hardware environment (microbenchmarks); Storage device characteristics (microbenchmarks); Communications bandwidth (distributed only); Memory resources (buffer pools, sort heaps); Concurrency Environment(Average number of users, Isolation level / blocking, Number of available locks).</p>
+<h1 id="14-optimization-2">14. Optimization (2)</h1>
+<blockquote>
+<p>Statistics</p>
+</blockquote>
+<p>The DBMS stores internal statistics about tables, attributes, and indexes in its internal catalog.</p>
+<p>Different systems update them at different times.</p>
+<p>Manual invocations:</p>
+<ul>
+<li>Postgres/SQLite: <strong>ANALYZE</strong></li>
+<li>Oracle/MySQL: <strong>ANALYZETABLE</strong></li>
+<li>SQL Server: <strong>UPDATE STATISTICS</strong></li>
+<li>DB2: <strong>RUNSTATS</strong></li>
+</ul>
+<blockquote>
+<p>Derivable Statistics</p>
+</blockquote>
+<p>For each relation <strong>R</strong>, the DBMS maintains the following information:</p>
+<ul>
+<li>
+<p>$N_R$: Number of tuples in <strong>R</strong>.</p>
+</li>
+<li>
+<p>$V(A,R)$: Number of distinct values for attribute <strong>A</strong>.</p>
+</li>
+</ul>
+<p>The <strong>selection cardinality</strong> $SC(A,R)$ is the average number of records with a value for an attribute <strong>A</strong> given $N_{R}/ V(A,R)$</p>
+<p>Note that this formula assumes <strong>data uniformity</strong> where every value has the same frequency as all other values.</p>
+<p>The <strong>selectivity</strong> (sel) of a predicate <strong>P</strong> is the fraction of tuples that qualify.</p>
+<p>Equality Predicate: $sel (A=constant) = SC(P) / N_R$</p>
+<p>Range Predicate: $sel(A&gt;=a) = (A_{max}– a+1) / (A_{max}– A_{min}+1)$</p>
+<p>Negation Query: $sel(not \ P) = 1 – sel(P)$</p>
+<p><strong>Observation: Selectivity ≈ Probability</strong></p>
+<p>Conjunction: $sel(P1 \wedge P2) = sel(P1) · sel(P2)$</p>
+<p>Disjunction: $sel(P1 \vee P2)= sel(P1) + sel(P2) – sel(P1 \wedge P2)= sel(P1) + sel(P2)–sel(P1)·sel(P2)$</p>
+<p>This assumes that the predicates are <strong>independent</strong>.</p>
+<blockquote>
+<p>Result size estimation</p>
+</blockquote>
+<p>Given a join of <strong>R</strong> and <strong>S</strong>, what is the range of possible result sizes in # of tuples?
+General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for either table.</p>
+<p>Match each R-tuple with S-tuples: $estSize ≈ N_{R} · N_{S} / V(A, S)$</p>
+<p>Symmetrically, for S: $estSize ≈ N_{R} · N_{S} / V(A, R) $</p>
+<p><strong>Overall:</strong> $estSize ≈ N_{R} · N_{S} / max({V(A,S), V(A,R)})$</p>
+<blockquote>
+<p>Selection Cardinality</p>
+</blockquote>
+<p><strong>Assumption #1: Uniform Data</strong></p>
+<p>→The distribution of values (except for the heavy hitters) is the same.</p>
+<p><strong>Assumption #2: Independent Predicates</strong></p>
+<p>→The predicates on attributes are independent</p>
+<p><strong>Assumption #3: Inclusion Principle</strong></p>
+<p>→The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.</p>
+<blockquote>
+<p>Sketches</p>
+</blockquote>
+<p>Probabilistic data structures that generate approximate statistics about a data set.</p>
+<p>Cost-model can replace histograms with sketches to improve its selectivity estimate accuracy.</p>
+<p>Most common examples:</p>
+<ul>
+<li>
+<p>Count-Min Sketch(1988): Approximate frequency count of elements in a set.</p>
+</li>
+<li>
+<p>HyperLogLog(2007): Approximate the number of distinct elements in a set.</p>
+</li>
+</ul>
+<blockquote>
+<p>Sampling</p>
+</blockquote>
+<p>Modern DBMSs also collect samples from tables to estimate selectivities.</p>
+<p>Update samples when the underlying tables changes significantly.</p>
+<blockquote>
+<p>Query Optimization</p>
+</blockquote>
+<p>After performing rule-based rewriting, the DBMS will enumerate different plans for the query and estimate their costs. Like Single relation, Multiple relations, and Nested sub-queries.</p>
+<p>It chooses the best plan it has seen for the query after exhausting all plans or some timeout.</p>
+<p>Simple heuristics are often good enough for this. OLTP queries are especially easy.</p>
+<p>Query planning for OLTP queries is easy because they are <strong>sargable</strong> (<strong>S</strong>earch <strong>Arg</strong>ument <strong>Able</strong>).</p>
+<ul>
+<li>
+<p>It is usually just picking the best index.</p>
+</li>
+<li>
+<p>Joins are almost always on foreign key relationships with a small cardinality.</p>
+</li>
+<li>
+<p>Can be implemented with simple heuristics.</p>
+</li>
+</ul>
+<blockquote>
+<p>Multi-Relation Query Planning</p>
+</blockquote>
+<p>As number of joins increases, number of alternative plans grows rapidly</p>
+<ul>
+<li>We need to restrict search space.</li>
+</ul>
+<p>Fundamental decision in <strong>System R</strong>: only left-deep join trees are considered.</p>
+<ul>
+<li>Modern DBMSs do not always make this assumption anymore.</li>
+</ul>
+<p>Use <strong>dynamic programming</strong> to reduce the number of cost estimations.</p>
+<ol>
+<li>
+<p>Enumerate the orderings. Example: Left-deep tree #1, Left-deep tree #2…</p>
+</li>
+<li>
+<p>Enumerate the plans for each operator. Example: Hash, Sort-Merge, Nested Loop…</p>
+</li>
+<li>
+<p>Enumerate the access paths for each table. Example: Index #1, Index #2, SeqScan…</p>
+</li>
+</ol>
+<h1 id="15-concurrency-control-theory">15. Concurrency Control Theory</h1>
+<p>A <strong>transaction</strong> is the execution of a sequence of one or more operations (e.g., SQL queries) on a database to perform some higher-level function.</p>
+<p>A txn may carry out many operations on the data retrieved from the database</p>
+<p>The DBMS is onlyconcerned about what data is read/written from/to the database.</p>
+<blockquote>
+<p>Strawman System</p>
+</blockquote>
+<p>Execute each txnone-by-one (i.e., serial order) as they arrive at the DBMS.</p>
+<p>→One and only one txncan be running at the same time in the DBMS.</p>
+<p>Before a txnstarts, copy the entire database to a new file and make all changes to that file.</p>
+<p>→If the txncompletes successfully, overwrite the original file with the new one.</p>
+<p>→If the txnfails, just remove the dirty copy.</p>
+<blockquote>
+<p>Correctness Criteria ACID</p>
+</blockquote>
+<p><strong>Atomicity:</strong> All actions in the txnhappen, or none happen.(“all or nothing”)</p>
+<p><strong>Consistency:</strong> If each txnis consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)</p>
+<p><strong>Isolation:</strong> Execution of one txnis isolated from that of other txns.(“as if alone”)</p>
+<p><strong>Durability:</strong> If a txncommits, its effects persist.(“survive failures”)</p>
+<blockquote>
+<p>Atomicity</p>
+</blockquote>
+<p>DBMS guarantees that txns are <strong>atomic</strong>.</p>
+<p>→From user&rsquo;s point of view: txnalways either executes all its actions or executes no actions at all.</p>
+<p>Mechanism For Ensuring Atomicity</p>
+<p><strong>Approach #1: Logging</strong></p>
+<p>→DBMS logs all actions so that it can undo the actions of aborted transactions.</p>
+<p>→Maintain undo records both in memory and on disk.</p>
+<p>→Think of this like the black box in airplanes…</p>
+<p><strong>Approach #2: Shadow Paging</strong></p>
+<p>→DBMS makes copies of pages and txnsmake changes to those copies. Only when the txncommits is the page made visible to others.</p>
+<p>→Originally from System R.</p>
+<blockquote>
+<p>Database Consistency</p>
+</blockquote>
+<p>The &ldquo;world&rdquo; represented by the database is logicallycorrect. All questions asked about the data are given logicallycorrect answers.</p>
+<p>If the database is consistent before the transaction starts (running alone), it will also be consistent after.</p>
+<p>Transaction consistency is the application&rsquo;s responsibility. DBMS cannot control this.</p>
+<blockquote>
+<p>Isolation</p>
+</blockquote>
+<p>DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of txns.</p>
+<p>A <strong>concurrency control</strong>protocol is how the DBMS decides the proper interleaving of operations from multiple transactions.</p>
+<p>Two categories of protocols:</p>
+<ul>
+<li>
+<p><strong>Pessimistic:</strong> Don&rsquo;t let problems arise in the first place.</p>
+</li>
+<li>
+<p><strong>Optimistic:</strong> Assume conflicts are rare, deal with them after they happen.</p>
+</li>
+</ul>
+<p><strong>Serial Schedule</strong></p>
+<ul>
+<li>A schedule that does not interleave the actions of different transactions.</li>
+</ul>
+<p><strong>Equivalent Schedules</strong></p>
+<ul>
+<li>
+<p>For any database state, the effect of executing the first schedule is identical to the effect of executing the second schedule.</p>
+</li>
+<li>
+<p>Doesn&rsquo;t matter what the arithmetic operations are!</p>
+</li>
+</ul>
+<p><strong>Serializable Schedule</strong></p>
+<ul>
+<li>A schedule that is equivalent to some serial execution of the transactions.</li>
+</ul>
+<p>If each transaction preserves consistency, every serializable schedule preserves consistency.</p>
+<p>There are different levels of serializability:</p>
+<ul>
+<li>
+<p><strong>Conflict Serializability</strong> (<strong>Most DBMSs try to support this.</strong>)</p>
+</li>
+<li>
+<p><strong>View Serializability</strong> (<strong>No DBMS can do this.</strong>)</p>
+</li>
+</ul>
+<blockquote>
+<p>Depency Graphs</p>
+</blockquote>
+<p>One node per txn.</p>
+<p>Edge from $T_i$ to $T_j$ if:</p>
+<ul>
+<li>
+<p>An operation $O_i$ of $T_i$ conflicts with an operation $O_j$ of $T_j$ and</p>
+</li>
+<li>
+<p>$O_i$ appears earlier in the schedule than $O_j$.</p>
+</li>
+</ul>
+<p>Alternative (weaker) notion of serializability.
+Schedules $S_1$ and $S_2$ are view equivalent if:</p>
+<p>→ If $T_1$ reads initial value of <strong>A</strong> in $S_1$, then $T_1$ also reads initial value of <strong>A</strong> in $S_2$.</p>
+<p>→ If $T_1$ reads value of <strong>A</strong> written by $T_2$ in $S_1$, then $T_1$ also reads value of <strong>A</strong> written by $T_2$ in $S_2$.</p>
+<p>→ If $T_1$ writes final value of <strong>A</strong> in $S_1$, then $T_1$ also writes final value of <strong>A</strong> in $S_2$.</p>
+<p>Also known as a <strong>precedence graph</strong>. A schedule is conflict serializable iffits dependency graph is acyclic.</p>
+<p><strong>View Serializability</strong> allows for (slightly) more schedules than <strong>Conflict Serializability</strong> does.</p>
+<ul>
+<li>But is difficult to enforce efficiently.</li>
+</ul>
+<p>Neither definition allows all schedules that you would consider &ldquo;serializable&rdquo;.</p>
+<ul>
+<li>This is because they don&rsquo;t understand the meanings of the operations or the data (recall example #3)</li>
+</ul>
+<blockquote>
+<p>Transaction</p>
+</blockquote>
+<p>All the changes of committed transactions should be persistent.</p>
+<p>→No torn updates.</p>
+<p>→No changes from failed transactions.</p>
+<p>The DBMS can use either logging or shadow paging to ensure that all changes are durable.</p>
+<h1 id="16-two-phase-locking">16. Two Phase Locking</h1>
+<p><strong>S-LOCK</strong>: Shared locks for reads.</p>
+<p><strong>X-LOCK</strong>: Exclusive locks for writes.</p>
+<p>Compatibility Matrix</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Shared</th>
+<th>Exclusive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Exclusive</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>Transactions request locks (or upgrades).</p>
+</li>
+<li>
+<p>Lock manager grants or blocks requests.</p>
+</li>
+<li>
+<p>Transactions release locks.</p>
+</li>
+</ol>
+<p>Lock manager updates its internal lock-table.</p>
+<p>→It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.</p>
+<p>Two-phase locking (2PL) is a concurrency control protocol that determines whether a txn can access an object in the database on the fly.</p>
+<p>The protocol does not need to know all the queries that a txn will execute ahead of time.</p>
+<p><strong>Phase #1: Growing</strong></p>
+<p>→Each txn requests the locks that it needs from the DBMS’s lock manager.</p>
+<p>→The lock manager grants/denies lock requests.</p>
+<p><strong>Phase #2: Shrinking</strong></p>
+<p>→The txnis allowed to only release locks that it previously acquired. It cannot acquire new locks.</p>
+<p>2PL on its own is sufficient to guarantee conflict serializability.</p>
+<p>→It generates schedules whose precedence graph is acyclic.</p>
+<p>But it is subject to <strong>cascading aborts</strong></p>
+<blockquote>
+<p>Problems</p>
+</blockquote>
+<p>There are potential schedules that are serializable but would not be allowed by 2PL.</p>
+<p>→Locking limits concurrency.</p>
+<p>Dirty reads Solution: <strong>Strong Strict 2PL (aka Rigorous 2PL)</strong></p>
+<p>A schedule is <strong>strict</strong> if a value written by a txnis not read or overwritten by other txnsuntil that txnfinishes.</p>
+<p>Advantages:</p>
+<p>→Does not incur cascading aborts.</p>
+<p>→Aborted txnscan be undone by just restoring original values of modified tuples.</p>
+<blockquote>
+<p>Dead Lock Solution</p>
+</blockquote>
+<p>Deadlocks Solution: <strong>Detection</strong> or <strong>Prevention</strong></p>
+<p>The DBMS creates a <strong>waits-for</strong> graph to keep track of what locks each txn is waiting to acquire:</p>
+<p>→Nodes are transactions</p>
+<p>→Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.</p>
+<p>The system periodically checks for cycles in <strong>waits-for</strong> graph and then decides how to break it.</p>
+<p>When the DBMS detects a deadlock, it will select a &ldquo;victim&rdquo; txn to rollback to break the cycle.</p>
+<p>The victim txn will either restart or abort(more common) depending on how it was invoked.</p>
+<p>There is a trade-off between the frequency of checking for deadlocks and how long txns have to wait before deadlocks are broken.</p>
+<p>When a txn tries to acquire a lock that is held by another txn, the DBMS kills one of them to prevent a deadlock.</p>
+<p>This approach does not require a waits-for graph or detection algorithm.</p>
+<blockquote>
+<p>Intension Locks</p>
+</blockquote>
+<p>Trade-off between parallelism versus overhead.</p>
+<p>→Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.</p>
+<p>An <strong>intention lock</strong> allows a higher-level node to be locked in <strong>shared</strong> or <strong>exclusive</strong> mode without having to check all descendent nodes.</p>
+<p>If a node is locked in an intention mode, then some txnis doing explicit locking at a lower level in the tree.</p>
+<p>Intention-Shared (IS): Indicates explicit locking at lower level with shared locks.</p>
+<p>Intention-Exclusive (IX): Indicates explicit locking at lower level with exclusive locks.</p>
+<p>Shared+Intention-Exclusive (SIX): The subtree rooted by that node is locked explicitly in shared mode and explicit locking is being done at a lower level with exclusive-mode locks.</p>
+<p>Compatibility Matrix</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>IS</strong></th>
+<th><strong>IX</strong></th>
+<th><strong>S</strong></th>
+<th><strong>SIX</strong></th>
+<th><strong>X</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IS</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>IX</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>SIX</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>X</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>Hierarchical locks are useful in practice as each txn only needs a few locks. Intention locks help improve concurrency:
+→ Intention-Shared (IS): Intent to get S lock(s) at finer granularity.</p>
+<p>→ Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.</p>
+<p>→ Shared+Intention-Exclusive (SIX): Like S and IX at the same time.</p>
+<p>Lock escalation dynamically asks for coarser-grained locks when too many low-level locks acquired.</p>
+<p>This reduces the number of requests that the lock manager must process.</p>
+<blockquote>
+<p>Lock in Practice</p>
+</blockquote>
+<p>You typically don&rsquo;t set locks manually in txns.</p>
+<p>Sometimes you will need to provide the DBMS with hints to help it to improve concurrency. Explicit locks are also useful when doing major changes to the database.</p>
+<ol>
+<li>Explicitly locks a table.</li>
+</ol>
+<p>Not part of the SQL standard.</p>
+<p>→Postgres/DB2/Oracle Modes: <strong>SHARE</strong>, <strong>EXCLUSIVE</strong></p>
+<p>→MySQL Modes: <strong>READ</strong>, <strong>WRITE</strong></p>
+<ol start="2">
+<li>Perform a select and then sets an exclusive lock on the matching tuples.</li>
+</ol>
+<p>Can also set shared locks:</p>
+<p>→Postgres: <strong>FOR SHARE</strong></p>
+<p>→MySQL: <strong>LOCK IN SHARE MODE</strong></p>
 
     </div>
 

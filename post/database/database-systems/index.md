@@ -174,7 +174,7 @@ Performs a "sliding" calculation across a set of tuples that are related.
 
 Like an aggregation but tuples are not grouped into a single output tuples.
 
-# 3. Database Storage (1)
+# 3. DataBase Storage (1)
 
 **Readings:** Chapter 10.1-10.2, 10.5-10.6
 
@@ -1316,25 +1316,939 @@ Caveats:
 
 >   Iterator Model
 
-Each query plan operator implements a **Next()**function.
+Each query plan operator implements a **Next()** function.
 
--   On each invocation, the operator returns either a single tuple or a **null**marker if there are no more tuples.
+-   On each invocation, the operator returns either a single tuple or a **null** marker if there are no more tuples.
 
--   The operator implements a loop that calls **Next()**on its children to retrieve their tuples and then process them.
+-   The operator implements a loop that calls **Next()** on its children to retrieve their tuples and then process them.
 
-Also called **Volcano**or **Pipeline** Model.
+Also called **Volcano** or **Pipeline** Model.
 
-This is used in almost every DBMS. Allows for tuple pipelining.
-
-Some operators must block until their children emit all their tuples.
+This is used in almost every DBMS. Allows for tuple pipelining. Some operators must block until their children emit all their tuples.
 
 -   Joins, Subqueries, Order By
 
+>   Materialization Model
+
+Each operator processes its input all at once and then emits its output all at once.
+
+-   The operator "materializes" its output as a single result.
+
+-   The DBMS can push down hints (e.g., **LIMIT**) to avoid scanning too many tuples.
+
+-   Can send either a materialized row or a single column.
+
+The output can be either whole tuples (NSM) or subsets of columns (DSM).
+
+Better for OLTP workloads because queries only access a small number of tuples at a time.
+
+- Lower execution / coordination overhead.
+
+-   Fewer function calls.
+
+Not good for OLAP queries with large intermediate results.
+
+>   Vectorization Model
+
+Like the Iterator Model where each operator implements a **Next()** function, but…
+
+Each operator emits a **batch** of tuples instead of a single tuple.
+
+- The operator's internal loop processes multiple tuples at a time.
+
+-   The size of the batch can vary based on hardware or query properties.
+
+Ideal for OLAP queries because it greatly reduces the number of invocations per operator.
+
+Allows for operators to more easily use vectorized (SIMD) instructions to process batches of tuples.
+
+>   Sequential Scan
+
+For each page in the table:
+
+-   Retrieve it from the buffer pool.
+
+-   Iterate over each tuple and check whether to include it.
+
+The DBMS maintains an internal **cursor**that tracks the last page / slot it examined.
+
+This is almost always the worst thing that the DBMS can do to execute a query.
+
+Sequential Scan Optimizations: Prefetching, Buffer Pool Bypass, Parallelization, Heap Clustering, Zone Maps, Late Materialization.
+
+1.   Zone Maps: Pre-computed aggregates for the attribute values in a page. DBMS checks the zone map first to decide whether it wants to access the page.
+
+2.   Late Materialization: DSM DBMSs can delay stitching together tuples until the upper parts of the query plan.
+
+> Index Scan
+
+The DBMS picks an index to find the tuples that the query needs.
+Which index to use depends on:
+→ What attributes the index contains
+→ What attributes the query references
+→ The attribute's value domains
+→ Predicate composition
+→ Whether the index has unique or non-unique keys
+     
+
+> Multi Index Scan
+
+Set intersection can be done with bitmaps, hash tables, or Bloom filters.
+
+Operators that modify the database (**INSERT**, **UPDATE**, **DELETE**) are responsible for checking constraints and updating indexes.
+
+**UPDATE**/**DELETE**: 
+
+- Child operators pass Record IDs for target tuples.
+- Must keep track of previously seen tuples.
+
+**INSERT**: 
+
+-   **Choice #1**: Materialize tuples inside of the operator.
+
+-   **Choice #2**: Operator inserts any tuple passed in from child operators.
+
+Halloween Problem: Anomaly where an update operation changes the physical location of a tuple, which causes a scan operator to visit the tuple multiple times.
+
+-   Can occur on clustered tables or index scans.
+
+First discoveredby IBM researchers while working on System R on Halloween day in 1976.
+
+>   Expression Evaluation
+
+The DBMS represents a **WHERE** clause as an **expression tree**.
+
+The nodes in the tree represent different expression types:
+
+Comparisons (**=**, **<**, **>**, **!=**); Conjunction (**AND**), Disjunction (**OR**); Arithmetic Operators (**+**, **-**, *****, **/**, **%**); Constant Values; Tuple Attribute References.
+
+Evaluating predicates in this manner is slow.
+
+The DBMS traverses the tree and for each node that it visits it must figure out what the operator needs to do.
+
+A better approach is to just evaluate the expression directly. (Think JIT compilation)
+
+# 12. Query Execution (2)
+
+>   Parallel DBMSs vs Distributed DBMSs
+
+Database is spread out across multiple **resources** to improve different aspects of the DBMS.
+
+Appears as a single logical database instance to the application, regardless of physical organization.
+
+-   SQL query for a single-resource DBMS should generate same result on a parallel or distributed DBMS.
+
+**Parallel DBMSs**
+
+-   Resources are physically close to each other.
+
+-   Resources communicate over high-speed interconnect.
+
+-   Communication is assumed to be cheap and reliable.
+
+**Distributed DBMSs**
+
+- Resources can be far from each other.
+
+-   Resources communicate using slow(er) interconnect.
+
+-   Communication cost and problems cannot be ignored.
+
+>   Process Model
+
+A DBMS’s **process model** defines how the system is architected to support concurrent requests from a multi-user application.
+
+A **worker** is the DBMS component that is responsible for executing tasks on behalf of the client and returning the results.
+
+1.   Process per DBMS Worker
+
+Each worker is a separate OS process.
+- Relies on OS scheduler.
+- Use shared-memory for global data structures.
+- A process crash doesn’t take down entire system.
+- Examples: IBM DB2, Postgres, Oracle
+
+2.   Process Pool
+
+A worker uses any free process from the pool.
+- Still relies on OS scheduler and shared memory.
+- Bad for CPU cache locality.
+- Examples: IBM DB2, Postgres (2015)
+
+3.   Thread per DBMS Worker
+
+Single process with multiple worker threads.
+- DBMS manages its own scheduling.
+- May or may not use a dispatcher thread.
+- Thread crash (may) kill the entire system.
+- Examples: IBM DB2, MSSQL, MySQL, Oracle (2014)
 
 
-Output control works easily with this approach.
+Advantages of a multi-threaded architecture:
+- Less overhead per context switch.
+- Do not have to manage shared memory.
+The thread per worker model does not mean that the DBMS supports intra-query parallelism.
 
 
+> Inter- vs Intra- Query Parallelism
+
+Inter-Query: Different queries are executed concurrently.
+→ Increases throughput & reduces latency.
+Intra-Query: Execute the operations of a single query in parallel.
+→ Decreases latency for long-running queries.
+
+Improve overall performance by allowing multiple queries to execute simultaneously.
+If queries are read-only, then this requires little coordination between queries.
+If multiple queries are updating the database at the same time, then this is hard to do correctly.
+
+>   Inter Query Parallelism
+
+Improve overall performance by allowing multiple queries to execute simultaneously.
+
+If queries are read-only, then this requires little coordination between queries.
+
+If multiple queries are updating the database at the same time, then this is hard to do correctly…
+
+> Intra Query Parallelism
+
+Improve the performance of a single query by executing its operators in parallel.
+Think of organization of operators in terms of a producer/consumer paradigm.
+There are parallel versions of every operator.
+- Can either have multiple threads access centralized data structures or use partitioning to divide work up.
+
+Parallel Grace Hash Join: Use a separate worker to perform the join for each level of buckets for **R** and **S** after partitioning.
+
+>   Intra Operator(Horizontal)
+
+Decompose operators into independent **fragments** that perform the same function on different subsets of data.
+
+The DBMS inserts an **exchange** operator into the query plan to coalesce/split results from multiple children/parent operators.
+
+Exchange Operator has three types as follows:
+
+**Exchange Type #1 –Gather**
+
+→Combine the results from multiple workers into a single output stream.
+
+**Exchange Type #2 –Distribute**
+
+→Split a single input stream into multiple output streams.
+
+**Exchange Type #3 –Repartition**
+
+→Shuffle multiple input streams across multiple output streams.
+
+>Inter Operator(Vertical)
+
+Operations are overlapped in order to pipeline data from one stage to the next without materialization.
+
+Workers execute operators from different segments of a query plan at the same time.
+
+Also called **pipeline parallelism**.
+
+>   **Bushy Parallelism**
+
+Hybrid of intra-and inter-operator parallelism where workers execute multiple operators from different segments of a query plan at the same time.
+
+Still need exchange operators to combine intermediate results from segments.
+
+>   Observation
+
+Using additional processes/threads to execute queries in parallel won't help if the disk is always the main bottleneck.
+
+-   In fact, it can make things worse if each worker is working on different segments of the disk.
+
+>   I/O Parallelism
+
+Configure OS/hardware to store the DBMS's files across multiple storage devices.
+
+-   Storage Appliances, RAID Configuration
+
+This is **transparent** to the DBMS.
+
+>   DataBase Partition
+
+Some DBMSs allow you to specify the disk location of each individual database.
+
+→The buffer pool manager maps a page to a disk location.
+
+This is also easy to do at the filesystem level if the DBMS stores each database in a separate directory.
+
+→The DBMS recovery log file might still be shared if transactions can update multiple databases.
+
+>   Partitioning
+
+Split single logical table into disjoint physical segments that are stored/managed separately.
+
+Partitioning should (ideally) be transparent to the application.
+
+→The application should only access logical tables and not have to worry about how things are physically stored.
+
+1.   Vertical Partioning
+
+Store a table’s attributes in a separate location (e.g., file, disk volume).
+
+Must store tuple information to reconstruct the original record.
+
+2.   Horizontal Partioning
+
+Divide table into disjoint segments based on some partitioning key. Hash Partitioning
+
+-   Range Partitioning
+
+-   Predicate Partitioning
+
+# 13. Optimization (1)
+
+Remember that SQL is declarative. User tells the DBMS what answer they want, not how to get the answer.
+
+First implementation of a query optimizer from the 1970s. People argued that the DBMS could never choose a query plan better than what a human could write.
+
+**Heuristics / Rules**
+
+- Rewrite the query to remove stupid / inefficient things.
+
+-   These techniques may need to examine catalog, but they do notneed to examine data.
+
+**Cost-based Search**
+
+- Use a model to estimate the cost of executing a plan.
+
+-   Evaluate multiple equivalent plans for a query and pick the one with the lowest cost.
+
+>   Logical vs Physical Plans
+
+The optimizer generates a mapping of a logical algebra expression to the optimal equivalent physical algebra expression.
+
+Physical operators define a specific execution strategy using an access path.
+
+-   They can depend on the physical format of the data that they process (i.e., sorting, compression).
+
+-   Not always a 1:1 mapping from logical to physical.
+
+>   Relational Algebra Equivalences
+
+Two relational algebra expressions are equivalent if they generate the same set of tuples.
+
+The DBMS can identify better query plans without a cost model.
+
+This is often called query rewriting.
+
+>   Predicate Pushdown
+
+Example:
+
+```sql
+SELECT s.name, e.cid
+FROM studnet AS s, enrolled AS e
+WHERE s.id = e.sid
+AND e.grade = 'A'
+```
+
+The algrbra expression is:
+
+$\pi_{name,cid}(\sigma_{grade='A'}(student⋈enrolled))$
+
+which is equal to the expression: 
+
+$\pi_{name,cid}(student⋈\sigma_{grade={'A'}}(enrolled))$
+
+**Selections Optimize:**
+
+Perform filters as early as possible. Break a complex predicate, and push down: 
+
+$\sigma_{p1 \wedge p2\wedge ...\wedge pn}(R)=\sigma_{p1}(\sigma_{p2}(...\sigma_{pn}(R)))$
+
+**Joins Optimize:**
+
+$R⋈S=S⋈R, \ (R⋈S⋈T) =R⋈(S⋈T)$
+
+The number of different join orderings for an n-way join is a **Catalan Number** ($≈4^n$)
+
+Exhaustive enumeration will be too slow.
+
+**Projections Optimize** (Not important for a column store) **:**
+
+-   Perform them early to create smaller tuples and reduce intermediate results (if duplicates are eliminated)
+-   Project out all attributes except the ones requested or required (e.g., joining keys)
+
+Let's see the example again: 
+```sql
+SELECT s.name, e.cid
+FROM student AS s, enrolled AS e
+WHERE s.sid = e.sid
+AND e.grade = 'A'
+```
+$\pi_{name,cid}(student⋈\sigma_{grade={'A'}}(enrolled))$
+
+$\pi_{name,cid}(\pi_{sid,name}(student)⋈\pi_{cid,sid}(\sigma_{grade={'A'}}(enrolled)))$
+
+>   Logical Query Optimization
+
+Transform a logical plan into an equivalent logical plan using pattern matching rules.
+
+The goal is to increase the likelihood of enumerating the optimal plan in the search.
+
+Cannot compare plans because there is no cost model but can "direct" a transformation to a preferred side.
+
+Split Conjunctive predicates
+
+```sql
+SELECT ARTIST.NAME
+FROM ARTIST, APPEARS, ALBUM
+WHERE ARTIST.ID=APPEARS.ARTIST_ID
+AND APPEARS.ALBUM_ID=ALBUM.ID
+AND ALBUM.NAME="Andy's OG Remix"
+```
+
+Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.
+
+$\pi_{name}(\sigma_{id=artist\_id  \wedge album\_id=album.id \wedge name="Andy's OG Remix"}(artist\times appears\times album))$
+
+Using selections optimization, break a complex predicate, and push down:
+
+$\pi_{name}(\sigma_{id=artist\_id }(\sigma_{album\_id=album.id }(\sigma_{name="Andy's OG Remix"}(artist\times appears\times album))))$
+
+Move the predicate to the lowest applicable point in the plan:
+
+$\pi_{name}(\sigma_{album\_id=album.id }(\sigma_{name="Andy's OG Remix"}album)\times(\sigma_{id=artist\_id }(artist\times appears))))$
+
+Replace all Cartesian Products with inner joins using the join predicates:
+
+$\pi_{name}(\sigma_{name="Andy's OG Remix"}album)⋈_{album\_id=album.id } (artist ⋈_{id=artist\_id} appears))$
+
+Eliminate redundant attributes before pipeline breakers to reduce materialization cost:
+
+$\pi_{name}(\pi_{id}(\sigma_{name="Andy's OG Remix"}album)⋈_{album\_id=album.id } $\\
+$(\pi_{id}(\pi_{id, name}(artist) ⋈_{id=artist\_{id}} \pi_{artist_{id}, album_{id}}(appears))))$
 
 
+> Nested Sub-Queries
 
+The DBMS treats nested sub-queries in the where clause as functions that take parameters and return a single value or set of values.
+Two Approaches:
+
+- Rewrite to de-correlate and/or flatten them
+- Decompose nested query and store result to temporary
+table
+
+```sql
+SELECT name FROM sailors AS S
+WHERE EXISTS (
+    SELECT * FROM reserves AS R
+    WHERE S.sid = R.sid
+    AND R.day = '2018-10-15'
+)
+
+SELECT name
+FROM sailors AS S, reserves AS R
+WHERE S.sid = R.sid
+AND R.day = '2018-10-15'
+```
+
+Decompose
+
+```sql
+-- For each sailor with the highest rating (over all sailors) and at least 
+-- two reservations for red boats, find the sailor id and the earliest date 
+-- on which the sailor has a reservation for a red boat.
+SELECT S.sid, MIN(R.day)
+FROM sailors S, reserves R, boats B
+WHERE S.sid = R.sid
+AND R.bid = B.bid
+AND B.color = 'red'
+AND S.rating = (SELECT MAX(S2.rating)
+FROM sailors S2)
+GROUP BY S.sid
+HAVING COUNT(*) > 1
+```
+
+For harder queries, the optimizer breaks up queries into blocks and then concentrates on one block at a time.
+
+Sub-queries are written to a temporary table that are discarded after the query finishes.
+
+```sql
+SELECT MAX(rating) FROM sailors -- Nested Block
+```
+
+An optimizer transforms a query's expressions (e.g., **WHERE** clause predicates) into the optimal/minimal set of expressions.
+
+Implemented using if/then/else clauses or a pattern-matching rule engine.
+
+-   Search for expressions that match a pattern.
+
+-   When a match is found, rewrite the expression.
+
+-   Halt if there are no more rules that match.
+
+```sql
+-- Impossible / Unnecessary Predicates
+SELECT * FROM A WHERE 1 = 0; -- return empty set
+SELECT * FROM A WHERE 1 = 1; -- remove where predicate
+
+-- Join Elimination
+SELECT A1.*
+FROM A AS A1 JOIN A AS A2
+ON A1.id = A2.id;
+-- after optimize 
+SELECT * FROM A;
+
+SELECT * FROM A AS A1
+WHERE EXISTS(SELECT val FROM A AS A2
+WHERE A1.id = A2.id);
+-- after optimize
+SELECT * FROM A;
+
+-- Merging Predicates
+SELECT * FROM A
+WHERE val BETWEEN 1 AND 100
+OR val BETWEEN 50 AND 150;
+-- after optimize
+SELECT * FROM A
+WHERE val BETWEEN 1 AND 150;
+```
+
+>   Cost-based Query Planning
+
+Generate an estimate of the cost of executing a particular query plan for the current state of the database.
+
+→Estimates are only meaningful internally.
+
+This is independent of the plan enumeration step that we will talk about next class.
+
+**Choice #1: Physical Costs**
+
+-   Predict CPU cycles, I/O, cache misses, RAM consumption, pre-fetching, etc…
+
+-   Depends heavily on hardware.
+
+**Choice #2: Logical Costs**
+
+-   Estimate result sizes per operator.
+
+- Independent of the operator algorithm.
+
+- Need estimations for operator result sizes.
+
+**Choice #3: Algorithmic Costs**
+
+-   Complexity of the operator algorithm implementation.
+
+>    Disk based DBMS cost Model
+
+The number of disk accesses will always dominate the execution time of a query.
+
+-   CPU costs are negligible.
+
+-   Must consider sequential vs. random I/O.
+
+This is easier to model if the DBMS has full control over buffer management.
+
+-   We will know the replacement strategy, pinning, and assume exclusive access to disk.
+
+>   Postages cost Model
+
+Uses a combination of CPU and I/O costs that are weighted by “magic” constant factors.
+
+Default settings are obviously for a disk-resident database without a lot of memory:
+
+-   Processing a tuple in memory is **400x** faster than reading a tuple from disk.
+
+-   Sequential I/O is **4x** faster than random I/O.
+
+>   Example (IBM DB2 cost Model)
+
+Database characteristics in system catalogs; Hardware environment (microbenchmarks); Storage device characteristics (microbenchmarks); Communications bandwidth (distributed only); Memory resources (buffer pools, sort heaps); Concurrency Environment(Average number of users, Isolation level / blocking, Number of available locks).
+
+# 14. Optimization (2)
+
+>   Statistics
+
+The DBMS stores internal statistics about tables, attributes, and indexes in its internal catalog.
+
+Different systems update them at different times.
+
+Manual invocations:
+
+-   Postgres/SQLite: **ANALYZE**
+-   Oracle/MySQL: **ANALYZETABLE**
+-   SQL Server: **UPDATE STATISTICS**
+-   DB2: **RUNSTATS**
+
+>   Derivable Statistics
+
+For each relation **R**, the DBMS maintains the following information:
+
+- $N_R$: Number of tuples in **R**.
+
+- $V(A,R)$: Number of distinct values for attribute **A**.
+
+The **selection cardinality** $SC(A,R)$ is the average number of records with a value for an attribute **A** given $N_{R}/ V(A,R)$
+
+Note that this formula assumes **data uniformity** where every value has the same frequency as all other values.
+
+The **selectivity** (sel) of a predicate **P** is the fraction of tuples that qualify.
+
+Equality Predicate: $sel (A=constant) = SC(P) / N_R$
+
+Range Predicate: $sel(A>=a) = (A_{max}– a+1) / (A_{max}– A_{min}+1)$
+
+Negation Query: $sel(not \ P) = 1 – sel(P)$
+
+**Observation: Selectivity ≈ Probability**
+
+Conjunction: $sel(P1 \wedge P2) = sel(P1) · sel(P2)$
+
+Disjunction: $sel(P1 \vee P2)= sel(P1) + sel(P2) – sel(P1 \wedge P2)= sel(P1) + sel(P2)–sel(P1)·sel(P2)$
+
+This assumes that the predicates are **independent**.
+
+>   Result size estimation
+
+Given a join of **R** and **S**, what is the range of possible result sizes in # of tuples?
+General case: $R_{cols}\cap S_{cols}=\{A\}$ where A is not a primary key for either table.
+
+Match each R-tuple with S-tuples: $estSize ≈ N_{R} · N_{S} / V(A, S)$
+
+Symmetrically, for S: $estSize ≈ N_{R} · N_{S} / V(A, R) $
+
+**Overall:** $estSize ≈ N_{R} · N_{S} / max({V(A,S), V(A,R)})$
+
+>   Selection Cardinality
+
+**Assumption #1: Uniform Data**
+
+→The distribution of values (except for the heavy hitters) is the same.
+
+**Assumption #2: Independent Predicates**
+
+→The predicates on attributes are independent
+
+**Assumption #3: Inclusion Principle**
+
+→The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.
+
+>   Sketches
+
+Probabilistic data structures that generate approximate statistics about a data set.
+
+Cost-model can replace histograms with sketches to improve its selectivity estimate accuracy.
+
+Most common examples:
+
+-   Count-Min Sketch(1988): Approximate frequency count of elements in a set.
+
+- HyperLogLog(2007): Approximate the number of distinct elements in a set.
+
+>   Sampling
+
+Modern DBMSs also collect samples from tables to estimate selectivities.
+
+Update samples when the underlying tables changes significantly.
+
+>   Query Optimization
+
+After performing rule-based rewriting, the DBMS will enumerate different plans for the query and estimate their costs. Like Single relation, Multiple relations, and Nested sub-queries.
+
+It chooses the best plan it has seen for the query after exhausting all plans or some timeout.
+
+Simple heuristics are often good enough for this. OLTP queries are especially easy.
+
+Query planning for OLTP queries is easy because they are **sargable** (**S**earch **Arg**ument **Able**).
+
+-   It is usually just picking the best index.
+
+-   Joins are almost always on foreign key relationships with a small cardinality.
+
+-   Can be implemented with simple heuristics.
+
+>   Multi-Relation Query Planning
+
+As number of joins increases, number of alternative plans grows rapidly
+
+-   We need to restrict search space.
+
+Fundamental decision in **System R**: only left-deep join trees are considered.
+
+-   Modern DBMSs do not always make this assumption anymore.
+
+Use **dynamic programming** to reduce the number of cost estimations.
+
+1.   Enumerate the orderings. Example: Left-deep tree #1, Left-deep tree #2…
+
+2.   Enumerate the plans for each operator. Example: Hash, Sort-Merge, Nested Loop…
+
+3.   Enumerate the access paths for each table. Example: Index #1, Index #2, SeqScan…
+
+# 15. Concurrency Control Theory
+
+A **transaction** is the execution of a sequence of one or more operations (e.g., SQL queries) on a database to perform some higher-level function.
+
+A txn may carry out many operations on the data retrieved from the database
+
+The DBMS is onlyconcerned about what data is read/written from/to the database.
+
+>   Strawman System
+
+Execute each txnone-by-one (i.e., serial order) as they arrive at the DBMS.
+
+→One and only one txncan be running at the same time in the DBMS.
+
+Before a txnstarts, copy the entire database to a new file and make all changes to that file.
+
+→If the txncompletes successfully, overwrite the original file with the new one.
+
+→If the txnfails, just remove the dirty copy.
+
+>   Correctness Criteria ACID
+
+**Atomicity:** All actions in the txnhappen, or none happen.(“all or nothing”)
+
+**Consistency:** If each txnis consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)
+
+**Isolation:** Execution of one txnis isolated from that of other txns.(“as if alone”)
+
+**Durability:** If a txncommits, its effects persist.(“survive failures”)
+
+>   Atomicity
+
+DBMS guarantees that txns are **atomic**.  
+
+→From user's point of view: txnalways either executes all its actions or executes no actions at all.
+
+Mechanism For Ensuring Atomicity
+
+**Approach #1: Logging**
+
+→DBMS logs all actions so that it can undo the actions of aborted transactions.
+
+→Maintain undo records both in memory and on disk.
+
+→Think of this like the black box in airplanes…
+
+**Approach #2: Shadow Paging**
+
+→DBMS makes copies of pages and txnsmake changes to those copies. Only when the txncommits is the page made visible to others.
+
+→Originally from System R.
+
+>   Database Consistency
+
+The "world" represented by the database is logicallycorrect. All questions asked about the data are given logicallycorrect answers.
+
+If the database is consistent before the transaction starts (running alone), it will also be consistent after.
+
+Transaction consistency is the application's responsibility. DBMS cannot control this.
+
+>   Isolation
+
+DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of txns.
+
+A **concurrency control**protocol is how the DBMS decides the proper interleaving of operations from multiple transactions.
+
+Two categories of protocols:
+
+-   **Pessimistic:** Don't let problems arise in the first place.
+
+-   **Optimistic:** Assume conflicts are rare, deal with them after they happen.
+
+**Serial Schedule**
+
+-   A schedule that does not interleave the actions of different transactions.
+
+**Equivalent Schedules**
+
+- For any database state, the effect of executing the first schedule is identical to the effect of executing the second schedule.
+
+-   Doesn't matter what the arithmetic operations are!
+
+**Serializable Schedule**
+
+-   A schedule that is equivalent to some serial execution of the transactions.
+
+If each transaction preserves consistency, every serializable schedule preserves consistency.
+
+There are different levels of serializability:
+
+-   **Conflict Serializability** (**Most DBMSs try to support this.**)
+
+-   **View Serializability** (**No DBMS can do this.**)
+
+>   Depency Graphs
+
+One node per txn.
+
+Edge from $T_i$ to $T_j$ if:
+
+-   An operation $O_i$ of $T_i$ conflicts with an operation $O_j$ of $T_j$ and
+
+- $O_i$ appears earlier in the schedule than $O_j$.
+
+Alternative (weaker) notion of serializability.
+Schedules $S_1$ and $S_2$ are view equivalent if:
+
+→ If $T_1$ reads initial value of **A** in $S_1$, then $T_1$ also reads initial value of **A** in $S_2$.
+
+→ If $T_1$ reads value of **A** written by $T_2$ in $S_1$, then $T_1$ also reads value of **A** written by $T_2$ in $S_2$.
+
+→ If $T_1$ writes final value of **A** in $S_1$, then $T_1$ also writes final value of **A** in $S_2$.
+
+Also known as a **precedence graph**. A schedule is conflict serializable iffits dependency graph is acyclic.
+
+**View Serializability** allows for (slightly) more schedules than **Conflict Serializability** does.
+
+-   But is difficult to enforce efficiently.
+
+Neither definition allows all schedules that you would consider "serializable".
+
+-   This is because they don't understand the meanings of the operations or the data (recall example #3)
+
+>   Transaction
+
+All the changes of committed transactions should be persistent.
+
+→No torn updates.
+
+→No changes from failed transactions.
+
+The DBMS can use either logging or shadow paging to ensure that all changes are durable.
+
+# 16. Two Phase Locking
+
+**S-LOCK**: Shared locks for reads.
+
+**X-LOCK**: Exclusive locks for writes.
+
+Compatibility Matrix
+
+|           | Shared | Exclusive |
+| --------- | ------ | --------- |
+| Shared    | ✅      | ❌         |
+| Exclusive | ❌      | ❌         |
+
+1.   Transactions request locks (or upgrades).
+
+2.   Lock manager grants or blocks requests.
+
+3.   Transactions release locks.
+
+Lock manager updates its internal lock-table.
+
+→It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.
+
+Two-phase locking (2PL) is a concurrency control protocol that determines whether a txn can access an object in the database on the fly.
+
+The protocol does not need to know all the queries that a txn will execute ahead of time.
+
+**Phase #1: Growing**
+
+→Each txn requests the locks that it needs from the DBMS’s lock manager.
+
+→The lock manager grants/denies lock requests.
+
+**Phase #2: Shrinking**
+
+→The txnis allowed to only release locks that it previously acquired. It cannot acquire new locks.
+
+2PL on its own is sufficient to guarantee conflict serializability.
+
+→It generates schedules whose precedence graph is acyclic.
+
+But it is subject to **cascading aborts**
+
+>   Problems
+
+There are potential schedules that are serializable but would not be allowed by 2PL.
+
+→Locking limits concurrency.
+
+Dirty reads Solution: **Strong Strict 2PL (aka Rigorous 2PL)**
+
+A schedule is **strict** if a value written by a txnis not read or overwritten by other txnsuntil that txnfinishes.
+
+Advantages:
+
+→Does not incur cascading aborts.
+
+→Aborted txnscan be undone by just restoring original values of modified tuples.
+
+>   Dead Lock Solution
+
+Deadlocks Solution: **Detection** or **Prevention**
+
+The DBMS creates a **waits-for** graph to keep track of what locks each txn is waiting to acquire:
+
+→Nodes are transactions
+
+→Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.
+
+The system periodically checks for cycles in **waits-for** graph and then decides how to break it.
+
+When the DBMS detects a deadlock, it will select a "victim" txn to rollback to break the cycle.
+
+The victim txn will either restart or abort(more common) depending on how it was invoked.
+
+There is a trade-off between the frequency of checking for deadlocks and how long txns have to wait before deadlocks are broken.
+
+When a txn tries to acquire a lock that is held by another txn, the DBMS kills one of them to prevent a deadlock.
+
+This approach does not require a waits-for graph or detection algorithm.
+
+>   Intension Locks
+
+Trade-off between parallelism versus overhead.
+
+→Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.
+
+An **intention lock** allows a higher-level node to be locked in **shared** or **exclusive** mode without having to check all descendent nodes.
+
+If a node is locked in an intention mode, then some txnis doing explicit locking at a lower level in the tree.
+
+Intention-Shared (IS): Indicates explicit locking at lower level with shared locks.
+
+Intention-Exclusive (IX): Indicates explicit locking at lower level with exclusive locks.
+
+Shared+Intention-Exclusive (SIX): The subtree rooted by that node is locked explicitly in shared mode and explicit locking is being done at a lower level with exclusive-mode locks.
+
+Compatibility Matrix
+
+|         | **IS** | **IX** | **S** | **SIX** | **X** |
+| ------- | ------ | ------ | ----- | ------- | ----- |
+| **IS**  | ✅      | ✅      | ✅     | ✅       | ❌     |
+| **IX**  | ✅      | ✅      | ❌     | ❌       | ❌     |
+| **S**   | ✅      | ❌      | ✅     | ❌       | ❌     |
+| **SIX** | ✅      | ❌      | ❌     | ❌       | ❌     |
+| **X**   | ❌      | ❌      | ❌     | ❌       | ❌     |
+
+Hierarchical locks are useful in practice as each txn only needs a few locks. Intention locks help improve concurrency:
+→ Intention-Shared (IS): Intent to get S lock(s) at finer granularity.
+
+→ Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.
+
+→ Shared+Intention-Exclusive (SIX): Like S and IX at the same time.
+
+Lock escalation dynamically asks for coarser-grained locks when too many low-level locks acquired.
+
+This reduces the number of requests that the lock manager must process.
+
+>   Lock in Practice
+
+You typically don't set locks manually in txns.
+
+Sometimes you will need to provide the DBMS with hints to help it to improve concurrency. Explicit locks are also useful when doing major changes to the database.
+
+1.   Explicitly locks a table.
+
+Not part of the SQL standard.
+
+→Postgres/DB2/Oracle Modes: **SHARE**, **EXCLUSIVE**
+
+→MySQL Modes: **READ**, **WRITE**
+
+2.   Perform a select and then sets an exclusive lock on the matching tuples.
+
+Can also set shared locks:
+
+→Postgres: **FOR SHARE**
+
+→MySQL: **LOCK IN SHARE MODE**

@@ -70,6 +70,7 @@ This article is about the basics about math symbols in Latex.
 | $\sum$                                     | \sum                                     |
 | $\prod$                                    | \prod                                    |
 | $\coprod$                                  | \coprod                                  |
+|$\implies$|\implies|
 | $\bigoplus$                                | \bigoplus                                |
 | $\bigotimes$                               | \bigotimes                               |
 | $\bigodot$                                 | \bigodot                                 |
@@ -78,7 +79,9 @@ This article is about the basics about math symbols in Latex.
 | $\biguplus$                                | \biguplus                                |
 | $\bigsqcup$                                | \bigsqcup                                |
 | $\bigvee$                                  | \bigvee                                  |
+|$\vee$|\vee|
 | $\bigwedge$                                | \bigwedge                                |
+|$\wedge$|\wedge|
 | $\int$                                     | \int                                     |
 | $\oint$                                    | \oint                                    |
 | $\iint$                                    | \iint                                    |
@@ -140,7 +143,7 @@ This article is about the basics about math symbols in Latex.
 
 use \begin{align*} ... \end{align*}. Separate lines with `\\` and use `&` to mark where things should line up.
 
-```
+```latex
 $\begin{align*}
 a & = b \\
 X &\sim {\sf Norm}(10, 3) \\
