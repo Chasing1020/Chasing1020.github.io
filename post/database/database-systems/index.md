@@ -1,4 +1,6 @@
 
+Reference Book: [**Database System Concepts Seventh Edition**](https://www.db-book.com/)
+
 # 1. Relational Model
 
 **Readings:** Chapters 1-2, 6
@@ -73,7 +75,7 @@ The relational model is independent of any query language implementation. **SQL*
 
 ANSI Standard in 1986. ISO in 1987. Structured Query Language
 
-**SQL:2016**:  JSON, Polymorphic tables
+**SQL:2016**: JSON, Polymorphic tables
 
 **SQL:2011**: Temporal DBs, Pipelined DML 
 
@@ -436,7 +438,7 @@ Also maintains additional meta-data per page:
 
 >   Page directory
 
-The **page directory **is the mapping from page ids to page locations in the database files.
+The **page directory** is the mapping from page ids to page locations in the database files.
 
 -   All changes must be recorded on disk to allow the DBMS to find on restart.
 
@@ -446,11 +448,11 @@ The **page table** is the mapping from page ids to a copy of the page in buffer 
 
 **Global Policies:**
 
--   Make decisions for all active txns.
+-   Make decisions for all active transactions.
 
 **Local Policies:**
 
--   Allocate frames to a specific txn without considering the behavior of concurrent txns.
+-   Allocate frames to a specific transactions without considering the behavior of concurrent transactions s.
 
 -   Still need to support sharing pages.
 
@@ -554,7 +556,7 @@ The DBMS then uses this history to estimate the next time that page is going to 
 
 >   Localization
 
-The DBMS chooses which pages to evict on a per txn/query basis. This minimizes the pollution of the buffer pool from each query.
+The DBMS chooses which pages to evict on a per transactions /query basis. This minimizes the pollution of the buffer pool from each query.
 
 - Keep track of the pages that a query has accessed.
 
@@ -641,13 +643,13 @@ Variant of linear probe hashing that steals slots from "rich" keys and give them
 
 ```C++
 iterator find(const FindKey& key) {
-    size_t index = hash_policy.index_for_hash(hash_object(key), num_slots_minus_one);
-    EntryPointer it = entries + ptrdiff_t(index);
-    for (int8_t distance = 0; it->distance_from_desired >= distance;
-         ++distance, ++it) {
-        if (compares_equal(key, it->value)) return {it};
-    }
-    return end();
+  size_t index = hash_policy.index_for_hash(hash_object(key), num_slots_minus_one);
+  EntryPointer it = entries + ptrdiff_t(index);
+  for (int8_t distance = 0; it->distance_from_desired >= distance;
+     ++distance, ++it) {
+    if (compares_equal(key, it->value)) return {it};
+  }
+  return end();
 }
 ```
 
@@ -721,7 +723,7 @@ People also use the term to generally refer to a class of balanced tree data str
 
 - B-Tree(1971), B+Tree(1973), B\*Tree(1977?), Blink-Tree(1981)
 
-A **B+Tree** is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in **O(log n)**.  
+A **B+Tree** is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in **O(log n)**. 
 
 - Generalization of a binary search tree, since a node can have more than two children. 
 
@@ -1047,9 +1049,9 @@ Steps:
 
 In each pass, we read and writeevery page in the file.
 
-$Number \ of \  passes \ =\   1 + ⌈\log_2N⌉ $
+$Number \ of \ passes \ =\  1 + ⌈\log_2N⌉ $
 
-$Total\  I/O\  cost\ =\  2N \times (Nums \ of\ passes)$
+$Total\ I/O\ cost\ =\ 2N \times (Nums \ of\ passes)$
 
 This algorithm only requires three buffer pool pages to perform the sorting ($B=3$): Two input pages, one output page.
 
@@ -1206,7 +1208,7 @@ If we have B buffers available:
 output.
 
 This algorithm uses B-2 buffers for scanning R. 
-Cost: $M+ ( ⌈M / (B-2) ⌉\times  N)$, if $B>M+2$, then will be $M+N$
+Cost: $M+ ( ⌈M / (B-2) ⌉\times N)$, if $B>M+2$, then will be $M+N$
 
 3.   Index Nested Join: Assume the cost of each index probe is some constant C per tuple.
      Cost: $M + (m \times C)$
@@ -1238,13 +1240,11 @@ The input relations may be sorted either by an explicit sort operator, or by sca
 
 **Phase #1: Build**
 
--   Scan the outer relation and populate a hash table using the hash function **h****1**on the join attributes.
+-   Scan the outer relation and populate a hash table using the hash function **h1** on the join attributes.
 
 **Phase #2: Probe**
 
--   Scan the inner relation and use **h****1**on each tuple to jump to a location in the hash table and find a matching tuple.
-
-
+-   Scan the inner relation and use **h1** on each tuple to jump to a location in the hash table and find a matching tuple.
 
 **Approach #1: Full Tuple**
 
@@ -1267,13 +1267,11 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 
 - Sometimes called (sideways information passing.)
 
-
-
 >   Grace Hash Join
 
 If the buckets do not fit in memory, then use **recursive partitioning**to split the tables into chunks that will fit.
 
-- Build another hash table for $bucket_{R,i}$,  using hash function $h_2$ (with $h_2≠h_1$).
+- Build another hash table for $bucket_{R,i}$, using hash function $h_2$ (with $h_2≠h_1$).
 -   Then probe it for each tuple of the other table's bucket at that level.
 
 Cost of hash join?
@@ -1312,7 +1310,7 @@ Caveats:
 
 # 11. Query Execution (1)
 
-**Readings:** Chapter 13
+**Readings:** Chapter 12.1-12.3, 12.7
 
 >   Iterator Model
 
@@ -1350,7 +1348,7 @@ Not good for OLAP queries with large intermediate results.
 
 >   Vectorization Model
 
-Like the Iterator Model where each operator implements a **Next()** function, but…
+Like the Iterator Model where each operator implements a **Next()** function, but: 
 
 Each operator emits a **batch** of tuples instead of a single tuple.
 
@@ -1370,7 +1368,7 @@ For each page in the table:
 
 -   Iterate over each tuple and check whether to include it.
 
-The DBMS maintains an internal **cursor**that tracks the last page / slot it examined.
+The DBMS maintains an internal **cursor** that tracks the last page / slot it examined.
 
 This is almost always the worst thing that the DBMS can do to execute a query.
 
@@ -1384,12 +1382,12 @@ Sequential Scan Optimizations: Prefetching, Buffer Pool Bypass, Parallelization,
 
 The DBMS picks an index to find the tuples that the query needs.
 Which index to use depends on:
-→ What attributes the index contains
-→ What attributes the query references
-→ The attribute's value domains
-→ Predicate composition
-→ Whether the index has unique or non-unique keys
-     
+-   What attributes the index contains
+-   What attributes the query references
+-   The attribute's value domains
+-   Predicate composition
+-   Whether the index has unique or non-unique keys
+
 
 > Multi Index Scan
 
@@ -1429,6 +1427,8 @@ The DBMS traverses the tree and for each node that it visits it must figure out 
 A better approach is to just evaluate the expression directly. (Think JIT compilation)
 
 # 12. Query Execution (2)
+
+**Readings:** Chapter 12.1-12.3, 12.7
 
 >   Parallel DBMSs vs Distributed DBMSs
 
@@ -1473,7 +1473,7 @@ Each worker is a separate OS process.
 A worker uses any free process from the pool.
 - Still relies on OS scheduler and shared memory.
 - Bad for CPU cache locality.
-- Examples: IBM DB2, Postgres (2015)
+- Examples: IBM DB2, Postgres (2015).
 
 3.   Thread per DBMS Worker
 
@@ -1481,7 +1481,7 @@ Single process with multiple worker threads.
 - DBMS manages its own scheduling.
 - May or may not use a dispatcher thread.
 - Thread crash (may) kill the entire system.
-- Examples: IBM DB2, MSSQL, MySQL, Oracle (2014)
+- Examples: IBM DB2, MSSQL, MySQL, Oracle (2014).
 
 
 Advantages of a multi-threaded architecture:
@@ -1493,9 +1493,9 @@ The thread per worker model does not mean that the DBMS supports intra-query par
 > Inter- vs Intra- Query Parallelism
 
 Inter-Query: Different queries are executed concurrently.
-→ Increases throughput & reduces latency.
+-   Increases throughput & reduces latency.
 Intra-Query: Execute the operations of a single query in parallel.
-→ Decreases latency for long-running queries.
+-   Decreases latency for long-running queries.
 
 Improve overall performance by allowing multiple queries to execute simultaneously.
 If queries are read-only, then this requires little coordination between queries.
@@ -1528,15 +1528,15 @@ Exchange Operator has three types as follows:
 
 **Exchange Type #1 –Gather**
 
-→Combine the results from multiple workers into a single output stream.
+-  Combine the results from multiple workers into a single output stream.
 
 **Exchange Type #2 –Distribute**
 
-→Split a single input stream into multiple output streams.
+-  Split a single input stream into multiple output streams.
 
 **Exchange Type #3 –Repartition**
 
-→Shuffle multiple input streams across multiple output streams.
+-  Shuffle multiple input streams across multiple output streams.
 
 >Inter Operator(Vertical)
 
@@ -1570,11 +1570,11 @@ This is **transparent** to the DBMS.
 
 Some DBMSs allow you to specify the disk location of each individual database.
 
-→The buffer pool manager maps a page to a disk location.
+-  The buffer pool manager maps a page to a disk location.
 
 This is also easy to do at the filesystem level if the DBMS stores each database in a separate directory.
 
-→The DBMS recovery log file might still be shared if transactions can update multiple databases.
+-  The DBMS recovery log file might still be shared if transactions can update multiple databases.
 
 >   Partitioning
 
@@ -1582,7 +1582,7 @@ Split single logical table into disjoint physical segments that are stored/manag
 
 Partitioning should (ideally) be transparent to the application.
 
-→The application should only access logical tables and not have to worry about how things are physically stored.
+-  The application should only access logical tables and not have to worry about how things are physically stored.
 
 1.   Vertical Partioning
 
@@ -1599,6 +1599,8 @@ Divide table into disjoint segments based on some partitioning key. Hash Partiti
 -   Predicate Partitioning
 
 # 13. Optimization (1)
+
+**Readings:** Chapter 13
 
 Remember that SQL is declarative. User tells the DBMS what answer they want, not how to get the answer.
 
@@ -1703,7 +1705,7 @@ AND ALBUM.NAME="Andy's OG Remix"
 
 Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.
 
-$\pi_{name}(\sigma_{id=artist\_id  \wedge album\_id=album.id \wedge name="Andy's OG Remix"}(artist\times appears\times album))$
+$\pi_{name}(\sigma_{id=artist\_id \wedge album\_id=album.id \wedge name="Andy's OG Remix"}(artist\times appears\times album))$
 
 Using selections optimization, break a complex predicate, and push down:
 
@@ -1735,9 +1737,9 @@ table
 ```sql
 SELECT name FROM sailors AS S
 WHERE EXISTS (
-    SELECT * FROM reserves AS R
-    WHERE S.sid = R.sid
-    AND R.day = '2018-10-15'
+  SELECT * FROM reserves AS R
+  WHERE S.sid = R.sid
+  AND R.day = '2018-10-15'
 )
 
 SELECT name
@@ -1812,7 +1814,7 @@ WHERE val BETWEEN 1 AND 150;
 
 Generate an estimate of the cost of executing a particular query plan for the current state of the database.
 
-→Estimates are only meaningful internally.
+-  Estimates are only meaningful internally.
 
 This is independent of the plan enumeration step that we will talk about next class.
 
@@ -1861,6 +1863,8 @@ Default settings are obviously for a disk-resident database without a lot of mem
 Database characteristics in system catalogs; Hardware environment (microbenchmarks); Storage device characteristics (microbenchmarks); Communications bandwidth (distributed only); Memory resources (buffer pools, sort heaps); Concurrency Environment(Average number of users, Isolation level / blocking, Number of available locks).
 
 # 14. Optimization (2)
+
+**Readings:** Chapter 13
 
 >   Statistics
 
@@ -1918,15 +1922,15 @@ Symmetrically, for S: $estSize ≈ N_{R} · N_{S} / V(A, R) $
 
 **Assumption #1: Uniform Data**
 
-→The distribution of values (except for the heavy hitters) is the same.
+-  The distribution of values (except for the heavy hitters) is the same.
 
 **Assumption #2: Independent Predicates**
 
-→The predicates on attributes are independent
+-  The predicates on attributes are independent
 
 **Assumption #3: Inclusion Principle**
 
-→The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.
+-  The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.
 
 >   Sketches
 
@@ -1982,55 +1986,57 @@ Use **dynamic programming** to reduce the number of cost estimations.
 
 # 15. Concurrency Control Theory
 
+**Readings:** Chapter 14
+
 A **transaction** is the execution of a sequence of one or more operations (e.g., SQL queries) on a database to perform some higher-level function.
 
-A txn may carry out many operations on the data retrieved from the database
+A transactions may carry out many operations on the data retrieved from the database
 
 The DBMS is onlyconcerned about what data is read/written from/to the database.
 
 >   Strawman System
 
-Execute each txnone-by-one (i.e., serial order) as they arrive at the DBMS.
+Execute each transactions one-by-one (i.e., serial order) as they arrive at the DBMS.
 
-→One and only one txncan be running at the same time in the DBMS.
+-  One and only one transactions can be running at the same time in the DBMS.
 
-Before a txnstarts, copy the entire database to a new file and make all changes to that file.
+Before a transactions starts, copy the entire database to a new file and make all changes to that file.
 
-→If the txncompletes successfully, overwrite the original file with the new one.
+-  If the transactions completes successfully, overwrite the original file with the new one.
 
-→If the txnfails, just remove the dirty copy.
+-  If the transactions fails, just remove the dirty copy.
 
 >   Correctness Criteria ACID
 
-**Atomicity:** All actions in the txnhappen, or none happen.(“all or nothing”)
+**Atomicity:** All actions in the transactions happen, or none happen.(“all or nothing”)
 
-**Consistency:** If each txnis consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)
+**Consistency:** If each transactions is consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)
 
-**Isolation:** Execution of one txnis isolated from that of other txns.(“as if alone”)
+**Isolation:** Execution of one transactions is isolated from that of other transactions s.(“as if alone”)
 
-**Durability:** If a txncommits, its effects persist.(“survive failures”)
+**Durability:** If a transactions commits, its effects persist.(“survive failures”)
 
 >   Atomicity
 
-DBMS guarantees that txns are **atomic**.  
+DBMS guarantees that transactions are **atomic**. 
 
-→From user's point of view: txnalways either executes all its actions or executes no actions at all.
+-  From user's point of view: transactions always either executes all its actions or executes no actions at all.
 
 Mechanism For Ensuring Atomicity
 
 **Approach #1: Logging**
 
-→DBMS logs all actions so that it can undo the actions of aborted transactions.
+-  DBMS logs all actions so that it can undo the actions of aborted transactions.
 
-→Maintain undo records both in memory and on disk.
+-  Maintain undo records both in memory and on disk.
 
-→Think of this like the black box in airplanes…
+-  Think of this like the black box in airplanes…
 
 **Approach #2: Shadow Paging**
 
-→DBMS makes copies of pages and txnsmake changes to those copies. Only when the txncommits is the page made visible to others.
+-  DBMS makes copies of pages and transactions smake changes to those copies. Only when the transactions commits is the page made visible to others.
 
-→Originally from System R.
+-  Originally from System R.
 
 >   Database Consistency
 
@@ -2042,7 +2048,7 @@ Transaction consistency is the application's responsibility. DBMS cannot control
 
 >   Isolation
 
-DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of txns.
+DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of transactions s.
 
 A **concurrency control**protocol is how the DBMS decides the proper interleaving of operations from multiple transactions.
 
@@ -2076,7 +2082,7 @@ There are different levels of serializability:
 
 >   Depency Graphs
 
-One node per txn.
+One node per transactions .
 
 Edge from $T_i$ to $T_j$ if:
 
@@ -2087,13 +2093,13 @@ Edge from $T_i$ to $T_j$ if:
 Alternative (weaker) notion of serializability.
 Schedules $S_1$ and $S_2$ are view equivalent if:
 
-→ If $T_1$ reads initial value of **A** in $S_1$, then $T_1$ also reads initial value of **A** in $S_2$.
+-   If $T_1$ reads initial value of **A** in $S_1$, then $T_1$ also reads initial value of **A** in $S_2$.
 
-→ If $T_1$ reads value of **A** written by $T_2$ in $S_1$, then $T_1$ also reads value of **A** written by $T_2$ in $S_2$.
+-   If $T_1$ reads value of **A** written by $T_2$ in $S_1$, then $T_1$ also reads value of **A** written by $T_2$ in $S_2$.
 
-→ If $T_1$ writes final value of **A** in $S_1$, then $T_1$ also writes final value of **A** in $S_2$.
+-   If $T_1$ writes final value of **A** in $S_1$, then $T_1$ also writes final value of **A** in $S_2$.
 
-Also known as a **precedence graph**. A schedule is conflict serializable iffits dependency graph is acyclic.
+Also known as a **precedence graph**. A schedule is conflict serializable if fits dependency graph is acyclic.
 
 **View Serializability** allows for (slightly) more schedules than **Conflict Serializability** does.
 
@@ -2107,13 +2113,15 @@ Neither definition allows all schedules that you would consider "serializable".
 
 All the changes of committed transactions should be persistent.
 
-→No torn updates.
+-  No torn updates.
 
-→No changes from failed transactions.
+-  No changes from failed transactions.
 
 The DBMS can use either logging or shadow paging to ensure that all changes are durable.
 
 # 16. Two Phase Locking
+
+**Readings:** Chapter 15.1-15.3, 15.9
 
 **S-LOCK**: Shared locks for reads.
 
@@ -2134,25 +2142,25 @@ Compatibility Matrix
 
 Lock manager updates its internal lock-table.
 
-→It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.
+-  It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.
 
-Two-phase locking (2PL) is a concurrency control protocol that determines whether a txn can access an object in the database on the fly.
+Two-phase locking (2PL) is a concurrency control protocol that determines whether a transactions can access an object in the database on the fly.
 
-The protocol does not need to know all the queries that a txn will execute ahead of time.
+The protocol does not need to know all the queries that a transactions will execute ahead of time.
 
 **Phase #1: Growing**
 
-→Each txn requests the locks that it needs from the DBMS’s lock manager.
+-  Each transactions requests the locks that it needs from the DBMS’s lock manager.
 
-→The lock manager grants/denies lock requests.
+-  The lock manager grants/denies lock requests.
 
 **Phase #2: Shrinking**
 
-→The txnis allowed to only release locks that it previously acquired. It cannot acquire new locks.
+-  The transactions is allowed to only release locks that it previously acquired. It cannot acquire new locks.
 
 2PL on its own is sufficient to guarantee conflict serializability.
 
-→It generates schedules whose precedence graph is acyclic.
+-  It generates schedules whose precedence graph is acyclic.
 
 But it is subject to **cascading aborts**
 
@@ -2160,37 +2168,37 @@ But it is subject to **cascading aborts**
 
 There are potential schedules that are serializable but would not be allowed by 2PL.
 
-→Locking limits concurrency.
+-  Locking limits concurrency.
 
 Dirty reads Solution: **Strong Strict 2PL (aka Rigorous 2PL)**
 
-A schedule is **strict** if a value written by a txnis not read or overwritten by other txnsuntil that txnfinishes.
+A schedule is **strict** if a value written by a transactions is not read or overwritten by other transactions suntil that transactions finishes.
 
 Advantages:
 
-→Does not incur cascading aborts.
+-  Does not incur cascading aborts.
 
-→Aborted txnscan be undone by just restoring original values of modified tuples.
+-  Aborted transactions scan be undone by just restoring original values of modified tuples.
 
 >   Dead Lock Solution
 
 Deadlocks Solution: **Detection** or **Prevention**
 
-The DBMS creates a **waits-for** graph to keep track of what locks each txn is waiting to acquire:
+The DBMS creates a **waits-for** graph to keep track of what locks each transactions is waiting to acquire:
 
-→Nodes are transactions
+-  Nodes are transactions
 
-→Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.
+-  Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.
 
 The system periodically checks for cycles in **waits-for** graph and then decides how to break it.
 
-When the DBMS detects a deadlock, it will select a "victim" txn to rollback to break the cycle.
+When the DBMS detects a deadlock, it will select a "victim" transactions to rollback to break the cycle.
 
-The victim txn will either restart or abort(more common) depending on how it was invoked.
+The victim transactions will either restart or abort(more common) depending on how it was invoked.
 
-There is a trade-off between the frequency of checking for deadlocks and how long txns have to wait before deadlocks are broken.
+There is a trade-off between the frequency of checking for deadlocks and how long transactions have to wait before deadlocks are broken.
 
-When a txn tries to acquire a lock that is held by another txn, the DBMS kills one of them to prevent a deadlock.
+When a transactions tries to acquire a lock that is held by another transactions , the DBMS kills one of them to prevent a deadlock.
 
 This approach does not require a waits-for graph or detection algorithm.
 
@@ -2198,11 +2206,11 @@ This approach does not require a waits-for graph or detection algorithm.
 
 Trade-off between parallelism versus overhead.
 
-→Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.
+-  Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.
 
 An **intention lock** allows a higher-level node to be locked in **shared** or **exclusive** mode without having to check all descendent nodes.
 
-If a node is locked in an intention mode, then some txnis doing explicit locking at a lower level in the tree.
+If a node is locked in an intention mode, then some transactions is doing explicit locking at a lower level in the tree.
 
 Intention-Shared (IS): Indicates explicit locking at lower level with shared locks.
 
@@ -2220,12 +2228,12 @@ Compatibility Matrix
 | **SIX** | ✅      | ❌      | ❌     | ❌       | ❌     |
 | **X**   | ❌      | ❌      | ❌     | ❌       | ❌     |
 
-Hierarchical locks are useful in practice as each txn only needs a few locks. Intention locks help improve concurrency:
-→ Intention-Shared (IS): Intent to get S lock(s) at finer granularity.
+Hierarchical locks are useful in practice as each transactions only needs a few locks. Intention locks help improve concurrency:
+-   Intention-Shared (IS): Intent to get lock(s) at finer granularity.
 
-→ Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.
+-   Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.
 
-→ Shared+Intention-Exclusive (SIX): Like S and IX at the same time.
+-   Shared+Intention-Exclusive (SIX): Like and IX at the same time.
 
 Lock escalation dynamically asks for coarser-grained locks when too many low-level locks acquired.
 
@@ -2233,7 +2241,7 @@ This reduces the number of requests that the lock manager must process.
 
 >   Lock in Practice
 
-You typically don't set locks manually in txns.
+You typically don't set locks manually in transactions s.
 
 Sometimes you will need to provide the DBMS with hints to help it to improve concurrency. Explicit locks are also useful when doing major changes to the database.
 
@@ -2241,14 +2249,496 @@ Sometimes you will need to provide the DBMS with hints to help it to improve con
 
 Not part of the SQL standard.
 
-→Postgres/DB2/Oracle Modes: **SHARE**, **EXCLUSIVE**
+-  Postgres/DB2/Oracle Modes: **SHARE**, **EXCLUSIVE**
 
-→MySQL Modes: **READ**, **WRITE**
+-  MySQL Modes: **READ**, **WRITE**
 
 2.   Perform a select and then sets an exclusive lock on the matching tuples.
 
 Can also set shared locks:
 
-→Postgres: **FOR SHARE**
+-  Postgres: **FOR SHARE**
 
-→MySQL: **LOCK IN SHARE MODE**
+-  MySQL: **LOCK IN SHARE MODE**
+
+# 17. Timestamp Ordering
+
+**Readings:** Chapter 15.4-15.5
+
+Every object Xis tagged with timestamp of the last transactions that successfully did read/write:
+
+-   W-TS(X)–Write timestamp on X
+
+-   R-TS(X)–Read timestamp on X
+
+Check timestamps for every operation:
+
+-   If transactions tries to access an object "from the future", it aborts and restarts.
+
+>   Read
+
+If $TS(T_{i}) < W-TS(X)$, this violates timestamp
+order of $T_{i}$ with regard to the writer of $X$.
+
+- Abort $T_{i}$ and restart it with a new TS.
+
+Else:
+
+-   Allow $T_{i}$ to read $X$.
+-   Update $R-TS(X)$ to $max(R-TS(X), TS(T_{i}))$
+-   Make a local copy of $X$ to ensure repeatable reads for $T_{i}$.
+
+>   write
+
+If $TS(T_{i})< R-TS(X)$ or $TS(T_{i})< W-TS(X)$
+
+- Abort and restart $T_{i}$.
+
+Else:
+
+- Allow Tito write Xand update $W-TS(X)$
+- Thomas Write Rule: Ignore the write to allow the transactions to continue executing without aborting.
+- Also make a local copy of Xto ensure repeatable reads.
+
+> Thomas Write Rule
+
+Generates a schedule that is conflict serializable
+if you do not use the Thomas Write Rule.
+- No deadlocks because no transactions ever waits.
+- Possibility of starvation for long transactions if short transactions keep causing conflicts.
+
+>   Recoverable Schedules
+
+A schedule is **recoverable** if transactions scommit only after all transactions swhose changes they read, commit.
+
+Otherwise, the DBMS cannot guarantee that transactions read data that will be restored after recovering from a crash.
+
+High overhead from copying data to transactions's workspace and from updating timestamps.
+
+Long running transactions can get starved.
+
+-   The likelihood that a transactions will read something from a newer transactions increases.
+
+>   Optimistic Concurrency Control
+
+**#1 –Read Phase**:
+
+-   Track the read/write sets of transactions and store their writes in a private workspace.
+-   The DBMS copies every tuple that the transactions accesses from the shared database to its workspace ensure repeatable reads.
+
+**#2 –Validation Phase**:
+
+-   When a transactions commits, check whether it conflicts with other transactions s.
+
+-   When transactions $T_i$ invokes **COMMIT**, the DBMS checks if it conflicts with other transactions s.
+
+    -   The DBMS needs to guarantee only serializable schedules are permitted.
+
+    -   Checks other transactions sfor RW and WW conflicts and ensure that conflicts are in one direction (e.g., older-  younger).
+
+    Two methods for this phase:
+
+    - Backward Validation
+
+    - Forward Validation
+
+-   Backword: Check whether the committing transactions intersects its read/write sets with those of any transactions sthat have **already** committed.
+
+-   Forward: Check whether the committing transactions intersects its read/write sets with any active transactions sthat have **not** yet committed.
+
+**#3 –Write Phase:**
+
+-   If validation succeeds, apply private changes to database. Otherwise abort and restart the transactions .
+
+
+# 18. Multi-Version Concurrency Control
+
+**Readings:** Chapter 15.6-15.7
+
+The DBMS maintains multiple **physical** versions of a single **logical** object in the database:
+
+-    When a transactions writes to an object, the DBMS creates a new version of that object. 
+
+-    When a transactions reads an object, it reads the newest version that existed when the transactions started.
+
+***Writers do not block readers. Readers do not block writers.***
+
+Read-only transactions scan read a consistent snapshotwithout acquiring locks.
+
+-    Use timestamps to determine visibility.
+
+Easily support time-travelqueries.
+
+MVCC is more than just a concurrency control protocol. It completely affects how the DBMS manages transactions and the database.
+
+>   Concurrency Control
+
+**Approach #1: Timestamp Ordering**
+
+-    Assign transactions stimestamps that determine serial order.
+
+**Approach #2: Optimistic Concurrency Control**
+
+-    Three-phase protocol from last class.
+
+-    Use private workspace for new versions.
+
+**Approach #3: Two-Phase Locking**
+
+>   Version Storage
+
+-    transactions acquire appropriate lock on physical version before they can read/write a logical tuple.
+
+The DBMS uses the tuples' pointer field to create a **version chain** per logical tuple.
+
+-    This allows the DBMS to find the version that is visible to a particular transactions at runtime.
+
+-    Indexes always point to the "head" of the chain.
+
+**Approach #1: Append-Only Storage**
+
+-    New versions are appended to the same table space.
+
+**Approach #2: Time-Travel Storage**
+
+-    Old versions are copied to separate table space.
+
+**Approach #3: Delta Storage**
+
+-    The original values of the modified attributes are copied into a separate delta record space.
+
+Different storage schemes determine where/what to store for each version.
+
+>   GC
+
+Tuple Level: 
+
+**Background Vacuuming:** Separate thread(s) periodically scan the table and look for reclaimable versions. Works with any storage.
+
+**Cooperative Cleaning:** Worker threads identify reclaimable versions as they traverse version chain. Only works with O2N.
+
+Transaction Level:
+
+Each transactions keeps track of its read/write set.
+
+The DBMS determines when all versions created by a finished transactions are no longer visible.
+
+May still require multiple threads to reclaim the memory fast enough for the workload.
+
+>   MVCC Indexes
+
+Each index's underlying data structure must support the storage of non-unique keys. 
+
+Use additional execution logic to perform conditional inserts for pkey/ unique indexes.
+
+-   Atomically check whether the key exists and then insert.
+
+Workers may get back multiple entries for a single fetch. They then must follow the pointers to find the proper physical version.
+
+>   Implementations
+
+|              | **Protocol**  | **VersionStorage** | **GarbageCollection** | **Indexes** |
+| ------------ | ---------------- | --------------------- | ------------------------ | -------------- |
+| Oracle       | **MV2PL**        | **Delta**             | **Vacuum**               | **Logical**    |
+| Postgres     | **MV-2PL/MV-TO** | **Append-Only**       | **Vacuum**               | **Physical**   |
+| MySQL-InnoDB | **MV-2PL**       | **Delta**             | **Vacuum**               | **Logical**    |
+| HYRISE       | **MV-OCC**       | **Append-Only**       | **–**                    | **Physical**   |
+| Hekaton      | **MV-OCC**       | **Append-Only**       | **Cooperative**          | **Physical**   |
+| MemSQL       | **MV-OCC**       | **Append-Only**       | **Vacuum**               | **Physical**   |
+| SAP HANA     | **MV-2PL**       | **Time-travel**       | **Hybrid**               | **Logical**    |
+| NuoDB        | **MV-2PL**       | **Append-Only**       | **Vacuum**               | **Logical**    |
+| HyPer        | **MV-OCC**       | **Delta**             | **transactions -level**  | **Logical**    |
+| NoisePage    | **MV-OCC**       | **Delta**             | **transactions -level**  | **Logical**    |
+
+# 19. Logging Protocols + Schemes
+
+ **Readings:** Chapter 16.1-16.7
+
+Recovery algorithms are techniques to ensure database consistency, transaction atomicity, and durability despite failures.
+
+Recovery algorithms have two parts:
+
+-   Actions during normal transactions processing to ensure that the DBMS can recover from a failure.
+
+-   Actions after a failure to recover the database to a state that ensures atomicity, consistency, and durability.
+
+>   Storage
+
+**Volatile Storage:**
+
+- Data does notpersist after power loss or program exit.
+
+-   Examples: DRAM, SRAM
+
+**Non-volatile Storage:**
+
+-   Data persists after power loss and program exit.
+
+- Examples: HDD, SDD
+
+**Stable Storage:**
+
+-   A non-existentform of non-volatile storage that survives all possible failures scenarios.
+
+>   Redo vs Undo
+
+**Undo**: The process of removing the effects of an incomplete or aborted transactions .
+
+**Redo**: The process of re-instating the effects of a committed transactions for durability.
+
+How the DBMS supports this functionality depends on how it manages the buffer pool.
+
+Whether the DBMS allows an uncommitted transactions to overwrite the most recent committed value of an object in non-volatile storage.
+
+**STEAL**: Is allowed.
+
+**NO-STEAL**: Is notallowed.
+
+Whether the DBMS requires that all updates made by a transactions are reflected on non-volatile storage before the transactions can commit.
+
+**FORCE**: Is required.
+
+**NO-FORCE**: Is notrequired.
+
+This approach is the easiest to implement:
+
+-  Never have to undochanges of an aborted transactions because the changes were not written to disk.
+
+-    Never have to redo changes of a committed transactions because all the changes are guaranteed to be written to disk at commit time (assuming atomic hardware writes).
+
+Previous example cannot support **write sets** that exceed the amount of physical memory available.
+
+>   Shaow pages
+
+To install the updates, overwrite the root so it points to the shadow, thereby swapping the master and shadow:
+
+-  Before overwriting the root, none of the transactions 'supdates are part of the disk-resident database 
+
+-  After overwriting the root, all the transactions 'supdates are part of the disk-resident database.
+
+Supporting rollbacks and recovery is easy.
+
+**Undo**: Remove the shadow pages. Leave the master and the DB root pointer alone.
+
+**Redo**: Not needed at all.
+
+Disadvantages
+
+Copying the entire page table is expensive:
+
+-  Use a page table structured like a B+tree.
+
+-  No need to copy entire tree, only need to copy paths in the tree that lead to updated leaf nodes.
+
+Commit overhead is high:
+
+-  Flush every updated page, page table, and root.
+
+-  Data gets fragmented.
+
+-  Need garbage collection.
+
+-  Only supports one writer transactions at a time or transactions sin a batch.
+
+>   Write Ahead Log
+
+Maintain a log file separate from data files that contains the changes that transactions smake to database.
+
+-  Assume that the log is on stable storage.
+
+-    Log contains enough information to perform the necessary undo and redo actions to restore the database.
+
+DBMS must write to disk the log file records that correspond to changes made to a database object **before**it can flush that object to disk.
+
+Buffer Pool Policy: **STEAL**+ **NO-FORCE**
+
+The DBMS stages all a transactions 'slog records in volatile storage (usually backed by buffer pool).
+
+All log records pertaining to an updated page are written to non-volatile storage beforethe page itself is over-written in non-volatile storage.
+
+A transactions is not considered committed until allits log records have been written to stable storage.
+
+*When should the DBMS write log entries to disk?*
+
+-  When the transaction commits.
+
+-  Can use group committo batch multiple log flushes together to amortize overhead.
+
+*When should the DBMS write dirty records to disk?*
+
+-  Every time the transactions executes an update?
+
+-  Once when the transactions commits?
+
+>   Logging Schemes
+
+Logical logging requires less data written in each log record than physical logging.
+
+Difficult to implement recovery with logical logging if you have concurrent transactions s.
+
+-  Hard to determine which parts of the database may have been modified by a query before crash.
+
+-  Also takes longer to recover because you must re-execute every transactions all over again.
+
+Hybrid approach where log records target a single page but do not specify organization of the page.
+
+-  Identify tuples based on their slot number.
+
+-    Allows DBMS to reorganize pages after a log record has been written to disk.
+
+This is the most popular approach.
+
+>   Check Points
+
+The WAL will grow forever.
+
+After a crash, the DBMS must replay the entire log, which will take a long time.
+
+The DBMS periodically takes a checkpoint where it flushes all buffers out to disk.
+
+Output onto stable storage all log records currently residing in main memory.
+
+Output to the disk all modified blocks.
+
+Write a \<CHECKPOINT\> entry to the log and flush to stable storage.
+
+Checkpointing too often causes the runtime performance to degrade.
+
+-   System spends too much time flushing buffers.
+
+But waiting a long time is just as bad:
+
+-   The checkpoint will be large and slow.
+
+-   Makes recovery time much longer.
+
+# 20. Crash Recovery
+
+**Readings:** Chapter 16.1-16.8
+
+**A**lgorithms for **R**ecovery and **I**solation **E**xploiting **S**emantics
+
+**Write-Ahead Logging:**
+
+-  Any change is recorded in log on stable storage before the database change is written to disk.
+
+-  Must use **STEAL**+ **NO-FORCE** buffer pool policies.
+
+**Repeating History During Redo:**
+
+-  On restart, retrace actions and restore database to exact state before crash.
+
+**Logging Changes During Undo:**
+
+-  Record undo actions to log to ensure action is not repeated in the event of repeated failures.
+
+>   WAL Records
+
+Every log record now includes a globally unique **log sequence number**(LSN).
+
+| **Name**     | **Where** | **Definition**                                  |
+| ------------ | --------- | ----------------------------------------------- |
+| flushedLSN   | Memory    | Last LSN in log on disk                         |
+| pageLSN      | $page_x$     | Newest update to $page_x$                          |
+| recLSN       | $page_x$     | Oldest update to $page_x$ since it was last flushed |
+| lastLSN      | $T_i$        | Latest record of transactions $T_i$                |
+| MasterRecord | Disk      | LSN of latest checkpoint                        |
+
+Each data page contains a pageLSN.
+
+-   The **LSN** of the most recent update to that page.
+
+System keeps track of flushedLSN.
+
+-   The max **LSN** flushed so far.
+
+Before page xcan be written to disk, we must flush log at least to the point where: 
+
+-   $pageLSN_x ≤ flushedLSN$
+
+>   Transaction Commit
+
+Write COMMITrecord to log.
+
+All log records up to transactions 'sCOMMITrecord are flushed to disk.
+
+-    Log flushes are sequential, synchronous writes to disk.
+
+-    Many log records per log page.
+
+When the commit succeeds, write a special transactions -ENDrecord to log.
+
+-   This does notneed to be flushed immediately.
+
+A **CLR** describes the actions taken to undo the actions of a previous update record.
+
+It has all the fields of an update log record plus the undoNextpointer (the next-to-be-undone LSN).
+
+**CLRs** are added to log records but the DBMS does not wait for them to be flushed before notifying the application that the transactions aborted.
+
+>    NON-FUZZY CHECKPOINTS
+
+The DBMS halts everything when it takes a checkpoint to ensure a consistent snapshot:
+
+-   Halt the start of any new transactions s.
+
+- Wait until all active transactions sfinish executing.
+
+- Flushes dirty pages on disk.
+
+This is bad for runtime performance but makes recovery easy.
+
+SLIGHTLY BETTER CHECKPOINTS
+
+Pause modifying transactions swhile the DBMS takes the checkpoint.
+
+-   Prevent queries from acquiring write latch on table/index pages.
+
+-   Don't have to wait until all transactions sfinish before taking the checkpoint.
+
+We must record internal state as of the beginning of the checkpoint.
+
+-   **Active Transaction Table (ATT)**
+
+- **Dirty Page Table (DPT)**
+
+>   ACTIVE TRANSACTION TABLE
+
+One entry per currently active transactions .
+
+-  transactions Id: Unique transactions identifier.
+
+-  status: The current "mode" of the transactions .
+
+-  lastLSN: Most recent **LSN** created by transactions .
+
+Entry removed after the transactions -END message.
+
+transactions Status Codes:
+
+R: Running
+
+C: Committing
+
+U: Candidate for Undo
+
+A **fuzzy checkpoint** is where the DBMS allows active transactions sto continue the run while the system writes the log records for checkpoint.
+
+- No attempt to force dirty pages to disk.
+
+New log records to track checkpoint boundaries:
+
+-   CHECKPOINT-BEGIN: Indicates start of checkpoint
+
+-   CHECKPOINT-END: Contains **ATT**+ **DPT**.
+
+>   ARIES
+
+Start from last BEGIN-CHECKPOINTfound via MasterRecord.
+
+**Analysis:** Figure out which transactions scommitted or failed since checkpoint.
+
+**Redo:** Repeat allactions.
+
+**Undo:** Reverse effects of failed transactions s.
+

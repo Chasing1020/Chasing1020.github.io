@@ -13,11 +13,11 @@
       <pubDate>Thu, 25 Nov 2021 14:11:42 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/database/database-systems/</guid>
-      <description>1. Relational Model Readings: Chapters 1-2, 6
+      <description>Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
-Data Model: is a collection of concepts for describing the data in a database.</description>
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.</description>
     </item>
     
     <item>

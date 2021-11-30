@@ -16,11 +16,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Relational Model Readings: Chapters 1-2, 6
+<meta name="author" content="Chasing1020" /><meta name="description" content="Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
-Data Model: is a collection of concepts for describing the data in a database." /><meta name="keywords" content="Hugo, theme, even" />
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases." /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -44,31 +44,31 @@ Data Model: is a collection of concepts for describing the data in a database." 
 
 
 <meta property="og:title" content="Database Systems" />
-<meta property="og:description" content="1. Relational Model Readings: Chapters 1-2, 6
+<meta property="og:description" content="Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
-Data Model: is a collection of concepts for describing the data in a database." />
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://Chasing1020.github.io/post/database/database-systems/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-11-25T14:11:42+08:00" />
 <meta property="article:modified_time" content="2021-11-25T14:11:42+08:00" />
 
 <meta itemprop="name" content="Database Systems">
-<meta itemprop="description" content="1. Relational Model Readings: Chapters 1-2, 6
+<meta itemprop="description" content="Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
-Data Model: is a collection of concepts for describing the data in a database."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="11110">
+<meta itemprop="wordCount" content="13280">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
-<meta name="twitter:description" content="1. Relational Model Readings: Chapters 1-2, 6
+<meta name="twitter:description" content="Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.
-Data Model: is a collection of concepts for describing the data in a database."/>
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -156,8 +156,8 @@ Data Model: is a collection of concepts for describing the data in a database."/
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 11110 words </span>
-          <span class="more-meta"> 53 mins read </span>
+          <span class="more-meta"> 13280 words </span>
+          <span class="more-meta"> 63 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -183,12 +183,17 @@ Data Model: is a collection of concepts for describing the data in a database."/
     <li><a href="#14-optimization-2">14. Optimization (2)</a></li>
     <li><a href="#15-concurrency-control-theory">15. Concurrency Control Theory</a></li>
     <li><a href="#16-two-phase-locking">16. Two Phase Locking</a></li>
+    <li><a href="#17-timestamp-ordering">17. Timestamp Ordering</a></li>
+    <li><a href="#18-multi-version-concurrency-control">18. Multi-Version Concurrency Control</a></li>
+    <li><a href="#19-logging-protocols--schemes">19. Logging Protocols + Schemes</a></li>
+    <li><a href="#20-crash-recovery">20. Crash Recovery</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="1-relational-model">1. Relational Model</h1>
+      <p>Reference Book: <a href="https://www.db-book.com/"><strong>Database System Concepts Seventh Edition</strong></a></p>
+<h1 id="1-relational-model">1. Relational Model</h1>
 <p><strong>Readings:</strong> Chapters 1-2, 6</p>
 <blockquote>
 <p>Definition</p>
@@ -313,7 +318,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>SQL Standard</p>
 </blockquote>
 <p>ANSI Standard in 1986. ISO in 1987. Structured Query Language</p>
-<p><strong>SQL:2016</strong>:  JSON, Polymorphic tables</p>
+<p><strong>SQL:2016</strong>: JSON, Polymorphic tables</p>
 <p><strong>SQL:2011</strong>: Temporal DBs, Pipelined DML</p>
 <p><strong>SQL:2008</strong>: Truncation, Fancy Sorting</p>
 <p><strong>SQL:2003</strong>: XML, Windows, Sequences, Auto-Gen IDs.</p>
@@ -718,7 +723,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <blockquote>
 <p>Page directory</p>
 </blockquote>
-<p>The **page directory **is the mapping from page ids to page locations in the database files.</p>
+<p>The <strong>page directory</strong> is the mapping from page ids to page locations in the database files.</p>
 <ul>
 <li>All changes must be recorded on disk to allow the DBMS to find on restart.</li>
 </ul>
@@ -728,12 +733,12 @@ Schema: is a description of a particular collection of data, using a given data 
 </ul>
 <p><strong>Global Policies:</strong></p>
 <ul>
-<li>Make decisions for all active txns.</li>
+<li>Make decisions for all active transactions.</li>
 </ul>
 <p><strong>Local Policies:</strong></p>
 <ul>
 <li>
-<p>Allocate frames to a specific txn without considering the behavior of concurrent txns.</p>
+<p>Allocate frames to a specific transactions without considering the behavior of concurrent transactions s.</p>
 </li>
 <li>
 <p>Still need to support sharing pages.</p>
@@ -865,7 +870,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <blockquote>
 <p>Localization</p>
 </blockquote>
-<p>The DBMS chooses which pages to evict on a per txn/query basis. This minimizes the pollution of the buffer pool from each query.</p>
+<p>The DBMS chooses which pages to evict on a per transactions /query basis. This minimizes the pollution of the buffer pool from each query.</p>
 <ul>
 <li>Keep track of the pages that a query has accessed.</li>
 </ul>
@@ -996,13 +1001,13 @@ Schema: is a description of a particular collection of data, using a given data 
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">FindKey</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
-    <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
-         <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
+  <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
+  <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
+     <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1485,8 +1490,8 @@ Can be implemented on top of spin latches.</p>
 </li>
 </ol>
 <p>In each pass, we read and writeevery page in the file.</p>
-<p>$Number \ of \  passes \ =\   1 + ⌈\log_2N⌉ $</p>
-<p>$Total\  I/O\  cost\ =\  2N \times (Nums \ of\ passes)$</p>
+<p>$Number \ of \ passes \ =\  1 + ⌈\log_2N⌉ $</p>
+<p>$Total\ I/O\ cost\ =\ 2N \times (Nums \ of\ passes)$</p>
 <p>This algorithm only requires three buffer pool pages to perform the sorting ($B=3$): Two input pages, one output page.</p>
 <p>But even if we have more buffer space available ($B &gt; 3$), it does not effectively utilize them if the worker must block on disk I/O. Although we can get the equation:</p>
 <p>$Number\ of\ passes\ with\ N\ pages\ and\ B\ buffer\ pools\ =\ 1+⌈\log_B-1⌈N/ B⌉⌉$</p>
@@ -1651,7 +1656,7 @@ Cost: $M+(M\ \times\ N)$</p>
 output.</li>
 </ol>
 <p>This algorithm uses B-2 buffers for scanning R.
-Cost: $M+ ( ⌈M / (B-2) ⌉\times  N)$, if $B&gt;M+2$, then will be $M+N$</p>
+Cost: $M+ ( ⌈M / (B-2) ⌉\times N)$, if $B&gt;M+2$, then will be $M+N$</p>
 <ol start="3">
 <li>Index Nested Join: Assume the cost of each index probe is some constant C per tuple.
 Cost: $M + (m \times C)$</li>
@@ -1688,11 +1693,11 @@ Total Cost: Sort + Merge</p>
 </blockquote>
 <p><strong>Phase #1: Build</strong></p>
 <ul>
-<li>Scan the outer relation and populate a hash table using the hash function <strong>h****1</strong>on the join attributes.</li>
+<li>Scan the outer relation and populate a hash table using the hash function <strong>h1</strong> on the join attributes.</li>
 </ul>
 <p><strong>Phase #2: Probe</strong></p>
 <ul>
-<li>Scan the inner relation and use <strong>h****1</strong>on each tuple to jump to a location in the hash table and find a matching tuple.</li>
+<li>Scan the inner relation and use <strong>h1</strong> on each tuple to jump to a location in the hash table and find a matching tuple.</li>
 </ul>
 <p><strong>Approach #1: Full Tuple</strong></p>
 <ul>
@@ -1730,7 +1735,7 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 </blockquote>
 <p>If the buckets do not fit in memory, then use <strong>recursive partitioning</strong>to split the tables into chunks that will fit.</p>
 <ul>
-<li>Build another hash table for $bucket_{R,i}$,  using hash function $h_2$ (with $h_2≠h_1$).</li>
+<li>Build another hash table for $bucket_{R,i}$, using hash function $h_2$ (with $h_2≠h_1$).</li>
 <li>Then probe it for each tuple of the other table&rsquo;s bucket at that level.</li>
 </ul>
 <p>Cost of hash join?</p>
@@ -1798,7 +1803,7 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 </li>
 </ul>
 <h1 id="11-query-execution-1">11. Query Execution (1)</h1>
-<p><strong>Readings:</strong> Chapter 13</p>
+<p><strong>Readings:</strong> Chapter 12.1-12.3, 12.7</p>
 <blockquote>
 <p>Iterator Model</p>
 </blockquote>
@@ -1845,7 +1850,7 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 <blockquote>
 <p>Vectorization Model</p>
 </blockquote>
-<p>Like the Iterator Model where each operator implements a <strong>Next()</strong> function, but…</p>
+<p>Like the Iterator Model where each operator implements a <strong>Next()</strong> function, but:</p>
 <p>Each operator emits a <strong>batch</strong> of tuples instead of a single tuple.</p>
 <ul>
 <li>
@@ -1869,7 +1874,7 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 <p>Iterate over each tuple and check whether to include it.</p>
 </li>
 </ul>
-<p>The DBMS maintains an internal <strong>cursor</strong>that tracks the last page / slot it examined.</p>
+<p>The DBMS maintains an internal <strong>cursor</strong> that tracks the last page / slot it examined.</p>
 <p>This is almost always the worst thing that the DBMS can do to execute a query.</p>
 <p>Sequential Scan Optimizations: Prefetching, Buffer Pool Bypass, Parallelization, Heap Clustering, Zone Maps, Late Materialization.</p>
 <ol>
@@ -1884,12 +1889,14 @@ Create a Bloom Filterduring the build phase when the key is likely to not exist 
 <p>Index Scan</p>
 </blockquote>
 <p>The DBMS picks an index to find the tuples that the query needs.
-Which index to use depends on:
-→ What attributes the index contains
-→ What attributes the query references
-→ The attribute&rsquo;s value domains
-→ Predicate composition
-→ Whether the index has unique or non-unique keys</p>
+Which index to use depends on:</p>
+<ul>
+<li>What attributes the index contains</li>
+<li>What attributes the query references</li>
+<li>The attribute&rsquo;s value domains</li>
+<li>Predicate composition</li>
+<li>Whether the index has unique or non-unique keys</li>
+</ul>
 <blockquote>
 <p>Multi Index Scan</p>
 </blockquote>
@@ -1924,6 +1931,7 @@ Which index to use depends on:
 <p>The DBMS traverses the tree and for each node that it visits it must figure out what the operator needs to do.</p>
 <p>A better approach is to just evaluate the expression directly. (Think JIT compilation)</p>
 <h1 id="12-query-execution-2">12. Query Execution (2)</h1>
+<p><strong>Readings:</strong> Chapter 12.1-12.3, 12.7</p>
 <blockquote>
 <p>Parallel DBMSs vs Distributed DBMSs</p>
 </blockquote>
@@ -1978,7 +1986,7 @@ Which index to use depends on:
 <ul>
 <li>Still relies on OS scheduler and shared memory.</li>
 <li>Bad for CPU cache locality.</li>
-<li>Examples: IBM DB2, Postgres (2015)</li>
+<li>Examples: IBM DB2, Postgres (2015).</li>
 </ul>
 <ol start="3">
 <li>Thread per DBMS Worker</li>
@@ -1988,7 +1996,7 @@ Which index to use depends on:
 <li>DBMS manages its own scheduling.</li>
 <li>May or may not use a dispatcher thread.</li>
 <li>Thread crash (may) kill the entire system.</li>
-<li>Examples: IBM DB2, MSSQL, MySQL, Oracle (2014)</li>
+<li>Examples: IBM DB2, MSSQL, MySQL, Oracle (2014).</li>
 </ul>
 <p>Advantages of a multi-threaded architecture:</p>
 <ul>
@@ -1999,10 +2007,12 @@ The thread per worker model does not mean that the DBMS supports intra-query par
 <blockquote>
 <p>Inter- vs Intra- Query Parallelism</p>
 </blockquote>
-<p>Inter-Query: Different queries are executed concurrently.
-→ Increases throughput &amp; reduces latency.
-Intra-Query: Execute the operations of a single query in parallel.
-→ Decreases latency for long-running queries.</p>
+<p>Inter-Query: Different queries are executed concurrently.</p>
+<ul>
+<li>Increases throughput &amp; reduces latency.
+Intra-Query: Execute the operations of a single query in parallel.</li>
+<li>Decreases latency for long-running queries.</li>
+</ul>
 <p>Improve overall performance by allowing multiple queries to execute simultaneously.
 If queries are read-only, then this requires little coordination between queries.
 If multiple queries are updating the database at the same time, then this is hard to do correctly.</p>
@@ -2029,11 +2039,17 @@ There are parallel versions of every operator.</p>
 <p>The DBMS inserts an <strong>exchange</strong> operator into the query plan to coalesce/split results from multiple children/parent operators.</p>
 <p>Exchange Operator has three types as follows:</p>
 <p><strong>Exchange Type #1 –Gather</strong></p>
-<p>→Combine the results from multiple workers into a single output stream.</p>
+<ul>
+<li>Combine the results from multiple workers into a single output stream.</li>
+</ul>
 <p><strong>Exchange Type #2 –Distribute</strong></p>
-<p>→Split a single input stream into multiple output streams.</p>
+<ul>
+<li>Split a single input stream into multiple output streams.</li>
+</ul>
 <p><strong>Exchange Type #3 –Repartition</strong></p>
-<p>→Shuffle multiple input streams across multiple output streams.</p>
+<ul>
+<li>Shuffle multiple input streams across multiple output streams.</li>
+</ul>
 <blockquote>
 <p>Inter Operator(Vertical)</p>
 </blockquote>
@@ -2064,15 +2080,21 @@ There are parallel versions of every operator.</p>
 <p>DataBase Partition</p>
 </blockquote>
 <p>Some DBMSs allow you to specify the disk location of each individual database.</p>
-<p>→The buffer pool manager maps a page to a disk location.</p>
+<ul>
+<li>The buffer pool manager maps a page to a disk location.</li>
+</ul>
 <p>This is also easy to do at the filesystem level if the DBMS stores each database in a separate directory.</p>
-<p>→The DBMS recovery log file might still be shared if transactions can update multiple databases.</p>
+<ul>
+<li>The DBMS recovery log file might still be shared if transactions can update multiple databases.</li>
+</ul>
 <blockquote>
 <p>Partitioning</p>
 </blockquote>
 <p>Split single logical table into disjoint physical segments that are stored/managed separately.</p>
 <p>Partitioning should (ideally) be transparent to the application.</p>
-<p>→The application should only access logical tables and not have to worry about how things are physically stored.</p>
+<ul>
+<li>The application should only access logical tables and not have to worry about how things are physically stored.</li>
+</ul>
 <ol>
 <li>Vertical Partioning</li>
 </ol>
@@ -2091,6 +2113,7 @@ There are parallel versions of every operator.</p>
 </li>
 </ul>
 <h1 id="13-optimization-1">13. Optimization (1)</h1>
+<p><strong>Readings:</strong> Chapter 13</p>
 <p>Remember that SQL is declarative. User tells the DBMS what answer they want, not how to get the answer.</p>
 <p>First implementation of a query optimizer from the 1970s. People argued that the DBMS could never choose a query plan better than what a human could write.</p>
 <p><strong>Heuristics / Rules</strong></p>
@@ -2205,7 +2228,7 @@ There are parallel versions of every operator.</p>
 </span></code></pre></td></tr></table>
 </div>
 </div><p>Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.</p>
-<p>$\pi_{name}(\sigma_{id=artist_id  \wedge album_id=album.id \wedge name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))$</p>
+<p>$\pi_{name}(\sigma_{id=artist_id \wedge album_id=album.id \wedge name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))$</p>
 <p>Using selections optimization, break a complex predicate, and push down:</p>
 <p>$\pi_{name}(\sigma_{id=artist_id }(\sigma_{album_id=album.id }(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))))$</p>
 <p>Move the predicate to the lowest applicable point in the plan:</p>
@@ -2242,9 +2265,9 @@ table</li>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="w">
 </span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
-</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
 </span><span class="w"></span><span class="p">)</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
@@ -2365,7 +2388,9 @@ table</li>
 <p>Cost-based Query Planning</p>
 </blockquote>
 <p>Generate an estimate of the cost of executing a particular query plan for the current state of the database.</p>
-<p>→Estimates are only meaningful internally.</p>
+<ul>
+<li>Estimates are only meaningful internally.</li>
+</ul>
 <p>This is independent of the plan enumeration step that we will talk about next class.</p>
 <p><strong>Choice #1: Physical Costs</strong></p>
 <ul>
@@ -2426,6 +2451,7 @@ table</li>
 </blockquote>
 <p>Database characteristics in system catalogs; Hardware environment (microbenchmarks); Storage device characteristics (microbenchmarks); Communications bandwidth (distributed only); Memory resources (buffer pools, sort heaps); Concurrency Environment(Average number of users, Isolation level / blocking, Number of available locks).</p>
 <h1 id="14-optimization-2">14. Optimization (2)</h1>
+<p><strong>Readings:</strong> Chapter 13</p>
 <blockquote>
 <p>Statistics</p>
 </blockquote>
@@ -2472,11 +2498,17 @@ General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for eithe
 <p>Selection Cardinality</p>
 </blockquote>
 <p><strong>Assumption #1: Uniform Data</strong></p>
-<p>→The distribution of values (except for the heavy hitters) is the same.</p>
+<ul>
+<li>The distribution of values (except for the heavy hitters) is the same.</li>
+</ul>
 <p><strong>Assumption #2: Independent Predicates</strong></p>
-<p>→The predicates on attributes are independent</p>
+<ul>
+<li>The predicates on attributes are independent</li>
+</ul>
 <p><strong>Assumption #3: Inclusion Principle</strong></p>
-<p>→The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.</p>
+<ul>
+<li>The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.</li>
+</ul>
 <blockquote>
 <p>Sketches</p>
 </blockquote>
@@ -2538,37 +2570,62 @@ General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for eithe
 </li>
 </ol>
 <h1 id="15-concurrency-control-theory">15. Concurrency Control Theory</h1>
+<p><strong>Readings:</strong> Chapter 14</p>
 <p>A <strong>transaction</strong> is the execution of a sequence of one or more operations (e.g., SQL queries) on a database to perform some higher-level function.</p>
-<p>A txn may carry out many operations on the data retrieved from the database</p>
+<p>A transactions may carry out many operations on the data retrieved from the database</p>
 <p>The DBMS is onlyconcerned about what data is read/written from/to the database.</p>
 <blockquote>
 <p>Strawman System</p>
 </blockquote>
-<p>Execute each txnone-by-one (i.e., serial order) as they arrive at the DBMS.</p>
-<p>→One and only one txncan be running at the same time in the DBMS.</p>
-<p>Before a txnstarts, copy the entire database to a new file and make all changes to that file.</p>
-<p>→If the txncompletes successfully, overwrite the original file with the new one.</p>
-<p>→If the txnfails, just remove the dirty copy.</p>
+<p>Execute each transactions one-by-one (i.e., serial order) as they arrive at the DBMS.</p>
+<ul>
+<li>One and only one transactions can be running at the same time in the DBMS.</li>
+</ul>
+<p>Before a transactions starts, copy the entire database to a new file and make all changes to that file.</p>
+<ul>
+<li>
+<p>If the transactions completes successfully, overwrite the original file with the new one.</p>
+</li>
+<li>
+<p>If the transactions fails, just remove the dirty copy.</p>
+</li>
+</ul>
 <blockquote>
 <p>Correctness Criteria ACID</p>
 </blockquote>
-<p><strong>Atomicity:</strong> All actions in the txnhappen, or none happen.(“all or nothing”)</p>
-<p><strong>Consistency:</strong> If each txnis consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)</p>
-<p><strong>Isolation:</strong> Execution of one txnis isolated from that of other txns.(“as if alone”)</p>
-<p><strong>Durability:</strong> If a txncommits, its effects persist.(“survive failures”)</p>
+<p><strong>Atomicity:</strong> All actions in the transactions happen, or none happen.(“all or nothing”)</p>
+<p><strong>Consistency:</strong> If each transactions is consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)</p>
+<p><strong>Isolation:</strong> Execution of one transactions is isolated from that of other transactions s.(“as if alone”)</p>
+<p><strong>Durability:</strong> If a transactions commits, its effects persist.(“survive failures”)</p>
 <blockquote>
 <p>Atomicity</p>
 </blockquote>
-<p>DBMS guarantees that txns are <strong>atomic</strong>.</p>
-<p>→From user&rsquo;s point of view: txnalways either executes all its actions or executes no actions at all.</p>
+<p>DBMS guarantees that transactions are <strong>atomic</strong>.</p>
+<ul>
+<li>From user&rsquo;s point of view: transactions always either executes all its actions or executes no actions at all.</li>
+</ul>
 <p>Mechanism For Ensuring Atomicity</p>
 <p><strong>Approach #1: Logging</strong></p>
-<p>→DBMS logs all actions so that it can undo the actions of aborted transactions.</p>
-<p>→Maintain undo records both in memory and on disk.</p>
-<p>→Think of this like the black box in airplanes…</p>
+<ul>
+<li>
+<p>DBMS logs all actions so that it can undo the actions of aborted transactions.</p>
+</li>
+<li>
+<p>Maintain undo records both in memory and on disk.</p>
+</li>
+<li>
+<p>Think of this like the black box in airplanes…</p>
+</li>
+</ul>
 <p><strong>Approach #2: Shadow Paging</strong></p>
-<p>→DBMS makes copies of pages and txnsmake changes to those copies. Only when the txncommits is the page made visible to others.</p>
-<p>→Originally from System R.</p>
+<ul>
+<li>
+<p>DBMS makes copies of pages and transactions smake changes to those copies. Only when the transactions commits is the page made visible to others.</p>
+</li>
+<li>
+<p>Originally from System R.</p>
+</li>
+</ul>
 <blockquote>
 <p>Database Consistency</p>
 </blockquote>
@@ -2578,7 +2635,7 @@ General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for eithe
 <blockquote>
 <p>Isolation</p>
 </blockquote>
-<p>DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of txns.</p>
+<p>DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of transactions s.</p>
 <p>A <strong>concurrency control</strong>protocol is how the DBMS decides the proper interleaving of operations from multiple transactions.</p>
 <p>Two categories of protocols:</p>
 <ul>
@@ -2619,7 +2676,7 @@ General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for eithe
 <blockquote>
 <p>Depency Graphs</p>
 </blockquote>
-<p>One node per txn.</p>
+<p>One node per transactions .</p>
 <p>Edge from $T_i$ to $T_j$ if:</p>
 <ul>
 <li>
@@ -2631,10 +2688,18 @@ General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for eithe
 </ul>
 <p>Alternative (weaker) notion of serializability.
 Schedules $S_1$ and $S_2$ are view equivalent if:</p>
-<p>→ If $T_1$ reads initial value of <strong>A</strong> in $S_1$, then $T_1$ also reads initial value of <strong>A</strong> in $S_2$.</p>
-<p>→ If $T_1$ reads value of <strong>A</strong> written by $T_2$ in $S_1$, then $T_1$ also reads value of <strong>A</strong> written by $T_2$ in $S_2$.</p>
-<p>→ If $T_1$ writes final value of <strong>A</strong> in $S_1$, then $T_1$ also writes final value of <strong>A</strong> in $S_2$.</p>
-<p>Also known as a <strong>precedence graph</strong>. A schedule is conflict serializable iffits dependency graph is acyclic.</p>
+<ul>
+<li>
+<p>If $T_1$ reads initial value of <strong>A</strong> in $S_1$, then $T_1$ also reads initial value of <strong>A</strong> in $S_2$.</p>
+</li>
+<li>
+<p>If $T_1$ reads value of <strong>A</strong> written by $T_2$ in $S_1$, then $T_1$ also reads value of <strong>A</strong> written by $T_2$ in $S_2$.</p>
+</li>
+<li>
+<p>If $T_1$ writes final value of <strong>A</strong> in $S_1$, then $T_1$ also writes final value of <strong>A</strong> in $S_2$.</p>
+</li>
+</ul>
+<p>Also known as a <strong>precedence graph</strong>. A schedule is conflict serializable if fits dependency graph is acyclic.</p>
 <p><strong>View Serializability</strong> allows for (slightly) more schedules than <strong>Conflict Serializability</strong> does.</p>
 <ul>
 <li>But is difficult to enforce efficiently.</li>
@@ -2647,10 +2712,17 @@ Schedules $S_1$ and $S_2$ are view equivalent if:</p>
 <p>Transaction</p>
 </blockquote>
 <p>All the changes of committed transactions should be persistent.</p>
-<p>→No torn updates.</p>
-<p>→No changes from failed transactions.</p>
+<ul>
+<li>
+<p>No torn updates.</p>
+</li>
+<li>
+<p>No changes from failed transactions.</p>
+</li>
+</ul>
 <p>The DBMS can use either logging or shadow paging to ensure that all changes are durable.</p>
 <h1 id="16-two-phase-locking">16. Two Phase Locking</h1>
+<p><strong>Readings:</strong> Chapter 15.1-15.3, 15.9</p>
 <p><strong>S-LOCK</strong>: Shared locks for reads.</p>
 <p><strong>X-LOCK</strong>: Exclusive locks for writes.</p>
 <p>Compatibility Matrix</p>
@@ -2687,47 +2759,75 @@ Schedules $S_1$ and $S_2$ are view equivalent if:</p>
 </li>
 </ol>
 <p>Lock manager updates its internal lock-table.</p>
-<p>→It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.</p>
-<p>Two-phase locking (2PL) is a concurrency control protocol that determines whether a txn can access an object in the database on the fly.</p>
-<p>The protocol does not need to know all the queries that a txn will execute ahead of time.</p>
+<ul>
+<li>It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.</li>
+</ul>
+<p>Two-phase locking (2PL) is a concurrency control protocol that determines whether a transactions can access an object in the database on the fly.</p>
+<p>The protocol does not need to know all the queries that a transactions will execute ahead of time.</p>
 <p><strong>Phase #1: Growing</strong></p>
-<p>→Each txn requests the locks that it needs from the DBMS’s lock manager.</p>
-<p>→The lock manager grants/denies lock requests.</p>
+<ul>
+<li>
+<p>Each transactions requests the locks that it needs from the DBMS’s lock manager.</p>
+</li>
+<li>
+<p>The lock manager grants/denies lock requests.</p>
+</li>
+</ul>
 <p><strong>Phase #2: Shrinking</strong></p>
-<p>→The txnis allowed to only release locks that it previously acquired. It cannot acquire new locks.</p>
+<ul>
+<li>The transactions is allowed to only release locks that it previously acquired. It cannot acquire new locks.</li>
+</ul>
 <p>2PL on its own is sufficient to guarantee conflict serializability.</p>
-<p>→It generates schedules whose precedence graph is acyclic.</p>
+<ul>
+<li>It generates schedules whose precedence graph is acyclic.</li>
+</ul>
 <p>But it is subject to <strong>cascading aborts</strong></p>
 <blockquote>
 <p>Problems</p>
 </blockquote>
 <p>There are potential schedules that are serializable but would not be allowed by 2PL.</p>
-<p>→Locking limits concurrency.</p>
+<ul>
+<li>Locking limits concurrency.</li>
+</ul>
 <p>Dirty reads Solution: <strong>Strong Strict 2PL (aka Rigorous 2PL)</strong></p>
-<p>A schedule is <strong>strict</strong> if a value written by a txnis not read or overwritten by other txnsuntil that txnfinishes.</p>
+<p>A schedule is <strong>strict</strong> if a value written by a transactions is not read or overwritten by other transactions suntil that transactions finishes.</p>
 <p>Advantages:</p>
-<p>→Does not incur cascading aborts.</p>
-<p>→Aborted txnscan be undone by just restoring original values of modified tuples.</p>
+<ul>
+<li>
+<p>Does not incur cascading aborts.</p>
+</li>
+<li>
+<p>Aborted transactions scan be undone by just restoring original values of modified tuples.</p>
+</li>
+</ul>
 <blockquote>
 <p>Dead Lock Solution</p>
 </blockquote>
 <p>Deadlocks Solution: <strong>Detection</strong> or <strong>Prevention</strong></p>
-<p>The DBMS creates a <strong>waits-for</strong> graph to keep track of what locks each txn is waiting to acquire:</p>
-<p>→Nodes are transactions</p>
-<p>→Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.</p>
+<p>The DBMS creates a <strong>waits-for</strong> graph to keep track of what locks each transactions is waiting to acquire:</p>
+<ul>
+<li>
+<p>Nodes are transactions</p>
+</li>
+<li>
+<p>Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.</p>
+</li>
+</ul>
 <p>The system periodically checks for cycles in <strong>waits-for</strong> graph and then decides how to break it.</p>
-<p>When the DBMS detects a deadlock, it will select a &ldquo;victim&rdquo; txn to rollback to break the cycle.</p>
-<p>The victim txn will either restart or abort(more common) depending on how it was invoked.</p>
-<p>There is a trade-off between the frequency of checking for deadlocks and how long txns have to wait before deadlocks are broken.</p>
-<p>When a txn tries to acquire a lock that is held by another txn, the DBMS kills one of them to prevent a deadlock.</p>
+<p>When the DBMS detects a deadlock, it will select a &ldquo;victim&rdquo; transactions to rollback to break the cycle.</p>
+<p>The victim transactions will either restart or abort(more common) depending on how it was invoked.</p>
+<p>There is a trade-off between the frequency of checking for deadlocks and how long transactions have to wait before deadlocks are broken.</p>
+<p>When a transactions tries to acquire a lock that is held by another transactions , the DBMS kills one of them to prevent a deadlock.</p>
 <p>This approach does not require a waits-for graph or detection algorithm.</p>
 <blockquote>
 <p>Intension Locks</p>
 </blockquote>
 <p>Trade-off between parallelism versus overhead.</p>
-<p>→Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.</p>
+<ul>
+<li>Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.</li>
+</ul>
 <p>An <strong>intention lock</strong> allows a higher-level node to be locked in <strong>shared</strong> or <strong>exclusive</strong> mode without having to check all descendent nodes.</p>
-<p>If a node is locked in an intention mode, then some txnis doing explicit locking at a lower level in the tree.</p>
+<p>If a node is locked in an intention mode, then some transactions is doing explicit locking at a lower level in the tree.</p>
 <p>Intention-Shared (IS): Indicates explicit locking at lower level with shared locks.</p>
 <p>Intention-Exclusive (IX): Indicates explicit locking at lower level with exclusive locks.</p>
 <p>Shared+Intention-Exclusive (SIX): The subtree rooted by that node is locked explicitly in shared mode and explicit locking is being done at a lower level with exclusive-mode locks.</p>
@@ -2786,29 +2886,668 @@ Schedules $S_1$ and $S_2$ are view equivalent if:</p>
 </tr>
 </tbody>
 </table>
-<p>Hierarchical locks are useful in practice as each txn only needs a few locks. Intention locks help improve concurrency:
-→ Intention-Shared (IS): Intent to get S lock(s) at finer granularity.</p>
-<p>→ Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.</p>
-<p>→ Shared+Intention-Exclusive (SIX): Like S and IX at the same time.</p>
+<p>Hierarchical locks are useful in practice as each transactions only needs a few locks. Intention locks help improve concurrency:</p>
+<ul>
+<li>
+<p>Intention-Shared (IS): Intent to get lock(s) at finer granularity.</p>
+</li>
+<li>
+<p>Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.</p>
+</li>
+<li>
+<p>Shared+Intention-Exclusive (SIX): Like and IX at the same time.</p>
+</li>
+</ul>
 <p>Lock escalation dynamically asks for coarser-grained locks when too many low-level locks acquired.</p>
 <p>This reduces the number of requests that the lock manager must process.</p>
 <blockquote>
 <p>Lock in Practice</p>
 </blockquote>
-<p>You typically don&rsquo;t set locks manually in txns.</p>
+<p>You typically don&rsquo;t set locks manually in transactions s.</p>
 <p>Sometimes you will need to provide the DBMS with hints to help it to improve concurrency. Explicit locks are also useful when doing major changes to the database.</p>
 <ol>
 <li>Explicitly locks a table.</li>
 </ol>
 <p>Not part of the SQL standard.</p>
-<p>→Postgres/DB2/Oracle Modes: <strong>SHARE</strong>, <strong>EXCLUSIVE</strong></p>
-<p>→MySQL Modes: <strong>READ</strong>, <strong>WRITE</strong></p>
+<ul>
+<li>
+<p>Postgres/DB2/Oracle Modes: <strong>SHARE</strong>, <strong>EXCLUSIVE</strong></p>
+</li>
+<li>
+<p>MySQL Modes: <strong>READ</strong>, <strong>WRITE</strong></p>
+</li>
+</ul>
 <ol start="2">
 <li>Perform a select and then sets an exclusive lock on the matching tuples.</li>
 </ol>
 <p>Can also set shared locks:</p>
-<p>→Postgres: <strong>FOR SHARE</strong></p>
-<p>→MySQL: <strong>LOCK IN SHARE MODE</strong></p>
+<ul>
+<li>
+<p>Postgres: <strong>FOR SHARE</strong></p>
+</li>
+<li>
+<p>MySQL: <strong>LOCK IN SHARE MODE</strong></p>
+</li>
+</ul>
+<h1 id="17-timestamp-ordering">17. Timestamp Ordering</h1>
+<p><strong>Readings:</strong> Chapter 15.4-15.5</p>
+<p>Every object Xis tagged with timestamp of the last transactions that successfully did read/write:</p>
+<ul>
+<li>
+<p>W-TS(X)–Write timestamp on X</p>
+</li>
+<li>
+<p>R-TS(X)–Read timestamp on X</p>
+</li>
+</ul>
+<p>Check timestamps for every operation:</p>
+<ul>
+<li>If transactions tries to access an object &ldquo;from the future&rdquo;, it aborts and restarts.</li>
+</ul>
+<blockquote>
+<p>Read</p>
+</blockquote>
+<p>If $TS(T_{i}) &lt; W-TS(X)$, this violates timestamp
+order of $T_{i}$ with regard to the writer of $X$.</p>
+<ul>
+<li>Abort $T_{i}$ and restart it with a new TS.</li>
+</ul>
+<p>Else:</p>
+<ul>
+<li>Allow $T_{i}$ to read $X$.</li>
+<li>Update $R-TS(X)$ to $max(R-TS(X), TS(T_{i}))$</li>
+<li>Make a local copy of $X$ to ensure repeatable reads for $T_{i}$.</li>
+</ul>
+<blockquote>
+<p>write</p>
+</blockquote>
+<p>If $TS(T_{i})&lt; R-TS(X)$ or $TS(T_{i})&lt; W-TS(X)$</p>
+<ul>
+<li>Abort and restart $T_{i}$.</li>
+</ul>
+<p>Else:</p>
+<ul>
+<li>Allow Tito write Xand update $W-TS(X)$</li>
+<li>Thomas Write Rule: Ignore the write to allow the transactions to continue executing without aborting.</li>
+<li>Also make a local copy of Xto ensure repeatable reads.</li>
+</ul>
+<blockquote>
+<p>Thomas Write Rule</p>
+</blockquote>
+<p>Generates a schedule that is conflict serializable
+if you do not use the Thomas Write Rule.</p>
+<ul>
+<li>No deadlocks because no transactions ever waits.</li>
+<li>Possibility of starvation for long transactions if short transactions keep causing conflicts.</li>
+</ul>
+<blockquote>
+<p>Recoverable Schedules</p>
+</blockquote>
+<p>A schedule is <strong>recoverable</strong> if transactions scommit only after all transactions swhose changes they read, commit.</p>
+<p>Otherwise, the DBMS cannot guarantee that transactions read data that will be restored after recovering from a crash.</p>
+<p>High overhead from copying data to transactions&rsquo;s workspace and from updating timestamps.</p>
+<p>Long running transactions can get starved.</p>
+<ul>
+<li>The likelihood that a transactions will read something from a newer transactions increases.</li>
+</ul>
+<blockquote>
+<p>Optimistic Concurrency Control</p>
+</blockquote>
+<p><strong>#1 –Read Phase</strong>:</p>
+<ul>
+<li>Track the read/write sets of transactions and store their writes in a private workspace.</li>
+<li>The DBMS copies every tuple that the transactions accesses from the shared database to its workspace ensure repeatable reads.</li>
+</ul>
+<p><strong>#2 –Validation Phase</strong>:</p>
+<ul>
+<li>
+<p>When a transactions commits, check whether it conflicts with other transactions s.</p>
+</li>
+<li>
+<p>When transactions $T_i$ invokes <strong>COMMIT</strong>, the DBMS checks if it conflicts with other transactions s.</p>
+<ul>
+<li>
+<p>The DBMS needs to guarantee only serializable schedules are permitted.</p>
+</li>
+<li>
+<p>Checks other transactions sfor RW and WW conflicts and ensure that conflicts are in one direction (e.g., older-  younger).</p>
+</li>
+</ul>
+<p>Two methods for this phase:</p>
+<ul>
+<li>
+<p>Backward Validation</p>
+</li>
+<li>
+<p>Forward Validation</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Backword: Check whether the committing transactions intersects its read/write sets with those of any transactions sthat have <strong>already</strong> committed.</p>
+</li>
+<li>
+<p>Forward: Check whether the committing transactions intersects its read/write sets with any active transactions sthat have <strong>not</strong> yet committed.</p>
+</li>
+</ul>
+<p><strong>#3 –Write Phase:</strong></p>
+<ul>
+<li>If validation succeeds, apply private changes to database. Otherwise abort and restart the transactions .</li>
+</ul>
+<h1 id="18-multi-version-concurrency-control">18. Multi-Version Concurrency Control</h1>
+<p><strong>Readings:</strong> Chapter 15.6-15.7</p>
+<p>The DBMS maintains multiple <strong>physical</strong> versions of a single <strong>logical</strong> object in the database:</p>
+<ul>
+<li>
+<p>When a transactions writes to an object, the DBMS creates a new version of that object.</p>
+</li>
+<li>
+<p>When a transactions reads an object, it reads the newest version that existed when the transactions started.</p>
+</li>
+</ul>
+<p><em><strong>Writers do not block readers. Readers do not block writers.</strong></em></p>
+<p>Read-only transactions scan read a consistent snapshotwithout acquiring locks.</p>
+<ul>
+<li>Use timestamps to determine visibility.</li>
+</ul>
+<p>Easily support time-travelqueries.</p>
+<p>MVCC is more than just a concurrency control protocol. It completely affects how the DBMS manages transactions and the database.</p>
+<blockquote>
+<p>Concurrency Control</p>
+</blockquote>
+<p><strong>Approach #1: Timestamp Ordering</strong></p>
+<ul>
+<li>Assign transactions stimestamps that determine serial order.</li>
+</ul>
+<p><strong>Approach #2: Optimistic Concurrency Control</strong></p>
+<ul>
+<li>
+<p>Three-phase protocol from last class.</p>
+</li>
+<li>
+<p>Use private workspace for new versions.</p>
+</li>
+</ul>
+<p><strong>Approach #3: Two-Phase Locking</strong></p>
+<blockquote>
+<p>Version Storage</p>
+</blockquote>
+<ul>
+<li>transactions acquire appropriate lock on physical version before they can read/write a logical tuple.</li>
+</ul>
+<p>The DBMS uses the tuples' pointer field to create a <strong>version chain</strong> per logical tuple.</p>
+<ul>
+<li>
+<p>This allows the DBMS to find the version that is visible to a particular transactions at runtime.</p>
+</li>
+<li>
+<p>Indexes always point to the &ldquo;head&rdquo; of the chain.</p>
+</li>
+</ul>
+<p><strong>Approach #1: Append-Only Storage</strong></p>
+<ul>
+<li>New versions are appended to the same table space.</li>
+</ul>
+<p><strong>Approach #2: Time-Travel Storage</strong></p>
+<ul>
+<li>Old versions are copied to separate table space.</li>
+</ul>
+<p><strong>Approach #3: Delta Storage</strong></p>
+<ul>
+<li>The original values of the modified attributes are copied into a separate delta record space.</li>
+</ul>
+<p>Different storage schemes determine where/what to store for each version.</p>
+<blockquote>
+<p>GC</p>
+</blockquote>
+<p>Tuple Level:</p>
+<p><strong>Background Vacuuming:</strong> Separate thread(s) periodically scan the table and look for reclaimable versions. Works with any storage.</p>
+<p><strong>Cooperative Cleaning:</strong> Worker threads identify reclaimable versions as they traverse version chain. Only works with O2N.</p>
+<p>Transaction Level:</p>
+<p>Each transactions keeps track of its read/write set.</p>
+<p>The DBMS determines when all versions created by a finished transactions are no longer visible.</p>
+<p>May still require multiple threads to reclaim the memory fast enough for the workload.</p>
+<blockquote>
+<p>MVCC Indexes</p>
+</blockquote>
+<p>Each index&rsquo;s underlying data structure must support the storage of non-unique keys.</p>
+<p>Use additional execution logic to perform conditional inserts for pkey/ unique indexes.</p>
+<ul>
+<li>Atomically check whether the key exists and then insert.</li>
+</ul>
+<p>Workers may get back multiple entries for a single fetch. They then must follow the pointers to find the proper physical version.</p>
+<blockquote>
+<p>Implementations</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Protocol</strong></th>
+<th><strong>VersionStorage</strong></th>
+<th><strong>GarbageCollection</strong></th>
+<th><strong>Indexes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle</td>
+<td><strong>MV2PL</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>Postgres</td>
+<td><strong>MV-2PL/MV-TO</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>MySQL-InnoDB</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>HYRISE</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>–</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>Hekaton</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Cooperative</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>MemSQL</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>SAP HANA</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Time-travel</strong></td>
+<td><strong>Hybrid</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>NuoDB</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>HyPer</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>transactions -level</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>NoisePage</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>transactions -level</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+</tbody>
+</table>
+<h1 id="19-logging-protocols--schemes">19. Logging Protocols + Schemes</h1>
+<p><strong>Readings:</strong> Chapter 16.1-16.7</p>
+<p>Recovery algorithms are techniques to ensure database consistency, transaction atomicity, and durability despite failures.</p>
+<p>Recovery algorithms have two parts:</p>
+<ul>
+<li>
+<p>Actions during normal transactions processing to ensure that the DBMS can recover from a failure.</p>
+</li>
+<li>
+<p>Actions after a failure to recover the database to a state that ensures atomicity, consistency, and durability.</p>
+</li>
+</ul>
+<blockquote>
+<p>Storage</p>
+</blockquote>
+<p><strong>Volatile Storage:</strong></p>
+<ul>
+<li>
+<p>Data does notpersist after power loss or program exit.</p>
+</li>
+<li>
+<p>Examples: DRAM, SRAM</p>
+</li>
+</ul>
+<p><strong>Non-volatile Storage:</strong></p>
+<ul>
+<li>
+<p>Data persists after power loss and program exit.</p>
+</li>
+<li>
+<p>Examples: HDD, SDD</p>
+</li>
+</ul>
+<p><strong>Stable Storage:</strong></p>
+<ul>
+<li>A non-existentform of non-volatile storage that survives all possible failures scenarios.</li>
+</ul>
+<blockquote>
+<p>Redo vs Undo</p>
+</blockquote>
+<p><strong>Undo</strong>: The process of removing the effects of an incomplete or aborted transactions .</p>
+<p><strong>Redo</strong>: The process of re-instating the effects of a committed transactions for durability.</p>
+<p>How the DBMS supports this functionality depends on how it manages the buffer pool.</p>
+<p>Whether the DBMS allows an uncommitted transactions to overwrite the most recent committed value of an object in non-volatile storage.</p>
+<p><strong>STEAL</strong>: Is allowed.</p>
+<p><strong>NO-STEAL</strong>: Is notallowed.</p>
+<p>Whether the DBMS requires that all updates made by a transactions are reflected on non-volatile storage before the transactions can commit.</p>
+<p><strong>FORCE</strong>: Is required.</p>
+<p><strong>NO-FORCE</strong>: Is notrequired.</p>
+<p>This approach is the easiest to implement:</p>
+<ul>
+<li>
+<p>Never have to undochanges of an aborted transactions because the changes were not written to disk.</p>
+</li>
+<li>
+<p>Never have to redo changes of a committed transactions because all the changes are guaranteed to be written to disk at commit time (assuming atomic hardware writes).</p>
+</li>
+</ul>
+<p>Previous example cannot support <strong>write sets</strong> that exceed the amount of physical memory available.</p>
+<blockquote>
+<p>Shaow pages</p>
+</blockquote>
+<p>To install the updates, overwrite the root so it points to the shadow, thereby swapping the master and shadow:</p>
+<ul>
+<li>
+<p>Before overwriting the root, none of the transactions &lsquo;supdates are part of the disk-resident database</p>
+</li>
+<li>
+<p>After overwriting the root, all the transactions &lsquo;supdates are part of the disk-resident database.</p>
+</li>
+</ul>
+<p>Supporting rollbacks and recovery is easy.</p>
+<p><strong>Undo</strong>: Remove the shadow pages. Leave the master and the DB root pointer alone.</p>
+<p><strong>Redo</strong>: Not needed at all.</p>
+<p>Disadvantages</p>
+<p>Copying the entire page table is expensive:</p>
+<ul>
+<li>
+<p>Use a page table structured like a B+tree.</p>
+</li>
+<li>
+<p>No need to copy entire tree, only need to copy paths in the tree that lead to updated leaf nodes.</p>
+</li>
+</ul>
+<p>Commit overhead is high:</p>
+<ul>
+<li>
+<p>Flush every updated page, page table, and root.</p>
+</li>
+<li>
+<p>Data gets fragmented.</p>
+</li>
+<li>
+<p>Need garbage collection.</p>
+</li>
+<li>
+<p>Only supports one writer transactions at a time or transactions sin a batch.</p>
+</li>
+</ul>
+<blockquote>
+<p>Write Ahead Log</p>
+</blockquote>
+<p>Maintain a log file separate from data files that contains the changes that transactions smake to database.</p>
+<ul>
+<li>
+<p>Assume that the log is on stable storage.</p>
+</li>
+<li>
+<p>Log contains enough information to perform the necessary undo and redo actions to restore the database.</p>
+</li>
+</ul>
+<p>DBMS must write to disk the log file records that correspond to changes made to a database object <strong>before</strong>it can flush that object to disk.</p>
+<p>Buffer Pool Policy: <strong>STEAL</strong>+ <strong>NO-FORCE</strong></p>
+<p>The DBMS stages all a transactions &lsquo;slog records in volatile storage (usually backed by buffer pool).</p>
+<p>All log records pertaining to an updated page are written to non-volatile storage beforethe page itself is over-written in non-volatile storage.</p>
+<p>A transactions is not considered committed until allits log records have been written to stable storage.</p>
+<p><em>When should the DBMS write log entries to disk?</em></p>
+<ul>
+<li>
+<p>When the transaction commits.</p>
+</li>
+<li>
+<p>Can use group committo batch multiple log flushes together to amortize overhead.</p>
+</li>
+</ul>
+<p><em>When should the DBMS write dirty records to disk?</em></p>
+<ul>
+<li>
+<p>Every time the transactions executes an update?</p>
+</li>
+<li>
+<p>Once when the transactions commits?</p>
+</li>
+</ul>
+<blockquote>
+<p>Logging Schemes</p>
+</blockquote>
+<p>Logical logging requires less data written in each log record than physical logging.</p>
+<p>Difficult to implement recovery with logical logging if you have concurrent transactions s.</p>
+<ul>
+<li>
+<p>Hard to determine which parts of the database may have been modified by a query before crash.</p>
+</li>
+<li>
+<p>Also takes longer to recover because you must re-execute every transactions all over again.</p>
+</li>
+</ul>
+<p>Hybrid approach where log records target a single page but do not specify organization of the page.</p>
+<ul>
+<li>
+<p>Identify tuples based on their slot number.</p>
+</li>
+<li>
+<p>Allows DBMS to reorganize pages after a log record has been written to disk.</p>
+</li>
+</ul>
+<p>This is the most popular approach.</p>
+<blockquote>
+<p>Check Points</p>
+</blockquote>
+<p>The WAL will grow forever.</p>
+<p>After a crash, the DBMS must replay the entire log, which will take a long time.</p>
+<p>The DBMS periodically takes a checkpoint where it flushes all buffers out to disk.</p>
+<p>Output onto stable storage all log records currently residing in main memory.</p>
+<p>Output to the disk all modified blocks.</p>
+<p>Write a &lt;CHECKPOINT&gt; entry to the log and flush to stable storage.</p>
+<p>Checkpointing too often causes the runtime performance to degrade.</p>
+<ul>
+<li>System spends too much time flushing buffers.</li>
+</ul>
+<p>But waiting a long time is just as bad:</p>
+<ul>
+<li>
+<p>The checkpoint will be large and slow.</p>
+</li>
+<li>
+<p>Makes recovery time much longer.</p>
+</li>
+</ul>
+<h1 id="20-crash-recovery">20. Crash Recovery</h1>
+<p><strong>Readings:</strong> Chapter 16.1-16.8</p>
+<p><strong>A</strong>lgorithms for <strong>R</strong>ecovery and <strong>I</strong>solation <strong>E</strong>xploiting <strong>S</strong>emantics</p>
+<p><strong>Write-Ahead Logging:</strong></p>
+<ul>
+<li>
+<p>Any change is recorded in log on stable storage before the database change is written to disk.</p>
+</li>
+<li>
+<p>Must use <strong>STEAL</strong>+ <strong>NO-FORCE</strong> buffer pool policies.</p>
+</li>
+</ul>
+<p><strong>Repeating History During Redo:</strong></p>
+<ul>
+<li>On restart, retrace actions and restore database to exact state before crash.</li>
+</ul>
+<p><strong>Logging Changes During Undo:</strong></p>
+<ul>
+<li>Record undo actions to log to ensure action is not repeated in the event of repeated failures.</li>
+</ul>
+<blockquote>
+<p>WAL Records</p>
+</blockquote>
+<p>Every log record now includes a globally unique <strong>log sequence number</strong>(LSN).</p>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Where</strong></th>
+<th><strong>Definition</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flushedLSN</td>
+<td>Memory</td>
+<td>Last LSN in log on disk</td>
+</tr>
+<tr>
+<td>pageLSN</td>
+<td>$page_x$</td>
+<td>Newest update to $page_x$</td>
+</tr>
+<tr>
+<td>recLSN</td>
+<td>$page_x$</td>
+<td>Oldest update to $page_x$ since it was last flushed</td>
+</tr>
+<tr>
+<td>lastLSN</td>
+<td>$T_i$</td>
+<td>Latest record of transactions $T_i$</td>
+</tr>
+<tr>
+<td>MasterRecord</td>
+<td>Disk</td>
+<td>LSN of latest checkpoint</td>
+</tr>
+</tbody>
+</table>
+<p>Each data page contains a pageLSN.</p>
+<ul>
+<li>The <strong>LSN</strong> of the most recent update to that page.</li>
+</ul>
+<p>System keeps track of flushedLSN.</p>
+<ul>
+<li>The max <strong>LSN</strong> flushed so far.</li>
+</ul>
+<p>Before page xcan be written to disk, we must flush log at least to the point where:</p>
+<ul>
+<li>$pageLSN_x ≤ flushedLSN$</li>
+</ul>
+<blockquote>
+<p>Transaction Commit</p>
+</blockquote>
+<p>Write COMMITrecord to log.</p>
+<p>All log records up to transactions &lsquo;sCOMMITrecord are flushed to disk.</p>
+<ul>
+<li>
+<p>Log flushes are sequential, synchronous writes to disk.</p>
+</li>
+<li>
+<p>Many log records per log page.</p>
+</li>
+</ul>
+<p>When the commit succeeds, write a special transactions -ENDrecord to log.</p>
+<ul>
+<li>This does notneed to be flushed immediately.</li>
+</ul>
+<p>A <strong>CLR</strong> describes the actions taken to undo the actions of a previous update record.</p>
+<p>It has all the fields of an update log record plus the undoNextpointer (the next-to-be-undone LSN).</p>
+<p><strong>CLRs</strong> are added to log records but the DBMS does not wait for them to be flushed before notifying the application that the transactions aborted.</p>
+<blockquote>
+<p>NON-FUZZY CHECKPOINTS</p>
+</blockquote>
+<p>The DBMS halts everything when it takes a checkpoint to ensure a consistent snapshot:</p>
+<ul>
+<li>
+<p>Halt the start of any new transactions s.</p>
+</li>
+<li>
+<p>Wait until all active transactions sfinish executing.</p>
+</li>
+<li>
+<p>Flushes dirty pages on disk.</p>
+</li>
+</ul>
+<p>This is bad for runtime performance but makes recovery easy.</p>
+<p>SLIGHTLY BETTER CHECKPOINTS</p>
+<p>Pause modifying transactions swhile the DBMS takes the checkpoint.</p>
+<ul>
+<li>
+<p>Prevent queries from acquiring write latch on table/index pages.</p>
+</li>
+<li>
+<p>Don&rsquo;t have to wait until all transactions sfinish before taking the checkpoint.</p>
+</li>
+</ul>
+<p>We must record internal state as of the beginning of the checkpoint.</p>
+<ul>
+<li>
+<p><strong>Active Transaction Table (ATT)</strong></p>
+</li>
+<li>
+<p><strong>Dirty Page Table (DPT)</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>ACTIVE TRANSACTION TABLE</p>
+</blockquote>
+<p>One entry per currently active transactions .</p>
+<ul>
+<li>
+<p>transactions Id: Unique transactions identifier.</p>
+</li>
+<li>
+<p>status: The current &ldquo;mode&rdquo; of the transactions .</p>
+</li>
+<li>
+<p>lastLSN: Most recent <strong>LSN</strong> created by transactions .</p>
+</li>
+</ul>
+<p>Entry removed after the transactions -END message.</p>
+<p>transactions Status Codes:</p>
+<p>R: Running</p>
+<p>C: Committing</p>
+<p>U: Candidate for Undo</p>
+<p>A <strong>fuzzy checkpoint</strong> is where the DBMS allows active transactions sto continue the run while the system writes the log records for checkpoint.</p>
+<ul>
+<li>No attempt to force dirty pages to disk.</li>
+</ul>
+<p>New log records to track checkpoint boundaries:</p>
+<ul>
+<li>
+<p>CHECKPOINT-BEGIN: Indicates start of checkpoint</p>
+</li>
+<li>
+<p>CHECKPOINT-END: Contains <strong>ATT</strong>+ <strong>DPT</strong>.</p>
+</li>
+</ul>
+<blockquote>
+<p>ARIES</p>
+</blockquote>
+<p>Start from last BEGIN-CHECKPOINTfound via MasterRecord.</p>
+<p><strong>Analysis:</strong> Figure out which transactions scommitted or failed since checkpoint.</p>
+<p><strong>Redo:</strong> Repeat allactions.</p>
+<p><strong>Undo:</strong> Reverse effects of failed transactions s.</p>
 
     </div>
 
