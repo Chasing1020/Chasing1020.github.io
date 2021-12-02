@@ -131,18 +131,18 @@ func (s *scanner) next() {
 
 ```go
 func main() {
-	src := []byte("cos(x)+2i*sin(x)") //So God exists
-	var s scanner.Scanner
-	fset := token.NewFileSet()
-	file := fset.AddFile("", fset.Base(), len(src))
-	s.Init(file, src, nil, scanner.ScanComments)
-	for {
-		pos, tok, lit := s.Scan()
-		if tok == token.EOF {
-			break
-		}
-		fmt.Printf("%s\t%s\t%q\n", fset.Position(pos), tok, lit)
-	}
+    src := []byte("cos(x)+2i*sin(x)") //So God exists
+    var s scanner.Scanner
+    fset := token.NewFileSet()
+    file := fset.AddFile("", fset.Base(), len(src))
+    s.Init(file, src, nil, scanner.ScanComments)
+    for {
+        pos, tok, lit := s.Scan()
+        if tok == token.EOF {
+            break
+        }
+        fmt.Printf("%s\t%s\t%q\n", fset.Position(pos), tok, lit)
+    }
 }
 ```
 
@@ -233,43 +233,43 @@ func main() {
 ```go
 // noder transforms package syntax's AST into a Node tree.
 type noder struct {
-	posMap
+    posMap
 
-	file           *syntax.File
-	linknames      []linkname
-	pragcgobuf     [][]string
-	err            chan syntax.Error
-	importedUnsafe bool
-	importedEmbed  bool
-	trackScopes    bool
+    file           *syntax.File
+    linknames      []linkname
+    pragcgobuf     [][]string
+    err            chan syntax.Error
+    importedUnsafe bool
+    importedEmbed  bool
+    trackScopes    bool
 
-	funcState *funcState
+    funcState *funcState
 }
 ```
 
 利用decls将源文件的所有声明语句转换为Node数组
 
 ```go
-unc (p *noder) decls(decls []syntax.Decl) (l []ir.Node) {
-	var cs constState
-	for _, decl := range decls {
-		p.setlineno(decl)
-		switch decl := decl.(type) {
-		case *syntax.ImportDecl:
-			p.importDecl(decl)
-		case *syntax.VarDecl:
-			l = append(l, p.varDecl(decl)...)
-		case *syntax.ConstDecl:
-			l = append(l, p.constDecl(decl, &cs)...)
-		case *syntax.TypeDecl:
-			l = append(l, p.typeDecl(decl))
-		case *syntax.FuncDecl:
-			l = append(l, p.funcDecl(decl))
-		default:
-			panic("unhandled Decl")
-		}
-	}
-	return
+func (p *noder) decls(decls []syntax.Decl) (l []ir.Node) {
+    var cs constState
+    for _, decl := range decls {
+        p.setlineno(decl)
+        switch decl := decl.(type) {
+        case *syntax.ImportDecl:
+            p.importDecl(decl)
+        case *syntax.VarDecl:
+            l = append(l, p.varDecl(decl)...)
+        case *syntax.ConstDecl:
+            l = append(l, p.constDecl(decl, &cs)...)
+        case *syntax.TypeDecl:
+            l = append(l, p.typeDecl(decl))
+        case *syntax.FuncDecl:
+            l = append(l, p.funcDecl(decl))
+        default:
+            panic("unhandled Decl")
+        }
+    }
+    return
 }
 ```
 

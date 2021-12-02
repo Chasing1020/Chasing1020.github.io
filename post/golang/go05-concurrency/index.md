@@ -26,8 +26,8 @@ type hchan struct {
 }
 
 type waitq struct {
-	first *sudog
-	last  *sudog
+    first *sudog
+    last  *sudog
 }
 
 // sudog represents a g in a wait list, such as for sending/receiving
@@ -42,10 +42,10 @@ type waitq struct {
 如果目标 Channel 没有被关闭并且已经有处于读等待的 Goroutine，那么 [`runtime.chansend`](https://draveness.me/golang/tree/runtime.chansend) 会从接收队列 `recvq` 中取出最先陷入等待的 Goroutine 并直接向它发送数据：
 
 ```go
-	if sg := c.recvq.dequeue(); sg != nil {
-		send(c, sg, ep, func() { unlock(&c.lock) }, 3)
-		return true
-	}
+    if sg := c.recvq.dequeue(); sg != nil {
+        send(c, sg, ep, func() { unlock(&c.lock) }, 3)
+        return true
+    }
 ```
 
 1. 调用 [`runtime.sendDirect`](https://draveness.me/golang/tree/runtime.sendDirect) 将发送的数据直接拷贝到 `x = <-c` 表达式中变量 `x` 所在的内存地址上；
@@ -53,14 +53,14 @@ type waitq struct {
 
 ```go
 func send(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
-	if sg.elem != nil {
-		sendDirect(c.elemtype, sg, ep)
-		sg.elem = nil
-	}
-	gp := sg.g
-	unlockf()
-	gp.param = unsafe.Pointer(sg)
-	goready(gp, skip+1)
+    if sg.elem != nil {
+        sendDirect(c.elemtype, sg, ep)
+        sg.elem = nil
+    }
+    gp := sg.g
+    unlockf()
+    gp.param = unsafe.Pointer(sg)
+    goready(gp, skip+1)
 }
 ```
 
@@ -68,19 +68,19 @@ func send(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
 
 ```go
 func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
-	...
-	if c.qcount < c.dataqsiz {
-		qp := chanbuf(c, c.sendx)
-		typedmemmove(c.elemtype, qp, ep)
-		c.sendx++
-		if c.sendx == c.dataqsiz {
-			c.sendx = 0
-		}
-		c.qcount++
-		unlock(&c.lock)
-		return true
-	}
-	...
+    ...
+    if c.qcount < c.dataqsiz {
+        qp := chanbuf(c, c.sendx)
+        typedmemmove(c.elemtype, qp, ep)
+        c.sendx++
+        if c.sendx == c.dataqsiz {
+            c.sendx = 0
+        }
+        c.qcount++
+        unlock(&c.lock)
+        return true
+    }
+    ...
 }
 ```
 
@@ -90,26 +90,26 @@ func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
 
 ```go
 func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
-	...
-	if !block {
-		unlock(&c.lock)
-		return false
-	}
+    ...
+    if !block {
+        unlock(&c.lock)
+        return false
+    }
 
-	gp := getg()
-	mysg := acquireSudog()
-	mysg.elem = ep
-	mysg.g = gp
-	mysg.c = c
-	gp.waiting = mysg
-	c.sendq.enqueue(mysg)
-	goparkunlock(&c.lock, waitReasonChanSend, traceEvGoBlockSend, 3)
+    gp := getg()
+    mysg := acquireSudog()
+    mysg.elem = ep
+    mysg.g = gp
+    mysg.c = c
+    gp.waiting = mysg
+    c.sendq.enqueue(mysg)
+    goparkunlock(&c.lock, waitReasonChanSend, traceEvGoBlockSend, 3)
 
-	gp.waiting = nil
-	gp.param = nil
-	mysg.c = nil
-	releaseSudog(mysg)
-	return true
+    gp.waiting = nil
+    gp.param = nil
+    mysg.c = nil
+    releaseSudog(mysg)
+    return true
 }
 ```
 
@@ -117,23 +117,23 @@ func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
 
 ```go
 func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool) {
-	if c == nil {
-		if !block {
-			return
-		}
-		gopark(nil, nil, waitReasonChanReceiveNilChan, traceEvGoStop, 2)
-		throw("unreachable")
-	}
+    if c == nil {
+        if !block {
+            return
+        }
+        gopark(nil, nil, waitReasonChanReceiveNilChan, traceEvGoStop, 2)
+        throw("unreachable")
+    }
 
-	lock(&c.lock)
+    lock(&c.lock)
 
-	if c.closed != 0 && c.qcount == 0 {
-		unlock(&c.lock)
-		if ep != nil {
-			typedmemclr(c.elemtype, ep)
-		}
-		return true, false
-	}
+    if c.closed != 0 && c.qcount == 0 {
+        unlock(&c.lock)
+        if ep != nil {
+            typedmemclr(c.elemtype, ep)
+        }
+        return true, false
+    }
 ```
 
 如果当前 Channel 已经被关闭并且缓冲区中不存在任何数据，那么会清除 `ep` 指针中的数据并立刻返回。
@@ -146,22 +146,22 @@ func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool)
 
 ```go
 func recv(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
-	if c.dataqsiz == 0 {
-		if ep != nil {
-			recvDirect(c.elemtype, sg, ep)
-		}
-	} else {
-		qp := chanbuf(c, c.recvx)
-		if ep != nil {
-			typedmemmove(c.elemtype, ep, qp)
-		}
-		typedmemmove(c.elemtype, qp, sg.elem)
-		c.recvx++
-		c.sendx = c.recvx // c.sendx = (c.sendx+1) % c.dataqsiz
-	}
-	gp := sg.g
-	gp.param = unsafe.Pointer(sg)
-	goready(gp, skip+1)
+    if c.dataqsiz == 0 {
+        if ep != nil {
+            recvDirect(c.elemtype, sg, ep)
+        }
+    } else {
+        qp := chanbuf(c, c.recvx)
+        if ep != nil {
+            typedmemmove(c.elemtype, ep, qp)
+        }
+        typedmemmove(c.elemtype, qp, sg.elem)
+        c.recvx++
+        c.sendx = c.recvx // c.sendx = (c.sendx+1) % c.dataqsiz
+    }
+    gp := sg.g
+    gp.param = unsafe.Pointer(sg)
+    goready(gp, skip+1)
 }
 ```
 
@@ -175,26 +175,26 @@ func recv(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
 
 ```go
 func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool) {
-	...
-	if !block {
-		unlock(&c.lock)
-		return false, false
-	}
+    ...
+    if !block {
+        unlock(&c.lock)
+        return false, false
+    }
 
-	gp := getg()
-	mysg := acquireSudog()
-	mysg.elem = ep
-	gp.waiting = mysg
-	mysg.g = gp
-	mysg.c = c
-	c.recvq.enqueue(mysg)
-	goparkunlock(&c.lock, waitReasonChanReceive, traceEvGoBlockRecv, 3)
+    gp := getg()
+    mysg := acquireSudog()
+    mysg.elem = ep
+    gp.waiting = mysg
+    mysg.g = gp
+    mysg.c = c
+    c.recvq.enqueue(mysg)
+    goparkunlock(&c.lock, waitReasonChanReceive, traceEvGoBlockRecv, 3)
 
-	gp.waiting = nil
-	closed := gp.param == nil
-	gp.param = nil
-	releaseSudog(mysg)
-	return true, !closed
+    gp.waiting = nil
+    closed := gp.param == nil
+    gp.param = nil
+    releaseSudog(mysg)
+    return true, !closed
 }
 ```
 
@@ -228,7 +228,7 @@ func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool)
 
 ## 2. Select
 
-`select` 是操作系统中的系统调用，我们经常会使用 `select`、`poll` 和 `epoll` 等函数构建 I/O 多路复用模型提升程序的性能。Go 语言的 `select` 与操作系统中的 `select` 比较相似，C 语言的 `select` 系统调用可以同时监听多个文件描述符的可读或者可写的状态，Go 语言中的 `select` 也能够让 Goroutine 同时等待多个 Channel 可读或者可写，在多个文件或者 Channel状态改变之前，`select` 会一直阻塞当前线程或者 Goroutine。
+Linux的`select` 是操作系统中的系统调用，我们经常会使用 `select`、`poll` 和 `epoll` 等函数构建 I/O 多路复用模型提升程序的性能（synchronous I/O multiplexing）。Go 语言的 `select` 与操作系统中的 `select` 比较相似，C 语言的 `select` 系统调用可以同时监听多个文件描述符的可读或者可写的状态，Go 语言中的 `select` 也能够让 Goroutine 同时等待多个 Channel 可读或者可写，在多个文件或者 Channel状态改变之前，`select` 会一直阻塞当前线程或者 Goroutine。
 
 如果是带有chan的语句，则会直接执行如下操作：
 
@@ -266,32 +266,32 @@ v, ok := <-ch // case ch <- v
 
 ```go
     func selectgo(cas0 *scase, order0 *uint16, ncases int) (int, bool) {
-    	cas1 := (*[1 << 16]scase)(unsafe.Pointer(cas0))
-    	order1 := (*[1 << 17]uint16)(unsafe.Pointer(order0))
-    	
-    	ncases := nsends + nrecvs
-    	scases := cas1[:ncases:ncases]
-    	pollorder := order1[:ncases:ncases]
-    	lockorder := order1[ncases:][:ncases:ncases]
+        cas1 := (*[1 << 16]scase)(unsafe.Pointer(cas0))
+        order1 := (*[1 << 17]uint16)(unsafe.Pointer(order0))
+        
+        ncases := nsends + nrecvs
+        scases := cas1[:ncases:ncases]
+        pollorder := order1[:ncases:ncases]
+        lockorder := order1[ncases:][:ncases:ncases]
     
-    	norder := 0
-    	for i := range scases {
-    		cas := &scases[i]
-    	}
+        norder := 0
+        for i := range scases {
+            cas := &scases[i]
+        }
     
-    	for i := 1; i < ncases; i++ {
-    		j := fastrandn(uint32(i + 1))
-    		pollorder[norder] = pollorder[j]
-    		pollorder[j] = uint16(i)
-    		norder++
-    	}
-    	pollorder = pollorder[:norder]
-    	lockorder = lockorder[:norder]
+        for i := 1; i < ncases; i++ {
+            j := fastrandn(uint32(i + 1))
+            pollorder[norder] = pollorder[j]
+            pollorder[j] = uint16(i)
+            norder++
+        }
+        pollorder = pollorder[:norder]
+        lockorder = lockorder[:norder]
     
-    	// 根据 Channel 的地址排序确定加锁顺序
-    	...
-    	sellock(scases, lockorder)
-    	...
+        // 根据 Channel 的地址排序确定加锁顺序
+        ...
+        sellock(scases, lockorder)
+        ...
     }
 ```
 Go 语言会对 select 语句进行优化，它会根据 select 中 case 的不同选择不同的优化路径：
@@ -323,8 +323,8 @@ type Locker interface {
 
 ```go
 type Mutex struct {
-	state int32
-	sema  uint32
+    state int32
+    sema  uint32
 }
 //在默认情况下，互斥锁的所有状态位都是 0，int32 中的不同位分别表示了不同的状态：
 //waitersCount — 当前互斥锁上等待的 Goroutine 个数；
@@ -345,61 +345,61 @@ type Mutex struct {
 
 ```go
 var waitStartTime int64
-	starving := false
-	awoke := false
-	iter := 0
-	old := m.state
-	for {
-		if old&(mutexLocked|mutexStarving) == mutexLocked && runtime_canSpin(iter) {
-			if !awoke && old&mutexWoken == 0 && old>>mutexWaiterShift != 0 &&
-				atomic.CompareAndSwapInt32(&m.state, old, old|mutexWoken) {
-				awoke = true
-			}
-			runtime_doSpin()
-			iter++
-			old = m.state
-			continue
-		}
+    starving := false
+    awoke := false
+    iter := 0
+    old := m.state
+    for {
+        if old&(mutexLocked|mutexStarving) == mutexLocked && runtime_canSpin(iter) {
+            if !awoke && old&mutexWoken == 0 && old>>mutexWaiterShift != 0 &&
+                atomic.CompareAndSwapInt32(&m.state, old, old|mutexWoken) {
+                awoke = true
+            }
+            runtime_doSpin()
+            iter++
+            old = m.state
+            continue
+        }
 ```
 在处理自旋逻辑以后，互斥锁会再次根据上下文来计算互斥锁最新的状态
 ```go
 new := old
-		if old&mutexStarving == 0 {
-			new |= mutexLocked
-		}
-		if old&(mutexLocked|mutexStarving) != 0 {
-			new += 1 << mutexWaiterShift
-		}
-		if starving && old&mutexLocked != 0 {
-			new |= mutexStarving
-		}
-		if awoke {
-			new &^= mutexWoken
-		}
+if old&mutexStarving == 0 {
+    new |= mutexLocked
+}
+if old&(mutexLocked|mutexStarving) != 0 {
+    new += 1 << mutexWaiterShift
+}
+if starving && old&mutexLocked != 0 {
+    new |= mutexStarving
+}
+if awoke {
+    new &^= mutexWoken
+}
 ```
 在互斥锁状态更新结束以后，会让CAS再次更新
 ```go
 if atomic.CompareAndSwapInt32(&m.state, old, new) {
-			if old&(mutexLocked|mutexStarving) == 0 {
-				break // 通过 CAS 函数获取了锁
-			}
-			...
-			runtime_SemacquireMutex(&m.sema, queueLifo, 1)
-			starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
-			old = m.state
-			if old&mutexStarving != 0 {
-				delta := int32(mutexLocked - 1<<mutexWaiterShift)
-				if !starving || old>>mutexWaiterShift == 1 {
-					delta -= mutexStarving
-				}
-				atomic.AddInt32(&m.state, delta)
-				break
-			}
-			awoke = true
-			iter = 0
-		} else {
-			old = m.state
-		}
+            if old&(mutexLocked|mutexStarving) == 0 {
+                break // 通过 CAS 函数获取了锁
+            }
+            ...
+            runtime_SemacquireMutex(&m.sema, queueLifo, 1)
+            starving = starving || runtime_nanotime()-waitStartTime > starvationThresholdNs
+            old = m.state
+            if old&mutexStarving != 0 {
+                delta := int32(mutexLocked - 1<<mutexWaiterShift)
+                if !starving || old>>mutexWaiterShift == 1 {
+                    delta -= mutexStarving
+                }
+                atomic.AddInt32(&m.state, delta)
+                break
+            }
+            awoke = true
+            iter = 0
+        } else {
+            old = m.state
+        }
 ```
 
 在正常模式下，这段代码会设置唤醒和饥饿标记、重置迭代次数并重新执行获取锁的循环；
@@ -412,25 +412,25 @@ if atomic.CompareAndSwapInt32(&m.state, old, new) {
 如果该函数返回的新状态不等于 0，这段代码会调用 sync.Mutex.unlockSlow 开始慢速解锁：
 ```go
 func (m *Mutex) unlockSlow(new int32) {
-	if (new+mutexLocked)&mutexLocked == 0 {
-		throw("sync: unlock of unlocked mutex")
-	}
-	if new&mutexStarving == 0 { // 正常模式
-		old := new
-		for {
-			if old>>mutexWaiterShift == 0 || old&(mutexLocked|mutexWoken|mutexStarving) != 0 {
-				return
-			}
-			new = (old - 1<<mutexWaiterShift) | mutexWoken
-			if atomic.CompareAndSwapInt32(&m.state, old, new) {
-				runtime_Semrelease(&m.sema, false, 1)
-				return
-			}
-			old = m.state
-		}
-	} else { // 饥饿模式
-		runtime_Semrelease(&m.sema, true, 1)
-	}
+    if (new+mutexLocked)&mutexLocked == 0 {
+        throw("sync: unlock of unlocked mutex")
+    }
+    if new&mutexStarving == 0 { // 正常模式
+        old := new
+        for {
+            if old>>mutexWaiterShift == 0 || old&(mutexLocked|mutexWoken|mutexStarving) != 0 {
+                return
+            }
+            new = (old - 1<<mutexWaiterShift) | mutexWoken
+            if atomic.CompareAndSwapInt32(&m.state, old, new) {
+                runtime_Semrelease(&m.sema, false, 1)
+                return
+            }
+            old = m.state
+        }
+    } else { // 饥饿模式
+        runtime_Semrelease(&m.sema, true, 1)
+    }
 }
 ```
 
@@ -451,11 +451,11 @@ writerSem和readerSem分别用于写等待读和读等待写
 当资源的使用者想要获取写锁时，需要调用 sync.RWMutex.Lock 方法：
 ```go
 func (rw *RWMutex) Lock() {
-	rw.w.Lock()
-	r := atomic.AddInt32(&rw.readerCount, -rwmutexMaxReaders) + rwmutexMaxReaders
-	if r != 0 && atomic.AddInt32(&rw.readerWait, r) != 0 {
-		runtime_SemacquireMutex(&rw.writerSem, false, 0)
-	}
+    rw.w.Lock()
+    r := atomic.AddInt32(&rw.readerCount, -rwmutexMaxReaders) + rwmutexMaxReaders
+    if r != 0 && atomic.AddInt32(&rw.readerWait, r) != 0 {
+        runtime_SemacquireMutex(&rw.writerSem, false, 0)
+    }
 }
 ```
 调用结构体持有的 sync.Mutex 结构体的 sync.Mutex.Lock 阻塞后续的写操作；
@@ -465,14 +465,14 @@ func (rw *RWMutex) Lock() {
 
 ```go
 func (rw *RWMutex) Unlock() {
-	r := atomic.AddInt32(&rw.readerCount, rwmutexMaxReaders)
-	if r >= rwmutexMaxReaders {
-		throw("sync: Unlock of unlocked RWMutex")
-	}
-	for i := 0; i < int(r); i++ {
-		runtime_Semrelease(&rw.readerSem, false, 0)
-	}
-	rw.w.Unlock()
+    r := atomic.AddInt32(&rw.readerCount, rwmutexMaxReaders)
+    if r >= rwmutexMaxReaders {
+        throw("sync: Unlock of unlocked RWMutex")
+    }
+    for i := 0; i < int(r); i++ {
+        runtime_Semrelease(&rw.readerSem, false, 0)
+    }
+    rw.w.Unlock()
 }
 ```
 
@@ -485,9 +485,9 @@ func (rw *RWMutex) Unlock() {
 
 ```go
 func (rw *RWMutex) RLock() {
-	if atomic.AddInt32(&rw.readerCount, 1) < 0 {
-		runtime_SemacquireMutex(&rw.readerSem, false, 0)
-	}
+    if atomic.AddInt32(&rw.readerCount, 1) < 0 {
+        runtime_SemacquireMutex(&rw.readerSem, false, 0)
+    }
 }
 ```
 如果该方法返回负数 — 其他 Goroutine 获得了写锁，当前 Goroutine 就会调用 runtime.sync_runtime_SemacquireMutex 陷入休眠等待锁的释放；
@@ -495,9 +495,9 @@ func (rw *RWMutex) RLock() {
 当 Goroutine 想要释放读锁时，会调用如下所示的 sync.RWMutex.RUnlock 方法：
 ```go
 func (rw *RWMutex) RUnlock() {
-	if r := atomic.AddInt32(&rw.readerCount, -1); r < 0 {
-		rw.rUnlockSlow(r)
-	}
+    if r := atomic.AddInt32(&rw.readerCount, -1); r < 0 {
+        rw.rUnlockSlow(r)
+    }
 }
 ```
 该方法会先减少正在读资源的 readerCount 整数，根据 sync/atomic.AddInt32 的返回值不同会分别进行处理：
@@ -506,12 +506,12 @@ func (rw *RWMutex) RUnlock() {
 如果返回值小于零 — 有一个正在执行的写操作，在这时会调用sync.RWMutex.rUnlockSlow 方法；
 ```go
 func (rw *RWMutex) rUnlockSlow(r int32) {
-	if r+1 == 0 || r+1 == -rwmutexMaxReaders {
-		throw("sync: RUnlock of unlocked RWMutex")
-	}
-	if atomic.AddInt32(&rw.readerWait, -1) == 0 {
-		runtime_Semrelease(&rw.writerSem, false, 1)
-	}
+    if r+1 == 0 || r+1 == -rwmutexMaxReaders {
+        throw("sync: RUnlock of unlocked RWMutex")
+    }
+    if atomic.AddInt32(&rw.readerWait, -1) == 0 {
+        runtime_Semrelease(&rw.writerSem, false, 1)
+    }
 }
 ````
 sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 readerWait 并在所有读操作都被释放之后触发写操作的信号量 writerSem，该信号量被触发时，调度器就会唤醒尝试获取写锁的 Goroutine。
@@ -520,14 +520,14 @@ sync.RWMutex.rUnlockSlow 会减少获取锁的写操作等待的读操作数 rea
 
 ```go
 type WaitGroup struct {
-	noCopy noCopy
+    noCopy noCopy
 
-	// 64-bit value: high 32 bits are counter, low 32 bits are waiter count.
-	// 64-bit atomic operations require 64-bit alignment, but 32-bit
-	// compilers do not ensure it. So we allocate 12 bytes and then use
-	// the aligned 8 bytes in them as state, and the other 4 as storage
-	// for the sema.
-	state1 [3]uint32
+    // 64-bit value: high 32 bits are counter, low 32 bits are waiter count.
+    // 64-bit atomic operations require 64-bit alignment, but 32-bit
+    // compilers do not ensure it. So we allocate 12 bytes and then use
+    // the aligned 8 bytes in them as state, and the other 4 as storage
+    // for the sema.
+    state1 [3]uint32
 }
 ```
 
@@ -535,24 +535,24 @@ type WaitGroup struct {
 
 ```go
 func (wg *WaitGroup) Add(delta int) {
-	statep, semap := wg.state()
-	state := atomic.AddUint64(statep, uint64(delta)<<32)
-	v := int32(state >> 32)
-	w := uint32(state)
-	if v < 0 {
-		panic("sync: negative WaitGroup counter")
-	}
-	if v > 0 || w == 0 {
-		return
-	}
-	*statep = 0
-	for ; w != 0; w-- {
-		runtime_Semrelease(semap, false, 0)
-	}
+    statep, semap := wg.state()
+    state := atomic.AddUint64(statep, uint64(delta)<<32)
+    v := int32(state >> 32)
+    w := uint32(state)
+    if v < 0 {
+        panic("sync: negative WaitGroup counter")
+    }
+    if v > 0 || w == 0 {
+        return
+    }
+    *statep = 0
+    for ; w != 0; w-- {
+        runtime_Semrelease(semap, false, 0)
+    }
 }
 // Done decrements the WaitGroup counter by one.
 func (wg *WaitGroup) Done() {
-	wg.Add(-1)
+    wg.Add(-1)
 }
 
 ```
@@ -563,14 +563,12 @@ func (wg *WaitGroup) Done() {
 - [`sync.WaitGroup.Done`](https://draveness.me/golang/tree/sync.WaitGroup.Done) 只是对 [`sync.WaitGroup.Add`](https://draveness.me/golang/tree/sync.WaitGroup.Add) 方法的简单封装，我们可以向 [`sync.WaitGroup.Add`](https://draveness.me/golang/tree/sync.WaitGroup.Add) 方法传入任意负数（需要保证计数器非负）快速将计数器归零以唤醒等待的 Goroutine；
 - 可以同时有多个 Goroutine 等待当前 [`sync.WaitGroup`](https://draveness.me/golang/tree/sync.WaitGroup) 计数器的归零，这些 Goroutine 会被同时唤醒；
 
-
-
 ## 7. Once
 
 ```go
 type Once struct {
-	done uint32
-	m    Mutex
+    done uint32
+    m    Mutex
 }
 ```
 为当前 Goroutine 获取互斥锁；
@@ -579,18 +577,18 @@ type Once struct {
 
 ```go
 func (o *Once) Do(f func()) {
-	if atomic.LoadUint32(&o.done) == 0 {
-		o.doSlow(f)
-	}
+    if atomic.LoadUint32(&o.done) == 0 {
+        o.doSlow(f)
+    }
 }
 
 func (o *Once) doSlow(f func()) {
-	o.m.Lock()
-	defer o.m.Unlock()
-	if o.done == 0 {
-		defer atomic.StoreUint32(&o.done, 1)
-		f()
-	}
+    o.m.Lock()
+    defer o.m.Unlock()
+    if o.done == 0 {
+        defer atomic.StoreUint32(&o.done, 1)
+        f()
+    }
 }
 ```
 
@@ -598,10 +596,10 @@ func (o *Once) doSlow(f func()) {
 
 ```go
 type Context interface {
-	Deadline() (deadline time.Time, ok bool)
-	Done() <-chan struct{}
-	Err() error
-	Value(key interface{}) interface{}
+    Deadline() (deadline time.Time, ok bool)
+    Done() <-chan struct{}
+    Err() error
+    Value(key interface{}) interface{}
 }
 ```
 
@@ -613,19 +611,19 @@ type Context interface {
 type emptyCtx int
 
 func (*emptyCtx) Deadline() (deadline time.Time, ok bool) {
-	return
+    return
 }
 
 func (*emptyCtx) Done() <-chan struct{} {
-	return nil
+    return nil
 }
 
 func (*emptyCtx) Err() error {
-	return nil
+    return nil
 }
 
 func (*emptyCtx) Value(key interface{}) interface{} {
-	return nil
+    return nil
 }
 ````
 
@@ -672,35 +670,35 @@ type readOnly struct {
 
 ```go
 func (m *Map) Load(key interface{}) (value interface{}, ok bool) {
-	read, _ := m.read.Load().(readOnly)
-	e, ok := read.m[key]
-	if !ok && read.amended {
-		m.mu.Lock()
-		// Avoid reporting a spurious miss if m.dirty got promoted while we were
-		// blocked on m.mu. (If further loads of the same key will not miss, it's
-		// not worth copying the dirty map for this key.)
-		read, _ = m.read.Load().(readOnly)
-		e, ok = read.m[key]
-		if !ok && read.amended {
-			e, ok = m.dirty[key]
-			// Regardless of whether the entry was present, record a miss: this key
-			// will take the slow path until the dirty map is promoted to the read
-			// map.
-			m.missLocked()
-		}
+    read, _ := m.read.Load().(readOnly)
+    e, ok := read.m[key]
+    if !ok && read.amended {
+        m.mu.Lock()
+        // Avoid reporting a spurious miss if m.dirty got promoted while we were
+        // blocked on m.mu. (If further loads of the same key will not miss, it's
+        // not worth copying the dirty map for this key.)
+        read, _ = m.read.Load().(readOnly)
+        e, ok = read.m[key]
+        if !ok && read.amended {
+            e, ok = m.dirty[key]
+            // Regardless of whether the entry was present, record a miss: this key
+            // will take the slow path until the dirty map is promoted to the read
+            // map.
+            m.missLocked()
+        }
     m.mu.Unlock()
-	}
-	if !ok {
-		return nil, false
-	}
-	return e.load()
+    }
+    if !ok {
+        return nil, false
+    }
+    return e.load()
 }
 func (e *entry) load() (value interface{}, ok bool) {
-	p := atomic.LoadPointer(&e.p)
-	if p == nil || p == expunged {
-		return nil, false
-	}
-	return *(*interface{})(p), true
+    p := atomic.LoadPointer(&e.p)
+    if p == nil || p == expunged {
+        return nil, false
+    }
+    return *(*interface{})(p), true
 }
 ```
 

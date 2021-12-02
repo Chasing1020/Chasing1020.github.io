@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(3) Common Keywords">
 <meta itemprop="description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"><meta itemprop="datePublished" content="2021-09-20T12:27:33+08:00" />
 <meta itemprop="dateModified" content="2021-09-20T12:27:33+08:00" />
-<meta itemprop="wordCount" content="4506">
+<meta itemprop="wordCount" content="4517">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(3) Common Keywords"/>
 <meta name="twitter:description" content="Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预"/>
@@ -140,8 +140,8 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 4506 words </span>
-          <span class="more-meta"> 9 mins read </span>
+          <span class="more-meta"> 4517 words </span>
+          <span class="more-meta"> 10 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -193,14 +193,14 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">arr</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
-	<span class="nx">newArr</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="kt">int</span><span class="p">{}</span>
-	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span>
-		<span class="nx">newArr</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">newArr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-	<span class="p">}</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">newArr</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">v</span><span class="p">)</span>
-	<span class="p">}</span>
+    <span class="nx">arr</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="nx">newArr</span> <span class="o">:=</span> <span class="p">[]</span><span class="o">*</span><span class="kt">int</span><span class="p">{}</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span>
+        <span class="nx">newArr</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">newArr</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">newArr</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">*</span><span class="nx">v</span><span class="p">)</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -256,28 +256,28 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">mapiternext</span><span class="p">(</span><span class="nx">it</span> <span class="o">*</span><span class="nx">hiter</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">h</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">h</span>
-	<span class="nx">t</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">t</span>
-	<span class="nx">bucket</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bucket</span>
-	<span class="nx">b</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bptr</span>
-	<span class="nx">i</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">i</span>
-	<span class="nx">alg</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">alg</span>
+    <span class="nx">h</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">h</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">t</span>
+    <span class="nx">bucket</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bucket</span>
+    <span class="nx">b</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">bptr</span>
+    <span class="nx">i</span> <span class="o">:=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">i</span>
+    <span class="nx">alg</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">alg</span>
 
 <span class="nx">next</span><span class="p">:</span>
-	<span class="k">if</span> <span class="nx">b</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nx">it</span><span class="p">.</span><span class="nx">startBucket</span> <span class="o">&amp;&amp;</span> <span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">{</span>
-			<span class="nx">it</span><span class="p">.</span><span class="nx">key</span> <span class="p">=</span> <span class="kc">nil</span>
-			<span class="nx">it</span><span class="p">.</span><span class="nx">value</span> <span class="p">=</span> <span class="kc">nil</span>
-			<span class="k">return</span>
-		<span class="p">}</span>
-		<span class="nx">b</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">bucket</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
-		<span class="nx">bucket</span><span class="o">++</span>
-		<span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
-			<span class="nx">bucket</span> <span class="p">=</span> <span class="mi">0</span>
-			<span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">=</span> <span class="kc">true</span>
-		<span class="p">}</span>
-		<span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span>
-	<span class="p">}</span>
+    <span class="k">if</span> <span class="nx">b</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nx">it</span><span class="p">.</span><span class="nx">startBucket</span> <span class="o">&amp;&amp;</span> <span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">{</span>
+            <span class="nx">it</span><span class="p">.</span><span class="nx">key</span> <span class="p">=</span> <span class="kc">nil</span>
+            <span class="nx">it</span><span class="p">.</span><span class="nx">value</span> <span class="p">=</span> <span class="kc">nil</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="nx">b</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">bucket</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
+        <span class="nx">bucket</span><span class="o">++</span>
+        <span class="k">if</span> <span class="nx">bucket</span> <span class="o">==</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">bucket</span> <span class="p">=</span> <span class="mi">0</span>
+            <span class="nx">it</span><span class="p">.</span><span class="nx">wrapped</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="p">}</span>
+        <span class="nx">i</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>字符串遍历，自动转换为Rune类型</p>
@@ -358,30 +358,30 @@
 </span><span class="c1">// initialize them are not required. All defers must be manually scanned,
 </span><span class="c1">// and for heap defers, marked.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">_defer</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">siz</span>     <span class="kt">int32</span> <span class="c1">// includes both arguments and results 参数和返回值共占多少空间
-</span><span class="c1"></span>	<span class="nx">started</span> <span class="kt">bool</span>
-	<span class="nx">heap</span>    <span class="kt">bool</span>
-	<span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
-</span><span class="c1"></span>	<span class="c1">// defers. We have only one defer record for the entire frame (which may
-</span><span class="c1"></span>	<span class="c1">// currently have 0, 1, or more defers active).
-</span><span class="c1"></span>	<span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
-</span><span class="c1"></span>	<span class="nx">sp</span>        <span class="kt">uintptr</span>  <span class="c1">// sp at time of defer 栈指针
-</span><span class="c1"></span>	<span class="nx">pc</span>        <span class="kt">uintptr</span>  <span class="c1">// pc at time of defer 调用方的程序计数器；
-</span><span class="c1"></span>	<span class="nx">fn</span>        <span class="o">*</span><span class="nx">funcval</span> <span class="c1">// can be nil for open-coded defers 关键字中传入的函数
-</span><span class="c1"></span>	<span class="nx">_panic</span>    <span class="o">*</span><span class="nx">_panic</span>  <span class="c1">// panic that is running defer 是触发延迟调用的结构体，可能为空；
-</span><span class="c1"></span>	<span class="nx">link</span>      <span class="o">*</span><span class="nx">_defer</span>
+    <span class="nx">siz</span>     <span class="kt">int32</span> <span class="c1">// includes both arguments and results 参数和返回值共占多少空间
+</span><span class="c1"></span>    <span class="nx">started</span> <span class="kt">bool</span>
+    <span class="nx">heap</span>    <span class="kt">bool</span>
+    <span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
+</span><span class="c1"></span>    <span class="c1">// defers. We have only one defer record for the entire frame (which may
+</span><span class="c1"></span>    <span class="c1">// currently have 0, 1, or more defers active).
+</span><span class="c1"></span>    <span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
+</span><span class="c1"></span>    <span class="nx">sp</span>        <span class="kt">uintptr</span>  <span class="c1">// sp at time of defer 栈指针
+</span><span class="c1"></span>    <span class="nx">pc</span>        <span class="kt">uintptr</span>  <span class="c1">// pc at time of defer 调用方的程序计数器；
+</span><span class="c1"></span>    <span class="nx">fn</span>        <span class="o">*</span><span class="nx">funcval</span> <span class="c1">// can be nil for open-coded defers 关键字中传入的函数
+</span><span class="c1"></span>    <span class="nx">_panic</span>    <span class="o">*</span><span class="nx">_panic</span>  <span class="c1">// panic that is running defer 是触发延迟调用的结构体，可能为空；
+</span><span class="c1"></span>    <span class="nx">link</span>      <span class="o">*</span><span class="nx">_defer</span>
 
-	<span class="c1">// If openDefer is true, the fields below record values about the stack
-</span><span class="c1"></span>	<span class="c1">// frame and associated function that has the open-coded defer(s). sp
-</span><span class="c1"></span>	<span class="c1">// above will be the sp for the frame, and pc will be address of the
-</span><span class="c1"></span>	<span class="c1">// deferreturn call in the function.
-</span><span class="c1"></span>	<span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
-</span><span class="c1"></span>	<span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
-</span><span class="c1"></span>	<span class="c1">// framepc is the current pc associated with the stack frame. Together,
-</span><span class="c1"></span>	<span class="c1">// with sp above (which is the sp associated with the stack frame),
-</span><span class="c1"></span>	<span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
-</span><span class="c1"></span>	<span class="c1">// gentraceback().
-</span><span class="c1"></span>	<span class="nx">framepc</span> <span class="kt">uintptr</span>
+    <span class="c1">// If openDefer is true, the fields below record values about the stack
+</span><span class="c1"></span>    <span class="c1">// frame and associated function that has the open-coded defer(s). sp
+</span><span class="c1"></span>    <span class="c1">// above will be the sp for the frame, and pc will be address of the
+</span><span class="c1"></span>    <span class="c1">// deferreturn call in the function.
+</span><span class="c1"></span>    <span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
+</span><span class="c1"></span>    <span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
+</span><span class="c1"></span>    <span class="c1">// framepc is the current pc associated with the stack frame. Together,
+</span><span class="c1"></span>    <span class="c1">// with sp above (which is the sp associated with the stack frame),
+</span><span class="c1"></span>    <span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
+</span><span class="c1"></span>    <span class="c1">// gentraceback().
+</span><span class="c1"></span>    <span class="nx">framepc</span> <span class="kt">uintptr</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -413,19 +413,19 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">stmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-	<span class="o">...</span>
-	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
-		<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">hasOpenDefers</span> <span class="p">{</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nf">openDeferRecord</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> <span class="c1">// 开放编码
-</span><span class="c1"></span>		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">d</span> <span class="o">:=</span> <span class="nx">callDefer</span> <span class="c1">// 堆分配
-</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNever</span> <span class="p">{</span>
-				<span class="nx">d</span> <span class="p">=</span> <span class="nx">callDeferStack</span> <span class="c1">// 栈分配
-</span><span class="c1"></span>			<span class="p">}</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nf">callResult</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+    <span class="o">...</span>
+    <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">hasOpenDefers</span> <span class="p">{</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nf">openDeferRecord</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span> <span class="c1">// 开放编码
+</span><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">d</span> <span class="o">:=</span> <span class="nx">callDefer</span> <span class="c1">// 堆分配
+</span><span class="c1"></span>            <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNever</span> <span class="p">{</span>
+                <span class="nx">d</span> <span class="p">=</span> <span class="nx">callDeferStack</span> <span class="c1">// 栈分配
+</span><span class="c1"></span>            <span class="p">}</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nf">callResult</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">d</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -461,23 +461,23 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">call</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">k</span> <span class="nx">callKind</span><span class="p">,</span> <span class="nx">returnResultAddr</span> <span class="kt">bool</span><span class="p">)</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span> <span class="p">{</span>
-	<span class="o">...</span>
-	<span class="kd">var</span> <span class="nx">call</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span>
-	<span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDeferStack</span> <span class="p">{</span>
-		<span class="c1">// 在栈上初始化 defer 结构体
-</span><span class="c1"></span>		<span class="o">...</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="o">...</span>
-		<span class="k">switch</span> <span class="p">{</span>
-		<span class="k">case</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDefer</span><span class="p">:</span>
-			<span class="nx">aux</span> <span class="o">:=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nf">StaticAuxCall</span><span class="p">(</span><span class="nx">deferproc</span><span class="p">,</span> <span class="nx">ACArgs</span><span class="p">,</span> <span class="nx">ACResults</span><span class="p">)</span>
-			<span class="nx">call</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpStaticCall</span><span class="p">,</span> <span class="nx">types</span><span class="p">.</span><span class="nx">TypeMem</span><span class="p">,</span> <span class="nx">aux</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">())</span>
-		<span class="o">...</span>
-		<span class="p">}</span>
-		<span class="nx">call</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">stksize</span>
-	<span class="p">}</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">vars</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">memVar</span><span class="p">]</span> <span class="p">=</span> <span class="nx">call</span>
-	<span class="o">...</span>
+    <span class="o">...</span>
+    <span class="kd">var</span> <span class="nx">call</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span>
+    <span class="k">if</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDeferStack</span> <span class="p">{</span>
+        <span class="c1">// 在栈上初始化 defer 结构体
+</span><span class="c1"></span>        <span class="o">...</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="o">...</span>
+        <span class="k">switch</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nx">k</span> <span class="o">==</span> <span class="nx">callDefer</span><span class="p">:</span>
+            <span class="nx">aux</span> <span class="o">:=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nf">StaticAuxCall</span><span class="p">(</span><span class="nx">deferproc</span><span class="p">,</span> <span class="nx">ACArgs</span><span class="p">,</span> <span class="nx">ACResults</span><span class="p">)</span>
+            <span class="nx">call</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpStaticCall</span><span class="p">,</span> <span class="nx">types</span><span class="p">.</span><span class="nx">TypeMem</span><span class="p">,</span> <span class="nx">aux</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">())</span>
+        <span class="o">...</span>
+        <span class="p">}</span>
+        <span class="nx">call</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">stksize</span>
+    <span class="p">}</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">vars</span><span class="p">[</span><span class="o">&amp;</span><span class="nx">memVar</span><span class="p">]</span> <span class="p">=</span> <span class="nx">call</span>
+    <span class="o">...</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -509,26 +509,26 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deferproc</span><span class="p">(</span><span class="nx">siz</span> <span class="kt">int32</span><span class="p">,</span> <span class="nx">fn</span> <span class="o">*</span><span class="nx">funcval</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
-	<span class="nx">argp</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">fn</span><span class="p">))</span> <span class="o">+</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
-	<span class="nx">callerpc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+    <span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+    <span class="nx">argp</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">fn</span><span class="p">))</span> <span class="o">+</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Sizeof</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
+    <span class="nx">callerpc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
 
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">newdefer</span><span class="p">(</span><span class="nx">siz</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nf">throw</span><span class="p">(</span><span class="s">&#34;deferproc: d.panic != nil after newdefer&#34;</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="nx">fn</span>
-	<span class="nx">d</span><span class="p">.</span><span class="nx">pc</span> <span class="p">=</span> <span class="nx">callerpc</span>
-	<span class="nx">d</span><span class="p">.</span><span class="nx">sp</span> <span class="p">=</span> <span class="nx">sp</span>
-	<span class="k">switch</span> <span class="nx">siz</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-	<span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
-		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">))</span>
-	<span class="k">default</span><span class="p">:</span>
-		<span class="nf">memmove</span><span class="p">(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
-	<span class="p">}</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="nf">newdefer</span><span class="p">(</span><span class="nx">siz</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;deferproc: d.panic != nil after newdefer&#34;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="nx">fn</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">pc</span> <span class="p">=</span> <span class="nx">callerpc</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">sp</span> <span class="p">=</span> <span class="nx">sp</span>
+    <span class="k">switch</span> <span class="nx">siz</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+        <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">))</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="nf">memmove</span><span class="p">(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">argp</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
+    <span class="p">}</span>
 
-	<span class="nf">return0</span><span class="p">()</span>
+    <span class="nf">return0</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -568,32 +568,32 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">newdefer</span><span class="p">(</span><span class="nx">siz</span> <span class="kt">int32</span><span class="p">)</span> <span class="o">*</span><span class="nx">_defer</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">d</span> <span class="o">*</span><span class="nx">_defer</span>
-	<span class="nx">sc</span> <span class="o">:=</span> <span class="nf">deferclass</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
-	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">sc</span> <span class="p">&lt;</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">p</span><span class="p">{}.</span><span class="nx">deferpool</span><span class="p">))</span> <span class="p">{</span>
-		<span class="nx">pp</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">ptr</span><span class="p">()</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="p">&lt;</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-				<span class="nx">d</span> <span class="o">:=</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span>
-				<span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
-				<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">],</span> <span class="nx">d</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]);</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="nx">d</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-			<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="kc">nil</span>
-			<span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][:</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">total</span> <span class="o">:=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nf">totaldefersize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">)))</span>
-		<span class="nx">d</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_defer</span><span class="p">)(</span><span class="nf">mallocgc</span><span class="p">(</span><span class="nx">total</span><span class="p">,</span> <span class="nx">deferType</span><span class="p">,</span> <span class="kc">true</span><span class="p">))</span>
-	<span class="p">}</span>
-	<span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">=</span> <span class="nx">siz</span>
-	<span class="nx">d</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
-	<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span>
-	<span class="k">return</span> <span class="nx">d</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="o">*</span><span class="nx">_defer</span>
+    <span class="nx">sc</span> <span class="o">:=</span> <span class="nf">deferclass</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">))</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">sc</span> <span class="p">&lt;</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">p</span><span class="p">{}.</span><span class="nx">deferpool</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">pp</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">ptr</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span> <span class="p">&lt;</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">d</span> <span class="o">:=</span> <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span>
+                <span class="nx">sched</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+                <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">],</span> <span class="nx">d</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]);</span> <span class="nx">n</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">d</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="kc">nil</span>
+            <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">]</span> <span class="p">=</span> <span class="nx">pp</span><span class="p">.</span><span class="nx">deferpool</span><span class="p">[</span><span class="nx">sc</span><span class="p">][:</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">total</span> <span class="o">:=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nf">totaldefersize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">siz</span><span class="p">)))</span>
+        <span class="nx">d</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_defer</span><span class="p">)(</span><span class="nf">mallocgc</span><span class="p">(</span><span class="nx">total</span><span class="p">,</span> <span class="nx">deferType</span><span class="p">,</span> <span class="kc">true</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">=</span> <span class="nx">siz</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+    <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span>
+    <span class="k">return</span> <span class="nx">d</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -624,25 +624,25 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">deferreturn</span><span class="p">(</span><span class="nx">arg0</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
-	<span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
-	<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
-	<span class="o">...</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+    <span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+    <span class="o">...</span>
 
-	<span class="k">switch</span> <span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-	<span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
-		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
-	<span class="k">default</span><span class="p">:</span>
-		<span class="nf">memmove</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
-	<span class="p">}</span>
-	<span class="nx">fn</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">fn</span>
-	<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
-	<span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
-	<span class="nf">jmpdefer</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">)))</span>
+    <span class="k">switch</span> <span class="nx">d</span><span class="p">.</span><span class="nx">siz</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">case</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+        <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">))</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">uintptr</span><span class="p">)(</span><span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">))</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="nf">memmove</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="nx">fn</span> <span class="o">:=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">fn</span>
+    <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+    <span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+    <span class="nf">jmpdefer</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">arg0</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -692,7 +692,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">		<span class="nx">heap</span>    <span class="kt">bool</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">        <span class="nx">heap</span>    <span class="kt">bool</span>
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="223-open-coded">2.2.3. Open Coded</h4>
@@ -721,19 +721,19 @@
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">maxOpenDefers</span> <span class="p">=</span> <span class="mi">8</span>
 
 <span class="kd">func</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
-	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
-		<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetHasDefer</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-		<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span><span class="o">++</span>
-		<span class="k">if</span> <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span> <span class="p">&gt;</span> <span class="nx">maxOpenDefers</span> <span class="p">{</span>
-			<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">!=</span> <span class="nx">EscNever</span> <span class="p">{</span>
-			<span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="k">fallthrough</span>
-	<span class="o">...</span>
-	<span class="p">}</span>
+    <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ODEFER</span><span class="p">:</span>
+        <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetHasDefer</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+        <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span><span class="o">++</span>
+        <span class="k">if</span> <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nx">numDefers</span> <span class="p">&gt;</span> <span class="nx">maxOpenDefers</span> <span class="p">{</span>
+            <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">!=</span> <span class="nx">EscNever</span> <span class="p">{</span>
+            <span class="nx">Curfn</span><span class="p">.</span><span class="nx">Func</span><span class="p">.</span><span class="nf">SetOpenCodedDeferDisallowed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">fallthrough</span>
+    <span class="o">...</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -744,7 +744,7 @@
 </ol>
 <p>1.14中，使用df来标记每一个defer是否需要执行，将每一个defer放在函数返回处，通过编译阶段插入代码，把defer函数的逻辑展开在所属的函数内，从而省略了defer结构体和链表。</p>
 <p>但是，在函数执行过程中，如果调用了panic，或者是runtime.Goexit()函数，需要额外使用栈扫描方法来实现。</p>
-<p>所以在1.14版本中，新增了如下参数，保证栈扫描能够正确执行，这种情况下，效率要低于1.13版本</p>
+<p>所以在1.14版本中，新增了如下参数，保证栈扫描能够正确执行。在发生panic的情况下，效率要低于1.13版本</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -764,21 +764,21 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">	<span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
-</span><span class="c1"></span>	<span class="c1">// defers. We have only one defer record for the entire frame (which may
-</span><span class="c1"></span>	<span class="c1">// currently have 0, 1, or more defers active).
-</span><span class="c1"></span>	<span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
-</span><span class="c1"></span>	<span class="c1">// If openDefer is true, the fields below record values about the stack
-</span><span class="c1"></span>	<span class="c1">// frame and associated function that has the open-coded defer(s). sp
-</span><span class="c1"></span>	<span class="c1">// above will be the sp for the frame, and pc will be address of the
-</span><span class="c1"></span>	<span class="c1">// deferreturn call in the function.
-</span><span class="c1"></span>	<span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
-</span><span class="c1"></span>	<span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
-</span><span class="c1"></span>	<span class="c1">// framepc is the current pc associated with the stack frame. Together,
-</span><span class="c1"></span>	<span class="c1">// with sp above (which is the sp associated with the stack frame),
-</span><span class="c1"></span>	<span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
-</span><span class="c1"></span>	<span class="c1">// gentraceback().
-</span><span class="c1"></span>	<span class="nx">framepc</span> <span class="kt">uintptr</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">    <span class="c1">// openDefer indicates that this _defer is for a frame with open-coded
+</span><span class="c1"></span>    <span class="c1">// defers. We have only one defer record for the entire frame (which may
+</span><span class="c1"></span>    <span class="c1">// currently have 0, 1, or more defers active).
+</span><span class="c1"></span>    <span class="nx">openDefer</span> <span class="kt">bool</span>  <span class="c1">// 表示当前 defer 是否经过开放编码的优化；
+</span><span class="c1"></span>    <span class="c1">// If openDefer is true, the fields below record values about the stack
+</span><span class="c1"></span>    <span class="c1">// frame and associated function that has the open-coded defer(s). sp
+</span><span class="c1"></span>    <span class="c1">// above will be the sp for the frame, and pc will be address of the
+</span><span class="c1"></span>    <span class="c1">// deferreturn call in the function.
+</span><span class="c1"></span>    <span class="nx">fd</span>   <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// funcdata for the function associated with the frame
+</span><span class="c1"></span>    <span class="nx">varp</span> <span class="kt">uintptr</span>        <span class="c1">// value of varp for the stack frame
+</span><span class="c1"></span>    <span class="c1">// framepc is the current pc associated with the stack frame. Together,
+</span><span class="c1"></span>    <span class="c1">// with sp above (which is the sp associated with the stack frame),
+</span><span class="c1"></span>    <span class="c1">// framepc/sp can be used as pc/sp pair to continue a stack trace via
+</span><span class="c1"></span>    <span class="c1">// gentraceback().
+</span><span class="c1"></span>    <span class="nx">framepc</span> <span class="kt">uintptr</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="23-version-difference">2.3. Version Difference</h3>
@@ -885,35 +885,35 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">gopanic</span><span class="p">(</span><span class="nx">e</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
-	<span class="o">...</span>
-	<span class="kd">var</span> <span class="nx">p</span> <span class="nx">_panic</span>
-	<span class="nx">p</span><span class="p">.</span><span class="nx">arg</span> <span class="p">=</span> <span class="nx">e</span>
-	<span class="nx">p</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
-	<span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="o">...</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="nx">_panic</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">arg</span> <span class="p">=</span> <span class="nx">e</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">link</span> <span class="p">=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
+    <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
 
-	<span class="k">for</span> <span class="p">{</span>
-		<span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
-		<span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="nx">d</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span>
+        <span class="k">if</span> <span class="nx">d</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
 
-		<span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
+        <span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">_panic</span><span class="p">)(</span><span class="nf">noescape</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)))</span>
 
-		<span class="nf">reflectcall</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">fn</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
+        <span class="nf">reflectcall</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">fn</span><span class="p">),</span> <span class="nf">deferArgs</span><span class="p">(</span><span class="nx">d</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">),</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">siz</span><span class="p">))</span>
 
-		<span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="kc">nil</span>
-		<span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="kc">nil</span>
-		<span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
+        <span class="nx">d</span><span class="p">.</span><span class="nx">_panic</span> <span class="p">=</span> <span class="kc">nil</span>
+        <span class="nx">d</span><span class="p">.</span><span class="nx">fn</span> <span class="p">=</span> <span class="kc">nil</span>
+        <span class="nx">gp</span><span class="p">.</span><span class="nx">_defer</span> <span class="p">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">link</span>
 
-		<span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">{</span>
-			<span class="o">...</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+        <span class="nf">freedefer</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">{</span>
+            <span class="o">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-	<span class="nf">fatalpanic</span><span class="p">(</span><span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span><span class="p">)</span>
-	<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="kc">nil</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="nf">fatalpanic</span><span class="p">(</span><span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span><span class="p">)</span>
+    <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">int</span><span class="p">)(</span><span class="kc">nil</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -938,19 +938,19 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">fatalpanic</span><span class="p">(</span><span class="nx">msgs</span> <span class="o">*</span><span class="nx">_panic</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">pc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
-	<span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
-	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="nx">pc</span> <span class="o">:=</span> <span class="nf">getcallerpc</span><span class="p">()</span>
+    <span class="nx">sp</span> <span class="o">:=</span> <span class="nf">getcallersp</span><span class="p">()</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
 
-	<span class="k">if</span> <span class="nf">startpanic_m</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">msgs</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">atomic</span><span class="p">.</span><span class="nf">Xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">runningPanicDefers</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-		<span class="nf">printpanics</span><span class="p">(</span><span class="nx">msgs</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nf">dopanic_m</span><span class="p">(</span><span class="nx">gp</span><span class="p">,</span> <span class="nx">pc</span><span class="p">,</span> <span class="nx">sp</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nf">crash</span><span class="p">()</span>
-	<span class="p">}</span>
+    <span class="k">if</span> <span class="nf">startpanic_m</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">msgs</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">atomic</span><span class="p">.</span><span class="nf">Xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">runningPanicDefers</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nf">printpanics</span><span class="p">(</span><span class="nx">msgs</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nf">dopanic_m</span><span class="p">(</span><span class="nx">gp</span><span class="p">,</span> <span class="nx">pc</span><span class="p">,</span> <span class="nx">sp</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">crash</span><span class="p">()</span>
+    <span class="p">}</span>
 
-	<span class="nf">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nf">exit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -969,13 +969,13 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">gorecover</span><span class="p">(</span><span class="nx">argp</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
-	<span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
-	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
-	<span class="k">if</span> <span class="nx">p</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="o">&amp;&amp;</span> <span class="nx">argp</span> <span class="o">==</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">argp</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">=</span> <span class="kc">true</span>
-		<span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">arg</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="kc">nil</span>
+    <span class="nx">gp</span> <span class="o">:=</span> <span class="nf">getg</span><span class="p">()</span>
+    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">gp</span><span class="p">.</span><span class="nx">_panic</span>
+    <span class="k">if</span> <span class="nx">p</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="o">&amp;&amp;</span> <span class="nx">argp</span> <span class="o">==</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">argp</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">p</span><span class="p">.</span><span class="nx">recovered</span> <span class="p">=</span> <span class="kc">true</span>
+        <span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">arg</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">nil</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1034,7 +1034,7 @@
             <span class="nx">gp</span><span class="p">.</span><span class="nx">sigcode1</span> <span class="p">=</span> <span class="nx">pc</span>
             <span class="nf">mcall</span><span class="p">(</span><span class="nx">recovery</span><span class="p">)</span>
             <span class="nf">throw</span><span class="p">(</span><span class="s">&#34;recovery failed&#34;</span><span class="p">)</span>
-      	<span class="p">}</span>
+          <span class="p">}</span>
     <span class="p">}</span>
     <span class="o">...</span>
 <span class="p">}</span>
@@ -1050,7 +1050,7 @@
 3.1. 在这次调用结束之后，runtime.gopanic 会从 runtime._defer 结构体中取出程序计数器 pc 和栈指针 sp 并调用 runtime.recovery 函数进行恢复程序；
 3.2. runtime.recovery 会根据传入的 pc 和 sp 跳转回 runtime.deferproc；
 3.3. 编译器自动生成的代码会发现 runtime.deferproc 的返回值不为 0，这时会跳回 runtime.deferreturn 并恢复到正常的执行流程；</li>
-<li>如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime._defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2；</li>
+<li>如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime._defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2（需要编译）；</li>
 </ol>
 <p>如在Go的compile.Main执行期间，加入了defer hidePanic()</p>
 <div class="highlight"><div class="chroma">
@@ -1072,25 +1072,25 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">hidePanic</span><span class="p">()</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">base</span><span class="p">.</span><span class="nx">Debug</span><span class="p">.</span><span class="nx">Panic</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">base</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="c1">// If we&#39;ve already complained about things
-</span><span class="c1"></span>		<span class="c1">// in the program, don&#39;t bother complaining
-</span><span class="c1"></span>		<span class="c1">// about a panic too; let the user clean up
-</span><span class="c1"></span>		<span class="c1">// the code and try again.
-</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="s">&#34;-h&#34;</span> <span class="p">{</span>
-				<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-			<span class="p">}</span>
-			<span class="nx">base</span><span class="p">.</span><span class="nf">ErrorExit</span><span class="p">()</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+    <span class="k">if</span> <span class="nx">base</span><span class="p">.</span><span class="nx">Debug</span><span class="p">.</span><span class="nx">Panic</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">base</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="c1">// If we&#39;ve already complained about things
+</span><span class="c1"></span>        <span class="c1">// in the program, don&#39;t bother complaining
+</span><span class="c1"></span>        <span class="c1">// about a panic too; let the user clean up
+</span><span class="c1"></span>        <span class="c1">// the code and try again.
+</span><span class="c1"></span>        <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="s">&#34;-h&#34;</span> <span class="p">{</span>
+                <span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="nx">base</span><span class="p">.</span><span class="nf">ErrorExit</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="4-make-and-new">4. Make And New</h2>
 <ul>
-<li><code>make</code> 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:2">2</a>；</li>
-<li><code>new</code> 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针<a href="https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:3">3</a>；</li>
+<li><code>make</code> 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel；</li>
+<li><code>new</code> 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针；</li>
 </ul>
 <p>Go 语言会将代表 <code>make</code> 关键字的 <code>OMAKE</code> 节点根据参数类型的不同转换成了 <code>OMAKESLICE</code>、<code>OMAKEMAP</code> 和 <code>OMAKECHAN</code> 三种不同类型的节点，这些节点会调用不同的运行时函数来初始化相应的数据结构。</p>
 <p>分别对应如下：</p>
@@ -1140,44 +1140,44 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Data</span> <span class="kt">uintptr</span>
-	<span class="nx">Len</span>  <span class="kt">int</span>
-	<span class="nx">Cap</span>  <span class="kt">int</span>
+    <span class="nx">Data</span> <span class="kt">uintptr</span>
+    <span class="nx">Len</span>  <span class="kt">int</span>
+    <span class="nx">Cap</span>  <span class="kt">int</span>
 <span class="p">}</span>
 <span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
-</span><span class="c1"></span>	<span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.
-</span><span class="c1"></span>	<span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)
-</span><span class="c1"></span>	<span class="nx">flags</span>     <span class="kt">uint8</span>
-	<span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-</span><span class="c1"></span>	<span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details
-</span><span class="c1"></span>	<span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed
+    <span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
+</span><span class="c1"></span>    <span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.
+</span><span class="c1"></span>    <span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)
+</span><span class="c1"></span>    <span class="nx">flags</span>     <span class="kt">uint8</span>
+    <span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+</span><span class="c1"></span>    <span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details
+</span><span class="c1"></span>    <span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed
 </span><span class="c1"></span>
-	<span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.
-</span><span class="c1"></span>	<span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing
-</span><span class="c1"></span>	<span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)
+    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.
+</span><span class="c1"></span>    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing
+</span><span class="c1"></span>    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)
 </span><span class="c1"></span>
-	<span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields
+    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields
 </span><span class="c1"></span><span class="p">}</span>
 <span class="kd">type</span> <span class="nx">hchan</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">qcount</span>   <span class="kt">uint</span>           <span class="c1">// total data in the queue
-</span><span class="c1"></span>	<span class="nx">dataqsiz</span> <span class="kt">uint</span>           <span class="c1">// size of the circular queue
-</span><span class="c1"></span>	<span class="nx">buf</span>      <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// points to an array of dataqsiz elements
-</span><span class="c1"></span>	<span class="nx">elemsize</span> <span class="kt">uint16</span>
-	<span class="nx">closed</span>   <span class="kt">uint32</span>
-	<span class="nx">elemtype</span> <span class="o">*</span><span class="nx">_type</span> <span class="c1">// element type
-</span><span class="c1"></span>	<span class="nx">sendx</span>    <span class="kt">uint</span>   <span class="c1">// send index
-</span><span class="c1"></span>	<span class="nx">recvx</span>    <span class="kt">uint</span>   <span class="c1">// receive index
-</span><span class="c1"></span>	<span class="nx">recvq</span>    <span class="nx">waitq</span>  <span class="c1">// list of recv waiters
-</span><span class="c1"></span>	<span class="nx">sendq</span>    <span class="nx">waitq</span>  <span class="c1">// list of send waiters
+    <span class="nx">qcount</span>   <span class="kt">uint</span>           <span class="c1">// total data in the queue
+</span><span class="c1"></span>    <span class="nx">dataqsiz</span> <span class="kt">uint</span>           <span class="c1">// size of the circular queue
+</span><span class="c1"></span>    <span class="nx">buf</span>      <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// points to an array of dataqsiz elements
+</span><span class="c1"></span>    <span class="nx">elemsize</span> <span class="kt">uint16</span>
+    <span class="nx">closed</span>   <span class="kt">uint32</span>
+    <span class="nx">elemtype</span> <span class="o">*</span><span class="nx">_type</span> <span class="c1">// element type
+</span><span class="c1"></span>    <span class="nx">sendx</span>    <span class="kt">uint</span>   <span class="c1">// send index
+</span><span class="c1"></span>    <span class="nx">recvx</span>    <span class="kt">uint</span>   <span class="c1">// receive index
+</span><span class="c1"></span>    <span class="nx">recvq</span>    <span class="nx">waitq</span>  <span class="c1">// list of recv waiters
+</span><span class="c1"></span>    <span class="nx">sendq</span>    <span class="nx">waitq</span>  <span class="c1">// list of send waiters
 </span><span class="c1"></span>
-	<span class="c1">// lock protects all fields in hchan, as well as several
-</span><span class="c1"></span>	<span class="c1">// fields in sudogs blocked on this channel.
-</span><span class="c1"></span>	<span class="c1">//
-</span><span class="c1"></span>	<span class="c1">// Do not change another G&#39;s status while holding this lock
-</span><span class="c1"></span>	<span class="c1">// (in particular, do not ready a G), as this can deadlock
-</span><span class="c1"></span>	<span class="c1">// with stack shrinking.
-</span><span class="c1"></span>	<span class="nx">lock</span> <span class="nx">mutex</span>
+    <span class="c1">// lock protects all fields in hchan, as well as several
+</span><span class="c1"></span>    <span class="c1">// fields in sudogs blocked on this channel.
+</span><span class="c1"></span>    <span class="c1">//
+</span><span class="c1"></span>    <span class="c1">// Do not change another G&#39;s status while holding this lock
+</span><span class="c1"></span>    <span class="c1">// (in particular, do not ready a G), as this can deadlock
+</span><span class="c1"></span>    <span class="c1">// with stack shrinking.
+</span><span class="c1"></span>    <span class="nx">lock</span> <span class="nx">mutex</span>
 <span class="p">}</span>
 
 </code></pre></td></tr></table>
@@ -1206,22 +1206,22 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
-	<span class="o">...</span>
-	<span class="nx">n</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">ONEWOBJ</span><span class="p">,</span> <span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="kc">nil</span><span class="p">)</span>
-	<span class="o">...</span>
-	<span class="k">return</span> <span class="nx">n</span>
+    <span class="o">...</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">ONEWOBJ</span><span class="p">,</span> <span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="nx">n</span>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">expr</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">Value</span> <span class="p">{</span>
-	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ONEWOBJ</span><span class="p">:</span>
-		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">Size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpAddr</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span> <span class="nx">zerobaseSym</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">sb</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="nx">typ</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">expr</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
-		<span class="nx">vv</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">rtcall</span><span class="p">(</span><span class="nx">newobject</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[]</span><span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Type</span><span class="p">{</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">},</span> <span class="nx">typ</span><span class="p">)</span>
-		<span class="k">return</span> <span class="nx">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-	<span class="p">}</span>
+    <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ONEWOBJ</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">Size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nf">newValue1A</span><span class="p">(</span><span class="nx">ssa</span><span class="p">.</span><span class="nx">OpAddr</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">,</span> <span class="nx">zerobaseSym</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">sb</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">typ</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">expr</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">)</span>
+        <span class="nx">vv</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">rtcall</span><span class="p">(</span><span class="nx">newobject</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[]</span><span class="o">*</span><span class="nx">types</span><span class="p">.</span><span class="nx">Type</span><span class="p">{</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">},</span> <span class="nx">typ</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">vv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1258,31 +1258,31 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
-	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ODCL</span><span class="p">:</span>
-		<span class="nx">v</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span>
-		<span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PAUTOHEAP</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-				<span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">v</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span>
-			<span class="p">}</span>
-			<span class="nx">nn</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Param</span><span class="p">.</span><span class="nx">Heapaddr</span><span class="p">,</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span>
-			<span class="nx">nn</span><span class="p">.</span><span class="nf">SetColas</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-			<span class="nx">nn</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">nn</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
-			<span class="k">return</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">nn</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="k">case</span> <span class="nx">ONEW</span><span class="p">:</span>
-		<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNone</span> <span class="p">{</span>
-			<span class="nx">r</span> <span class="o">:=</span> <span class="nf">temp</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
-			<span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-			<span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
-			<span class="nx">init</span><span class="p">.</span><span class="nf">Append</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
-			<span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OADDR</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-			<span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxExpr</span><span class="p">)</span>
-			<span class="nx">n</span> <span class="p">=</span> <span class="nx">r</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="nx">n</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+    <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ODCL</span><span class="p">:</span>
+        <span class="nx">v</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span>
+        <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PAUTOHEAP</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+                <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">v</span><span class="p">.</span><span class="nx">Type</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="nx">nn</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Name</span><span class="p">.</span><span class="nx">Param</span><span class="p">.</span><span class="nx">Heapaddr</span><span class="p">,</span> <span class="nx">prealloc</span><span class="p">[</span><span class="nx">v</span><span class="p">])</span>
+            <span class="nx">nn</span><span class="p">.</span><span class="nf">SetColas</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+            <span class="nx">nn</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">nn</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nf">walkstmt</span><span class="p">(</span><span class="nx">nn</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="k">case</span> <span class="nx">ONEW</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span> <span class="o">==</span> <span class="nx">EscNone</span> <span class="p">{</span>
+            <span class="nx">r</span> <span class="o">:=</span> <span class="nf">temp</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
+            <span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OAS</span><span class="p">,</span> <span class="nx">r</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+            <span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxStmt</span><span class="p">)</span>
+            <span class="nx">init</span><span class="p">.</span><span class="nf">Append</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span>
+            <span class="nx">r</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OADDR</span><span class="p">,</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+            <span class="nx">r</span> <span class="p">=</span> <span class="nf">typecheck</span><span class="p">(</span><span class="nx">r</span><span class="p">,</span> <span class="nx">ctxExpr</span><span class="p">)</span>
+            <span class="nx">n</span> <span class="p">=</span> <span class="nx">r</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">n</span> <span class="p">=</span> <span class="nf">callnew</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">())</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1412,6 +1412,17 @@
 
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-CDYPFNXQDZ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 <script id="baidu_push">

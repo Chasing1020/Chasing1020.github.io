@@ -25,89 +25,89 @@ G：作为最小的运行的调度单元
 // The bounds of the stack are exactly [lo, hi),
 // with no implicit data structures on either side.
 type stack struct {
-	lo uintptr
-	hi uintptr
+    lo uintptr
+    hi uintptr
 }
 type g struct {
-	// Stack parameters.
-	// stack describes the actual stack memory: [stack.lo, stack.hi).
-	// stackguard0 is the stack pointer compared in the Go stack growth prologue.
-	// It is stack.lo+StackGuard normally, but can be StackPreempt to trigger a preemption.
-	// stackguard1 is the stack pointer compared in the C stack growth prologue.
-	// It is stack.lo+StackGuard on g0 and gsignal stacks.
-	// It is ~0 on other goroutine stacks, to trigger a call to morestackc (and crash).
-	stack       stack   // offset known to runtime/cgo
-	stackguard0 uintptr // offset known to liblink
-	stackguard1 uintptr // offset known to liblink
+    // Stack parameters.
+    // stack describes the actual stack memory: [stack.lo, stack.hi).
+    // stackguard0 is the stack pointer compared in the Go stack growth prologue.
+    // It is stack.lo+StackGuard normally, but can be StackPreempt to trigger a preemption.
+    // stackguard1 is the stack pointer compared in the C stack growth prologue.
+    // It is stack.lo+StackGuard on g0 and gsignal stacks.
+    // It is ~0 on other goroutine stacks, to trigger a call to morestackc (and crash).
+    stack       stack   // offset known to runtime/cgo
+    stackguard0 uintptr // offset known to liblink
+    stackguard1 uintptr // offset known to liblink
 
-	_panic       *_panic // innermost panic - offset known to liblink
-	_defer       *_defer // innermost defer
-	m            *m      // current m; offset known to arm liblink
-	sched        gobuf
-	syscallsp    uintptr        // if status==Gsyscall, syscallsp = sched.sp to use during gc
-	syscallpc    uintptr        // if status==Gsyscall, syscallpc = sched.pc to use during gc
-	stktopsp     uintptr        // expected sp at top of stack, to check in traceback
-	param        unsafe.Pointer // passed parameter on wakeup
-	atomicstatus uint32
-	stackLock    uint32 // sigprof/scang lock; TODO: fold in to atomicstatus
-	goid         int64
-	schedlink    guintptr
-	waitsince    int64      // approx time when the g become blocked
-	waitreason   waitReason // if status==Gwaiting
+    _panic       *_panic // innermost panic - offset known to liblink
+    _defer       *_defer // innermost defer
+    m            *m      // current m; offset known to arm liblink
+    sched        gobuf
+    syscallsp    uintptr        // if status==Gsyscall, syscallsp = sched.sp to use during gc
+    syscallpc    uintptr        // if status==Gsyscall, syscallpc = sched.pc to use during gc
+    stktopsp     uintptr        // expected sp at top of stack, to check in traceback
+    param        unsafe.Pointer // passed parameter on wakeup
+    atomicstatus uint32
+    stackLock    uint32 // sigprof/scang lock; TODO: fold in to atomicstatus
+    goid         int64
+    schedlink    guintptr
+    waitsince    int64      // approx time when the g become blocked
+    waitreason   waitReason // if status==Gwaiting
 
-	preempt       bool // preemption signal, duplicates stackguard0 = stackpreempt
-	preemptStop   bool // transition to _Gpreempted on preemption; otherwise, just deschedule
-	preemptShrink bool // shrink stack at synchronous safe point
+    preempt       bool // preemption signal, duplicates stackguard0 = stackpreempt
+    preemptStop   bool // transition to _Gpreempted on preemption; otherwise, just deschedule
+    preemptShrink bool // shrink stack at synchronous safe point
 
-	// asyncSafePoint is set if g is stopped at an asynchronous
-	// safe point. This means there are frames on the stack
-	// without precise pointer information.
-	asyncSafePoint bool
+    // asyncSafePoint is set if g is stopped at an asynchronous
+    // safe point. This means there are frames on the stack
+    // without precise pointer information.
+    asyncSafePoint bool
 
-	paniconfault bool // panic (instead of crash) on unexpected fault address
-	gcscandone   bool // g has scanned stack; protected by _Gscan bit in status
-	throwsplit   bool // must not split stack
-	// activeStackChans indicates that there are unlocked channels
-	// pointing into this goroutine's stack. If true, stack
-	// copying needs to acquire channel locks to protect these
-	// areas of the stack.
-	activeStackChans bool
-	// parkingOnChan indicates that the goroutine is about to
-	// park on a chansend or chanrecv. Used to signal an unsafe point
-	// for stack shrinking. It's a boolean value, but is updated atomically.
-	parkingOnChan uint8
+    paniconfault bool // panic (instead of crash) on unexpected fault address
+    gcscandone   bool // g has scanned stack; protected by _Gscan bit in status
+    throwsplit   bool // must not split stack
+    // activeStackChans indicates that there are unlocked channels
+    // pointing into this goroutine's stack. If true, stack
+    // copying needs to acquire channel locks to protect these
+    // areas of the stack.
+    activeStackChans bool
+    // parkingOnChan indicates that the goroutine is about to
+    // park on a chansend or chanrecv. Used to signal an unsafe point
+    // for stack shrinking. It's a boolean value, but is updated atomically.
+    parkingOnChan uint8
 
-	raceignore     int8     // ignore race detection events
-	sysblocktraced bool     // StartTrace has emitted EvGoInSyscall about this goroutine
-	sysexitticks   int64    // cputicks when syscall has returned (for tracing)
-	traceseq       uint64   // trace event sequencer
-	tracelastp     puintptr // last P emitted an event for this goroutine
-	lockedm        muintptr
-	sig            uint32
-	writebuf       []byte
-	sigcode0       uintptr
-	sigcode1       uintptr
-	sigpc          uintptr
-	gopc           uintptr         // pc of go statement that created this goroutine
-	ancestors      *[]ancestorInfo // ancestor information goroutine(s) that created this goroutine (only used if debug.tracebackancestors)
-	startpc        uintptr         // pc of goroutine function
-	racectx        uintptr
-	waiting        *sudog         // sudog structures this g is waiting on (that have a valid elem ptr); in lock order
-	cgoCtxt        []uintptr      // cgo traceback context
-	labels         unsafe.Pointer // profiler labels
-	timer          *timer         // cached timer for time.Sleep
-	selectDone     uint32         // are we participating in a select and did someone win the race?
+    raceignore     int8     // ignore race detection events
+    sysblocktraced bool     // StartTrace has emitted EvGoInSyscall about this goroutine
+    sysexitticks   int64    // cputicks when syscall has returned (for tracing)
+    traceseq       uint64   // trace event sequencer
+    tracelastp     puintptr // last P emitted an event for this goroutine
+    lockedm        muintptr
+    sig            uint32
+    writebuf       []byte
+    sigcode0       uintptr
+    sigcode1       uintptr
+    sigpc          uintptr
+    gopc           uintptr         // pc of go statement that created this goroutine
+    ancestors      *[]ancestorInfo // ancestor information goroutine(s) that created this goroutine (only used if debug.tracebackancestors)
+    startpc        uintptr         // pc of goroutine function
+    racectx        uintptr
+    waiting        *sudog         // sudog structures this g is waiting on (that have a valid elem ptr); in lock order
+    cgoCtxt        []uintptr      // cgo traceback context
+    labels         unsafe.Pointer // profiler labels
+    timer          *timer         // cached timer for time.Sleep
+    selectDone     uint32         // are we participating in a select and did someone win the race?
 
-	// Per-G GC state
+    // Per-G GC state
 
-	// gcAssistBytes is this G's GC assist credit in terms of
-	// bytes allocated. If this is positive, then the G has credit
-	// to allocate gcAssistBytes bytes without assisting. If this
-	// is negative, then the G must correct this by performing
-	// scan work. We track this in bytes to make it fast to update
-	// and check for debt in the malloc hot path. The assist ratio
-	// determines how this corresponds to scan work debt.
-	gcAssistBytes int64
+    // gcAssistBytes is this G's GC assist credit in terms of
+    // bytes allocated. If this is positive, then the G has credit
+    // to allocate gcAssistBytes bytes without assisting. If this
+    // is negative, then the G must correct this by performing
+    // scan work. We track this in bytes to make it fast to update
+    // and check for debt in the malloc hot path. The assist ratio
+    // determines how this corresponds to scan work debt.
+    gcAssistBytes int64
 }
 ```
 
@@ -119,25 +119,25 @@ type g struct {
 
 ```go
 type gobuf struct {
-	// The offsets of sp, pc, and g are known to (hard-coded in) libmach.
-	//
-	// ctxt is unusual with respect to GC: it may be a
-	// heap-allocated funcval, so GC needs to track it, but it
-	// needs to be set and cleared from assembly, where it's
-	// difficult to have write barriers. However, ctxt is really a
-	// saved, live register, and we only ever exchange it between
-	// the real register and the gobuf. Hence, we treat it as a
-	// root during stack scanning, which means assembly that saves
-	// and restores it doesn't need write barriers. It's still
-	// typed as a pointer so that any other writes from Go get
-	// write barriers.
-	sp   uintptr
-	pc   uintptr
-	g    guintptr  // 持有该gobuf的goroutine
-	ctxt unsafe.Pointer
-	ret  uintptr   // 系统调用的返回值
-	lr   uintptr
-	bp   uintptr // for framepointer-enabled architectures
+    // The offsets of sp, pc, and g are known to (hard-coded in) libmach.
+    //
+    // ctxt is unusual with respect to GC: it may be a
+    // heap-allocated funcval, so GC needs to track it, but it
+    // needs to be set and cleared from assembly, where it's
+    // difficult to have write barriers. However, ctxt is really a
+    // saved, live register, and we only ever exchange it between
+    // the real register and the gobuf. Hence, we treat it as a
+    // root during stack scanning, which means assembly that saves
+    // and restores it doesn't need write barriers. It's still
+    // typed as a pointer so that any other writes from Go get
+    // write barriers.
+    sp   uintptr
+    pc   uintptr
+    g    guintptr  // 持有该gobuf的goroutine
+    ctxt unsafe.Pointer
+    ret  uintptr   // 系统调用的返回值
+    lr   uintptr
+    bp   uintptr // for framepointer-enabled architectures
 }
 ```
 
@@ -145,75 +145,75 @@ type gobuf struct {
 
 ```go
 const (
-	// G status
-	//
-	// Beyond indicating the general state of a G, the G status
-	// acts like a lock on the goroutine's stack (and hence its
-	// ability to execute user code).
-	// _Gidle means this goroutine was just allocated and has not yet been initialized.
-	_Gidle = iota // 0
-	// _Grunnable means this goroutine is on a run queue. It isnot currently executing user code. The stack is not owned.
-	_Grunnable // 1
-	// _Grunning means this goroutine may execute user code. The stack is owned by this goroutine. It is not on a run queue. It is assigned an M and a P (g.m and g.m.p are valid).
-	_Grunning // 2
+    // G status
+    //
+    // Beyond indicating the general state of a G, the G status
+    // acts like a lock on the goroutine's stack (and hence its
+    // ability to execute user code).
+    // _Gidle means this goroutine was just allocated and has not yet been initialized.
+    _Gidle = iota // 0
+    // _Grunnable means this goroutine is on a run queue. It isnot currently executing user code. The stack is not owned.
+    _Grunnable // 1
+    // _Grunning means this goroutine may execute user code. The stack is owned by this goroutine. It is not on a run queue. It is assigned an M and a P (g.m and g.m.p are valid).
+    _Grunning // 2
 
-	// _Gsyscall means this goroutine is executing a system call. It is not executing user code. The stack is owned by this goroutine. It is not on a run queue. It is assigned an M.
-	_Gsyscall // 3
+    // _Gsyscall means this goroutine is executing a system call. It is not executing user code. The stack is owned by this goroutine. It is not on a run queue. It is assigned an M.
+    _Gsyscall // 3
 
-	// _Gwaiting means this goroutine is blocked in the runtime.
-	// It is not executing user code. It is not on a run queue,
-	// but should be recorded somewhere (e.g., a channel wait
-	// queue) so it can be ready()d when necessary. The stack is
-	// not owned *except* that a channel operation may read or
-	// write parts of the stack under the appropriate channel
-	// lock. Otherwise, it is not safe to access the stack after a
-	// goroutine enters _Gwaiting (e.g., it may get moved).
-	_Gwaiting // 4
+    // _Gwaiting means this goroutine is blocked in the runtime.
+    // It is not executing user code. It is not on a run queue,
+    // but should be recorded somewhere (e.g., a channel wait
+    // queue) so it can be ready()d when necessary. The stack is
+    // not owned *except* that a channel operation may read or
+    // write parts of the stack under the appropriate channel
+    // lock. Otherwise, it is not safe to access the stack after a
+    // goroutine enters _Gwaiting (e.g., it may get moved).
+    _Gwaiting // 4
 
-	// _Gmoribund_unused is currently unused, but hardcoded in gdb
-	// scripts.
-	_Gmoribund_unused // 5
+    // _Gmoribund_unused is currently unused, but hardcoded in gdb
+    // scripts.
+    _Gmoribund_unused // 5
 
-	// _Gdead means this goroutine is currently unused. It may be
-	// just exited, on a free list, or just being initialized. It
-	// is not executing user code. It may or may not have a stack
-	// allocated. The G and its stack (if any) are owned by the M
-	// that is exiting the G or that obtained the G from the free
-	// list.
-	_Gdead // 6
+    // _Gdead means this goroutine is currently unused. It may be
+    // just exited, on a free list, or just being initialized. It
+    // is not executing user code. It may or may not have a stack
+    // allocated. The G and its stack (if any) are owned by the M
+    // that is exiting the G or that obtained the G from the free
+    // list.
+    _Gdead // 6
 
-	// _Genqueue_unused is currently unused.
-	_Genqueue_unused // 7
+    // _Genqueue_unused is currently unused.
+    _Genqueue_unused // 7
 
-	// _Gcopystack means this goroutine's stack is being moved. It
-	// is not executing user code and is not on a run queue. The
-	// stack is owned by the goroutine that put it in _Gcopystack.
-	_Gcopystack // 8
+    // _Gcopystack means this goroutine's stack is being moved. It
+    // is not executing user code and is not on a run queue. The
+    // stack is owned by the goroutine that put it in _Gcopystack.
+    _Gcopystack // 8
 
-	// _Gpreempted means this goroutine stopped itself for a
-	// suspendG preemption. It is like _Gwaiting, but nothing is
-	// yet responsible for ready()ing it. Some suspendG must CAS
-	// the status to _Gwaiting to take responsibility for
-	// ready()ing this G.
-	_Gpreempted // 9
+    // _Gpreempted means this goroutine stopped itself for a
+    // suspendG preemption. It is like _Gwaiting, but nothing is
+    // yet responsible for ready()ing it. Some suspendG must CAS
+    // the status to _Gwaiting to take responsibility for
+    // ready()ing this G.
+    _Gpreempted // 9
 
-	// _Gscan combined with one of the above states other than
-	// _Grunning indicates that GC is scanning the stack. The
-	// goroutine is not executing user code and the stack is owned
-	// by the goroutine that set the _Gscan bit.
-	//
-	// _Gscanrunning is different: it is used to briefly block
-	// state transitions while GC signals the G to scan its own
-	// stack. This is otherwise like _Grunning.
-	//
-	// atomicstatus&~Gscan gives the state the goroutine will
-	// return to when the scan completes.
-	_Gscan          = 0x1000
-	_Gscanrunnable  = _Gscan + _Grunnable  // 0x1001
-	_Gscanrunning   = _Gscan + _Grunning   // 0x1002
-	_Gscansyscall   = _Gscan + _Gsyscall   // 0x1003
-	_Gscanwaiting   = _Gscan + _Gwaiting   // 0x1004
-	_Gscanpreempted = _Gscan + _Gpreempted // 0x1009
+    // _Gscan combined with one of the above states other than
+    // _Grunning indicates that GC is scanning the stack. The
+    // goroutine is not executing user code and the stack is owned
+    // by the goroutine that set the _Gscan bit.
+    //
+    // _Gscanrunning is different: it is used to briefly block
+    // state transitions while GC signals the G to scan its own
+    // stack. This is otherwise like _Grunning.
+    //
+    // atomicstatus&~Gscan gives the state the goroutine will
+    // return to when the scan completes.
+    _Gscan          = 0x1000
+    _Gscanrunnable  = _Gscan + _Grunnable  // 0x1001
+    _Gscanrunning   = _Gscan + _Grunning   // 0x1002
+    _Gscansyscall   = _Gscan + _Gsyscall   // 0x1003
+    _Gscanwaiting   = _Gscan + _Gwaiting   // 0x1004
+    _Gscanpreempted = _Gscan + _Gpreempted // 0x1009
 )
 ```
 
@@ -236,98 +236,97 @@ const (
 ##### 1.1.1.2. M
 
 ```go
-
 type m struct {
-	g0      *g     // goroutine with scheduling stack
-	morebuf gobuf  // gobuf arg to morestack
-	divmod  uint32 // div/mod denominator for arm - known to liblink
+    g0      *g     // goroutine with scheduling stack
+    morebuf gobuf  // gobuf arg to morestack
+    divmod  uint32 // div/mod denominator for arm - known to liblink
 
-	// Fields not known to debuggers.
-	procid        uint64            // for debuggers, but offset not hard-coded
-	gsignal       *g                // signal-handling g
-	goSigStack    gsignalStack      // Go-allocated signal handling stack
-	sigmask       sigset            // storage for saved signal mask
-	tls           [tlsSlots]uintptr // thread-local storage (for x86 extern register)
-	mstartfn      func()
-	curg          *g       // current running goroutine
-	caughtsig     guintptr // goroutine running during fatal signal
-	p             puintptr // attached p for executing go code (nil if not executing go code)
-	nextp         puintptr
-	oldp          puintptr // the p that was attached before executing a syscall
-	id            int64
-	mallocing     int32
-	throwing      int32
-	preemptoff    string // if != "", keep curg running on this m
-	locks         int32
-	dying         int32
-	profilehz     int32
-	spinning      bool // m is out of work and is actively looking for work
-	blocked       bool // m is blocked on a note
-	newSigstack   bool // minit on C thread called sigaltstack
-	printlock     int8
-	incgo         bool   // m is executing a cgo call
-	freeWait      uint32 // if == 0, safe to free g0 and delete m (atomic)
-	fastrand      [2]uint32
-	needextram    bool
-	traceback     uint8
-	ncgocall      uint64      // number of cgo calls in total
-	ncgo          int32       // number of cgo calls currently in progress
-	cgoCallersUse uint32      // if non-zero, cgoCallers in use temporarily
-	cgoCallers    *cgoCallers // cgo traceback if crashing in cgo call
-	doesPark      bool        // non-P running threads: sysmon and newmHandoff never use .park
-	park          note
-	alllink       *m // on allm
-	schedlink     muintptr
-	lockedg       guintptr
-	createstack   [32]uintptr // stack that created this thread.
-	lockedExt     uint32      // tracking for external LockOSThread
-	lockedInt     uint32      // tracking for internal lockOSThread
-	nextwaitm     muintptr    // next m waiting for lock
-	waitunlockf   func(*g, unsafe.Pointer) bool
-	waitlock      unsafe.Pointer
-	waittraceev   byte
-	waittraceskip int
-	startingtrace bool
-	syscalltick   uint32
-	freelink      *m // on sched.freem
+    // Fields not known to debuggers.
+    procid        uint64            // for debuggers, but offset not hard-coded
+    gsignal       *g                // signal-handling g
+    goSigStack    gsignalStack      // Go-allocated signal handling stack
+    sigmask       sigset            // storage for saved signal mask
+    tls           [tlsSlots]uintptr // thread-local storage (for x86 extern register)
+    mstartfn      func()
+    curg          *g       // current running goroutine
+    caughtsig     guintptr // goroutine running during fatal signal
+    p             puintptr // attached p for executing go code (nil if not executing go code)
+    nextp         puintptr
+    oldp          puintptr // the p that was attached before executing a syscall
+    id            int64
+    mallocing     int32
+    throwing      int32
+    preemptoff    string // if != "", keep curg running on this m
+    locks         int32
+    dying         int32
+    profilehz     int32
+    spinning      bool // m is out of work and is actively looking for work
+    blocked       bool // m is blocked on a note
+    newSigstack   bool // minit on C thread called sigaltstack
+    printlock     int8
+    incgo         bool   // m is executing a cgo call
+    freeWait      uint32 // if == 0, safe to free g0 and delete m (atomic)
+    fastrand      [2]uint32
+    needextram    bool
+    traceback     uint8
+    ncgocall      uint64      // number of cgo calls in total
+    ncgo          int32       // number of cgo calls currently in progress
+    cgoCallersUse uint32      // if non-zero, cgoCallers in use temporarily
+    cgoCallers    *cgoCallers // cgo traceback if crashing in cgo call
+    doesPark      bool        // non-P running threads: sysmon and newmHandoff never use .park
+    park          note
+    alllink       *m // on allm
+    schedlink     muintptr
+    lockedg       guintptr
+    createstack   [32]uintptr // stack that created this thread.
+    lockedExt     uint32      // tracking for external LockOSThread
+    lockedInt     uint32      // tracking for internal lockOSThread
+    nextwaitm     muintptr    // next m waiting for lock
+    waitunlockf   func(*g, unsafe.Pointer) bool
+    waitlock      unsafe.Pointer
+    waittraceev   byte
+    waittraceskip int
+    startingtrace bool
+    syscalltick   uint32
+    freelink      *m // on sched.freem
 
-	// mFixup is used to synchronize OS related m state
-	// (credentials etc) use mutex to access. To avoid deadlocks
-	// an atomic.Load() of used being zero in mDoFixupFn()
-	// guarantees fn is nil.
-	mFixup struct {
-		lock mutex
-		used uint32
-		fn   func(bool) bool
-	}
+    // mFixup is used to synchronize OS related m state
+    // (credentials etc) use mutex to access. To avoid deadlocks
+    // an atomic.Load() of used being zero in mDoFixupFn()
+    // guarantees fn is nil.
+    mFixup struct {
+        lock mutex
+        used uint32
+        fn   func(bool) bool
+    }
 
-	// these are here because they are too large to be on the stack
-	// of low-level NOSPLIT functions.
-	libcall   libcall
-	libcallpc uintptr // for cpu profiler
-	libcallsp uintptr
-	libcallg  guintptr
-	syscall   libcall // stores syscall parameters on windows
+    // these are here because they are too large to be on the stack
+    // of low-level NOSPLIT functions.
+    libcall   libcall
+    libcallpc uintptr // for cpu profiler
+    libcallsp uintptr
+    libcallg  guintptr
+    syscall   libcall // stores syscall parameters on windows
 
-	vdsoSP uintptr // SP for traceback while in VDSO call (0 if not in call)
-	vdsoPC uintptr // PC for traceback while in VDSO call
+    vdsoSP uintptr // SP for traceback while in VDSO call (0 if not in call)
+    vdsoPC uintptr // PC for traceback while in VDSO call
 
-	// preemptGen counts the number of completed preemption
-	// signals. This is used to detect when a preemption is
-	// requested, but fails. Accessed atomically.
-	preemptGen uint32
+    // preemptGen counts the number of completed preemption
+    // signals. This is used to detect when a preemption is
+    // requested, but fails. Accessed atomically.
+    preemptGen uint32
 
-	// Whether this is a pending preemption signal on this M.
-	// Accessed atomically.
-	signalPending uint32
+    // Whether this is a pending preemption signal on this M.
+    // Accessed atomically.
+    signalPending uint32
 
-	dlogPerM
+    dlogPerM
 
-	mOS
+    mOS
 
-	// Up to 10 locks held by this m, maintained by the lock ranking code.
-	locksHeldLen int
-	locksHeld    [10]heldLockInfo
+    // Up to 10 locks held by this m, maintained by the lock ranking code.
+    locksHeldLen int
+    locksHeld    [10]heldLockInfo
 }
 ```
 
@@ -345,144 +344,144 @@ P：作为中间层，
 
 ```go
 type p struct {
-	id          int32
-	status      uint32 // one of pidle/prunning/...
-	link        puintptr
-	schedtick   uint32     // incremented on every scheduler call
-	syscalltick uint32     // incremented on every system call
-	sysmontick  sysmontick // last tick observed by sysmon
-	m           muintptr   // back-link to associated m (nil if idle)
-	mcache      *mcache
-	pcache      pageCache
-	raceprocctx uintptr
+    id          int32
+    status      uint32 // one of pidle/prunning/...
+    link        puintptr
+    schedtick   uint32     // incremented on every scheduler call
+    syscalltick uint32     // incremented on every system call
+    sysmontick  sysmontick // last tick observed by sysmon
+    m           muintptr   // back-link to associated m (nil if idle)
+    mcache      *mcache
+    pcache      pageCache
+    raceprocctx uintptr
 
-	deferpool    [5][]*_defer // pool of available defer structs of different sizes (see panic.go)
-	deferpoolbuf [5][32]*_defer
+    deferpool    [5][]*_defer // pool of available defer structs of different sizes (see panic.go)
+    deferpoolbuf [5][32]*_defer
 
-	// Cache of goroutine ids, amortizes accesses to runtime·sched.goidgen.
-	goidcache    uint64
-	goidcacheend uint64
+    // Cache of goroutine ids, amortizes accesses to runtime·sched.goidgen.
+    goidcache    uint64
+    goidcacheend uint64
 
-	// Queue of runnable goroutines. Accessed without lock.
-	runqhead uint32
-	runqtail uint32
-	runq     [256]guintptr
-	// runnext, if non-nil, is a runnable G that was ready'd by
-	// the current G and should be run next instead of what's in
-	// runq if there's time remaining in the running G's time
-	// slice. It will inherit the time left in the current time
-	// slice. If a set of goroutines is locked in a
-	// communicate-and-wait pattern, this schedules that set as a
-	// unit and eliminates the (potentially large) scheduling
-	// latency that otherwise arises from adding the ready'd
-	// goroutines to the end of the run queue.
-	//
-	// Note that while other P's may atomically CAS this to zero,
-	// only the owner P can CAS it to a valid G.
-	runnext guintptr
+    // Queue of runnable goroutines. Accessed without lock.
+    runqhead uint32
+    runqtail uint32
+    runq     [256]guintptr
+    // runnext, if non-nil, is a runnable G that was ready'd by
+    // the current G and should be run next instead of what's in
+    // runq if there's time remaining in the running G's time
+    // slice. It will inherit the time left in the current time
+    // slice. If a set of goroutines is locked in a
+    // communicate-and-wait pattern, this schedules that set as a
+    // unit and eliminates the (potentially large) scheduling
+    // latency that otherwise arises from adding the ready'd
+    // goroutines to the end of the run queue.
+    //
+    // Note that while other P's may atomically CAS this to zero,
+    // only the owner P can CAS it to a valid G.
+    runnext guintptr
 
-	// Available G's (status == Gdead)
-	gFree struct {
-		gList
-		n int32
-	}
+    // Available G's (status == Gdead)
+    gFree struct {
+        gList
+        n int32
+    }
 
-	sudogcache []*sudog
-	sudogbuf   [128]*sudog
+    sudogcache []*sudog
+    sudogbuf   [128]*sudog
 
-	// Cache of mspan objects from the heap.
-	mspancache struct {
-		// We need an explicit length here because this field is used
-		// in allocation codepaths where write barriers are not allowed,
-		// and eliminating the write barrier/keeping it eliminated from
-		// slice updates is tricky, moreso than just managing the length
-		// ourselves.
-		len int
-		buf [128]*mspan
-	}
+    // Cache of mspan objects from the heap.
+    mspancache struct {
+        // We need an explicit length here because this field is used
+        // in allocation codepaths where write barriers are not allowed,
+        // and eliminating the write barrier/keeping it eliminated from
+        // slice updates is tricky, moreso than just managing the length
+        // ourselves.
+        len int
+        buf [128]*mspan
+    }
 
-	tracebuf traceBufPtr
+    tracebuf traceBufPtr
 
-	// traceSweep indicates the sweep events should be traced.
-	// This is used to defer the sweep start event until a span
-	// has actually been swept.
-	traceSweep bool
-	// traceSwept and traceReclaimed track the number of bytes
-	// swept and reclaimed by sweeping in the current sweep loop.
-	traceSwept, traceReclaimed uintptr
+    // traceSweep indicates the sweep events should be traced.
+    // This is used to defer the sweep start event until a span
+    // has actually been swept.
+    traceSweep bool
+    // traceSwept and traceReclaimed track the number of bytes
+    // swept and reclaimed by sweeping in the current sweep loop.
+    traceSwept, traceReclaimed uintptr
 
-	palloc persistentAlloc // per-P to avoid mutex
+    palloc persistentAlloc // per-P to avoid mutex
 
-	_ uint32 // Alignment for atomic fields below
+    _ uint32 // Alignment for atomic fields below
 
-	// The when field of the first entry on the timer heap.
-	// This is updated using atomic functions.
-	// This is 0 if the timer heap is empty.
-	timer0When uint64
+    // The when field of the first entry on the timer heap.
+    // This is updated using atomic functions.
+    // This is 0 if the timer heap is empty.
+    timer0When uint64
 
-	// The earliest known nextwhen field of a timer with
-	// timerModifiedEarlier status. Because the timer may have been
-	// modified again, there need not be any timer with this value.
-	// This is updated using atomic functions.
-	// This is 0 if there are no timerModifiedEarlier timers.
-	timerModifiedEarliest uint64
+    // The earliest known nextwhen field of a timer with
+    // timerModifiedEarlier status. Because the timer may have been
+    // modified again, there need not be any timer with this value.
+    // This is updated using atomic functions.
+    // This is 0 if there are no timerModifiedEarlier timers.
+    timerModifiedEarliest uint64
 
-	// Per-P GC state
-	gcAssistTime         int64 // Nanoseconds in assistAlloc
-	gcFractionalMarkTime int64 // Nanoseconds in fractional mark worker (atomic)
+    // Per-P GC state
+    gcAssistTime         int64 // Nanoseconds in assistAlloc
+    gcFractionalMarkTime int64 // Nanoseconds in fractional mark worker (atomic)
 
-	// gcMarkWorkerMode is the mode for the next mark worker to run in.
-	// That is, this is used to communicate with the worker goroutine
-	// selected for immediate execution by
-	// gcController.findRunnableGCWorker. When scheduling other goroutines,
-	// this field must be set to gcMarkWorkerNotWorker.
-	gcMarkWorkerMode gcMarkWorkerMode
-	// gcMarkWorkerStartTime is the nanotime() at which the most recent
-	// mark worker started.
-	gcMarkWorkerStartTime int64
+    // gcMarkWorkerMode is the mode for the next mark worker to run in.
+    // That is, this is used to communicate with the worker goroutine
+    // selected for immediate execution by
+    // gcController.findRunnableGCWorker. When scheduling other goroutines,
+    // this field must be set to gcMarkWorkerNotWorker.
+    gcMarkWorkerMode gcMarkWorkerMode
+    // gcMarkWorkerStartTime is the nanotime() at which the most recent
+    // mark worker started.
+    gcMarkWorkerStartTime int64
 
-	// gcw is this P's GC work buffer cache. The work buffer is
-	// filled by write barriers, drained by mutator assists, and
-	// disposed on certain GC state transitions.
-	gcw gcWork
+    // gcw is this P's GC work buffer cache. The work buffer is
+    // filled by write barriers, drained by mutator assists, and
+    // disposed on certain GC state transitions.
+    gcw gcWork
 
-	// wbBuf is this P's GC write barrier buffer.
-	//
-	// TODO: Consider caching this in the running G.
-	wbBuf wbBuf
+    // wbBuf is this P's GC write barrier buffer.
+    //
+    // TODO: Consider caching this in the running G.
+    wbBuf wbBuf
 
-	runSafePointFn uint32 // if 1, run sched.safePointFn at next safe point
+    runSafePointFn uint32 // if 1, run sched.safePointFn at next safe point
 
-	// statsSeq is a counter indicating whether this P is currently
-	// writing any stats. Its value is even when not, odd when it is.
-	statsSeq uint32
+    // statsSeq is a counter indicating whether this P is currently
+    // writing any stats. Its value is even when not, odd when it is.
+    statsSeq uint32
 
-	// Lock for timers. We normally access the timers while running
-	// on this P, but the scheduler can also do it from a different P.
-	timersLock mutex
+    // Lock for timers. We normally access the timers while running
+    // on this P, but the scheduler can also do it from a different P.
+    timersLock mutex
 
-	// Actions to take at some time. This is used to implement the
-	// standard library's time package.
-	// Must hold timersLock to access.
-	timers []*timer
+    // Actions to take at some time. This is used to implement the
+    // standard library's time package.
+    // Must hold timersLock to access.
+    timers []*timer
 
-	// Number of timers in P's heap.
-	// Modified using atomic instructions.
-	numTimers uint32
+    // Number of timers in P's heap.
+    // Modified using atomic instructions.
+    numTimers uint32
 
-	// Number of timerDeleted timers in P's heap.
-	// Modified using atomic instructions.
-	deletedTimers uint32
+    // Number of timerDeleted timers in P's heap.
+    // Modified using atomic instructions.
+    deletedTimers uint32
 
-	// Race context used while executing timer functions.
-	timerRaceCtx uintptr
+    // Race context used while executing timer functions.
+    timerRaceCtx uintptr
 
-	// preempt is set to indicate that this P should be enter the
-	// scheduler ASAP (regardless of what G is running on it).
-	preempt bool
+    // preempt is set to indicate that this P should be enter the
+    // scheduler ASAP (regardless of what G is running on it).
+    preempt bool
 
-	// Padding is no longer needed. False sharing is now not a worry because p is large enough
-	// that its size class is an integer multiple of the cache line size (for any of our architectures).
+    // Padding is no longer needed. False sharing is now not a worry because p is large enough
+    // that its size class is an integer multiple of the cache line size (for any of our architectures).
 }
 ```
 
@@ -549,21 +548,21 @@ const (
 
 ```go
 struct P {
-	Lock;
+    Lock;
 
-	uint32	status;
-	P*	link;
-	uint32	tick;
-	M*	m;
-	MCache*	mcache;
+    uint32    status;
+    P*    link;
+    uint32    tick;
+    M*    m;
+    MCache*    mcache;
 
-	G**	runq; // goroutine组成的环形数组
-	int32	runqhead;
-	int32	runqtail;
-	int32	runqsize;
+    G**    runq; // goroutine组成的环形数组
+    int32    runqhead;
+    int32    runqtail;
+    int32    runqsize;
 
-	G*	gfree;
-	int32	gfreecnt;
+    G*    gfree;
+    int32    gfreecnt;
 };
 ```
 
@@ -619,20 +618,20 @@ M 的数量：go 语言本身的限制：go 程序启动时，会设置 M 的最
 
 ```go
 func schedinit() {
-	_g_ := getg()
-	...
+    _g_ := getg()
+    ...
 
-	sched.maxmcount = 10000
+    sched.maxmcount = 10000
 
-	...
-	sched.lastpoll = uint64(nanotime())
-	procs := ncpu
-	if n, ok := atoi32(gogetenv("GOMAXPROCS")); ok && n > 0 {
-		procs = n
-	}
-	if procresize(procs) != nil {
-		throw("unknown runnable goroutine during bootstrap")
-	}
+    ...
+    sched.lastpoll = uint64(nanotime())
+    procs := ncpu
+    if n, ok := atoi32(gogetenv("GOMAXPROCS")); ok && n > 0 {
+        procs = n
+    }
+    if procresize(procs) != nil {
+        throw("unknown runnable goroutine during bootstrap")
+    }
 }
 ```
 
@@ -644,16 +643,16 @@ func schedinit() {
 
 ```go
 func (s *state) call(n *Node, k callKind) *ssa.Value {
-	if k == callDeferStack {
-		...
-	} else {
-		switch {
-		case k == callGo:
-			call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, newproc, s.mem())
-		default:
-		}
-	}
-	...
+    if k == callDeferStack {
+        ...
+    } else {
+        switch {
+        case k == callGo:
+            call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, newproc, s.mem())
+        default:
+        }
+    }
+    ...
 }
 ```
 
@@ -661,19 +660,19 @@ func (s *state) call(n *Node, k callKind) *ssa.Value {
 
 ```go
 func newproc(siz int32, fn *funcval) {
-	argp := add(unsafe.Pointer(&fn), sys.PtrSize)
-	gp := getg()
-	pc := getcallerpc()
-	systemstack(func() {
-		newg := newproc1(fn, argp, siz, gp, pc)
+    argp := add(unsafe.Pointer(&fn), sys.PtrSize)
+    gp := getg()
+    pc := getcallerpc()
+    systemstack(func() {
+        newg := newproc1(fn, argp, siz, gp, pc)
 
-		_p_ := getg().m.p.ptr()
-		runqput(_p_, newg, true)
+        _p_ := getg().m.p.ptr()
+        runqput(_p_, newg, true)
 
-		if mainStarted {
-			wakep()
-		}
-	})
+        if mainStarted {
+            wakep()
+        }
+    })
 }
 ```
 
@@ -683,17 +682,17 @@ func newproc(siz int32, fn *funcval) {
 
 ```go
 func newproc1(fn *funcval, argp unsafe.Pointer, narg int32, callergp *g, callerpc uintptr) *g {
-	_g_ := getg()
-	siz := narg
-	siz = (siz + 7) &^ 7
+    _g_ := getg()
+    siz := narg
+    siz = (siz + 7) &^ 7
 
-	_p_ := _g_.m.p.ptr()
-	newg := gfget(_p_)  // 获取新的g
-	if newg == nil {
-		newg = malg(_StackMin)
-		casgstatus(newg, _Gidle, _Gdead)
-		allgadd(newg)
-	}
+    _p_ := _g_.m.p.ptr()
+    newg := gfget(_p_)  // 获取新的g
+    if newg == nil {
+        newg = malg(_StackMin)
+        casgstatus(newg, _Gidle, _Gdead)
+        allgadd(newg)
+    }
 //...
 ```
 
@@ -704,12 +703,12 @@ func newproc1(fn *funcval, argp unsafe.Pointer, narg int32, callergp *g, callerp
 ```go
 //...
   totalSize := 4*sys.RegSize + uintptr(siz) + sys.MinFrameSize
-	totalSize += -totalSize & (sys.SpAlign - 1)
-	sp := newg.stack.hi - totalSize
-	spArg := sp
-	if narg > 0 {
-		memmove(unsafe.Pointer(spArg), argp, uintptr(narg))
-	}
+    totalSize += -totalSize & (sys.SpAlign - 1)
+    sp := newg.stack.hi - totalSize
+    spArg := sp
+    if narg > 0 {
+        memmove(unsafe.Pointer(spArg), argp, uintptr(narg))
+    }
 //...
 ```
 
@@ -717,18 +716,18 @@ func newproc1(fn *funcval, argp unsafe.Pointer, narg int32, callergp *g, callerp
 
 ```go
 //...
-  memclrNoHeapPointers(unsafe.Pointer(&newg.sched), unsafe.Sizeof(newg.sched))
-	newg.sched.sp = sp
-	newg.stktopsp = sp
-	newg.sched.pc = funcPC(goexit) + sys.PCQuantum
-	newg.sched.g = guintptr(unsafe.Pointer(newg))
-	gostartcallfn(&newg.sched, fn)
-	newg.gopc = callerpc
-	newg.startpc = fn.fn
-	casgstatus(newg, _Gdead, _Grunnable)
-	newg.goid = int64(_p_.goidcache)
-	_p_.goidcache++
-	return newg
+    memclrNoHeapPointers(unsafe.Pointer(&newg.sched), unsafe.Sizeof(newg.sched))
+    newg.sched.sp = sp
+    newg.stktopsp = sp
+    newg.sched.pc = funcPC(goexit) + sys.PCQuantum
+    newg.sched.g = guintptr(unsafe.Pointer(newg))
+    gostartcallfn(&newg.sched, fn)
+    newg.gopc = callerpc
+    newg.startpc = fn.fn
+    casgstatus(newg, _Gdead, _Grunnable)
+    newg.goid = int64(_p_.goidcache)
+    _p_.goidcache++
+    return newg
 }
 ```
 
@@ -745,7 +744,7 @@ gFree struct {
 // A gList is a list of Gs linked through g.schedlink. A G can only be
 // on one gQueue or gList at a time.
 type gList struct {
-	head guintptr
+    head guintptr
 }
 ```
 
@@ -754,24 +753,24 @@ type gList struct {
 ```go
 func gfget(_p_ *p) *g {
 retry:
-	if _p_.gFree.empty() && (!sched.gFree.stack.empty() || !sched.gFree.noStack.empty()) {
-		for _p_.gFree.n < 32 {
-			gp := sched.gFree.stack.pop()
-			if gp == nil {
-				gp = sched.gFree.noStack.pop()
-				if gp == nil {
-					break
-				}
-			}
-			_p_.gFree.push(gp)
-		}
-		goto retry
-	}
-	gp := _p_.gFree.pop()
-	if gp == nil {
-		return nil
-	}
-	return gp
+    if _p_.gFree.empty() && (!sched.gFree.stack.empty() || !sched.gFree.noStack.empty()) {
+        for _p_.gFree.n < 32 {
+            gp := sched.gFree.stack.pop()
+            if gp == nil {
+                gp = sched.gFree.noStack.pop()
+                if gp == nil {
+                    break
+                }
+            }
+            _p_.gFree.push(gp)
+        }
+        goto retry
+    }
+    gp := _p_.gFree.pop()
+    if gp == nil {
+        return nil
+    }
+    return gp
 }
 ```
 
@@ -797,29 +796,29 @@ func malg(stacksize int32) *g {
 
 ```go
 func runqput(_p_ *p, gp *g, next bool) {
-	if next {
-	retryNext:
-		oldnext := _p_.runnext
-		if !_p_.runnext.cas(oldnext, guintptr(unsafe.Pointer(gp))) {
-			goto retryNext
-		}
-		if oldnext == 0 {
-			return
-		}
-		gp = oldnext.ptr()
-	}
+    if next {
+    retryNext:
+        oldnext := _p_.runnext
+        if !_p_.runnext.cas(oldnext, guintptr(unsafe.Pointer(gp))) {
+            goto retryNext
+        }
+        if oldnext == 0 {
+            return
+        }
+        gp = oldnext.ptr()
+    }
 retry:
-	h := atomic.LoadAcq(&_p_.runqhead)
-	t := _p_.runqtail
-	if t-h < uint32(len(_p_.runq)) {
-		_p_.runq[t%uint32(len(_p_.runq))].set(gp)
-		atomic.StoreRel(&_p_.runqtail, t+1)
-		return
-	}
-	if runqputslow(_p_, gp, h, t) {
-		return
-	}
-	goto retry
+    h := atomic.LoadAcq(&_p_.runqhead)
+    t := _p_.runqtail
+    if t-h < uint32(len(_p_.runq)) {
+        _p_.runq[t%uint32(len(_p_.runq))].set(gp)
+        atomic.StoreRel(&_p_.runqtail, t+1)
+        return
+    }
+    if runqputslow(_p_, gp, h, t) {
+        return
+    }
+    goto retry
 }
 ```
 
@@ -850,10 +849,10 @@ go语言的启动流程简单示意见下注释
 
 ```go
 var (
-	m0           m
-	g0           g
-	mcache0      *mcache
-	raceprocctx0 uintptr
+    m0           m
+    g0           g
+    mcache0      *mcache
+    raceprocctx0 uintptr
 )
 ```
 
@@ -861,25 +860,25 @@ var (
 
 ```go
 func newm1(mp *m) {
-	if iscgo {
-		var ts cgothreadstart
-		if _cgo_thread_start == nil {
-			throw("_cgo_thread_start missing")
-		}
-		ts.g.set(mp.g0)
-		ts.tls = (*uint64)(unsafe.Pointer(&mp.tls[0]))
-		ts.fn = unsafe.Pointer(funcPC(mstart))
-		if msanenabled {
-			msanwrite(unsafe.Pointer(&ts), unsafe.Sizeof(ts))
-		}
-		execLock.rlock() // Prevent process clone.
-		asmcgocall(_cgo_thread_start, unsafe.Pointer(&ts))
-		execLock.runlock()
-		return
-	}
-	execLock.rlock() // Prevent process clone.
-	newosproc(mp)
-	execLock.runlock()
+    if iscgo {
+        var ts cgothreadstart
+        if _cgo_thread_start == nil {
+            throw("_cgo_thread_start missing")
+        }
+        ts.g.set(mp.g0)
+        ts.tls = (*uint64)(unsafe.Pointer(&mp.tls[0]))
+        ts.fn = unsafe.Pointer(funcPC(mstart))
+        if msanenabled {
+            msanwrite(unsafe.Pointer(&ts), unsafe.Sizeof(ts))
+        }
+        execLock.rlock() // Prevent process clone.
+        asmcgocall(_cgo_thread_start, unsafe.Pointer(&ts))
+        execLock.runlock()
+        return
+    }
+    execLock.rlock() // Prevent process clone.
+    newosproc(mp)
+    execLock.runlock()
 }
 
 
@@ -952,14 +951,14 @@ func mstart1() {
 //
 //go:yeswritebarrierrec
 func mstartm0() {
-	// Create an extra M for callbacks on threads not created by Go.
-	// An extra M is also needed on Windows for callbacks created by
-	// syscall.NewCallback. See issue #6751 for details.
-	if (iscgo || GOOS == "windows") && !cgoHasExtraM {
-		cgoHasExtraM = true
-		newextram()
-	}
-	initsig(false)
+    // Create an extra M for callbacks on threads not created by Go.
+    // An extra M is also needed on Windows for callbacks created by
+    // syscall.NewCallback. See issue #6751 for details.
+    if (iscgo || GOOS == "windows") && !cgoHasExtraM {
+        cgoHasExtraM = true
+        newextram()
+    }
+    initsig(false)
 }
 ```
 
@@ -1125,20 +1124,20 @@ main goroutine：开始函数的执行流
 
 ```GO
 func schedinit() {
-	_g_ := getg()
-	...
+    _g_ := getg()
+    ...
 
-	sched.maxmcount = 10000
+    sched.maxmcount = 10000
 
-	...
-	sched.lastpoll = uint64(nanotime())
-	procs := ncpu
-	if n, ok := atoi32(gogetenv("GOMAXPROCS")); ok && n > 0 {
-		procs = n
-	}
-	if procresize(procs) != nil {
-		throw("unknown runnable goroutine during bootstrap")
-	}
+    ...
+    sched.lastpoll = uint64(nanotime())
+    procs := ncpu
+    if n, ok := atoi32(gogetenv("GOMAXPROCS")); ok && n > 0 {
+        procs = n
+    }
+    if procresize(procs) != nil {
+        throw("unknown runnable goroutine during bootstrap")
+    }
 }
 ```
 
@@ -1155,34 +1154,34 @@ func schedinit() {
 
 ```go
 func schedule() {
-	_g_ := getg()
+    _g_ := getg()
 
 top:
-	var gp *g
-	var inheritTime bool
+    var gp *g
+    var inheritTime bool
 
-	if gp == nil {
+    if gp == nil {
         // 如果发生了61次调度，且全局队列不为空，则去全局队列中找goroutine
-		if _g_.m.p.ptr().schedtick%61 == 0 && sched.runqsize > 0 {
-			lock(&sched.lock)
-			gp = globrunqget(_g_.m.p.ptr(), 1)
-			unlock(&sched.lock)
-		}
-	}
-	if gp == nil {
-		gp, inheritTime = runqget(_g_.m.p.ptr())
-	}
-	if gp == nil {
-		gp, inheritTime = findrunnable()
-	}
+        if _g_.m.p.ptr().schedtick%61 == 0 && sched.runqsize > 0 {
+            lock(&sched.lock)
+            gp = globrunqget(_g_.m.p.ptr(), 1)
+            unlock(&sched.lock)
+        }
+    }
+    if gp == nil {
+        gp, inheritTime = runqget(_g_.m.p.ptr())
+    }
+    if gp == nil {
+        gp, inheritTime = findrunnable()
+    }
     // ...
     if gp.lockedm != 0 {
-		// Hands off own p to the locked m,
-		// then blocks waiting for a new p.
-		startlockedm(gp)
-		goto top
-	}
-	execute(gp, inheritTime)
+        // Hands off own p to the locked m,
+        // then blocks waiting for a new p.
+        startlockedm(gp)
+        goto top
+    }
+    execute(gp, inheritTime)
 }
 ```
 
@@ -1200,19 +1199,19 @@ findrunnable函数会执行以下操作：
 
 ```go
 func execute(gp *g, inheritTime bool) {
-	_g_ := getg()
+    _g_ := getg()
 
-	_g_.m.curg = gp
-	gp.m = _g_.m
-	casgstatus(gp, _Grunnable, _Grunning)
-	gp.waitsince = 0
-	gp.preempt = false
-	gp.stackguard0 = gp.stack.lo + _StackGuard
-	if !inheritTime {
-		_g_.m.p.ptr().schedtick++
-	}
+    _g_.m.curg = gp
+    gp.m = _g_.m
+    casgstatus(gp, _Grunnable, _Grunning)
+    gp.waitsince = 0
+    gp.preempt = false
+    gp.stackguard0 = gp.stack.lo + _StackGuard
+    if !inheritTime {
+        _g_.m.p.ptr().schedtick++
+    }
 
-	gogo(&gp.sched)
+    gogo(&gp.sched)
 }
 ```
 
@@ -1225,24 +1224,22 @@ func execute(gp *g, inheritTime bool) {
 
 ```go
 func goexit0(gp *g) {
-	_g_ := getg()
+    _g_ := getg()
 
-	casgstatus(gp, _Grunning, _Gdead)
-	gp.m = nil
-	...
-	gp.param = nil
-	gp.labels = nil
-	gp.timer = nil
+    casgstatus(gp, _Grunning, _Gdead)
+    gp.m = nil
+    ...
+    gp.param = nil
+    gp.labels = nil
+    gp.timer = nil
 
-	dropg()
-	gfput(_g_.m.p.ptr(), gp)
-	schedule()
+    dropg()
+    gfput(_g_.m.p.ptr(), gp)
+    schedule()
 }
 ```
 
 可以看到，在goexit0调用结束后，会再次出发schedule()重新进行一轮调度。
-
-
 
 ### 1.4. Trigger Scheduling
 
@@ -1256,28 +1253,28 @@ func goexit0(gp *g) {
 
 ```go
 func gopark(unlockf func(*g, unsafe.Pointer) bool, lock unsafe.Pointer, reason waitReason, traceEv byte, traceskip int) {
-	mp := acquirem()
-	gp := mp.curg
-	mp.waitlock = lock
-	mp.waitunlockf = unlockf
-	gp.waitreason = reason
-	mp.waittraceev = traceEv
-	mp.waittraceskip = traceskip
-	releasem(mp)
-	mcall(park_m)
+    mp := acquirem()
+    gp := mp.curg
+    mp.waitlock = lock
+    mp.waitunlockf = unlockf
+    gp.waitreason = reason
+    mp.waittraceev = traceEv
+    mp.waittraceskip = traceskip
+    releasem(mp)
+    mcall(park_m)
 }
 ```
 
-其中park_m还会将状态由_Grunning切换为_Gwaiting，并且使用dropg移除当前线程和这个Goroutine的关联。
+其中park_m还会将状态由\_Grunning切换为\_Gwaiting，并且使用dropg移除当前线程和这个Goroutine的关联。
 
 ```go
 func park_m(gp *g) {
-	_g_ := getg()
+    _g_ := getg()
 
-	casgstatus(gp, _Grunning, _Gwaiting)
-	dropg()
+    casgstatus(gp, _Grunning, _Gwaiting)
+    dropg()
 
-	schedule()
+    schedule()
 }
 ```
 
@@ -1285,19 +1282,19 @@ func park_m(gp *g) {
 
 ```go
 func goready(gp *g, traceskip int) {
-	systemstack(func() {
-		ready(gp, traceskip, true)
-	})
+    systemstack(func() {
+        ready(gp, traceskip, true)
+    })
 }
 
 func ready(gp *g, traceskip int, next bool) {
-	_g_ := getg()
+    _g_ := getg()
 
-	casgstatus(gp, _Gwaiting, _Grunnable)
-	runqput(_g_.m.p.ptr(), gp, next)
-	if atomic.Load(&sched.npidle) != 0 && atomic.Load(&sched.nmspinning) == 0 {
-		wakep()
-	}
+    casgstatus(gp, _Gwaiting, _Grunnable)
+    runqput(_g_.m.p.ptr(), gp, next)
+    if atomic.Load(&sched.npidle) != 0 && atomic.Load(&sched.nmspinning) == 0 {
+        wakep()
+    }
 }
 ```
 
@@ -1306,19 +1303,19 @@ func ready(gp *g, traceskip int, next bool) {
 Go 语言通过 `syscall.Syscall`和 `syscall.RawSyscall`等使用汇编语言编写的方法封装操作系统提供的所有系统调用
 
 ```assembly
-#define INVOKE_SYSCALL	INT	$0x80
+#define INVOKE_SYSCALL    INT    $0x80
 
 TEXT ·Syscall(SB),NOSPLIT,$0-28
-	CALL	runtime·entersyscall(SB)
-	...
-	INVOKE_SYSCALL
-	...
-	CALL	runtime·exitsyscall(SB)
-	RET
+    CALL    runtime·entersyscall(SB)
+    ...
+    INVOKE_SYSCALL
+    ...
+    CALL    runtime·exitsyscall(SB)
+    RET
 ok:
-	...
-	CALL	runtime·exitsyscall(SB)
-	RET
+    ...
+    CALL    runtime·exitsyscall(SB)
+    RET
 ```
 
 Go使用了entrysyscall和exitsyscall完成系统调用时的准备与清理工作，对于不需要运行时参与的系统调用，比如SYS_TIME，SYS_EPOLL_WAIT，Go封装了一层RawSyscall来调用。
@@ -1329,32 +1326,32 @@ Go使用了entrysyscall和exitsyscall完成系统调用时的准备与清理工�
 //go:nosplit
 //go:linkname entersyscall
 func entersyscall() {
-	reentersyscall(getcallerpc(), getcallersp())
+    reentersyscall(getcallerpc(), getcallersp())
 }
 
 func reentersyscall(pc, sp uintptr) {
-	_g_ := getg()
-	_g_.m.locks++
-	_g_.stackguard0 = stackPreempt
-	_g_.throwsplit = true
+    _g_ := getg()
+    _g_.m.locks++
+    _g_.stackguard0 = stackPreempt
+    _g_.throwsplit = true
 
-	save(pc, sp)
-	_g_.syscallsp = sp
-	_g_.syscallpc = pc
-	casgstatus(_g_, _Grunning, _Gsyscall)
+    save(pc, sp)
+    _g_.syscallsp = sp
+    _g_.syscallpc = pc
+    casgstatus(_g_, _Grunning, _Gsyscall)
 
-	_g_.m.syscalltick = _g_.m.p.ptr().syscalltick
-	_g_.m.mcache = nil
-	pp := _g_.m.p.ptr()
-	pp.m = 0
-	_g_.m.oldp.set(pp)
-	_g_.m.p = 0
-	atomic.Store(&pp.status, _Psyscall)
-	if sched.gcwaiting != 0 {
-		systemstack(entersyscall_gcwait)
-		save(pc, sp)
-	}
-	_g_.m.locks--
+    _g_.m.syscalltick = _g_.m.p.ptr().syscalltick
+    _g_.m.mcache = nil
+    pp := _g_.m.p.ptr()
+    pp.m = 0
+    _g_.m.oldp.set(pp)
+    _g_.m.p = 0
+    atomic.Store(&pp.status, _Psyscall)
+    if sched.gcwaiting != 0 {
+        systemstack(entersyscall_gcwait)
+        save(pc, sp)
+    }
+    _g_.m.locks--
 }
 ```
 
@@ -1371,21 +1368,21 @@ func reentersyscall(pc, sp uintptr) {
 
 ```go
 func exitsyscall() {
-	_g_ := getg()
+    _g_ := getg()
 
-	oldp := _g_.m.oldp.ptr()
-	_g_.m.oldp = 0
-	if exitsyscallfast(oldp) {
-		_g_.m.p.ptr().syscalltick++
-		casgstatus(_g_, _Gsyscall, _Grunning)
-		...
+    oldp := _g_.m.oldp.ptr()
+    _g_.m.oldp = 0
+    if exitsyscallfast(oldp) {
+        _g_.m.p.ptr().syscalltick++
+        casgstatus(_g_, _Gsyscall, _Grunning)
+        ...
 
-		return
-	}
+        return
+    }
 
-	mcall(exitsyscall0)
-	_g_.m.p.ptr().syscalltick++
-	_g_.throwsplit = false
+    mcall(exitsyscall0)
+    _g_.m.p.ptr().syscalltick++
+    _g_.throwsplit = false
 }
 ```
 
@@ -1393,31 +1390,31 @@ func exitsyscall() {
 
 1. 如果 Goroutine 的原处理器处于 `_Psyscall` 状态，会直接调用 `wirep` 将 Goroutine 与处理器进行关联；
 ```go
-	// Try to re-acquire the last P.
-	if oldp != nil && oldp.status == _Psyscall && atomic.Cas(&oldp.status, _Psyscall, _Pidle) {
-		// There's a cpu for us, so we can run.
-		wirep(oldp)
-		exitsyscallfast_reacquired()
-		return true
-	}
+    // Try to re-acquire the last P.
+    if oldp != nil && oldp.status == _Psyscall && atomic.Cas(&oldp.status, _Psyscall, _Pidle) {
+        // There's a cpu for us, so we can run.
+        wirep(oldp)
+        exitsyscallfast_reacquired()
+        return true
+    }
 ```
 2. 如果调度器中存在闲置的处理器，会调用 `acquirep`使用闲置的处理器处理当前 Goroutine；
 
 ```go
 
 func exitsyscallfast_pidle() bool {
-	lock(&sched.lock)
-	_p_ := pidleget()
-	if _p_ != nil && atomic.Load(&sched.sysmonwait) != 0 {
-		atomic.Store(&sched.sysmonwait, 0)
-		notewakeup(&sched.sysmonnote)
-	}
-	unlock(&sched.lock)
-	if _p_ != nil {
-		acquirep(_p_)
-		return true
-	}
-	return false
+    lock(&sched.lock)
+    _p_ := pidleget()
+    if _p_ != nil && atomic.Load(&sched.sysmonwait) != 0 {
+        atomic.Store(&sched.sysmonwait, 0)
+        notewakeup(&sched.sysmonnote)
+    }
+    unlock(&sched.lock)
+    if _p_ != nil {
+        acquirep(_p_)
+        return true
+    }
+    return false
 }
 
 // Associate p and the current m.
@@ -1427,18 +1424,18 @@ func exitsyscallfast_pidle() bool {
 //
 //go:yeswritebarrierrec
 func acquirep(_p_ *p) {
-	// Do the part that isn't allowed to have write barriers.
-	wirep(_p_)
+    // Do the part that isn't allowed to have write barriers.
+    wirep(_p_)
 
-	// Have p; write barriers now allowed.
+    // Have p; write barriers now allowed.
 
-	// Perform deferred mcache flush before this P can allocate
-	// from a potentially stale mcache.
-	_p_.mcache.prepareForSweep()
+    // Perform deferred mcache flush before this P can allocate
+    // from a potentially stale mcache.
+    _p_.mcache.prepareForSweep()
 
-	if trace.enabled {
-		traceProcStart()
-	}
+    if trace.enabled {
+        traceProcStart()
+    }
 }
 
 // wirep is the first step of acquirep, which actually associates the
@@ -1448,22 +1445,22 @@ func acquirep(_p_ *p) {
 //go:nowritebarrierrec
 //go:nosplit
 func wirep(_p_ *p) {
-	_g_ := getg()
+    _g_ := getg()
 
-	if _g_.m.p != 0 {
-		throw("wirep: already in go")
-	}
-	if _p_.m != 0 || _p_.status != _Pidle {
-		id := int64(0)
-		if _p_.m != 0 {
-			id = _p_.m.ptr().id
-		}
-		print("wirep: p->m=", _p_.m, "(", id, ") p->status=", _p_.status, "\n")
-		throw("wirep: invalid p state")
-	}
-	_g_.m.p.set(_p_)
-	_p_.m.set(_g_.m)
-	_p_.status = _Prunning
+    if _g_.m.p != 0 {
+        throw("wirep: already in go")
+    }
+    if _p_.m != 0 || _p_.status != _Pidle {
+        id := int64(0)
+        if _p_.m != 0 {
+            id = _p_.m.ptr().id
+        }
+        print("wirep: p->m=", _p_.m, "(", id, ") p->status=", _p_.status, "\n")
+        throw("wirep: invalid p state")
+    }
+    _g_.m.p.set(_p_)
+    _p_.m.set(_g_.m)
+    _p_.status = _Prunning
 }
 ```
 
@@ -1488,25 +1485,25 @@ func Gosched() {
 
 // Gosched continuation on g0.
 func gosched_m(gp *g) {
-	if trace.enabled {
-		traceGoSched()
-	}
-	goschedImpl(gp)
+    if trace.enabled {
+        traceGoSched()
+    }
+    goschedImpl(gp)
 }
 
 func goschedImpl(gp *g) {
-	status := readgstatus(gp)
-	if status&^_Gscan != _Grunning {
-		dumpgstatus(gp)
-		throw("bad g status")
-	}
-	casgstatus(gp, _Grunning, _Grunnable)
-	dropg()
-	lock(&sched.lock)
-	globrunqput(gp)
-	unlock(&sched.lock)
+    status := readgstatus(gp)
+    if status&^_Gscan != _Grunning {
+        dumpgstatus(gp)
+        throw("bad g status")
+    }
+    casgstatus(gp, _Grunning, _Grunnable)
+    dropg()
+    lock(&sched.lock)
+    globrunqput(gp)
+    unlock(&sched.lock)
 
-	schedule()
+    schedule()
 }
 ```
 
@@ -1520,18 +1517,18 @@ Goroutine 应该在调用操作系统服务或者依赖线程状态的非 Go 语
 
 ```go
 func LockOSThread() {
-	if atomic.Load(&newmHandoff.haveTemplateThread) == 0 && GOOS != "plan9" {
-		startTemplateThread()
-	}
-	_g_ := getg()
-	_g_.m.lockedExt++
-	dolockOSThread()
+    if atomic.Load(&newmHandoff.haveTemplateThread) == 0 && GOOS != "plan9" {
+        startTemplateThread()
+    }
+    _g_ := getg()
+    _g_.m.lockedExt++
+    dolockOSThread()
 }
 
 func dolockOSThread() {
-	_g_ := getg()
-	_g_.m.lockedg.set(_g_)
-	_g_.lockedm.set(_g_.m)
+    _g_ := getg()
+    _g_.m.lockedg.set(_g_)
+    _g_.lockedm.set(_g_.m)
 }
 ```
 
@@ -1543,18 +1540,18 @@ Go 语言的运行时会通过 [`runtime.startm`](https://draveness.me/golang/tr
 
 ```go
 func newm(fn func(), _p_ *p, id int64) {
-	mp := allocm(_p_, fn, id)
-	mp.nextp.set(_p_)
-	mp.sigmask = initSigmask
-	...
-	newm1(mp)
+    mp := allocm(_p_, fn, id)
+    mp.nextp.set(_p_)
+    mp.sigmask = initSigmask
+    ...
+    newm1(mp)
 }
 
 func newm1(mp *m) {
-	if iscgo {
-		...
-	}
-	newosproc(mp)
+    if iscgo {
+        ...
+    }
+    newosproc(mp)
 }
 ```
 
@@ -1562,10 +1559,10 @@ func newm1(mp *m) {
 
 ```go
 func newosproc(mp *m) {
-	stk := unsafe.Pointer(mp.g0.stack.hi)
-	...
-	ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
-	...
+    stk := unsafe.Pointer(mp.g0.stack.hi)
+    ...
+    ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
+    ...
 }
 ```
 
@@ -1575,21 +1572,21 @@ func newosproc(mp *m) {
 
 ```go
 func main() {
-	...
-	if GOARCH != "wasm" {
-		systemstack(func() {
-			newm(sysmon, nil)
-		})
-	}
-	...
+    ...
+    if GOARCH != "wasm" {
+        systemstack(func() {
+            newm(sysmon, nil)
+        })
+    }
+    ...
 }
 
 func newm(fn func(), _p_ *p) {
-	mp := allocm(_p_, fn)
-	mp.nextp.set(_p_)
-	mp.sigmask = initSigmask
-	...
-	newm1(mp)
+    mp := allocm(_p_, fn)
+    mp.nextp.set(_p_)
+    mp.sigmask = initSigmask
+    ...
+    newm1(mp)
 }
 ```
 
@@ -1597,12 +1594,12 @@ newm1会调用特定平台的 [`runtime.newosproc`](https://draveness.me/golang/
 
 ```go
 func newosproc(mp *m) {
-	stk := unsafe.Pointer(mp.g0.stack.hi)
-	var oset sigset
-	sigprocmask(_SIG_SETMASK, &sigset_all, &oset)
-	ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
-	sigprocmask(_SIG_SETMASK, &oset, nil)
-	...
+    stk := unsafe.Pointer(mp.g0.stack.hi)
+    var oset sigset
+    sigprocmask(_SIG_SETMASK, &sigset_all, &oset)
+    ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
+    sigprocmask(_SIG_SETMASK, &oset, nil)
+    ...
 }
 ```
 
@@ -1610,24 +1607,24 @@ func newosproc(mp *m) {
 
 ```go
 func sysmon() {
-	sched.nmsys++
-	checkdead()
+    sched.nmsys++
+    checkdead()
 
-	lasttrace := int64(0)
-	idle := 0
-	delay := uint32(0)
-	for {
-		if idle == 0 {
-			delay = 20
-		} else if idle > 50 {
-			delay *= 2
-		}
-		if delay > 10*1000 {
-			delay = 10 * 1000
-		}
-		usleep(delay)
-		...
-	}
+    lasttrace := int64(0)
+    idle := 0
+    delay := uint32(0)
+    for {
+        if idle == 0 {
+            delay = 20
+        } else if idle > 50 {
+            delay *= 2
+        }
+        if delay > 10*1000 {
+            delay = 10 * 1000
+        }
+        usleep(delay)
+        ...
+    }
 }
 ```
 
@@ -1657,7 +1654,7 @@ func sysmon() {
 
 
 	在Go语言中，官方对堆栈管理做了如下的解释
-	只要有对变量的引用，变量就会存在，而它存储的位置与语言的语义无关。如果可能，变量会被分配到其函数的栈，但如果编译器无法证明函数返回之后变量是否仍然被引用，就必须在堆上分配该变量，采用垃圾回收机制进行	管理，从而避免指针悬空。此外，局部变量如果非常大，也会存在堆上。
+	只要有对变量的引用，变量就会存在，而它存储的位置与语言的语义无关。如果可能，变量会被分配到其函数的栈，但如果编译器无法证明函数返回之后变量是否仍然被引用，就必须在堆上分配该变量，采用垃圾回收机制进行    管理，从而避免指针悬空。此外，局部变量如果非常大，也会存在堆上。
 
 在编译器中，如果变量具有地址，就作为堆分配的候选，但如果逃逸分析可以确定其生存周期不会超过函数返回，就会分配在栈上。
 
@@ -1672,21 +1669,21 @@ Go 的内存分配器基于 Thread-Cache Malloc (tcmalloc) ，tcmalloc 为每个
 // outside of the Go heap and accessed via the mheap_.arenas index.
 //go:notinheap
 type heapArena struct {
-	bitmap     [heapArenaBitmapBytes]byte
-	spans      [pagesPerArena]*mspan  // spans maps from virtual address page ID within this arena to *mspan.
-	pageInUse  [pagesPerArena / 8]uint8
-	pageMarks  [pagesPerArena / 8]uint8
+    bitmap     [heapArenaBitmapBytes]byte
+    spans      [pagesPerArena]*mspan  // spans maps from virtual address page ID within this arena to *mspan.
+    pageInUse  [pagesPerArena / 8]uint8
+    pageMarks  [pagesPerArena / 8]uint8
     pageSpecials [pagesPerArena / 8]uint8
-	checkmarks *checkmarksMap
-	zeroedBase uintptr
+    checkmarks *checkmarksMap
+    zeroedBase uintptr
 }
 //arenaHint is a hint for where to grow the heap arenas. See
 // mheap_.arenaHints.
 //go:notinheap
 type arenaHint struct {
-	addr uintptr
-	down bool
-	next *arenaHint
+    addr uintptr
+    down bool
+    next *arenaHint
 }
 ```
 
@@ -1725,11 +1722,11 @@ type mspan struct { // 双向链表
 ```go
 //go:notinheap
 type mcentral struct {
-	lock      mutex
-	spanclass spanClass
-	nonempty  mSpanList // 带有自由对象的 span 列表，即非空闲列表
-	empty     mSpanList // 没有自由对象的 span 列表（或缓存在 mcache 中）
-	...
+    lock      mutex
+    spanclass spanClass
+    nonempty  mSpanList // 带有自由对象的 span 列表，即非空闲列表
+    empty     mSpanList // 没有自由对象的 span 列表（或缓存在 mcache 中）
+    ...
 }
 ```
 
@@ -1737,13 +1734,13 @@ type mcentral struct {
 ```go
 //go:notinheap
 type mcache struct {
-	...
-	tiny             uintptr
-	tinyoffset       uintptr
-	local_tinyallocs uintptr
-	alloc            [numSpanClasses]*mspan // 用来分配的 spans，由 spanClass 索引
-	stackcache       [_NumStackOrders]stackfreelist
-	...
+    ...
+    tiny             uintptr
+    tinyoffset       uintptr
+    local_tinyallocs uintptr
+    alloc            [numSpanClasses]*mspan // 用来分配的 spans，由 spanClass 索引
+    stackcache       [_NumStackOrders]stackfreelist
+    ...
 }
 ```
 
@@ -1766,30 +1763,30 @@ fixalloc 作为抽象，非常简洁，只包含三个基本操作：初始化�
 // 但当释放和重新分配时第一个字会被破坏。
 // 考虑使 fixalloc 的类型变为 go:notinheap.
 type fixalloc struct {
-	size   uintptr
-	first  func(arg, p unsafe.Pointer) // 首次调用时返回 p
-	arg    unsafe.Pointer
-	list   *mlink
-	chunk  uintptr // 使用 uintptr 而非 unsafe.Pointer 来避免 write barrier
-	nchunk uint32
-	inuse  uintptr // 正在使用的字节
-	stat   *uint64
-	zero   bool // 归零的分配
+    size   uintptr
+    first  func(arg, p unsafe.Pointer) // 首次调用时返回 p
+    arg    unsafe.Pointer
+    list   *mlink
+    chunk  uintptr // 使用 uintptr 而非 unsafe.Pointer 来避免 write barrier
+    nchunk uint32
+    inuse  uintptr // 正在使用的字节
+    stat   *uint64
+    zero   bool // 归零的分配
 }
 ```
 
 Go 语言对于零值有自己的规定，自然也就体现在内存分配器上。而 fixalloc 作为内存分配器内部组件的来源于 操作系统的内存，自然需要自行初始化，因此，fixalloc 的初始化也就不可避免的需要将自身的各个字段归零：
 ```go
 func (f *fixalloc) init(size uintptr, first func(arg, p unsafe.Pointer), arg unsafe.Pointer, stat *uint64) {
-	f.size = size
-	f.first = first
-	f.arg = arg
-	f.list = nil
-	f.chunk = 0
-	f.nchunk = 0
-	f.inuse = 0
-	f.stat = stat
-	f.zero = true
+    f.size = size
+    f.first = first
+    f.arg = arg
+    f.list = nil
+    f.chunk = 0
+    f.nchunk = 0
+    f.inuse = 0
+    f.stat = stat
+    f.zero = true
 }
 ```
 fixalloc 基于自由表策略进行实现，分为两种情况：
@@ -1804,12 +1801,12 @@ fixalloc 基于自由表策略进行实现，分为两种情况：
 
 ```go
 func (f *fixalloc) free(p unsafe.Pointer) {
-	// 减少使用的字节数
-	f.inuse -= f.size
-	// 将要释放的内存地址作为 mlink 指针插入到 f.list 内，完成回收
-	v := (*mlink)(p)
-	v.next = f.list
-	f.list = v
+    // 减少使用的字节数
+    f.inuse -= f.size
+    // 将要释放的内存地址作为 mlink 指针插入到 f.list 内，完成回收
+    v := (*mlink)(p)
+    v.next = f.list
+    f.list = v
 }
 ```
 
@@ -1820,37 +1817,37 @@ func (f *fixalloc) free(p unsafe.Pointer) {
 ```go
 //go:notinheap
 type mcache struct {
-	// 下面的成员在每次 malloc 时都会被访问
-	// 因此将它们放到一起来利用缓存的局部性原理
-	next_sample uintptr	// 分配这么多字节后触发堆样本
-	local_scan  uintptr // 分配的可扫描堆的字节数
+    // 下面的成员在每次 malloc 时都会被访问
+    // 因此将它们放到一起来利用缓存的局部性原理
+    next_sample uintptr    // 分配这么多字节后触发堆样本
+    local_scan  uintptr // 分配的可扫描堆的字节数
 
-	// 没有指针的微小对象的分配器缓存。
-	// 请参考 malloc.go 中的 "小型分配器" 注释。
-	//
-	// tiny 指向当前 tiny 块的起始位置，或当没有 tiny 块时候为 nil
-	// tiny 是一个堆指针。由于 mcache 在非 GC 内存中，我们通过在
-	// mark termination 期间在 releaseAll 中清除它来处理它。
-	tiny             uintptr
-	tinyoffset       uintptr
-	local_tinyallocs uintptr // 不计入其他统计的极小分配的数量
+    // 没有指针的微小对象的分配器缓存。
+    // 请参考 malloc.go 中的 "小型分配器" 注释。
+    //
+    // tiny 指向当前 tiny 块的起始位置，或当没有 tiny 块时候为 nil
+    // tiny 是一个堆指针。由于 mcache 在非 GC 内存中，我们通过在
+    // mark termination 期间在 releaseAll 中清除它来处理它。
+    tiny             uintptr
+    tinyoffset       uintptr
+    local_tinyallocs uintptr // 不计入其他统计的极小分配的数量
 
-	// 下面的不在每个 malloc 时被访问
+    // 下面的不在每个 malloc 时被访问
 
-	alloc [numSpanClasses]*mspan // 用来分配的 spans，由 spanClass 索引
+    alloc [numSpanClasses]*mspan // 用来分配的 spans，由 spanClass 索引
 
-	stackcache [_NumStackOrders]stackfreelist
+    stackcache [_NumStackOrders]stackfreelist
 
-	// 本地分配器统计，在 GC 期间被刷新
-	local_largefree  uintptr                  // bytes freed for large objects (>maxsmallsize)
-	local_nlargefree uintptr                  // number of frees for large objects (>maxsmallsize)
-	local_nsmallfree [_NumSizeClasses]uintptr // number of frees for small objects (<=maxsmallsize)
+    // 本地分配器统计，在 GC 期间被刷新
+    local_largefree  uintptr                  // bytes freed for large objects (>maxsmallsize)
+    local_nlargefree uintptr                  // number of frees for large objects (>maxsmallsize)
+    local_nsmallfree [_NumSizeClasses]uintptr // number of frees for small objects (<=maxsmallsize)
 
-	// flushGen indicates the sweepgen during which this mcache
-	// was last flushed. If flushGen != mheap_.sweepgen, the spans
-	// in this mcache are stale and need to the flushed so they
-	// can be swept. This is done in acquirep.
-	flushGen uint32
+    // flushGen indicates the sweepgen during which this mcache
+    // was last flushed. If flushGen != mheap_.sweepgen, the spans
+    // in this mcache are stale and need to the flushed so they
+    // can be swept. This is done in acquirep.
+    flushGen uint32
 }
 ```
 
@@ -1861,19 +1858,19 @@ type mcache struct {
 var emptymspan mspan
 
 func allocmcache() *mcache {
-	var c *mcache
-	systemstack(func() {
-		lock(&mheap_.lock)
-		c = (*mcache)(mheap_.cachealloc.alloc())
-		c.flushGen = mheap_.sweepgen
-		unlock(&mheap_.lock)
-	}
-	for i := range c.alloc {
-		c.alloc[i] = &emptymspan // 暂时指向虚拟的 mspan 中
-	}
-	// 返回下一个采样点，是服从泊松过程的随机数
-	c.next_sample = nextSample()
-	return c
+    var c *mcache
+    systemstack(func() {
+        lock(&mheap_.lock)
+        c = (*mcache)(mheap_.cachealloc.alloc())
+        c.flushGen = mheap_.sweepgen
+        unlock(&mheap_.lock)
+    }
+    for i := range c.alloc {
+        c.alloc[i] = &emptymspan // 暂时指向虚拟的 mspan 中
+    }
+    // 返回下一个采样点，是服从泊松过程的随机数
+    c.next_sample = nextSample()
+    return c
 }
 ```
 
@@ -1881,32 +1878,32 @@ func allocmcache() *mcache {
 
 ```go
 func freemcache(c *mcache) {
-	systemstack(func() {
-		// 归还 span
-		c.releaseAll()
-		// 释放 stack
-		stackcache_clear(c)
+    systemstack(func() {
+        // 归还 span
+        c.releaseAll()
+        // 释放 stack
+        stackcache_clear(c)
 
-		lock(&mheap_.lock)
-		// 记录局部统计
-		purgecachedstats(c)
-		// 将 mcache 释放
-		mheap_.cachealloc.free(unsafe.Pointer(c))
-		unlock(&mheap_.lock)
-	})
+        lock(&mheap_.lock)
+        // 记录局部统计
+        purgecachedstats(c)
+        // 将 mcache 释放
+        mheap_.cachealloc.free(unsafe.Pointer(c))
+        unlock(&mheap_.lock)
+    })
 }
 func (c *mcache) releaseAll() {
-	for i := range c.alloc {
-		s := c.alloc[i]
-		if s != &emptymspan {
-			// 将 span 归还
-			mheap_.central[i].mcentral.uncacheSpan(s)
-			c.alloc[i] = &emptymspan
-		}
-	}
-	// 清空 tinyalloc 池.
-	c.tiny = 0
-	c.tinyoffset = 0
+    for i := range c.alloc {
+        s := c.alloc[i]
+        if s != &emptymspan {
+            // 将 span 归还
+            mheap_.central[i].mcentral.uncacheSpan(s)
+            c.alloc[i] = &emptymspan
+        }
+    }
+    // 清空 tinyalloc 池.
+    c.tiny = 0
+    c.tinyoffset = 0
 }
 ```
 
@@ -1926,33 +1923,33 @@ goroutine 的执行栈与传统意义上的栈一样，当函数返回时，在�
 ```go
 package main
 type smallobj struct {
-	arr [1 << 10]byte 
+    arr [1 << 10]byte 
 }
 type largeobj struct {
-	arr [1 << 26]byte 
+    arr [1 << 26]byte 
 }
 func f1() int {
-	x := 1
-	return x  // 直接返回，没有逃逸
+    x := 1
+    return x  // 直接返回，没有逃逸
 }
 func f2() *int {
-	y := 2
-	return &y // 发生逃逸
+    y := 2
+    return &y // 发生逃逸
 }
 func f3() {
-	large := largeobj{} // large 无法被一个执行栈装下，也会逃逸
-	println(&large)
+    large := largeobj{} // large 无法被一个执行栈装下，也会逃逸
+    println(&large)
 }
 func f4() {
-	small := smallobj{} // small 对象能够被一个执行栈装下，变量没有返回到栈外，进而没有发生逃逸。
-	print(&small)
+    small := smallobj{} // small 对象能够被一个执行栈装下，变量没有返回到栈外，进而没有发生逃逸。
+    print(&small)
 }
 func main() {
-	x := f1()
-	y := f2()
-	f3()
-	f4()
-	println(x, y)
+    x := f1()
+    y := f2()
+    f3()
+    f4()
+    println(x, y)
 }
 ```
 
@@ -1963,38 +1960,38 @@ Go语言中的引用类型有func（函数类型），interface（接口类型�
 ```go
 // 创建一个新的对象
 func newobject(typ *_type) unsafe.Pointer {
-	return mallocgc(typ.size, typ, true) // true 内存清零
+    return mallocgc(typ.size, typ, true) // true 内存清零
 }
 func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
-	// 创建大小为零的对象，例如空结构体
-	if size == 0 {
-		return unsafe.Pointer(&zerobase)
-	}
-	mp := acquirem()
-	mp.mallocing = 1
-	...
+    // 创建大小为零的对象，例如空结构体
+    if size == 0 {
+        return unsafe.Pointer(&zerobase)
+    }
+    mp := acquirem()
+    mp.mallocing = 1
+    ...
 
-	// 获取当前 g 所在 M 所绑定 P 的 mcache
-	c := gomcache()
-	var x unsafe.Pointer
-	noscan := typ == nil || typ.kind&kindNoPointers != 0
-	if size <= maxSmallSize {
-		if noscan && size < maxTinySize {
-			// 微对象分配
-			...
-		} else {
-			// 小对象分配
-			...
-		}
-	} else {
-		// 大对象分配
-		...
-	}
-	...
-	mp.mallocing = 0
-	releasem(mp)
-	...
-	return x
+    // 获取当前 g 所在 M 所绑定 P 的 mcache
+    c := gomcache()
+    var x unsafe.Pointer
+    noscan := typ == nil || typ.kind&kindNoPointers != 0
+    if size <= maxSmallSize {
+        if noscan && size < maxTinySize {
+            // 微对象分配
+            ...
+        } else {
+            // 小对象分配
+            ...
+        }
+    } else {
+        // 大对象分配
+        ...
+    }
+    ...
+    mp.mallocing = 0
+    releasem(mp)
+    ...
+    return x
 }
 ```
 

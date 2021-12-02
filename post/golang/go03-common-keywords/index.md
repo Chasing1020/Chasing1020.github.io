@@ -7,14 +7,14 @@
 
 ```go
 func main() {
-	arr := []int{1, 2, 3}
-	newArr := []*int{}
-	for i, _ := range arr {
-		newArr = append(newArr, &arr[i])
-	}
-	for _, v := range newArr {
-		fmt.Println(*v)
-	}
+    arr := []int{1, 2, 3}
+    newArr := []*int{}
+    for i, _ := range arr {
+        newArr = append(newArr, &arr[i])
+    }
+    for _, v := range newArr {
+        fmt.Println(*v)
+    }
 }
 ```
 
@@ -35,28 +35,28 @@ for ; hit.key != nil; mapiternext(&hit) {
 
 ```go
 func mapiternext(it *hiter) {
-	h := it.h
-	t := it.t
-	bucket := it.bucket
-	b := it.bptr
-	i := it.i
-	alg := t.key.alg
+    h := it.h
+    t := it.t
+    bucket := it.bucket
+    b := it.bptr
+    i := it.i
+    alg := t.key.alg
 
 next:
-	if b == nil {
-		if bucket == it.startBucket && it.wrapped {
-			it.key = nil
-			it.value = nil
-			return
-		}
-		b = (*bmap)(add(it.buckets, bucket*uintptr(t.bucketsize)))
-		bucket++
-		if bucket == bucketShift(it.B) {
-			bucket = 0
-			it.wrapped = true
-		}
-		i = 0
-	}
+    if b == nil {
+        if bucket == it.startBucket && it.wrapped {
+            it.key = nil
+            it.value = nil
+            return
+        }
+        b = (*bmap)(add(it.buckets, bucket*uintptr(t.bucketsize)))
+        bucket++
+        if bucket == bucketShift(it.B) {
+            bucket = 0
+            it.wrapped = true
+        }
+        i = 0
+    }
 ```
 
 字符串遍历，自动转换为Rune类型
@@ -89,30 +89,30 @@ for hv1 := 0; hv1 < len(ha); {
 // initialize them are not required. All defers must be manually scanned,
 // and for heap defers, marked.
 type _defer struct {
-	siz     int32 // includes both arguments and results 参数和返回值共占多少空间
-	started bool
-	heap    bool
-	// openDefer indicates that this _defer is for a frame with open-coded
-	// defers. We have only one defer record for the entire frame (which may
-	// currently have 0, 1, or more defers active).
-	openDefer bool  // 表示当前 defer 是否经过开放编码的优化；
-	sp        uintptr  // sp at time of defer 栈指针
-	pc        uintptr  // pc at time of defer 调用方的程序计数器；
-	fn        *funcval // can be nil for open-coded defers 关键字中传入的函数
-	_panic    *_panic  // panic that is running defer 是触发延迟调用的结构体，可能为空；
-	link      *_defer
+    siz     int32 // includes both arguments and results 参数和返回值共占多少空间
+    started bool
+    heap    bool
+    // openDefer indicates that this _defer is for a frame with open-coded
+    // defers. We have only one defer record for the entire frame (which may
+    // currently have 0, 1, or more defers active).
+    openDefer bool  // 表示当前 defer 是否经过开放编码的优化；
+    sp        uintptr  // sp at time of defer 栈指针
+    pc        uintptr  // pc at time of defer 调用方的程序计数器；
+    fn        *funcval // can be nil for open-coded defers 关键字中传入的函数
+    _panic    *_panic  // panic that is running defer 是触发延迟调用的结构体，可能为空；
+    link      *_defer
 
-	// If openDefer is true, the fields below record values about the stack
-	// frame and associated function that has the open-coded defer(s). sp
-	// above will be the sp for the frame, and pc will be address of the
-	// deferreturn call in the function.
-	fd   unsafe.Pointer // funcdata for the function associated with the frame
-	varp uintptr        // value of varp for the stack frame
-	// framepc is the current pc associated with the stack frame. Together,
-	// with sp above (which is the sp associated with the stack frame),
-	// framepc/sp can be used as pc/sp pair to continue a stack trace via
-	// gentraceback().
-	framepc uintptr
+    // If openDefer is true, the fields below record values about the stack
+    // frame and associated function that has the open-coded defer(s). sp
+    // above will be the sp for the frame, and pc will be address of the
+    // deferreturn call in the function.
+    fd   unsafe.Pointer // funcdata for the function associated with the frame
+    varp uintptr        // value of varp for the stack frame
+    // framepc is the current pc associated with the stack frame. Together,
+    // with sp above (which is the sp associated with the stack frame),
+    // framepc/sp can be used as pc/sp pair to continue a stack trace via
+    // gentraceback().
+    framepc uintptr
 }
 ```
 
@@ -128,19 +128,19 @@ Go 语言在 1.13 中引入栈上分配的结构体，减少了 30% 的额外开
 
 ```go
 func (s *state) stmt(n *Node) {
-	...
-	switch n.Op {
-	case ODEFER:
-		if s.hasOpenDefers {
-			s.openDeferRecord(n.Left) // 开放编码
-		} else {
-			d := callDefer // 堆分配
-			if n.Esc == EscNever {
-				d = callDeferStack // 栈分配
-			}
-			s.callResult(n.Left, d)
-		}
-	}
+    ...
+    switch n.Op {
+    case ODEFER:
+        if s.hasOpenDefers {
+            s.openDeferRecord(n.Left) // 开放编码
+        } else {
+            d := callDefer // 堆分配
+            if n.Esc == EscNever {
+                d = callDeferStack // 栈分配
+            }
+            s.callResult(n.Left, d)
+        }
+    }
 }
 ```
 
@@ -154,23 +154,23 @@ func (s *state) stmt(n *Node) {
 
 ```go
 func (s *state) call(n *Node, k callKind, returnResultAddr bool) *ssa.Value {
-	...
-	var call *ssa.Value
-	if k == callDeferStack {
-		// 在栈上初始化 defer 结构体
-		...
-	} else {
-		...
-		switch {
-		case k == callDefer:
-			aux := ssa.StaticAuxCall(deferproc, ACArgs, ACResults)
-			call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, aux, s.mem())
-		...
-		}
-		call.AuxInt = stksize
-	}
-	s.vars[&memVar] = call
-	...
+    ...
+    var call *ssa.Value
+    if k == callDeferStack {
+        // 在栈上初始化 defer 结构体
+        ...
+    } else {
+        ...
+        switch {
+        case k == callDefer:
+            aux := ssa.StaticAuxCall(deferproc, ACArgs, ACResults)
+            call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, aux, s.mem())
+        ...
+        }
+        call.AuxInt = stksize
+    }
+    s.vars[&memVar] = call
+    ...
 }
 ```
 
@@ -178,26 +178,26 @@ func (s *state) call(n *Node, k callKind, returnResultAddr bool) *ssa.Value {
 
 ```go
 func deferproc(siz int32, fn *funcval) {
-	sp := getcallersp()
-	argp := uintptr(unsafe.Pointer(&fn)) + unsafe.Sizeof(fn)
-	callerpc := getcallerpc()
+    sp := getcallersp()
+    argp := uintptr(unsafe.Pointer(&fn)) + unsafe.Sizeof(fn)
+    callerpc := getcallerpc()
 
-	d := newdefer(siz)
-	if d._panic != nil {
-		throw("deferproc: d.panic != nil after newdefer")
-	}
-	d.fn = fn
-	d.pc = callerpc
-	d.sp = sp
-	switch siz {
-	case 0:
-	case sys.PtrSize:
-		*(*uintptr)(deferArgs(d)) = *(*uintptr)(unsafe.Pointer(argp))
-	default:
-		memmove(deferArgs(d), unsafe.Pointer(argp), uintptr(siz))
-	}
+    d := newdefer(siz)
+    if d._panic != nil {
+        throw("deferproc: d.panic != nil after newdefer")
+    }
+    d.fn = fn
+    d.pc = callerpc
+    d.sp = sp
+    switch siz {
+    case 0:
+    case sys.PtrSize:
+        *(*uintptr)(deferArgs(d)) = *(*uintptr)(unsafe.Pointer(argp))
+    default:
+        memmove(deferArgs(d), unsafe.Pointer(argp), uintptr(siz))
+    }
 
-	return0()
+    return0()
 }
 ```
 
@@ -207,32 +207,32 @@ func deferproc(siz int32, fn *funcval) {
 
 ```go
 func newdefer(siz int32) *_defer {
-	var d *_defer
-	sc := deferclass(uintptr(siz))
-	gp := getg()
-	if sc < uintptr(len(p{}.deferpool)) {
-		pp := gp.m.p.ptr()
-		if len(pp.deferpool[sc]) == 0 && sched.deferpool[sc] != nil {
-			for len(pp.deferpool[sc]) < cap(pp.deferpool[sc])/2 && sched.deferpool[sc] != nil {
-				d := sched.deferpool[sc]
-				sched.deferpool[sc] = d.link
-				pp.deferpool[sc] = append(pp.deferpool[sc], d)
-			}
-		}
-		if n := len(pp.deferpool[sc]); n > 0 {
-			d = pp.deferpool[sc][n-1]
-			pp.deferpool[sc][n-1] = nil
-			pp.deferpool[sc] = pp.deferpool[sc][:n-1]
-		}
-	}
-	if d == nil {
-		total := roundupsize(totaldefersize(uintptr(siz)))
-		d = (*_defer)(mallocgc(total, deferType, true))
-	}
-	d.siz = siz
-	d.link = gp._defer
-	gp._defer = d
-	return d
+    var d *_defer
+    sc := deferclass(uintptr(siz))
+    gp := getg()
+    if sc < uintptr(len(p{}.deferpool)) {
+        pp := gp.m.p.ptr()
+        if len(pp.deferpool[sc]) == 0 && sched.deferpool[sc] != nil {
+            for len(pp.deferpool[sc]) < cap(pp.deferpool[sc])/2 && sched.deferpool[sc] != nil {
+                d := sched.deferpool[sc]
+                sched.deferpool[sc] = d.link
+                pp.deferpool[sc] = append(pp.deferpool[sc], d)
+            }
+        }
+        if n := len(pp.deferpool[sc]); n > 0 {
+            d = pp.deferpool[sc][n-1]
+            pp.deferpool[sc][n-1] = nil
+            pp.deferpool[sc] = pp.deferpool[sc][:n-1]
+        }
+    }
+    if d == nil {
+        total := roundupsize(totaldefersize(uintptr(siz)))
+        d = (*_defer)(mallocgc(total, deferType, true))
+    }
+    d.siz = siz
+    d.link = gp._defer
+    gp._defer = d
+    return d
 }
 ```
 
@@ -240,25 +240,25 @@ func newdefer(siz int32) *_defer {
 
 ```go
 func deferreturn(arg0 uintptr) {
-	gp := getg()
-	d := gp._defer
-	if d == nil {
-		return
-	}
-	sp := getcallersp()
-	...
+    gp := getg()
+    d := gp._defer
+    if d == nil {
+        return
+    }
+    sp := getcallersp()
+    ...
 
-	switch d.siz {
-	case 0:
-	case sys.PtrSize:
-		*(*uintptr)(unsafe.Pointer(&arg0)) = *(*uintptr)(deferArgs(d))
-	default:
-		memmove(unsafe.Pointer(&arg0), deferArgs(d), uintptr(d.siz))
-	}
-	fn := d.fn
-	gp._defer = d.link
-	freedefer(d)
-	jmpdefer(fn, uintptr(unsafe.Pointer(&arg0)))
+    switch d.siz {
+    case 0:
+    case sys.PtrSize:
+        *(*uintptr)(unsafe.Pointer(&arg0)) = *(*uintptr)(deferArgs(d))
+    default:
+        memmove(unsafe.Pointer(&arg0), deferArgs(d), uintptr(d.siz))
+    }
+    fn := d.fn
+    gp._defer = d.link
+    freedefer(d)
+    jmpdefer(fn, uintptr(unsafe.Pointer(&arg0)))
 }
 ```
 
@@ -288,7 +288,7 @@ func deferprocStack(d *_defer) {
 但是在循环中注册的defer，还是需要1.12的方式，在堆中分配，所以在defer结构体中新增了字段
 
 ```go
-		heap    bool
+        heap    bool
 ```
 
 #### 2.2.3. Open Coded
@@ -299,19 +299,19 @@ Go 语言在 1.14 中通过开放编码（Open Coded）实现 `defer` 关键字�
 const maxOpenDefers = 8
 
 func walkstmt(n *Node) *Node {
-	switch n.Op {
-	case ODEFER:
-		Curfn.Func.SetHasDefer(true)
-		Curfn.Func.numDefers++
-		if Curfn.Func.numDefers > maxOpenDefers {
-			Curfn.Func.SetOpenCodedDeferDisallowed(true)
-		}
-		if n.Esc != EscNever {
-			Curfn.Func.SetOpenCodedDeferDisallowed(true)
-		}
-		fallthrough
-	...
-	}
+    switch n.Op {
+    case ODEFER:
+        Curfn.Func.SetHasDefer(true)
+        Curfn.Func.numDefers++
+        if Curfn.Func.numDefers > maxOpenDefers {
+            Curfn.Func.SetOpenCodedDeferDisallowed(true)
+        }
+        if n.Esc != EscNever {
+            Curfn.Func.SetOpenCodedDeferDisallowed(true)
+        }
+        fallthrough
+    ...
+    }
 }
 ```
 
@@ -323,24 +323,24 @@ func walkstmt(n *Node) *Node {
 
 但是，在函数执行过程中，如果调用了panic，或者是runtime.Goexit()函数，需要额外使用栈扫描方法来实现。
 
-所以在1.14版本中，新增了如下参数，保证栈扫描能够正确执行，这种情况下，效率要低于1.13版本
+所以在1.14版本中，新增了如下参数，保证栈扫描能够正确执行。在发生panic的情况下，效率要低于1.13版本
 
 ```go
-	// openDefer indicates that this _defer is for a frame with open-coded
-	// defers. We have only one defer record for the entire frame (which may
-	// currently have 0, 1, or more defers active).
-	openDefer bool  // 表示当前 defer 是否经过开放编码的优化；
-	// If openDefer is true, the fields below record values about the stack
-	// frame and associated function that has the open-coded defer(s). sp
-	// above will be the sp for the frame, and pc will be address of the
-	// deferreturn call in the function.
-	fd   unsafe.Pointer // funcdata for the function associated with the frame
-	varp uintptr        // value of varp for the stack frame
-	// framepc is the current pc associated with the stack frame. Together,
-	// with sp above (which is the sp associated with the stack frame),
-	// framepc/sp can be used as pc/sp pair to continue a stack trace via
-	// gentraceback().
-	framepc uintptr
+    // openDefer indicates that this _defer is for a frame with open-coded
+    // defers. We have only one defer record for the entire frame (which may
+    // currently have 0, 1, or more defers active).
+    openDefer bool  // 表示当前 defer 是否经过开放编码的优化；
+    // If openDefer is true, the fields below record values about the stack
+    // frame and associated function that has the open-coded defer(s). sp
+    // above will be the sp for the frame, and pc will be address of the
+    // deferreturn call in the function.
+    fd   unsafe.Pointer // funcdata for the function associated with the frame
+    varp uintptr        // value of varp for the stack frame
+    // framepc is the current pc associated with the stack frame. Together,
+    // with sp above (which is the sp associated with the stack frame),
+    // framepc/sp can be used as pc/sp pair to continue a stack trace via
+    // gentraceback().
+    framepc uintptr
 ```
 
 ### 2.3. Version Difference
@@ -387,35 +387,35 @@ type _panic struct {
 
 ```go
 func gopanic(e interface{}) {
-	gp := getg()
-	...
-	var p _panic
-	p.arg = e
-	p.link = gp._panic
-	gp._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
+    gp := getg()
+    ...
+    var p _panic
+    p.arg = e
+    p.link = gp._panic
+    gp._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
 
-	for {
-		d := gp._defer
-		if d == nil {
-			break
-		}
+    for {
+        d := gp._defer
+        if d == nil {
+            break
+        }
 
-		d._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
+        d._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
 
-		reflectcall(nil, unsafe.Pointer(d.fn), deferArgs(d), uint32(d.siz), uint32(d.siz))
+        reflectcall(nil, unsafe.Pointer(d.fn), deferArgs(d), uint32(d.siz), uint32(d.siz))
 
-		d._panic = nil
-		d.fn = nil
-		gp._defer = d.link
+        d._panic = nil
+        d.fn = nil
+        gp._defer = d.link
 
-		freedefer(d)
-		if p.recovered {
-			...
-		}
-	}
+        freedefer(d)
+        if p.recovered {
+            ...
+        }
+    }
 
-	fatalpanic(gp._panic)
-	*(*int)(nil) = 0
+    fatalpanic(gp._panic)
+    *(*int)(nil) = 0
 }
 ```
 
@@ -423,19 +423,19 @@ func gopanic(e interface{}) {
 
 ```go
 func fatalpanic(msgs *_panic) {
-	pc := getcallerpc()
-	sp := getcallersp()
-	gp := getg()
+    pc := getcallerpc()
+    sp := getcallersp()
+    gp := getg()
 
-	if startpanic_m() && msgs != nil {
-		atomic.Xadd(&runningPanicDefers, -1)
-		printpanics(msgs)
-	}
-	if dopanic_m(gp, pc, sp) {
-		crash()
-	}
+    if startpanic_m() && msgs != nil {
+        atomic.Xadd(&runningPanicDefers, -1)
+        printpanics(msgs)
+    }
+    if dopanic_m(gp, pc, sp) {
+        crash()
+    }
 
-	exit(2)
+    exit(2)
 }
 ```
 
@@ -443,13 +443,13 @@ func fatalpanic(msgs *_panic) {
 
 ```go
 func gorecover(argp uintptr) interface{} {
-	gp := getg()
-	p := gp._panic
-	if p != nil && !p.recovered && argp == uintptr(p.argp) {
-		p.recovered = true
-		return p.arg
-	}
-	return nil
+    gp := getg()
+    p := gp._panic
+    if p != nil && !p.recovered && argp == uintptr(p.argp) {
+        p.recovered = true
+        return p.arg
+    }
+    return nil
 }
 ```
 
@@ -479,7 +479,7 @@ func gopanic(e interface{}) {
             gp.sigcode1 = pc
             mcall(recovery)
             throw("recovery failed")
-      	}
+          }
     }
     ...
 }
@@ -494,33 +494,31 @@ func gopanic(e interface{}) {
     3.1. 在这次调用结束之后，runtime.gopanic 会从 runtime.\_defer 结构体中取出程序计数器 pc 和栈指针 sp 并调用 runtime.recovery 函数进行恢复程序；
     3.2. runtime.recovery 会根据传入的 pc 和 sp 跳转回 runtime.deferproc；
     3.3. 编译器自动生成的代码会发现 runtime.deferproc 的返回值不为 0，这时会跳回 runtime.deferreturn 并恢复到正常的执行流程；
-4. 如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime.\_defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2；
+4. 如果没有遇到 runtime.gorecover 就会依次遍历所有的 runtime.\_defer，并在最后调用 runtime.fatalpanic 中止程序、打印 panic 的参数并返回错误码 2（需要编译）；
 
 如在Go的compile.Main执行期间，加入了defer hidePanic()
 
 ```go
 func hidePanic() {
-	if base.Debug.Panic == 0 && base.Errors() > 0 {
-		// If we've already complained about things
-		// in the program, don't bother complaining
-		// about a panic too; let the user clean up
-		// the code and try again.
-		if err := recover(); err != nil {
-			if err == "-h" {
-				panic(err)
-			}
-			base.ErrorExit()
-		}
-	}
+    if base.Debug.Panic == 0 && base.Errors() > 0 {
+        // If we've already complained about things
+        // in the program, don't bother complaining
+        // about a panic too; let the user clean up
+        // the code and try again.
+        if err := recover(); err != nil {
+            if err == "-h" {
+                panic(err)
+            }
+            base.ErrorExit()
+        }
+    }
 }
 ```
 
-
-
 ## 4. Make And New
 
-- `make` 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel[2](https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:2)；
-- `new` 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针[3](https://draveness.me/golang/docs/part2-foundation/ch05-keyword/golang-make-and-new/#fn:3)；
+- `make` 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel；
+- `new` 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针；
 
 Go 语言会将代表 `make` 关键字的 `OMAKE` 节点根据参数类型的不同转换成了 `OMAKESLICE`、`OMAKEMAP` 和 `OMAKECHAN` 三种不同类型的节点，这些节点会调用不同的运行时函数来初始化相应的数据结构。
 
@@ -528,44 +526,44 @@ Go 语言会将代表 `make` 关键字的 `OMAKE` 节点根据参数类型的不
 
 ```go
 type SliceHeader struct {
-	Data uintptr
-	Len  int
-	Cap  int
+    Data uintptr
+    Len  int
+    Cap  int
 }
 type hmap struct {
-	// Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
-	// Make sure this stays in sync with the compiler's definition.
-	count     int // # live cells == size of map.  Must be first (used by len() builtin)
-	flags     uint8
-	B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-	noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
-	hash0     uint32 // hash seed
+    // Note: the format of the hmap is also encoded in cmd/compile/internal/gc/reflect.go.
+    // Make sure this stays in sync with the compiler's definition.
+    count     int // # live cells == size of map.  Must be first (used by len() builtin)
+    flags     uint8
+    B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+    noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
+    hash0     uint32 // hash seed
 
-	buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
-	oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
-	nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+    buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+    oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
+    nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
 
-	extra *mapextra // optional fields
+    extra *mapextra // optional fields
 }
 type hchan struct {
-	qcount   uint           // total data in the queue
-	dataqsiz uint           // size of the circular queue
-	buf      unsafe.Pointer // points to an array of dataqsiz elements
-	elemsize uint16
-	closed   uint32
-	elemtype *_type // element type
-	sendx    uint   // send index
-	recvx    uint   // receive index
-	recvq    waitq  // list of recv waiters
-	sendq    waitq  // list of send waiters
+    qcount   uint           // total data in the queue
+    dataqsiz uint           // size of the circular queue
+    buf      unsafe.Pointer // points to an array of dataqsiz elements
+    elemsize uint16
+    closed   uint32
+    elemtype *_type // element type
+    sendx    uint   // send index
+    recvx    uint   // receive index
+    recvq    waitq  // list of recv waiters
+    sendq    waitq  // list of send waiters
 
-	// lock protects all fields in hchan, as well as several
-	// fields in sudogs blocked on this channel.
-	//
-	// Do not change another G's status while holding this lock
-	// (in particular, do not ready a G), as this can deadlock
-	// with stack shrinking.
-	lock mutex
+    // lock protects all fields in hchan, as well as several
+    // fields in sudogs blocked on this channel.
+    //
+    // Do not change another G's status while holding this lock
+    // (in particular, do not ready a G), as this can deadlock
+    // with stack shrinking.
+    lock mutex
 }
 
 ```
@@ -574,22 +572,22 @@ type hchan struct {
 
 ```go
 func callnew(t *types.Type) *Node {
-	...
-	n := nod(ONEWOBJ, typename(t), nil)
-	...
-	return n
+    ...
+    n := nod(ONEWOBJ, typename(t), nil)
+    ...
+    return n
 }
 
 func (s *state) expr(n *Node) *ssa.Value {
-	switch n.Op {
-	case ONEWOBJ:
-		if n.Type.Elem().Size() == 0 {
-			return s.newValue1A(ssa.OpAddr, n.Type, zerobaseSym, s.sb)
-		}
-		typ := s.expr(n.Left)
-		vv := s.rtcall(newobject, true, []*types.Type{n.Type}, typ)
-		return vv[0]
-	}
+    switch n.Op {
+    case ONEWOBJ:
+        if n.Type.Elem().Size() == 0 {
+            return s.newValue1A(ssa.OpAddr, n.Type, zerobaseSym, s.sb)
+        }
+        typ := s.expr(n.Left)
+        vv := s.rtcall(newobject, true, []*types.Type{n.Type}, typ)
+        return vv[0]
+    }
 }
 ```
 
@@ -597,31 +595,31 @@ func (s *state) expr(n *Node) *ssa.Value {
 
 ```go
 func walkstmt(n *Node) *Node {
-	switch n.Op {
-	case ODCL:
-		v := n.Left
-		if v.Class() == PAUTOHEAP {
-			if prealloc[v] == nil {
-				prealloc[v] = callnew(v.Type)
-			}
-			nn := nod(OAS, v.Name.Param.Heapaddr, prealloc[v])
-			nn.SetColas(true)
-			nn = typecheck(nn, ctxStmt)
-			return walkstmt(nn)
-		}
-	case ONEW:
-		if n.Esc == EscNone {
-			r := temp(n.Type.Elem())
-			r = nod(OAS, r, nil)
-			r = typecheck(r, ctxStmt)
-			init.Append(r)
-			r = nod(OADDR, r.Left, nil)
-			r = typecheck(r, ctxExpr)
-			n = r
-		} else {
-			n = callnew(n.Type.Elem())
-		}
-	}
+    switch n.Op {
+    case ODCL:
+        v := n.Left
+        if v.Class() == PAUTOHEAP {
+            if prealloc[v] == nil {
+                prealloc[v] = callnew(v.Type)
+            }
+            nn := nod(OAS, v.Name.Param.Heapaddr, prealloc[v])
+            nn.SetColas(true)
+            nn = typecheck(nn, ctxStmt)
+            return walkstmt(nn)
+        }
+    case ONEW:
+        if n.Esc == EscNone {
+            r := temp(n.Type.Elem())
+            r = nod(OAS, r, nil)
+            r = typecheck(r, ctxStmt)
+            init.Append(r)
+            r = nod(OADDR, r.Left, nil)
+            r = typecheck(r, ctxExpr)
+            n = r
+        } else {
+            n = callnew(n.Type.Elem())
+        }
+    }
 }
 ```
 

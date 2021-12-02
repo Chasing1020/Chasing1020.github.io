@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Go(1) Builtin Data Structure">
 <meta itemprop="description" content="Part1. Builtin Data Structure 0. Type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 package builtin type bool bool const ( true = 0"><meta itemprop="datePublished" content="2021-09-02T19:22:24+08:00" />
 <meta itemprop="dateModified" content="2021-09-02T19:22:24+08:00" />
-<meta itemprop="wordCount" content="5935">
+<meta itemprop="wordCount" content="5948">
 <meta itemprop="keywords" content="Go," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go(1) Builtin Data Structure"/>
 <meta name="twitter:description" content="Part1. Builtin Data Structure 0. Type 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 package builtin type bool bool const ( true = 0"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/language/"> Language </a>
             </div>
-          <span class="more-meta"> 5935 words </span>
+          <span class="more-meta"> 5948 words </span>
           <span class="more-meta"> 12 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -253,8 +253,8 @@
 
 <span class="kd">type</span> <span class="kt">bool</span> <span class="kt">bool</span>
 <span class="kd">const</span> <span class="p">(</span>
-	<span class="kc">true</span>  <span class="p">=</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">0</span> <span class="c1">// Untyped bool.
-</span><span class="c1"></span>	<span class="kc">false</span> <span class="p">=</span> <span class="mi">0</span> <span class="o">!=</span> <span class="mi">0</span> <span class="c1">// Untyped bool.
+    <span class="kc">true</span>  <span class="p">=</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">0</span> <span class="c1">// Untyped bool.
+</span><span class="c1"></span>    <span class="kc">false</span> <span class="p">=</span> <span class="mi">0</span> <span class="o">!=</span> <span class="mi">0</span> <span class="c1">// Untyped bool.
 </span><span class="c1"></span><span class="p">)</span>
 <span class="kd">type</span> <span class="kt">uint8</span> <span class="kt">uint8</span>
 <span class="kd">type</span> <span class="kt">uint16</span> <span class="kt">uint16</span>
@@ -301,7 +301,7 @@
 <span class="kd">func</span> <span class="nb">print</span><span class="p">(</span><span class="nx">args</span> <span class="o">...</span><span class="nx">Type</span><span class="p">)</span>
 <span class="kd">func</span> <span class="nb">println</span><span class="p">(</span><span class="nx">args</span> <span class="o">...</span><span class="nx">Type</span><span class="p">)</span>
 <span class="kd">type</span> <span class="kt">error</span> <span class="kd">interface</span> <span class="p">{</span>
-	<span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span>
+    <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -333,22 +333,22 @@
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">types</span>
 <span class="c1">// A Type represents a Go type.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">Type</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Extra</span> <span class="kd">interface</span><span class="p">{}</span>
-	<span class="nx">Width</span> <span class="kt">int64</span> <span class="c1">// valid if Align &gt; 
-</span><span class="c1"></span>	<span class="nx">methods</span>    <span class="nx">Fields</span>
-	<span class="nx">allMethods</span> <span class="nx">Fields</span>
-	<span class="nx">Nod</span>  <span class="o">*</span><span class="nx">Node</span> <span class="c1">// canonical OTYPE node
-</span><span class="c1"></span>	<span class="nx">Orig</span> <span class="o">*</span><span class="nx">Type</span> <span class="c1">// original type (type literal or predefined type)
-</span><span class="c1"></span>	<span class="c1">// Cache of composite types, with this type being the element type.
-</span><span class="c1"></span>	<span class="nx">Cache</span> <span class="kd">struct</span> <span class="p">{</span>
-		<span class="nx">ptr</span>   <span class="o">*</span><span class="nx">Type</span> <span class="c1">// *T, or nil
-</span><span class="c1"></span>		<span class="nx">slice</span> <span class="o">*</span><span class="nx">Type</span> <span class="c1">// []T, or nil
-</span><span class="c1"></span>	<span class="p">}</span>
-	<span class="nx">Sym</span>    <span class="o">*</span><span class="nx">Sym</span>  <span class="c1">// symbol containing name, for named types
-</span><span class="c1"></span>	<span class="nx">Vargen</span> <span class="kt">int32</span> <span class="c1">// unique name for OTYPE/ONAME
-</span><span class="c1"></span>	<span class="nx">Etype</span> <span class="nx">EType</span> <span class="c1">// kind of type
-</span><span class="c1"></span>	<span class="nx">Align</span> <span class="kt">uint8</span> <span class="c1">// the required alignment of this type, in bytes (0 means Width and Align have not yet been computed)
-</span><span class="c1"></span>	<span class="nx">flags</span> <span class="nx">bitset8</span>
+    <span class="nx">Extra</span> <span class="kd">interface</span><span class="p">{}</span>
+    <span class="nx">Width</span> <span class="kt">int64</span> <span class="c1">// valid if Align &gt; 
+</span><span class="c1"></span>    <span class="nx">methods</span>    <span class="nx">Fields</span>
+    <span class="nx">allMethods</span> <span class="nx">Fields</span>
+    <span class="nx">Nod</span>  <span class="o">*</span><span class="nx">Node</span> <span class="c1">// canonical OTYPE node
+</span><span class="c1"></span>    <span class="nx">Orig</span> <span class="o">*</span><span class="nx">Type</span> <span class="c1">// original type (type literal or predefined type)
+</span><span class="c1"></span>    <span class="c1">// Cache of composite types, with this type being the element type.
+</span><span class="c1"></span>    <span class="nx">Cache</span> <span class="kd">struct</span> <span class="p">{</span>
+        <span class="nx">ptr</span>   <span class="o">*</span><span class="nx">Type</span> <span class="c1">// *T, or nil
+</span><span class="c1"></span>        <span class="nx">slice</span> <span class="o">*</span><span class="nx">Type</span> <span class="c1">// []T, or nil
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="nx">Sym</span>    <span class="o">*</span><span class="nx">Sym</span>  <span class="c1">// symbol containing name, for named types
+</span><span class="c1"></span>    <span class="nx">Vargen</span> <span class="kt">int32</span> <span class="c1">// unique name for OTYPE/ONAME
+</span><span class="c1"></span>    <span class="nx">Etype</span> <span class="nx">EType</span> <span class="c1">// kind of type
+</span><span class="c1"></span>    <span class="nx">Align</span> <span class="kt">uint8</span> <span class="c1">// the required alignment of this type, in bytes (0 means Width and Align have not yet been computed)
+</span><span class="c1"></span>    <span class="nx">flags</span> <span class="nx">bitset8</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -368,8 +368,8 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Array contains Type fields specific to array types.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">Array</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Elem</span>  <span class="o">*</span><span class="nx">Type</span> <span class="c1">// element type
-</span><span class="c1"></span>	<span class="nx">Bound</span> <span class="kt">int64</span> <span class="c1">// number of elements; &lt;0 if unknown yet
+    <span class="nx">Elem</span>  <span class="o">*</span><span class="nx">Type</span> <span class="c1">// element type
+</span><span class="c1"></span>    <span class="nx">Bound</span> <span class="kt">int64</span> <span class="c1">// number of elements; &lt;0 if unknown yet
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -390,13 +390,13 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NewArray returns a new fixed-length array Type.
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewArray</span><span class="p">(</span><span class="nx">elem</span> <span class="o">*</span><span class="nx">Type</span><span class="p">,</span> <span class="nx">bound</span> <span class="kt">int64</span><span class="p">)</span> <span class="o">*</span><span class="nx">Type</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="nx">bound</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
-      <span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;NewArray: invalid bound %v&#34;</span><span class="p">,</span> <span class="nx">bound</span><span class="p">)</span>
-   <span class="p">}</span>
-   <span class="nx">t</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">TARRAY</span><span class="p">)</span> <span class="c1">// retrun types.Type
-</span><span class="c1"></span>   <span class="nx">t</span><span class="p">.</span><span class="nx">Extra</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Array</span><span class="p">{</span><span class="nx">Elem</span><span class="p">:</span> <span class="nx">elem</span><span class="p">,</span> <span class="nx">Bound</span><span class="p">:</span> <span class="nx">bound</span><span class="p">}</span>
-   <span class="nx">t</span><span class="p">.</span><span class="nf">SetNotInHeap</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nf">NotInHeap</span><span class="p">())</span>
-   <span class="k">return</span> <span class="nx">t</span>
+    <span class="k">if</span> <span class="nx">bound</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;NewArray: invalid bound %v&#34;</span><span class="p">,</span> <span class="nx">bound</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">TARRAY</span><span class="p">)</span> <span class="c1">// retrun types.Type
+</span><span class="c1"></span>    <span class="nx">t</span><span class="p">.</span><span class="nx">Extra</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Array</span><span class="p">{</span><span class="nx">Elem</span><span class="p">:</span> <span class="nx">elem</span><span class="p">,</span> <span class="nx">Bound</span><span class="p">:</span> <span class="nx">bound</span><span class="p">}</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nf">SetNotInHeap</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nf">NotInHeap</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nx">t</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -478,21 +478,21 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">Type</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">IsInteger</span><span class="p">()</span> <span class="p">{</span>
-   <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;non-integer %s index %v&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
-   <span class="k">break</span>
+    <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;non-integer %s index %v&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+    <span class="k">break</span>
 <span class="p">}</span>
 
 <span class="k">if</span> <span class="p">!</span><span class="nx">n</span><span class="p">.</span><span class="nf">Bounded</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nf">Isconst</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">CTINT</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nx">x</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nf">Int64Val</span><span class="p">()</span>
-   <span class="k">if</span> <span class="nx">x</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
-      <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid %s index %v (index must be non-negative)&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
-   <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">IsArray</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumElem</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid array index %v (out of bounds for %d-element array)&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumElem</span><span class="p">())</span>
-   <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nf">Isconst</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">CTSTR</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">StringVal</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="nx">x</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nf">Int64Val</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">x</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid %s index %v (index must be non-negative)&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">IsArray</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumElem</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid array index %v (out of bounds for %d-element array)&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumElem</span><span class="p">())</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nf">Isconst</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">CTSTR</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">x</span> <span class="o">&gt;=</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">StringVal</span><span class="p">()))</span> <span class="p">{</span>
       <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid string index %v (out of bounds for %d-byte string)&#34;</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">StringVal</span><span class="p">()))</span>
-   <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nf">Val</span><span class="p">().</span><span class="nx">U</span><span class="p">.(</span><span class="o">*</span><span class="nx">Mpint</span><span class="p">).</span><span class="nf">Cmp</span><span class="p">(</span><span class="nx">maxintval</span><span class="p">[</span><span class="nx">TINT</span><span class="p">])</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-      <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid %s index %v (index too large)&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
-   <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">.</span><span class="nf">Val</span><span class="p">().</span><span class="nx">U</span><span class="p">.(</span><span class="o">*</span><span class="nx">Mpint</span><span class="p">).</span><span class="nf">Cmp</span><span class="p">(</span><span class="nx">maxintval</span><span class="p">[</span><span class="nx">TINT</span><span class="p">])</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="nf">yyerror</span><span class="p">(</span><span class="s">&#34;invalid %s index %v (index too large)&#34;</span><span class="p">,</span> <span class="nx">why</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Right</span><span class="p">)</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -506,8 +506,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">goPanicIndex</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nf">panicCheck1</span><span class="p">(</span><span class="nf">getcallerpc</span><span class="p">(),</span> <span class="s">&#34;index out of range&#34;</span><span class="p">)</span>
-	<span class="nb">panic</span><span class="p">(</span><span class="nx">boundsError</span><span class="p">{</span><span class="nx">x</span><span class="p">:</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">x</span><span class="p">),</span> <span class="nx">signed</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">code</span><span class="p">:</span> <span class="nx">boundsIndex</span><span class="p">})</span>
+    <span class="nf">panicCheck1</span><span class="p">(</span><span class="nf">getcallerpc</span><span class="p">(),</span> <span class="s">&#34;index out of range&#34;</span><span class="p">)</span>
+    <span class="nb">panic</span><span class="p">(</span><span class="nx">boundsError</span><span class="p">{</span><span class="nx">x</span><span class="p">:</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">x</span><span class="p">),</span> <span class="nx">signed</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">code</span><span class="p">:</span> <span class="nx">boundsIndex</span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -557,37 +557,37 @@
 </span><span class="c1">// This saves space in Types that do not have fields or methods
 </span><span class="c1">// compared to a simple slice of *Field.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">Fields</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">s</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">Field</span>
+    <span class="nx">s</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">Field</span>
 <span class="p">}</span>
 
 <span class="c1">// A Field represents a field in a struct or a method in an interface or
 </span><span class="c1">// associated with a named type.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">Field</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">flags</span> <span class="nx">bitset8</span>
+    <span class="nx">flags</span> <span class="nx">bitset8</span>
 
-	<span class="nx">Embedded</span> <span class="kt">uint8</span> <span class="c1">// embedded field
+    <span class="nx">Embedded</span> <span class="kt">uint8</span> <span class="c1">// embedded field
 </span><span class="c1"></span>
-	<span class="nx">Pos</span>  <span class="nx">src</span><span class="p">.</span><span class="nx">XPos</span>
-	<span class="nx">Sym</span>  <span class="o">*</span><span class="nx">Sym</span>
-	<span class="nx">Type</span> <span class="o">*</span><span class="nx">Type</span>  <span class="c1">// field type
-</span><span class="c1"></span>	<span class="nx">Note</span> <span class="kt">string</span> <span class="c1">// literal string annotation
+    <span class="nx">Pos</span>  <span class="nx">src</span><span class="p">.</span><span class="nx">XPos</span>
+    <span class="nx">Sym</span>  <span class="o">*</span><span class="nx">Sym</span>
+    <span class="nx">Type</span> <span class="o">*</span><span class="nx">Type</span>  <span class="c1">// field type
+</span><span class="c1"></span>    <span class="nx">Note</span> <span class="kt">string</span> <span class="c1">// literal string annotation
 </span><span class="c1"></span>
-	<span class="c1">// For fields that represent function parameters, Nname points
-</span><span class="c1"></span>	<span class="c1">// to the associated ONAME Node.
-</span><span class="c1"></span>	<span class="nx">Nname</span> <span class="o">*</span><span class="nx">Node</span>
+    <span class="c1">// For fields that represent function parameters, Nname points
+</span><span class="c1"></span>    <span class="c1">// to the associated ONAME Node.
+</span><span class="c1"></span>    <span class="nx">Nname</span> <span class="o">*</span><span class="nx">Node</span>
 
-	<span class="c1">// Offset in bytes of this field or method within its enclosing struct
-</span><span class="c1"></span>	<span class="c1">// or interface Type.
-</span><span class="c1"></span>	<span class="nx">Offset</span> <span class="kt">int64</span>
+    <span class="c1">// Offset in bytes of this field or method within its enclosing struct
+</span><span class="c1"></span>    <span class="c1">// or interface Type.
+</span><span class="c1"></span>    <span class="nx">Offset</span> <span class="kt">int64</span>
 <span class="p">}</span>
 
 <span class="c1">// Slice returns the entries in f as a slice.
 </span><span class="c1">// Changes to the slice entries will be reflected in f.
 </span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Fields</span><span class="p">)</span> <span class="nf">Slice</span><span class="p">()</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Field</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">f</span><span class="p">.</span><span class="nx">s</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="kc">nil</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="o">*</span><span class="nx">f</span><span class="p">.</span><span class="nx">s</span>
+    <span class="k">if</span> <span class="nx">f</span><span class="p">.</span><span class="nx">s</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">*</span><span class="nx">f</span><span class="p">.</span><span class="nx">s</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -612,17 +612,17 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// NewSlice returns the slice Type with element type elem.
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewSlice</span><span class="p">(</span><span class="nx">elem</span> <span class="o">*</span><span class="nx">Type</span><span class="p">)</span> <span class="o">*</span><span class="nx">Type</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">Cache</span><span class="p">.</span><span class="nx">slice</span><span class="p">;</span> <span class="nx">t</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Elem</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">elem</span> <span class="p">{</span>
-         <span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;elem mismatch&#34;</span><span class="p">)</span>
-      <span class="p">}</span>
-      <span class="k">return</span> <span class="nx">t</span>
-   <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">Cache</span><span class="p">.</span><span class="nx">slice</span><span class="p">;</span> <span class="nx">t</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Elem</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">elem</span> <span class="p">{</span>
+            <span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;elem mismatch&#34;</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">t</span>
+    <span class="p">}</span>
 
-   <span class="nx">t</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">TSLICE</span><span class="p">)</span>
-   <span class="nx">t</span><span class="p">.</span><span class="nx">Extra</span> <span class="p">=</span> <span class="nx">Slice</span><span class="p">{</span><span class="nx">Elem</span><span class="p">:</span> <span class="nx">elem</span><span class="p">}</span>
-   <span class="nx">elem</span><span class="p">.</span><span class="nx">Cache</span><span class="p">.</span><span class="nx">slice</span> <span class="p">=</span> <span class="nx">t</span>
-   <span class="k">return</span> <span class="nx">t</span>
+    <span class="nx">t</span> <span class="o">:=</span> <span class="nf">New</span><span class="p">(</span><span class="nx">TSLICE</span><span class="p">)</span>
+    <span class="nx">t</span><span class="p">.</span><span class="nx">Extra</span> <span class="p">=</span> <span class="nx">Slice</span><span class="p">{</span><span class="nx">Elem</span><span class="p">:</span> <span class="nx">elem</span><span class="p">}</span>
+    <span class="nx">elem</span><span class="p">.</span><span class="nx">Cache</span><span class="p">.</span><span class="nx">slice</span> <span class="p">=</span> <span class="nx">t</span>
+    <span class="k">return</span> <span class="nx">t</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -649,9 +649,9 @@
 </span><span class="c1">// it references will not be garbage collected, so programs must keep
 </span><span class="c1">// a separate, correctly typed pointer to the underlying data.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Data</span> <span class="kt">uintptr</span>
-	<span class="nx">Len</span>  <span class="kt">int</span>
-	<span class="nx">Cap</span>  <span class="kt">int</span>
+    <span class="nx">Data</span> <span class="kt">uintptr</span>
+    <span class="nx">Len</span>  <span class="kt">int</span>
+    <span class="nx">Cap</span>  <span class="kt">int</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -669,9 +669,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">    <span class="nx">nums</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">}</span>
-    <span class="nx">slice</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">slice</span><span class="p">))</span> <span class="c1">// 8 2
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">nums</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">}</span>
+<span class="nx">slice</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">slice</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">slice</span><span class="p">))</span> <span class="c1">// 2 8
 </span></code></pre></td></tr></table>
 </div>
 </div><p>​      创建后，长度默认是切片范围，但是容量会一直从切片起始值延续到数组的最后一位
@@ -833,22 +833,22 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">growslice</span><span class="p">(</span><span class="nx">et</span> <span class="o">*</span><span class="nx">_type</span><span class="p">,</span> <span class="nx">old</span> <span class="nx">slice</span><span class="p">,</span> <span class="nx">cap</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">slice</span> <span class="p">{</span>
-	<span class="nx">newcap</span> <span class="o">:=</span> <span class="nx">old</span><span class="p">.</span><span class="nx">cap</span>
-	<span class="nx">doublecap</span> <span class="o">:=</span> <span class="nx">newcap</span> <span class="o">+</span> <span class="nx">newcap</span>
-	<span class="k">if</span> <span class="nx">cap</span> <span class="p">&gt;</span> <span class="nx">doublecap</span> <span class="p">{</span>
-		<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">old</span><span class="p">.</span><span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">1024</span> <span class="p">{</span>
-			<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">doublecap</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="k">for</span> <span class="mi">0</span> <span class="p">&lt;</span> <span class="nx">newcap</span> <span class="o">&amp;&amp;</span> <span class="nx">newcap</span> <span class="p">&lt;</span> <span class="nx">cap</span> <span class="p">{</span>
-				<span class="nx">newcap</span> <span class="o">+=</span> <span class="nx">newcap</span> <span class="o">/</span> <span class="mi">4</span>
-			<span class="p">}</span>
-			<span class="k">if</span> <span class="nx">newcap</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
-				<span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+    <span class="nx">newcap</span> <span class="o">:=</span> <span class="nx">old</span><span class="p">.</span><span class="nx">cap</span>
+    <span class="nx">doublecap</span> <span class="o">:=</span> <span class="nx">newcap</span> <span class="o">+</span> <span class="nx">newcap</span>
+    <span class="k">if</span> <span class="nx">cap</span> <span class="p">&gt;</span> <span class="nx">doublecap</span> <span class="p">{</span>
+        <span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">old</span><span class="p">.</span><span class="nx">len</span> <span class="p">&lt;</span> <span class="mi">1024</span> <span class="p">{</span>
+            <span class="nx">newcap</span> <span class="p">=</span> <span class="nx">doublecap</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="mi">0</span> <span class="p">&lt;</span> <span class="nx">newcap</span> <span class="o">&amp;&amp;</span> <span class="nx">newcap</span> <span class="p">&lt;</span> <span class="nx">cap</span> <span class="p">{</span>
+                <span class="nx">newcap</span> <span class="o">+=</span> <span class="nx">newcap</span> <span class="o">/</span> <span class="mi">4</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="nx">newcap</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+                <span class="nx">newcap</span> <span class="p">=</span> <span class="nx">cap</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -891,17 +891,17 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Returns size of the memory block that mallocgc will allocate if you ask for the size.
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nx">size</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">uintptr</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">size</span> <span class="p">&lt;</span> <span class="nx">_MaxSmallSize</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="nx">size</span> <span class="o">&lt;=</span> <span class="nx">smallSizeMax</span><span class="o">-</span><span class="mi">8</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">class_to_size</span><span class="p">[</span><span class="nx">size_to_class8</span><span class="p">[</span><span class="nf">divRoundUp</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">smallSizeDiv</span><span class="p">)]])</span>
-		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">class_to_size</span><span class="p">[</span><span class="nx">size_to_class128</span><span class="p">[</span><span class="nf">divRoundUp</span><span class="p">(</span><span class="nx">size</span><span class="o">-</span><span class="nx">smallSizeMax</span><span class="p">,</span> <span class="nx">largeSizeDiv</span><span class="p">)]])</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">size</span><span class="o">+</span><span class="nx">_PageSize</span> <span class="p">&lt;</span> <span class="nx">size</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">size</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nf">alignUp</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">_PageSize</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">size</span> <span class="p">&lt;</span> <span class="nx">_MaxSmallSize</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">size</span> <span class="o">&lt;=</span> <span class="nx">smallSizeMax</span><span class="o">-</span><span class="mi">8</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">class_to_size</span><span class="p">[</span><span class="nx">size_to_class8</span><span class="p">[</span><span class="nf">divRoundUp</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">smallSizeDiv</span><span class="p">)]])</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">class_to_size</span><span class="p">[</span><span class="nx">size_to_class128</span><span class="p">[</span><span class="nf">divRoundUp</span><span class="p">(</span><span class="nx">size</span><span class="o">-</span><span class="nx">smallSizeMax</span><span class="p">,</span> <span class="nx">largeSizeDiv</span><span class="p">)]])</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">size</span><span class="o">+</span><span class="nx">_PageSize</span> <span class="p">&lt;</span> <span class="nx">size</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">size</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nf">alignUp</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">_PageSize</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -933,26 +933,26 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">	<span class="kd">var</span> <span class="nx">overflow</span> <span class="kt">bool</span>
-	<span class="kd">var</span> <span class="nx">lenmem</span><span class="p">,</span> <span class="nx">newlenmem</span><span class="p">,</span> <span class="nx">capmem</span> <span class="kt">uintptr</span>
-	<span class="k">switch</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span>
-		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span>
-		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">))</span>
-		<span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span>
-		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span><span class="p">)</span>
-	<span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
-		<span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
-		<span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
-		<span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
-		<span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span><span class="o">/</span><span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
-		<span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span> <span class="o">/</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
-	<span class="k">case</span> <span class="nf">isPowerOfTwo</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">):</span>
-		<span class="o">...</span>
-	<span class="k">default</span><span class="p">:</span>
-		<span class="o">...</span>
-	<span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">    <span class="kd">var</span> <span class="nx">overflow</span> <span class="kt">bool</span>
+    <span class="kd">var</span> <span class="nx">lenmem</span><span class="p">,</span> <span class="nx">newlenmem</span><span class="p">,</span> <span class="nx">capmem</span> <span class="kt">uintptr</span>
+    <span class="k">switch</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span>
+        <span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span>
+        <span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">))</span>
+        <span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span>
+        <span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span><span class="p">)</span>
+    <span class="k">case</span> <span class="nx">et</span><span class="p">.</span><span class="nx">size</span> <span class="o">==</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">:</span>
+        <span class="nx">lenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">old</span><span class="p">.</span><span class="nx">len</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+        <span class="nx">newlenmem</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">cap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+        <span class="nx">capmem</span> <span class="p">=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="o">*</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
+        <span class="nx">overflow</span> <span class="p">=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">newcap</span><span class="p">)</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span><span class="o">/</span><span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span>
+        <span class="nx">newcap</span> <span class="p">=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">capmem</span> <span class="o">/</span> <span class="nx">sys</span><span class="p">.</span><span class="nx">PtrSize</span><span class="p">)</span>
+    <span class="k">case</span> <span class="nf">isPowerOfTwo</span><span class="p">(</span><span class="nx">et</span><span class="p">.</span><span class="nx">size</span><span class="p">):</span>
+        <span class="o">...</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
 
 <span class="kd">const</span> <span class="nx">_MaxSmallSize</span>   <span class="p">=</span> <span class="mi">32768</span>
 <span class="kd">var</span> <span class="nx">class_to_size</span> <span class="p">=</span> <span class="p">[</span><span class="nx">_NumSizeClasses</span><span class="p">]</span><span class="kt">uint16</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">...</span><span class="p">,}</span>
@@ -976,7 +976,7 @@
     <span class="nx">n</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
 <span class="p">}</span>
 <span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">ptr</span> <span class="o">!=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">ptr</span> <span class="p">{</span>
-    <span class="nf">memmove</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">ptr</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="o">*</span><span class="nf">sizeof</span><span class="p">(</span><span class="nf">elem</span><span class="p">(</span><span class="nx">a</span><span class="p">)))</span> 
+    <span class="nf">memmove</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">ptr</span><span class="p">,</span> <span class="nx">b</span><span class="p">.</span><span class="nx">ptr</span><span class="p">,</span> <span class="nx">n</span><span class="o">*</span><span class="nf">sizeof</span><span class="p">(</span><span class="nf">elem</span><span class="p">(</span><span class="nx">a</span><span class="p">)))</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1006,28 +1006,28 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">slicecopy</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">fm</span> <span class="nx">slice</span><span class="p">,</span> <span class="nx">width</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">len</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="mi">0</span>
-	<span class="p">}</span>
-	<span class="nx">n</span> <span class="o">:=</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">len</span>
-	<span class="k">if</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
-		<span class="nx">n</span> <span class="p">=</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">n</span>
-	<span class="p">}</span>
-	<span class="c1">// ...
-</span><span class="c1"></span>	<span class="nx">size</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">*</span> <span class="nx">width</span>
-	<span class="k">if</span> <span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-		<span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">to</span><span class="p">.</span><span class="nx">array</span><span class="p">)</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">fm</span><span class="p">.</span><span class="nx">array</span><span class="p">)</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="nf">memmove</span><span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">n</span>
+    <span class="k">if</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">len</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="p">}</span>
+    <span class="nx">n</span> <span class="o">:=</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">len</span>
+    <span class="k">if</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+        <span class="nx">n</span> <span class="p">=</span> <span class="nx">to</span><span class="p">.</span><span class="nx">len</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">width</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">n</span>
+    <span class="p">}</span>
+    <span class="c1">// ...
+</span><span class="c1"></span>    <span class="nx">size</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="o">*</span> <span class="nx">width</span>
+    <span class="k">if</span> <span class="nx">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+        <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">to</span><span class="p">.</span><span class="nx">array</span><span class="p">)</span> <span class="p">=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">byte</span><span class="p">)(</span><span class="nx">fm</span><span class="p">.</span><span class="nx">array</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nf">memmove</span><span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fm</span><span class="p">.</span><span class="nx">array</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">n</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>两种拷贝都会调用memmove函数，将整块内存的内容拷贝到目标的内存区域中，这个函数以汇编方式实现。在大切片上执行拷贝要注意对性能的影响。</p>
+</div><p>两种拷贝都会调用memmove函数，将整块内存的内容拷贝到目标的内存区域中（如果目标内存不足就不会完全拷贝），这个函数以汇编方式实现。在大切片上执行拷贝要注意对性能的影响。</p>
 <h2 id="3-map">3. Map</h2>
 <h3 id="31-new-map">3.1. New Map</h3>
 <div class="highlight"><div class="chroma">
@@ -1052,21 +1052,21 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">count</span>     <span class="kt">int</span>    <span class="c1">// count 表示当前哈希表中的元素数量；
-</span><span class="c1"></span>	<span class="nx">flags</span>     <span class="kt">uint8</span>
-	<span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// B 表示当前哈希表持有的 buckets 数量，但是因为哈希表中桶的数量都 2 的倍数，所以该字段会存储对数，也就是 len(buckets) == 2^B；
-</span><span class="c1"></span>	<span class="nx">noverflow</span> <span class="kt">uint16</span>
-	<span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash0 是哈希的种子，它能为哈希函数的结果引入随机性，这个值在创建哈希表时确定，并在调用哈希函数时作为参数传入；
-</span><span class="c1"></span>	<span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-	<span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>  <span class="c1">// oldbuckets 是哈希在扩容时用于保存之前 buckets 的字段，它的大小是当前 buckets 的一半；
-</span><span class="c1"></span>	<span class="nx">nevacuate</span>  <span class="kt">uintptr</span>
-	<span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span>  <span class="c1">// 指向下一个溢出桶的地址
+    <span class="nx">count</span>     <span class="kt">int</span>    <span class="c1">// count 表示当前哈希表中的元素数量；
+</span><span class="c1"></span>    <span class="nx">flags</span>     <span class="kt">uint8</span>
+    <span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// B 表示当前哈希表持有的 buckets 数量，但是因为哈希表中桶的数量都 2 的倍数，所以该字段会存储对数，也就是 len(buckets) == 2^B；
+</span><span class="c1"></span>    <span class="nx">noverflow</span> <span class="kt">uint16</span>
+    <span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash0 是哈希的种子，它能为哈希函数的结果引入随机性，这个值在创建哈希表时确定，并在调用哈希函数时作为参数传入；
+</span><span class="c1"></span>    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>  <span class="c1">// oldbuckets 是哈希在扩容时用于保存之前 buckets 的字段，它的大小是当前 buckets 的一半；
+</span><span class="c1"></span>    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>
+    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span>  <span class="c1">// 指向下一个溢出桶的地址
 </span><span class="c1"></span><span class="p">}</span>
 
 <span class="kd">type</span> <span class="nx">mapextra</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">overflow</span>    <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>  <span class="c1">// 已经使用的溢出桶
-</span><span class="c1"></span>	<span class="nx">oldoverflow</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>
-	<span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span>  <span class="c1">// 下一个空闲的溢出桶
+    <span class="nx">overflow</span>    <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>  <span class="c1">// 已经使用的溢出桶
+</span><span class="c1"></span>    <span class="nx">oldoverflow</span> <span class="o">*</span><span class="p">[]</span><span class="o">*</span><span class="nx">bmap</span>
+    <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span>  <span class="c1">// 下一个空闲的溢出桶
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1090,15 +1090,15 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A bucket for a Go map.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// tophash generally contains the top byte of the hash value
-</span><span class="c1"></span>	<span class="c1">// for each key in this bucket. If tophash[0] &lt; minTopHash,
-</span><span class="c1"></span>	<span class="c1">// tophash[0] is a bucket evacuation state instead.
-</span><span class="c1"></span>	<span class="nx">tophash</span> <span class="p">[</span><span class="nx">bucketCnt</span><span class="p">]</span><span class="kt">uint8</span>
-	<span class="c1">// Followed by bucketCnt keys and then bucketCnt elems.
-</span><span class="c1"></span>	<span class="c1">// NOTE: packing all the keys together and then all the elems together makes the
-</span><span class="c1"></span>	<span class="c1">// code a bit more complicated than alternating key/elem/key/elem/... but it allows
-</span><span class="c1"></span>	<span class="c1">// us to eliminate padding which would be needed for, e.g., map[int64]int8.
-</span><span class="c1"></span>	<span class="c1">// Followed by an overflow pointer.
+    <span class="c1">// tophash generally contains the top byte of the hash value
+</span><span class="c1"></span>    <span class="c1">// for each key in this bucket. If tophash[0] &lt; minTopHash,
+</span><span class="c1"></span>    <span class="c1">// tophash[0] is a bucket evacuation state instead.
+</span><span class="c1"></span>    <span class="nx">tophash</span> <span class="p">[</span><span class="nx">bucketCnt</span><span class="p">]</span><span class="kt">uint8</span>
+    <span class="c1">// Followed by bucketCnt keys and then bucketCnt elems.
+</span><span class="c1"></span>    <span class="c1">// NOTE: packing all the keys together and then all the elems together makes the
+</span><span class="c1"></span>    <span class="c1">// code a bit more complicated than alternating key/elem/key/elem/... but it allows
+</span><span class="c1"></span>    <span class="c1">// us to eliminate padding which would be needed for, e.g., map[int64]int8.
+</span><span class="c1"></span>    <span class="c1">// Followed by an overflow pointer.
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1150,24 +1150,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">maplit</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">m</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">init</span> <span class="o">*</span><span class="nx">Nodes</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">a</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OMAKE</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-	<span class="nx">a</span><span class="p">.</span><span class="nx">Esc</span> <span class="p">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span>
-	<span class="nx">a</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Set2</span><span class="p">(</span><span class="nf">typenod</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">),</span> <span class="nf">nodintconst</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Len</span><span class="p">())))</span>
-	<span class="nf">litas</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+    <span class="nx">a</span> <span class="o">:=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OMAKE</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">Esc</span> <span class="p">=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Esc</span>
+    <span class="nx">a</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Set2</span><span class="p">(</span><span class="nf">typenod</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">),</span> <span class="nf">nodintconst</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Len</span><span class="p">())))</span>
+    <span class="nf">litas</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
 
-	<span class="nx">entries</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Slice</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">25</span> <span class="p">{</span>
-		<span class="c1">// For a large number of entries, put them in an array and loop.
-</span><span class="c1"></span>		<span class="c1">// build types [count]Tindex and [count]Tvalue
-</span><span class="c1"></span>		<span class="nx">tk</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nf">NewArray</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Key</span><span class="p">(),</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)))</span>
-		<span class="nx">te</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nf">NewArray</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">(),</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)))</span>
+    <span class="nx">entries</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Slice</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">25</span> <span class="p">{</span>
+        <span class="c1">// For a large number of entries, put them in an array and loop.
+</span><span class="c1"></span>        <span class="c1">// build types [count]Tindex and [count]Tvalue
+</span><span class="c1"></span>        <span class="nx">tk</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nf">NewArray</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Key</span><span class="p">(),</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)))</span>
+        <span class="nx">te</span> <span class="o">:=</span> <span class="nx">types</span><span class="p">.</span><span class="nf">NewArray</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Type</span><span class="p">.</span><span class="nf">Elem</span><span class="p">(),</span> <span class="nb">int64</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">entries</span><span class="p">)))</span>
         <span class="o">...</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
 
-	<span class="c1">// Build list of var[c] = expr.
-</span><span class="c1"></span>	<span class="c1">// Use temporaries so that mapassign1 can have addressable key, elem.
-</span><span class="c1"></span>	<span class="o">...</span>
+    <span class="c1">// Build list of var[c] = expr.
+</span><span class="c1"></span>    <span class="c1">// Use temporaries so that mapassign1 can have addressable key, elem.
+</span><span class="c1"></span>    <span class="o">...</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1202,28 +1202,28 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">makemap</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">maptype</span><span class="p">,</span> <span class="nx">hint</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">h</span> <span class="o">*</span><span class="nx">hmap</span><span class="p">)</span> <span class="o">*</span><span class="nx">hmap</span> <span class="p">{</span>
-	<span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">hint</span><span class="p">),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="p">{</span>
-		<span class="nx">hint</span> <span class="p">=</span> <span class="mi">0</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">h</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nx">h</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">hmap</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">h</span><span class="p">.</span><span class="nx">hash0</span> <span class="p">=</span> <span class="nf">fastrand</span><span class="p">()</span>
-	<span class="nx">B</span> <span class="o">:=</span> <span class="nb">uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nf">overLoadFactor</span><span class="p">(</span><span class="nx">hint</span><span class="p">,</span> <span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">B</span><span class="o">++</span>
-	<span class="p">}</span>
-	<span class="nx">h</span><span class="p">.</span><span class="nx">B</span> <span class="p">=</span> <span class="nx">B</span>
-	<span class="k">if</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="kd">var</span> <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span>
-		<span class="nx">h</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">nextOverflow</span> <span class="p">=</span> <span class="nf">makeBucketArray</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">nextOverflow</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-			<span class="nx">h</span><span class="p">.</span><span class="nx">extra</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">mapextra</span><span class="p">)</span>
-			<span class="nx">h</span><span class="p">.</span><span class="nx">extra</span><span class="p">.</span><span class="nx">nextOverflow</span> <span class="p">=</span> <span class="nx">nextOverflow</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">h</span>
+    <span class="nx">mem</span><span class="p">,</span> <span class="nx">overflow</span> <span class="o">:=</span> <span class="nx">math</span><span class="p">.</span><span class="nf">MulUintptr</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">hint</span><span class="p">),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">overflow</span> <span class="o">||</span> <span class="nx">mem</span> <span class="p">&gt;</span> <span class="nx">maxAlloc</span> <span class="p">{</span>
+        <span class="nx">hint</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">h</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">h</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">hmap</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">h</span><span class="p">.</span><span class="nx">hash0</span> <span class="p">=</span> <span class="nf">fastrand</span><span class="p">()</span>
+    <span class="nx">B</span> <span class="o">:=</span> <span class="nb">uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nf">overLoadFactor</span><span class="p">(</span><span class="nx">hint</span><span class="p">,</span> <span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">B</span><span class="o">++</span>
+    <span class="p">}</span>
+    <span class="nx">h</span><span class="p">.</span><span class="nx">B</span> <span class="p">=</span> <span class="nx">B</span>
+    <span class="k">if</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span>
+        <span class="nx">h</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">nextOverflow</span> <span class="p">=</span> <span class="nf">makeBucketArray</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">nextOverflow</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="nx">h</span><span class="p">.</span><span class="nx">extra</span> <span class="p">=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">mapextra</span><span class="p">)</span>
+            <span class="nx">h</span><span class="p">.</span><span class="nx">extra</span><span class="p">.</span><span class="nx">nextOverflow</span> <span class="p">=</span> <span class="nx">nextOverflow</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">h</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1260,25 +1260,25 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">makeBucketArray</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">maptype</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">uint8</span><span class="p">,</span> <span class="nx">dirtyalloc</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="p">(</span><span class="nx">buckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">nextOverflow</span> <span class="o">*</span><span class="nx">bmap</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">base</span> <span class="o">:=</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
-	<span class="nx">nbuckets</span> <span class="o">:=</span> <span class="nx">base</span>
-	<span class="k">if</span> <span class="nx">b</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="p">{</span>
+    <span class="nx">base</span> <span class="o">:=</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+    <span class="nx">nbuckets</span> <span class="o">:=</span> <span class="nx">base</span>
+    <span class="k">if</span> <span class="nx">b</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="p">{</span>
         <span class="c1">// 大于4个，大概率会发生扩容，先分配2^(b-4)个空桶以供备用
-</span><span class="c1"></span>		<span class="nx">nbuckets</span> <span class="o">+=</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">b</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span>  
-		<span class="nx">sz</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span> <span class="o">*</span> <span class="nx">nbuckets</span>
-		<span class="nx">up</span> <span class="o">:=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nx">sz</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">up</span> <span class="o">!=</span> <span class="nx">sz</span> <span class="p">{</span>
-			<span class="nx">nbuckets</span> <span class="p">=</span> <span class="nx">up</span> <span class="o">/</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
+</span><span class="c1"></span>        <span class="nx">nbuckets</span> <span class="o">+=</span> <span class="nf">bucketShift</span><span class="p">(</span><span class="nx">b</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span>  
+        <span class="nx">sz</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span> <span class="o">*</span> <span class="nx">nbuckets</span>
+        <span class="nx">up</span> <span class="o">:=</span> <span class="nf">roundupsize</span><span class="p">(</span><span class="nx">sz</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">up</span> <span class="o">!=</span> <span class="nx">sz</span> <span class="p">{</span>
+            <span class="nx">nbuckets</span> <span class="p">=</span> <span class="nx">up</span> <span class="o">/</span> <span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">size</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-	<span class="nx">buckets</span> <span class="p">=</span> <span class="nf">newarray</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">nbuckets</span><span class="p">))</span>
-	<span class="k">if</span> <span class="nx">base</span> <span class="o">!=</span> <span class="nx">nbuckets</span> <span class="p">{</span>
-		<span class="nx">nextOverflow</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">base</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
-		<span class="nx">last</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">buckets</span><span class="p">,</span> <span class="p">(</span><span class="nx">nbuckets</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
-		<span class="nx">last</span><span class="p">.</span><span class="nf">setoverflow</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nx">buckets</span><span class="p">))</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">buckets</span><span class="p">,</span> <span class="nx">nextOverflow</span>
+    <span class="nx">buckets</span> <span class="p">=</span> <span class="nf">newarray</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucket</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nx">nbuckets</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">base</span> <span class="o">!=</span> <span class="nx">nbuckets</span> <span class="p">{</span>
+        <span class="nx">nextOverflow</span> <span class="p">=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">buckets</span><span class="p">,</span> <span class="nx">base</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
+        <span class="nx">last</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">buckets</span><span class="p">,</span> <span class="p">(</span><span class="nx">nbuckets</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
+        <span class="nx">last</span><span class="p">.</span><span class="nf">setoverflow</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nx">buckets</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">buckets</span><span class="p">,</span> <span class="nx">nextOverflow</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1324,28 +1324,28 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">mapaccess1</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">maptype</span><span class="p">,</span> <span class="nx">h</span> <span class="o">*</span><span class="nx">hmap</span><span class="p">,</span> <span class="nx">key</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="p">{</span>
-	<span class="nx">alg</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">alg</span>
-	<span class="nx">hash</span> <span class="o">:=</span> <span class="nx">alg</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">hash0</span><span class="p">))</span>
-	<span class="nx">m</span> <span class="o">:=</span> <span class="nf">bucketMask</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span>
-	<span class="nx">b</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="p">(</span><span class="nx">hash</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">)</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
-	<span class="nx">top</span> <span class="o">:=</span> <span class="nf">tophash</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span>
+    <span class="nx">alg</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">alg</span>
+    <span class="nx">hash</span> <span class="o">:=</span> <span class="nx">alg</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">hash0</span><span class="p">))</span>
+    <span class="nx">m</span> <span class="o">:=</span> <span class="nf">bucketMask</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span>
+    <span class="nx">b</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">bmap</span><span class="p">)(</span><span class="nf">add</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">buckets</span><span class="p">,</span> <span class="p">(</span><span class="nx">hash</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">)</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">bucketsize</span><span class="p">)))</span>
+    <span class="nx">top</span> <span class="o">:=</span> <span class="nf">tophash</span><span class="p">(</span><span class="nx">hash</span><span class="p">)</span>
 <span class="nx">bucketloop</span><span class="p">:</span>
-	<span class="k">for</span> <span class="p">;</span> <span class="nx">b</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">.</span><span class="nf">overflow</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">bucketCnt</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">tophash</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">top</span> <span class="p">{</span>
-				<span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">tophash</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">emptyRest</span> <span class="p">{</span>
-					<span class="k">break</span> <span class="nx">bucketloop</span>
-				<span class="p">}</span>
-				<span class="k">continue</span>
-			<span class="p">}</span>
-			<span class="nx">k</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nx">dataOffset</span><span class="o">+</span><span class="nx">i</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">keysize</span><span class="p">))</span>
-			<span class="k">if</span> <span class="nx">alg</span><span class="p">.</span><span class="nf">equal</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
-				<span class="nx">v</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nx">dataOffset</span><span class="o">+</span><span class="nx">bucketCnt</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">keysize</span><span class="p">)</span><span class="o">+</span><span class="nx">i</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">valuesize</span><span class="p">))</span>
-				<span class="k">return</span> <span class="nx">v</span> <span class="c1">//, true
-</span><span class="c1"></span>			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">zeroVal</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">//, false
+    <span class="k">for</span> <span class="p">;</span> <span class="nx">b</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">.</span><span class="nf">overflow</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nb">uintptr</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">bucketCnt</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">tophash</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">top</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="nx">b</span><span class="p">.</span><span class="nx">tophash</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">==</span> <span class="nx">emptyRest</span> <span class="p">{</span>
+                    <span class="k">break</span> <span class="nx">bucketloop</span>
+                <span class="p">}</span>
+                <span class="k">continue</span>
+            <span class="p">}</span>
+            <span class="nx">k</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nx">dataOffset</span><span class="o">+</span><span class="nx">i</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">keysize</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nx">alg</span><span class="p">.</span><span class="nf">equal</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">v</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nx">dataOffset</span><span class="o">+</span><span class="nx">bucketCnt</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">keysize</span><span class="p">)</span><span class="o">+</span><span class="nx">i</span><span class="o">*</span><span class="nb">uintptr</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">valuesize</span><span class="p">))</span>
+                <span class="k">return</span> <span class="nx">v</span> <span class="c1">//, true
+</span><span class="c1"></span>            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">zeroVal</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">//, false
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1368,12 +1368,12 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">mapassign</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">maptype</span><span class="p">,</span> <span class="nx">h</span> <span class="o">*</span><span class="nx">hmap</span><span class="p">,</span> <span class="nx">key</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="p">{</span>
-	<span class="o">...</span>
-	<span class="k">if</span> <span class="p">!</span><span class="nx">h</span><span class="p">.</span><span class="nf">growing</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nf">overLoadFactor</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">count</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="o">||</span> <span class="nf">tooManyOverflowBuckets</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">noverflow</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">))</span> <span class="p">{</span>
-		<span class="nf">hashGrow</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
-		<span class="k">goto</span> <span class="nx">again</span>
-	<span class="p">}</span>
-	<span class="o">...</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="p">!</span><span class="nx">h</span><span class="p">.</span><span class="nf">growing</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nf">overLoadFactor</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">count</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="o">||</span> <span class="nf">tooManyOverflowBuckets</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">noverflow</span><span class="p">,</span> <span class="nx">h</span><span class="p">.</span><span class="nx">B</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nf">hashGrow</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="nx">again</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1402,21 +1402,21 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">walkexpr</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">init</span> <span class="o">*</span><span class="nx">Nodes</span><span class="p">)</span> <span class="o">*</span><span class="nx">Node</span> <span class="p">{</span>
-	<span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ODELETE</span><span class="p">:</span>
-		<span class="nx">init</span><span class="p">.</span><span class="nf">AppendNodes</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">n</span><span class="p">.</span><span class="nx">Ninit</span><span class="p">)</span>
-		<span class="nx">map_</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">First</span><span class="p">()</span>
-		<span class="nx">key</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Second</span><span class="p">()</span>
-		<span class="nx">map_</span> <span class="p">=</span> <span class="nf">walkexpr</span><span class="p">(</span><span class="nx">map_</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
-		<span class="nx">key</span> <span class="p">=</span> <span class="nf">walkexpr</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+    <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">ODELETE</span><span class="p">:</span>
+        <span class="nx">init</span><span class="p">.</span><span class="nf">AppendNodes</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">n</span><span class="p">.</span><span class="nx">Ninit</span><span class="p">)</span>
+        <span class="nx">map_</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">First</span><span class="p">()</span>
+        <span class="nx">key</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">List</span><span class="p">.</span><span class="nf">Second</span><span class="p">()</span>
+        <span class="nx">map_</span> <span class="p">=</span> <span class="nf">walkexpr</span><span class="p">(</span><span class="nx">map_</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+        <span class="nx">key</span> <span class="p">=</span> <span class="nf">walkexpr</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
 
-		<span class="nx">t</span> <span class="o">:=</span> <span class="nx">map_</span><span class="p">.</span><span class="nx">Type</span>
-		<span class="nx">fast</span> <span class="o">:=</span> <span class="nf">mapfast</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">fast</span> <span class="o">==</span> <span class="nx">mapslow</span> <span class="p">{</span>
-			<span class="nx">key</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OADDR</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="nx">n</span> <span class="p">=</span> <span class="nf">mkcall1</span><span class="p">(</span><span class="nf">mapfndel</span><span class="p">(</span><span class="nx">mapdelete</span><span class="p">[</span><span class="nx">fast</span><span class="p">],</span> <span class="nx">t</span><span class="p">),</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">init</span><span class="p">,</span> <span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nx">map_</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
-	<span class="p">}</span>
+        <span class="nx">t</span> <span class="o">:=</span> <span class="nx">map_</span><span class="p">.</span><span class="nx">Type</span>
+        <span class="nx">fast</span> <span class="o">:=</span> <span class="nf">mapfast</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">fast</span> <span class="o">==</span> <span class="nx">mapslow</span> <span class="p">{</span>
+            <span class="nx">key</span> <span class="p">=</span> <span class="nf">nod</span><span class="p">(</span><span class="nx">OADDR</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">n</span> <span class="p">=</span> <span class="nf">mkcall1</span><span class="p">(</span><span class="nf">mapfndel</span><span class="p">(</span><span class="nx">mapdelete</span><span class="p">[</span><span class="nx">fast</span><span class="p">],</span> <span class="nx">t</span><span class="p">),</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">init</span><span class="p">,</span> <span class="nf">typename</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span> <span class="nx">map_</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1443,12 +1443,12 @@
 </span><span class="c1">// it references will not be garbage collected, so programs must keep
 </span><span class="c1">// a separate, correctly typed pointer to the underlying data.
 </span><span class="c1"></span><span class="kd">type</span> <span class="nx">StringHeader</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Data</span> <span class="kt">uintptr</span>
-	<span class="nx">Len</span>  <span class="kt">int</span>
+    <span class="nx">Data</span> <span class="kt">uintptr</span>
+    <span class="nx">Len</span>  <span class="kt">int</span>
 <span class="p">}</span> <span class="c1">// 切片在 Go 语言的运行时表示与字符串高度相似，经常认为字符串是一个只读的切片类型
 </span></code></pre></td></tr></table>
 </div>
-</div><p>但是 Go 语言只是不支持直接修改 <code>string</code> 类型变量的内存空间，我们仍然可以通过在 <code>string</code> 和 <code>[]byte</code> 类型之间反复转换实现修改这一目的：</p>
+</div><p>Go 语言不支持直接修改 <code>string</code> 类型变量的内存空间，我们仍然可以通过在 <code>string</code> 和 <code>[]byte</code> 类型之间反复转换实现修改这一目的：</p>
 <ol>
 <li>先将这段内存拷贝到堆或者栈上；</li>
 <li>将变量的类型转换成 <code>[]byte</code> 后并修改字节数据；</li>
@@ -1486,30 +1486,30 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">stdString</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nf">startLit</span><span class="p">()</span>
-	<span class="k">for</span> <span class="p">{</span>
-		<span class="nx">r</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">getr</span><span class="p">()</span>
-		<span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;&#34;&#39;</span> <span class="p">{</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;\\&#39;</span> <span class="p">{</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nf">escape</span><span class="p">(</span><span class="sc">&#39;&#34;&#39;</span><span class="p">)</span>
-			<span class="k">continue</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="p">{</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nf">ungetr</span><span class="p">()</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nb">error</span><span class="p">(</span><span class="s">&#34;newline in string&#34;</span><span class="p">)</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="nx">s</span><span class="p">.</span><span class="nf">errh</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span><span class="p">,</span> <span class="s">&#34;string not terminated&#34;</span><span class="p">)</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span> <span class="p">=</span> <span class="kc">true</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">lit</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">stopLit</span><span class="p">())</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">kind</span> <span class="p">=</span> <span class="nx">StringLit</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_Literal</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nf">startLit</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">{</span>
+        <span class="nx">r</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">getr</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;&#34;&#39;</span> <span class="p">{</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;\\&#39;</span> <span class="p">{</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nf">escape</span><span class="p">(</span><span class="sc">&#39;&#34;&#39;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">r</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="p">{</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nf">ungetr</span><span class="p">()</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nb">error</span><span class="p">(</span><span class="s">&#34;newline in string&#34;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="nx">s</span><span class="p">.</span><span class="nf">errh</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span><span class="p">,</span> <span class="s">&#34;string not terminated&#34;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">lit</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">stopLit</span><span class="p">())</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">kind</span> <span class="p">=</span> <span class="nx">StringLit</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_Literal</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1534,14 +1534,14 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">noder</span><span class="p">)</span> <span class="nf">basicLit</span><span class="p">(</span><span class="nx">lit</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">BasicLit</span><span class="p">)</span> <span class="nx">Val</span> <span class="p">{</span>
-	<span class="k">switch</span> <span class="nx">s</span> <span class="o">:=</span> <span class="nx">lit</span><span class="p">.</span><span class="nx">Value</span><span class="p">;</span> <span class="nx">lit</span><span class="p">.</span><span class="nx">Kind</span> <span class="p">{</span>
-	<span class="k">case</span> <span class="nx">syntax</span><span class="p">.</span><span class="nx">StringLit</span><span class="p">:</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;`&#39;</span> <span class="p">{</span>
-			<span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;\r&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="nx">u</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Unquote</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-		<span class="k">return</span> <span class="nx">Val</span><span class="p">{</span><span class="nx">U</span><span class="p">:</span> <span class="nx">u</span><span class="p">}</span>
-	<span class="p">}</span>
+    <span class="k">switch</span> <span class="nx">s</span> <span class="o">:=</span> <span class="nx">lit</span><span class="p">.</span><span class="nx">Value</span><span class="p">;</span> <span class="nx">lit</span><span class="p">.</span><span class="nx">Kind</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nx">syntax</span><span class="p">.</span><span class="nx">StringLit</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;`&#39;</span> <span class="p">{</span>
+            <span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Replace</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;\r&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nx">u</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Unquote</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">Val</span><span class="p">{</span><span class="nx">U</span><span class="p">:</span> <span class="nx">u</span><span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1578,30 +1578,30 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">concatstrings</span><span class="p">(</span><span class="nx">buf</span> <span class="o">*</span><span class="nx">tmpBuf</span><span class="p">,</span> <span class="nx">a</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">idx</span> <span class="o">:=</span> <span class="mi">0</span>
-	<span class="nx">l</span> <span class="o">:=</span> <span class="mi">0</span>
-	<span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span>
-	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
-		<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="k">continue</span>
-		<span class="p">}</span>
-		<span class="nx">l</span> <span class="o">+=</span> <span class="nx">n</span>
-		<span class="nx">count</span><span class="o">++</span>
-		<span class="nx">idx</span> <span class="p">=</span> <span class="nx">i</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">||</span> <span class="p">!</span><span class="nf">stringDataOnStack</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">idx</span><span class="p">]))</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">a</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span>
-	<span class="p">}</span>
-	<span class="nx">s</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="nf">rawstringtmp</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
-		<span class="nb">copy</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span>
-		<span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">x</span><span class="p">):]</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">s</span>
+    <span class="nx">idx</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="nx">l</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="nx">count</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+        <span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">continue</span>
+        <span class="p">}</span>
+        <span class="nx">l</span> <span class="o">+=</span> <span class="nx">n</span>
+        <span class="nx">count</span><span class="o">++</span>
+        <span class="nx">idx</span> <span class="p">=</span> <span class="nx">i</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&#34;&#34;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">count</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">||</span> <span class="p">!</span><span class="nf">stringDataOnStack</span><span class="p">(</span><span class="nx">a</span><span class="p">[</span><span class="nx">idx</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">a</span><span class="p">[</span><span class="nx">idx</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="nx">s</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="nf">rawstringtmp</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+        <span class="nb">copy</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span>
+        <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">x</span><span class="p">):]</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">s</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1633,25 +1633,25 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">slicebytetostring</span><span class="p">(</span><span class="nx">buf</span> <span class="o">*</span><span class="nx">tmpBuf</span><span class="p">,</span> <span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">str</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="s">&#34;&#34;</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-		<span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">str</span> <span class="p">=</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">staticbytes</span><span class="p">[</span><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
-		<span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">len</span> <span class="p">=</span> <span class="mi">1</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="kd">var</span> <span class="nx">p</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-	<span class="k">if</span> <span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">p</span> <span class="p">=</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="nx">p</span> <span class="p">=</span> <span class="nf">mallocgc</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)),</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">str</span> <span class="p">=</span> <span class="nx">p</span>
-	<span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">len</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
-	<span class="nf">memmove</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">slice</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">))).</span><span class="nx">array</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)))</span>
-	<span class="k">return</span>
+    <span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&#34;&#34;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">l</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+        <span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">str</span> <span class="p">=</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">staticbytes</span><span class="p">[</span><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">len</span> <span class="p">=</span> <span class="mi">1</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+    <span class="k">if</span> <span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">p</span> <span class="p">=</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">p</span> <span class="p">=</span> <span class="nf">mallocgc</span><span class="p">(</span><span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)),</span> <span class="kc">nil</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">str</span> <span class="p">=</span> <span class="nx">p</span>
+    <span class="nf">stringStructOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">str</span><span class="p">).</span><span class="nx">len</span> <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+    <span class="nf">memmove</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">slice</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">))).</span><span class="nx">array</span><span class="p">,</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)))</span>
+    <span class="k">return</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1672,15 +1672,15 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">stringtoslicebyte</span><span class="p">(</span><span class="nx">buf</span> <span class="o">*</span><span class="nx">tmpBuf</span><span class="p">,</span> <span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span>
-	<span class="k">if</span> <span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span> <span class="p">{</span>
-		<span class="o">*</span><span class="nx">buf</span> <span class="p">=</span> <span class="nx">tmpBuf</span><span class="p">{}</span>
-		<span class="nx">b</span> <span class="p">=</span> <span class="nx">buf</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)]</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="nx">b</span> <span class="p">=</span> <span class="nf">rawbyteslice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
-	<span class="p">}</span>
-	<span class="nb">copy</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nx">b</span>
+    <span class="kd">var</span> <span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span>
+    <span class="k">if</span> <span class="nx">buf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">*</span><span class="nx">buf</span> <span class="p">=</span> <span class="nx">tmpBuf</span><span class="p">{}</span>
+        <span class="nx">b</span> <span class="p">=</span> <span class="nx">buf</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)]</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">b</span> <span class="p">=</span> <span class="nf">rawbyteslice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="nb">copy</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nx">b</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -1811,6 +1811,17 @@
 
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-CDYPFNXQDZ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 <script id="baidu_push">

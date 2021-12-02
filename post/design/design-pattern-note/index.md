@@ -240,30 +240,30 @@ public class Object {
 }
 
 class Prototype implements Cloneable {
-	public Prototype clone(){
-		Prototype prototype = null;
-		try{
-			prototype = (Prototype)super.clone();
-		}catch(CloneNotSupportedException e){
-			e.printStackTrace();
-		}
-		return prototype; 
-	}
+    public Prototype clone() {
+        Prototype prototype = null;
+        try{
+            prototype = (Prototype)super.clone();
+        }catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return prototype; 
+    }
 }
-class ConcretePrototype extends Prototype{
-	public void show(){
-		System.out.println("原型模式实现类");
-	}
+class ConcretePrototype extends Prototype {
+    public void show() {
+        System.out.println("原型模式实现类");
+    }
 }
 public class Client {
-	  public static void main(String[] args){
-		    ConcretePrototype cp = new ConcretePrototype();
-		    for(int i=0; i< 10; i++){
+      public static void main(String[] args) {
+            ConcretePrototype cp = new ConcretePrototype();
+            for(int i=0; i< 10; i++) {
             // 返回浅拷贝对象
-			      ConcretePrototype clonecp = (ConcretePrototype)cp.clone();
-			      clonecp.show();
-		    }
-	  }
+                  ConcretePrototype clonecp = (ConcretePrototype)cp.clone();
+                  clonecp.show();
+            }
+      }
 }
 ```
 
@@ -371,6 +371,38 @@ public final class System {
 }
 ````
 
+```GO
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+var lock = &sync.Mutex{}
+
+type single struct {
+}
+
+var singleInstance *single
+
+func getInstance() *single {
+    if singleInstance == nil {
+        lock.Lock()
+        defer lock.Unlock()
+        if singleInstance == nil {
+            fmt.Println("Creting Single Instance Now")
+            singleInstance = &single{}
+        } else {
+            fmt.Println("Single Instance already created-1")
+        }
+    } else {
+        fmt.Println("Single Instance already created-2")
+    }
+    return singleInstance
+}
+```
+
 
 
 ## 2. Structural Patterns
@@ -392,7 +424,7 @@ public final class System {
 
 #### Demo
 ```java
-//ArrayList 和T[]是组合关系，想将T[]转换成list的操作，要有一个适配器来进行转换
+//ArrayList 和 T[]是组合关系，想将T[]转换成list的操作，要有一个适配器来进行转换
 public class Arrays {
     private static class ArrayList<E> extends AbstractList<E>
         implements RandomAccess, java.io.Serializable {
@@ -420,7 +452,7 @@ InputStreamReader也作为适配器使用
 ```java
 // 目标类
 public abstract class Reader implements Readable, Closeable {
-  	// 字符流
+      // 字符流
     abstract public int read(char cbuf[], int off, int len) throws IOException;
     abstract public void close() throws IOException;
 }
@@ -527,36 +559,36 @@ import java.util.ArrayList;
 import java.util.List;
  
 public class Employee {
-   private String name;
-   private String dept;
-   private int salary;
-   private List<Employee> subordinates;
+    private String name;
+    private String dept;
+    private int salary;
+    private List<Employee> subordinates;
 
    //构造函数
-   public Employee(String name,String dept, int sal) {
-      this.name = name;
-      this.dept = dept;
-      this.salary = sal;
-      subordinates = new ArrayList<Employee>();
-   }
+    public Employee(String name,String dept, int sal) {
+        this.name = name;
+        this.dept = dept;
+        this.salary = sal;
+        subordinates = new ArrayList<Employee>();
+    }
  
-   public void add(Employee e) {
-      subordinates.add(e);
-   }
+    public void add(Employee e) {
+        subordinates.add(e);
+    }
  
-   public void remove(Employee e) {
-      subordinates.remove(e);
-   }
+    public void remove(Employee e) {
+        subordinates.remove(e);
+    }
  
-   public List<Employee> getSubordinates(){
-     return subordinates;
-   }
+    public List<Employee> getSubordinates(){
+       return subordinates;
+    }
  
-   public String toString(){
-      return ("Employee :[ Name : "+ name 
-      +", dept : "+ dept + ", salary :"
-      + salary+" ]");
-   }   
+    public String toString(){
+        return ("Employee :[ Name : "+ name 
+        +", dept : "+ dept + ", salary :"
+        + salary+" ]");
+    }   
 }
 ```
 常用于前端表示与图形打交道的用户界面组件或代码的层次结构
@@ -799,7 +831,7 @@ Integer中也使用了享元模式
 ```java
 //在-128～127使用非常频繁，设置IntegerCache来包装
 public final class Integer extends Number implements Comparable<Integer> {
-		public static Integer valueOf(int i) {
+        public static Integer valueOf(int i) {
         if (i >= IntegerCache.low && i <= IntegerCache.high)
             return IntegerCache.cache[i + (-IntegerCache.low)];
         return new Integer(i);
@@ -907,8 +939,8 @@ public class Logger {
             final Handler[] loggerHandlers = isSystemLogger
                 ? logger.accessCheckedHandlers()
                 : logger.getHandlers();
-						// 责任链模式
-						//每个日志记录都传递给分配给给定记录器的每个Handler，如果useParentHandlers是true，则将相同的算法一直应用于父级。
+                        // 责任链模式
+                        //每个日志记录都传递给分配给给定记录器的每个Handler，如果useParentHandlers是true，则将相同的算法一直应用于父级。
             for (Handler handler : loggerHandlers) {
                 handler.publish(record);
             }
@@ -1055,7 +1087,7 @@ public class Timer {
             throw new IllegalArgumentException("Non-positive period.");
         sched(task, System.currentTimeMillis()+delay, -period);
     }
-		//以及其他schedule方法
+        //以及其他schedule方法
 }
 ```
 
@@ -1191,7 +1223,7 @@ button.setOnClickListener(new View.OnClickListener(){
 
 #### Demo
 ```java
-javax.faces.lifecycle.LifeCycle#execute()	
+javax.faces.lifecycle.LifeCycle#execute()    
 ```
 
 计算机网络中的rdt模型
