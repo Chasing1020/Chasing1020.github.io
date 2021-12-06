@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/java/</link>
+    <description>Recent content in Java on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 05 Dec 2021 14:16:11 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Concurrency Programming</title>
+      <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
+      <pubDate>Sun, 05 Dec 2021 14:16:11 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
+      <description>1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写</description>
+    </item>
+    
+  </channel>
+</rss>

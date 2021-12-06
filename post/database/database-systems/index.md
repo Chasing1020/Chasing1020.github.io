@@ -2660,13 +2660,13 @@ Before page xcan be written to disk, we must flush log at least to the point whe
 
 Write COMMITrecord to log.
 
-All log records up to transactions 'sCOMMITrecord are flushed to disk.
+All log records up to transactions' COMMIT record are flushed to disk.
 
 -    Log flushes are sequential, synchronous writes to disk.
 
 -    Many log records per log page.
 
-When the commit succeeds, write a special transactions -ENDrecord to log.
+When the commit succeeds, write a special transactions' END record to log.
 
 -   This does notneed to be flushed immediately.
 
@@ -2742,3 +2742,83 @@ Start from last BEGIN-CHECKPOINTfound via MasterRecord.
 
 **Undo:** Reverse effects of failed transactions s.
 
+# 21. Distributed Databases
+
+**Approach #1: Homogenous Nodes**
+
+-   Every node in the cluster can perform the same set of tasks (albeit on potentially different partitions of data).
+-   Makes provisioning and failover "easier".
+
+**Approach #2: Heterogenous Nodes**
+
+-   Nodes are assigned specific tasks.
+
+-   Can allow a single physical node to host multiple "virtual" node types for dedicated tasks.
+
+For User, it is Transparent. Users should not be required to know where data is physically located, how tables are **partitioned** or **replicated**.
+
+Split a table's tuples into disjoint subsets.
+
+-   Choose column(s) that divides the database equally in terms of size, load, or usage.
+
+-   Hash Partitioning, Range Partitioning
+
+The DBMS can partition a database **physically**(shared nothing) or **logically** (shared disk).
+
+>   TP Monitors
+
+A **TP Monitor** is an example of a centralized coordinator for distributed DBMSs.
+
+Originally developed in the 1970-80s to provide transactions between terminals and mainframe databases.
+
+-   Examples: ATMs, Airline Reservations.
+
+Many DBMSs now support the same functionality internally.
+
+# 22. Distributed OLTP
+
+If you do nottrust the other nodes in a distributed DBMS, then you need to use a Byzantine Fault Tolerantprotocol for transactions(blockchain).
+
+When a multi-node transaction finishes, the DBMS needs to ask all the nodes involved whether it is safe to commit.
+
+>   2PC Optimizations
+
+**Early Prepare Voting**
+
+-   If you send a query to a remote node that you know will be the last one you execute there, then that node will also return their vote for the prepare phase with the query result.
+
+**Early Acknowledgement After Prepare**
+
+-   If all nodes vote to commit a transaction, the coordinator can send the client an acknowledgement that their transaction was successful before the commit phase finishes.
+
+Blocks if coordinator fails after the prepare message is sent, until coordinator recovers.
+
+>   PAXOS
+
+If the system elects a single leader that oversees proposing changes for some period, then it can skip the **Propose** phase.
+
+-   Fall back to full Paxoswhenever there is a failure.
+
+The system periodically renews who the leader is using another Paxosround.
+
+-   Nodes must exchange log entries during leader election to make sure that everyone is up-to-date.
+
+Non-blocking if a majority participants are alive, provided there is a sufficiently long period without further failures.
+
+# 23. Distributed OLAP
+
+Most shared-nothing distributed OLAP DBMSs are designed to assume that nodes do not fail during query execution. 
+
+-   If one node fails during query execution, then the whole query fails.
+
+The DBMS could take a snapshot of the intermediate results for a query during execution to allow it to recover if nodes fail.
+
+All the optimizations that we talked about before are still applicable in a distributed environment.
+
+-   Predicate Pushdown
+
+-   Early Projections
+
+- Optimal Join Orderings
+
+Distributed query optimization is even harder because it must consider the physical location of data and network transfer costs.

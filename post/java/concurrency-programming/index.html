@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Java Concurrency Programming - Chasing&#39;s blog</title>
+  <title>Concurrency Programming - Chasing&#39;s blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s" /><meta name="keywords" content="Concurrency" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -39,20 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Java Concurrency Programming" />
-<meta property="og:description" content="Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s" />
+<meta property="og:title" content="Concurrency Programming" />
+<meta property="og:description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://Chasing1020.github.io/post/java/concurrency-programming/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-11-24T18:23:54+08:00" />
-<meta property="article:modified_time" content="2021-11-24T18:23:54+08:00" />
+<meta property="article:published_time" content="2021-12-05T14:16:11+08:00" />
+<meta property="article:modified_time" content="2021-12-05T14:16:11+08:00" />
 
-<meta itemprop="name" content="Java Concurrency Programming">
-<meta itemprop="description" content="Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s"><meta itemprop="datePublished" content="2021-11-24T18:23:54+08:00" />
-<meta itemprop="dateModified" content="2021-11-24T18:23:54+08:00" />
-<meta itemprop="wordCount" content="288">
-<meta itemprop="keywords" content="Concurrency," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Java Concurrency Programming"/>
-<meta name="twitter:description" content="Java Concurrency Programming 1. Principle volatile实现原则： 1. Lock前缀指令会将处理器缓存回写到内存。 1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。 s"/>
+<meta itemprop="name" content="Concurrency Programming">
+<meta itemprop="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写"><meta itemprop="datePublished" content="2021-12-05T14:16:11+08:00" />
+<meta itemprop="dateModified" content="2021-12-05T14:16:11+08:00" />
+<meta itemprop="wordCount" content="3027">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Concurrency Programming"/>
+<meta name="twitter:description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -133,15 +133,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Java Concurrency Programming</h1>
+      <h1 class="post-title">Concurrency Programming</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-11-24 </span>
+        <span class="post-time"> 2021-12-05 </span>
         <div class="post-category">
-            <a href="/categories/language/"> Language </a>
+            <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 288 words </span>
-          <span class="more-meta"> 1 min read </span>
+          <span class="more-meta"> 3027 words </span>
+          <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -151,31 +151,282 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#java-concurrency-programming">Java Concurrency Programming</a>
-      <ul>
-        <li><a href="#1-principle">1. Principle</a></li>
-      </ul>
-    </li>
+    <li><a href="#1-implements">1. Implements</a></li>
+    <li><a href="#2-memory-model">2. Memory Model</a></li>
+    <li><a href="#3-basic">3. Basic</a></li>
+    <li><a href="#4-lock">4. Lock</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="java-concurrency-programming">Java Concurrency Programming</h1>
-<h2 id="1-principle">1. Principle</h2>
-<p>volatile实现原则：</p>
-<pre><code>1. Lock前缀指令会将处理器缓存回写到内存。
-1. 一个处理器的缓存回写到内存，会使得其他处理器的缓存无效。
-</code></pre>
-<p>synchronized同步有三种形式</p>
+      <h1 id="1-implements">1. Implements</h1>
+<p>volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。</p>
+<p>保证了1. 保证缓存行的数据写回内存；2. 写回的操作会使其他缓存失效。</p>
+<p>synchronized：普通的方法，锁是实例；静态同步方法，锁是Class；同步方法块，锁是括号里的对象。</p>
+<p>锁保存在对象头，如果是数组，则用三个字宽保存对象头，非数组则用两个自宽保存对象头。</p>
+<table>
+<thead>
+<tr>
+<th>长度</th>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32bit/64bit</td>
+<td>Mark Word</td>
+<td>存储对象的hashCode或者是锁信息</td>
+</tr>
+<tr>
+<td>32bit/64bit</td>
+<td>Class Metadata Address</td>
+<td>存储到对象类型的指针</td>
+</tr>
+<tr>
+<td>32bit/64bit</td>
+<td>Array Length</td>
+<td>数组的长度，（非数组无该字段）</td>
+</tr>
+</tbody>
+</table>
+<p>32位下对象头的存储结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|----------------------------------------------------------------------------------------|--------------------|
+|                                    Object Header (64 bits)                             |        State       |
+|-------------------------------------------------------|--------------------------------|--------------------|
+|                  Mark Word (32 bits)                  |      Klass Word (32 bits)      |                    |
+|-------------------------------------------------------|--------------------------------|--------------------|
+| identity_hashcode:25 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Normal       |
+|-------------------------------------------------------|--------------------------------|--------------------|
+|  thread:23 | epoch:2 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Biased       |
+|-------------------------------------------------------|--------------------------------|--------------------|
+|               ptr_to_lock_record:30          | lock:2 |      OOP to metadata object    | Lightweight Locked |
+|-------------------------------------------------------|--------------------------------|--------------------|
+|               ptr_to_heavyweight_monitor:30  | lock:2 |      OOP to metadata object    | Heavyweight Locked |
+|-------------------------------------------------------|--------------------------------|--------------------|
+|                                              | lock:2 |      OOP to metadata object    |    Marked for GC   |
+|-------------------------------------------------------|--------------------------------|--------------------|
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit</th>
+<th>4bit</th>
+<th>1bit</th>
+<th>2bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>对象的hashCode</td>
+<td>对象分代年龄</td>
+<td>是否是偏向锁</td>
+<td>锁标志位</td>
+</tr>
+</tbody>
+</table>
+<p>64位下对象头的存储结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|------------------------------------------------------------------------------------------------------------|--------------------|
+|                                            Object Header (128 bits)                                        |        State       |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                                  Mark Word (64 bits)                         |    Klass Word (64 bits)     |                    |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+| unused:25 | identity_hashcode:31 | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+| thread:54 |       epoch:2        | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                       ptr_to_lock_record:62                         | lock:2 |    OOP to metadata object   | Lightweight Locked |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                     ptr_to_heavyweight_monitor:62                   | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                                                                     | lock:2 |    OOP to metadata object   |    Marked for GC   |
+|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit</th>
+<th>31bit</th>
+<th>1bit</th>
+<th>4bit</th>
+<th>1bit</th>
+<th>2bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>unused</td>
+<td>对象的hashCode</td>
+<td>cms_free</td>
+<td>对象分代年龄</td>
+<td>是否偏向锁</td>
+<td>锁标志位</td>
+</tr>
+</tbody>
+</table>
+<p>可以设置参数-XX:+UseCompressedOops，来进行压缩，参考32bit的PAE实现，可以使JVM的内存超过4G，但不超过32G（超过32G，可以使用-XX:ObjectAlignmentInBytes，来限制压缩的大小，如当对象对齐为 16 字节时，最多可以使用 64 GB 的堆空间和压缩指针），经过压缩后：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|--------------------------------------------------------------------------------------------------------------|--------------------|
+|                                            Object Header (96 bits)                                           |        State       |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                                  Mark Word (64 bits)                           |    Klass Word (32 bits)     |                    |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+| unused:25 | identity_hashcode:31 | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+| thread:54 |       epoch:2        | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                         ptr_to_lock_record                            | lock:2 |    OOP to metadata object   | Lightweight Locked |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                     ptr_to_heavyweight_monitor                        | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+|                                                                       | lock:2 |    OOP to metadata object   |    Marked for GC   |
+|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</code></pre></td></tr></table>
+</div>
+</div><p>偏向锁：大多数情况下，没有锁竞争，偏向锁在等到竞争时才会释放锁。有竞争时 ，会在全局安全点撤销偏向锁。</p>
+<p>使用-XX:BiasedeLoackingStartupDelay=0，如果大多数锁处于竞争状态，可以使用-XX:UseBiasedLocking=false关闭，这样程序会默认进入轻量级锁的状态。</p>
+<p>轻量级锁：使用CAS操作Mark Word，如果成功，就获得锁；释放时，CAS如果失败，就升级到重量级锁。</p>
+<p>重量级锁：在这个状态下，所有获取锁的操作都会被阻塞，持有锁的线程释放后会唤醒这些线程。</p>
+<table>
+<thead>
+<tr>
+<th>锁</th>
+<th>优点</th>
+<th>缺点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>偏向锁</td>
+<td>加锁不用额外消耗，效率接近非同步方法</td>
+<td>如果有锁竞争，会带来撤销消耗</td>
+<td>只有一个线程访问的场景</td>
+</tr>
+<tr>
+<td>轻量级锁</td>
+<td>线程不会阻塞，提高相应速度</td>
+<td>得不到锁竞争的线程会自旋消耗CPU</td>
+<td>追求响应时间，执行速度快</td>
+</tr>
+<tr>
+<td>重量级锁</td>
+<td>线程竞争不用自旋，不会消耗CPU</td>
+<td>线程阻塞，响应时间缓慢</td>
+<td>追求吞吐量，同步块执行速度较长</td>
+</tr>
+</tbody>
+</table>
+<p>ABA问题解决：采用AtomicStampedReference来解决，判断是否时等于预期引用和预期标志，两个都成功则设置。</p>
+<h1 id="2-memory-model">2. Memory Model</h1>
+<p>编译器优化重排序：不改变单线程程序语义的情况下，重新安排顺序。</p>
+<p>指令级并行的重排序：指令级并行技术（Instruction-Level Parallelism），如果不存在数据依赖性，可以改变指令执行的顺序。</p>
+<p>内存系统的重排序：读/写缓冲区，使得读写操作可能的乱序。</p>
+<p>屏障类型：LoadLoadBarriers，StoreStoreBarriers，LoadStoreBarriers，StoreLoadBarriers</p>
+<p>其中StoreLoadBarriers拥有其他三个屏障的效果，作为全能型屏障。这个屏障开销昂贵，需要将写缓冲的数据全部刷新到内存中。</p>
+<p>JDK5开始，采用JSR133原则，使用happens-before来解释内存的可见性：</p>
 <ol>
-<li>普通同步方法，锁当前实例对象。</li>
-<li>静态同步方法，锁当前Class对象。</li>
-<li>同步方法块，锁括号里的配置对象。</li>
+<li>程序顺序规则：一个线程中的每一个操作，happens-before于后边的操作</li>
+<li>监视器锁规则：解锁操作happens-before于上锁操作</li>
+<li>volatile变量规则：对volatile修饰变量的写操作，happens-before于读操作</li>
+<li>传递性：A happens-before B，B happens-before C，则有A happens-before C</li>
 </ol>
-<p>为了减少锁的获得与释放带来的性能损耗，引入了“偏向锁”和“轻量级锁“，从高到低有4种状态，分别是：无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态。其会随着竞争情况逐渐升级。</p>
-<p>偏向锁（Biased Lock）：查看对象头是否有偏向锁，如果没有，把Mark Word设置为1，如果有，则指向当前线程。</p>
-<p>轻量级锁：</p>
+<p>数据依赖性：对同一个变量的写写，写读，读写操作，存在数据依赖，编译器和处理器会遵守数据依赖性。</p>
+<p>as-if-serial：排序结果不能影响本来的执行结果。编译器，runtime，处理器都会遵守。</p>
+<p>JMM不保证对64位的long和double类型的写操作具有原子性，会把64位的写操作拆成两个32位的操作，虽然这违反了顺序一致性模型。</p>
+<p>volatile的写操作前面加StoreStore屏障，后面加StoreLoad屏障；</p>
+<p>volatile的写操作后面加LoadLoad屏障，后面加LoadStore屏障。编译器能够通过具体情况省略不必要的屏障。</p>
+<p>Java同步器框架AbstractQueuedSynchronizer。</p>
+<p>final域保证构造函数内的final域的写入和引用赋值给另一个引用变量这个操作不可以重排序；第一次读final域对象的引用和读取final域中的操作不能重排序。</p>
+<p>构造函数final域的写操作，在return前，会插入StoreStore屏障，读final域前会加上LoadLoad屏障，禁止final的写操作重排序到构造函数之外。保证了final读取到的值不会发生改变。</p>
+<p>双重锁检查的机制instance = new Instance();实际上会被拆成三行伪代码，在2，3之间会可能发生重排序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">memory</span> <span class="o">=</span> <span class="n">allocate</span><span class="o">();</span>  <span class="c1">// 1. 分配对象的内存空间
+</span><span class="c1"></span><span class="n">ctorInstance</span><span class="o">(</span><span class="n">memory</span><span class="o">);</span> <span class="c1">// 2. 初始化对象，完成后instance != null
+</span><span class="c1"></span><span class="n">instance</span> <span class="o">=</span> <span class="n">memory</span><span class="o">;</span>    <span class="c1">// 3. 设置instance指向刚分配的内存地址
+</span></code></pre></td></tr></table>
+</div>
+</div><p>回顾类加载的时机：<strong>加载</strong>（通过全限定名获取二进制字节流，转化为方法区运行时数据结构，生成java.lang.Class对象），<strong>验证</strong>（文件格式，元数据，字节码，符号引用），<strong>准备</strong>（正式分配内存并且初始化值，对应上述代码的1，2步骤），<strong>解析</strong>（将常量池的符号引用替换为直接引用；符号引用就是一组符号来描述目标，可以是任何字面量。<strong>直接引用</strong>就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。），<strong>初始化</strong>（初始化阶段是执行初始化方法 &lt;clinit&gt; ()方法的过程，对静态变量/代码块进行初始化，会保证多线程安全性），使用，卸载。</p>
+<p>使用volatile后，可以防止2，3之间的重排序。</p>
+<h1 id="3-basic">3. Basic</h1>
+<p>suspend(), resume(), stop()标记为deprecated，调用后不一定会释放占有的资源。</p>
+<p>使用wait(), notify(), notifyAll()之前需要对调用对象加锁。</p>
+<p>管道输入输出流，输出与输入进行绑定</p>
+<h1 id="4-lock">4. Lock</h1>
+<p>AbstractQueuedSynchronizer通过内置的FIFO来实现资源获取线程的排队工作。</p>
+<p>当前线程信息和等待状态构造成一个结点，加入队列，同时阻塞线程。同步状态释放时，首结点中的线程将会被唤醒。在尾部加入时，采用CAS判断插入到“应该插入的位置”。</p>
+<p>acquire(int arg)获取同步状态，对中断不敏感。读acquiredShared获取共享式的同步状态。</p>
+<p>重入锁在获取n次，并释放n次后，其他线程能够获取到该锁，默认非公平，通过组合自定义同步器来实现锁的获取与释放。</p>
+<p>读写锁，写状态位S&amp;0x0000FFFF，读状态为S&raquo;&gt;16，写锁相当于一个支持重进入的排他锁。</p>
 
     </div>
 
@@ -187,7 +438,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2021-11-24
+        2021-12-05
         
     </span>
   </p>
@@ -199,16 +450,16 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/concurrency/">Concurrency</a>
+          <a href="/tags/java/">Java</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/database/database-systems/">
+        <a class="prev" href="/post/my-cs-learning-route/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Database Systems</span>
+            <span class="prev-text nav-default">My CS Learning Route</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/mathematic-fomulars/">
-            <span class="next-text nav-default">Mathematic Fomulars</span>
+        <a class="next" href="/post/materials/ces-materials/">
+            <span class="next-text nav-default">CES Materials</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -281,18 +532,54 @@
 
 <script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
   <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        tags: 'ams',
-        }
-    };
+  
+  
+  
+  
+  
   </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-CDYPFNXQDZ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
 
 
 

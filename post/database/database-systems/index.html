@@ -61,7 +61,7 @@ A database management system (DBMS) is software that allows applications to stor
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="13280">
+<meta itemprop="wordCount" content="13736">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="Reference Book: Database System Concepts Seventh Edition
@@ -156,8 +156,8 @@ A database management system (DBMS) is software that allows applications to stor
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 13280 words </span>
-          <span class="more-meta"> 63 mins read </span>
+          <span class="more-meta"> 13736 words </span>
+          <span class="more-meta"> 65 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -187,6 +187,9 @@ A database management system (DBMS) is software that allows applications to stor
     <li><a href="#18-multi-version-concurrency-control">18. Multi-Version Concurrency Control</a></li>
     <li><a href="#19-logging-protocols--schemes">19. Logging Protocols + Schemes</a></li>
     <li><a href="#20-crash-recovery">20. Crash Recovery</a></li>
+    <li><a href="#21-distributed-databases">21. Distributed Databases</a></li>
+    <li><a href="#22-distributed-oltp">22. Distributed OLTP</a></li>
+    <li><a href="#23-distributed-olap">23. Distributed OLAP</a></li>
   </ul>
 </nav>
   </div>
@@ -3457,7 +3460,7 @@ if you do not use the Thomas Write Rule.</p>
 <p>Transaction Commit</p>
 </blockquote>
 <p>Write COMMITrecord to log.</p>
-<p>All log records up to transactions &lsquo;sCOMMITrecord are flushed to disk.</p>
+<p>All log records up to transactions&rsquo; COMMIT record are flushed to disk.</p>
 <ul>
 <li>
 <p>Log flushes are sequential, synchronous writes to disk.</p>
@@ -3466,7 +3469,7 @@ if you do not use the Thomas Write Rule.</p>
 <p>Many log records per log page.</p>
 </li>
 </ul>
-<p>When the commit succeeds, write a special transactions -ENDrecord to log.</p>
+<p>When the commit succeeds, write a special transactions&rsquo; END record to log.</p>
 <ul>
 <li>This does notneed to be flushed immediately.</li>
 </ul>
@@ -3548,6 +3551,87 @@ if you do not use the Thomas Write Rule.</p>
 <p><strong>Analysis:</strong> Figure out which transactions scommitted or failed since checkpoint.</p>
 <p><strong>Redo:</strong> Repeat allactions.</p>
 <p><strong>Undo:</strong> Reverse effects of failed transactions s.</p>
+<h1 id="21-distributed-databases">21. Distributed Databases</h1>
+<p><strong>Approach #1: Homogenous Nodes</strong></p>
+<ul>
+<li>Every node in the cluster can perform the same set of tasks (albeit on potentially different partitions of data).</li>
+<li>Makes provisioning and failover &ldquo;easier&rdquo;.</li>
+</ul>
+<p><strong>Approach #2: Heterogenous Nodes</strong></p>
+<ul>
+<li>
+<p>Nodes are assigned specific tasks.</p>
+</li>
+<li>
+<p>Can allow a single physical node to host multiple &ldquo;virtual&rdquo; node types for dedicated tasks.</p>
+</li>
+</ul>
+<p>For User, it is Transparent. Users should not be required to know where data is physically located, how tables are <strong>partitioned</strong> or <strong>replicated</strong>.</p>
+<p>Split a table&rsquo;s tuples into disjoint subsets.</p>
+<ul>
+<li>
+<p>Choose column(s) that divides the database equally in terms of size, load, or usage.</p>
+</li>
+<li>
+<p>Hash Partitioning, Range Partitioning</p>
+</li>
+</ul>
+<p>The DBMS can partition a database <strong>physically</strong>(shared nothing) or <strong>logically</strong> (shared disk).</p>
+<blockquote>
+<p>TP Monitors</p>
+</blockquote>
+<p>A <strong>TP Monitor</strong> is an example of a centralized coordinator for distributed DBMSs.</p>
+<p>Originally developed in the 1970-80s to provide transactions between terminals and mainframe databases.</p>
+<ul>
+<li>Examples: ATMs, Airline Reservations.</li>
+</ul>
+<p>Many DBMSs now support the same functionality internally.</p>
+<h1 id="22-distributed-oltp">22. Distributed OLTP</h1>
+<p>If you do nottrust the other nodes in a distributed DBMS, then you need to use a Byzantine Fault Tolerantprotocol for transactions(blockchain).</p>
+<p>When a multi-node transaction finishes, the DBMS needs to ask all the nodes involved whether it is safe to commit.</p>
+<blockquote>
+<p>2PC Optimizations</p>
+</blockquote>
+<p><strong>Early Prepare Voting</strong></p>
+<ul>
+<li>If you send a query to a remote node that you know will be the last one you execute there, then that node will also return their vote for the prepare phase with the query result.</li>
+</ul>
+<p><strong>Early Acknowledgement After Prepare</strong></p>
+<ul>
+<li>If all nodes vote to commit a transaction, the coordinator can send the client an acknowledgement that their transaction was successful before the commit phase finishes.</li>
+</ul>
+<p>Blocks if coordinator fails after the prepare message is sent, until coordinator recovers.</p>
+<blockquote>
+<p>PAXOS</p>
+</blockquote>
+<p>If the system elects a single leader that oversees proposing changes for some period, then it can skip the <strong>Propose</strong> phase.</p>
+<ul>
+<li>Fall back to full Paxoswhenever there is a failure.</li>
+</ul>
+<p>The system periodically renews who the leader is using another Paxosround.</p>
+<ul>
+<li>Nodes must exchange log entries during leader election to make sure that everyone is up-to-date.</li>
+</ul>
+<p>Non-blocking if a majority participants are alive, provided there is a sufficiently long period without further failures.</p>
+<h1 id="23-distributed-olap">23. Distributed OLAP</h1>
+<p>Most shared-nothing distributed OLAP DBMSs are designed to assume that nodes do not fail during query execution.</p>
+<ul>
+<li>If one node fails during query execution, then the whole query fails.</li>
+</ul>
+<p>The DBMS could take a snapshot of the intermediate results for a query during execution to allow it to recover if nodes fail.</p>
+<p>All the optimizations that we talked about before are still applicable in a distributed environment.</p>
+<ul>
+<li>
+<p>Predicate Pushdown</p>
+</li>
+<li>
+<p>Early Projections</p>
+</li>
+<li>
+<p>Optimal Join Orderings</p>
+</li>
+</ul>
+<p>Distributed query optimization is even harder because it must consider the physical location of data and network transfer costs.</p>
 
     </div>
 

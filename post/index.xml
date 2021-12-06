@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 27 Nov 2021 14:25:59 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Dec 2021 14:16:11 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My CS Learning Route</title>
+      <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
+      <pubDate>Sun, 28 Nov 2021 23:35:55 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/my-cs-learning-route/</guid>
+      <description>It&amp;rsquo;s been a year and a half since I studied computer science, and as a period mentor wanted me to organize and share my own computer science related study materials and routes. The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field. In some ways, this route can be</description>
+    </item>
+    
+    <item>
+      <title>Concurrency Programming</title>
+      <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
+      <pubDate>Sun, 05 Dec 2021 14:16:11 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
+      <description>1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写</description>
+    </item>
+    
     <item>
       <title>CES Materials</title>
       <link>http://Chasing1020.github.io/post/materials/ces-materials/</link>

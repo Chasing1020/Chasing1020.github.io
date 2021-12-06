@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="8174">
+<meta itemprop="wordCount" content="11255">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,8 +140,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 8174 words </span>
-          <span class="more-meta"> 17 mins read </span>
+          <span class="more-meta"> 11255 words </span>
+          <span class="more-meta"> 23 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -173,6 +173,13 @@
     <li><a href="#9-file-system">9. File System</a></li>
     <li><a href="#10-device-management">10. Device Management</a></li>
     <li><a href="#11-system-virtualization">11. System Virtualization</a></li>
+    <li><a href="#12-multi-core-processor">12. Multi-core processor</a></li>
+    <li><a href="#-docker">*. Docker</a>
+      <ul>
+        <li><a href="#-1-namespace">*. 1. namespace</a></li>
+        <li><a href="#2-cgroups">*.2. cgroups</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -1016,6 +1023,254 @@
 <p>CPU虚拟化：通过vCPU抽象执行指令，直接运行在物理机上，使用物理ISA。虚拟机模拟一个安全的下陷的过程。</p>
 <p>内存虚拟化：使用客户物理地址与主机物理地址，影子页表机制</p>
 <p>IO虚拟化：主引导记录，全局唯一标识分区表。</p>
+<h1 id="12-multi-core-processor">12. Multi-core processor</h1>
+<p>最小的操作粒度（Cache Line）：一般是64字节，通常L1 Cache 进一步划分为单独的数据缓存（Data Cache）与指令缓存（Instruction Cache）。所有核心共享最末级缓存（Last Level Cache，LLC）。</p>
+<p>直写策略（Write Through）：在写时，立刻将修改的值刷回内存（该值会同时保留在高速缓存中）。</p>
+<p>写回策略（Write Back）：将值暂时存在高速缓存中。只有在出现高速缓存逐出（Cache Eviction），或是CPU 核心调用写回指令时，修改才会被更新至物理内存。</p>
+<p>非一致缓存访问（Non-Uniform Cache Access，NUCA）：不同核心访问时延会依据缓存行所在位置有所差别。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">a</span><span class="o">++</span> 
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;b = &#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+    <span class="p">}()</span>
+    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">b</span><span class="o">++</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+    <span class="p">}()</span>
+    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>内存一致性模型（Memory Consistency Model，简称为内存模型）明确定义了不同核心对于共享内存操作需要遵循的顺序。以上述代码为例，不同情况下(a, b)可能的取值范围(0, 0), (1, 0), (0, 1), (1, 1)也会发生改变。</p>
+<p>严格一致性模型（Strict Consistency）：所有访存操作都是严格按程序顺序。</p>
+<p>顺序一致性模型（Sequential Consistency）：不同核心看到的访存操作顺序完全一致，这个顺序称为全局顺序。在这种模型下，不可能出现(a, b)=(0, 0)的情况。</p>
+<p>TSO一致性模型（Total Store Ordering）：保证对<strong>不同地址且无依赖</strong>的读读、读写、写写操作之间的全局可见顺序，只有写读的全局可见顺序不能得到保证。通过加入写缓冲来实现这个操作，这允许了(0, 0)可能的出现。</p>
+<p>PSO一致性模型（Partial Store Ordering）：Is a more relaxed memory consistency model compare to the Total Store Ordering (TSO). PSO is essentially TSO with one additional relaxation to the consistency: PSO only guarantees writes to the same location is in order whereas writes to different memory location may not be in order at all. The processor may rearrange writes so that a sequence of write to memory system may not be in their original order.</p>
+<p>弱序一致性模型（Weak-ordering Consistency）：不保证任何不同地址且无依赖的访存操作之间的顺序，也即读读，读写，写读与写写操作之间都可以乱序全局可见。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>读读</th>
+<th>读写</th>
+<th>写读</th>
+<th>写写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>严格一致性模型</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>顺序一致性模型</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>TSO一致性模型</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>PSO一致性模型</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅（同位置）/❌（不同）</td>
+</tr>
+<tr>
+<td>弱序一致性模型</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table>
+<p>硬件内存屏障（Barrier/Fence，简称内存屏障）:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// Any of these GNU inline assembler statements forbids the GCC compiler 
+</span><span class="c1">// to reorder read and write commands around it:
+</span><span class="c1"></span><span class="k">asm</span> <span class="nf">volatile</span> <span class="p">(</span><span class="s">&#34;&#34;</span><span class="o">:::</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
+<span class="n">__asm__</span> <span class="nf">__volatile__</span> <span class="p">(</span><span class="s">&#34;&#34;</span> <span class="o">:::</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
+
+
+<span class="c1">// This C11/C++11 function forbids the compiler  
+</span><span class="c1">// to reorder read and write commands around it:
+</span><span class="c1"></span><span class="n">atomic_signal_fence</span><span class="p">(</span><span class="n">memory_order_acq_rel</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th></th>
+<th>弱顺序一致性</th>
+<th>TSO一致性模型</th>
+<th>顺序一致性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>体系结构</td>
+<td>ARM，PowerPC</td>
+<td>x86</td>
+<td>Dual386，MIPS R10000</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>嵌入式，手机/平板，高性能服务器</td>
+<td>桌面电脑，高性能服务器</td>
+<td>已被淘汰</td>
+</tr>
+</tbody>
+</table>
+<p>依赖关系：数据依赖（要写入的某值，依赖另一个运行结果，Java的编译器和处理器会满足这个依赖性）；地址依赖（如写操作需要写的地址依赖于读操作读出来的值）、控制依赖（如写操作只有在读操作结束分支满足后才能执行）。</p>
+<p>重排序缓冲区（Re-Order Buffer, ROB），让指令按照程序顺序退役（Retire）对应顺序执行中的执行结束，其意味着该条指令对系统的影响终将全局可见。</p>
+<p>存取单元（Load/Store Unit，LSU）中预留了读缓冲区与写缓冲区。</p>
+<p>阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$</p>
+<p>其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0 ≤ p ≤ 1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
+<h1 id="-docker">*. Docker</h1>
+<h2 id="-1-namespace">*. 1. namespace</h2>
+<p>容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。</p>
+<p>namespace 隔离机制：</p>
+<table>
+<thead>
+<tr>
+<th>namespace</th>
+<th>系统调用参数</th>
+<th>隔离内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UTS</td>
+<td>CLONE_NEWUTS</td>
+<td>主机名和域名</td>
+</tr>
+<tr>
+<td>IPC</td>
+<td>CLONE_NEWIPC</td>
+<td>信号量，消息队列，共享内存</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>CLONE_NEWPID</td>
+<td>进程编号</td>
+</tr>
+<tr>
+<td>NetWork</td>
+<td>CLONE_NEWNET</td>
+<td>网络设备，网络栈，网络端口等</td>
+</tr>
+<tr>
+<td>Mount</td>
+<td>CLONE_NEWNS</td>
+<td>挂载点（文件系统）</td>
+</tr>
+<tr>
+<td>User</td>
+<td>CLONE_NEWUSER</td>
+<td>用户和用户组</td>
+</tr>
+</tbody>
+</table>
+<p>系统调用方式：clone(), setns(), unshare(), 以及/proc下的虚拟文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#inclue&lt;unistd.h&gt;
+</span><span class="cp">#inclue&lt;sys/types.h&gt;
+</span><span class="cp"></span><span class="c1">// fork - create a child process
+</span><span class="c1">// 传统创建进程的方式
+</span><span class="c1"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="cp">#include</span><span class="cpf">&lt;sched.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="c1">// clone - create a child process
+</span><span class="c1">// 是fork更加通用的实现方式，可以使用flag来实现功能。
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+<span class="c1">// setns - reassociate thread with a namespace
+</span><span class="c1">// 加入现有的namespace中
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">setns</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nstype</span><span class="p">);</span>
+<span class="c1">// setns - reassociate thread with a namespace
+</span><span class="c1">// 在原进程上进行namespace隔离
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">unshare</span><span class="p">(</span><span class="kt">int</span> <span class="n">flags</span><span class="p">);</span> <span class="c1">// Docker并未采用
+</span></code></pre></td></tr></table>
+</div>
+</div><p>UTS(Unix Time-haring System) namespace: 提供了主机和域名的隔离，这样每个容器便可以视作独立节点而非宿主机上的一个进程。</p>
+<p>IPC(Inter-Process Communication) namespace: 主要包括常见的信号量，消息队列和共享内存。申请IPC其实就是申请了全局唯一的32位ID。IPC namespace实际上就包含了系统的IPC标识符以及实现了POSIX消息队列的文件系统。不同的IPC namespace下的进程之间不可见。</p>
+<p>PID(Process ID) namespace: 对进程的PID进行重写，不同namespace下的进程可以拥有相同的PID，所有PID namespace维持一个树状结构。其中init进程具有屏蔽权限，一旦init被销毁，那么同一个namespace下的PID都会收到SIGKILL而被杀死</p>
+<p>mount namespace: 是历史上第一个namespace，所以标志位比较特殊，就是CLONE_NEWNS。隔离以后，不同namespace下的文件将不受影响。</p>
+<p>在2006年引入了挂载传播(mount propagation)机制，使得挂载可以定义挂载对象之间的关系，决定了事件如何传播到其他挂载的对象。包括：共享(share)，从属(slave)，共享/从属(share and slave)，私有(private)，不可绑定(unbinable)，共五种。</p>
+<p>network namespace: 提供了网络资源的隔离，包括网络设备、IPv4/IPv6协议栈、IP路由表、防火墙，/proc/net目录，/sys/class/net目录以及socket等。一个物理的网络设备只能处于一个network namespace中，通过创建veth pair创建通道以达到通信目的。</p>
+<p>在建立网桥之前，新旧namespace通过建立pipe，init在pipe一段循环等待，直到管道另一边传来veth的信息，init才结束等待。</p>
+<p>user namespace: 直到Linux内核3.8开始都未完全实现，还有部分文件系统未支持。设计主要隔离了安全相关的标识符(identifier)和属性(attribute)，包括用户ID，用户组ID，root目录，key（密钥）以及特殊权限。Docker在1.10开始才支持user namespace，启动daemon时指定userns-remap，则容器内的root将不再等于宿主机内的root。</p>
+<p>namespace 的核心实际上是通过层次关联起来，每个namespace都源自于root namespace的映射。</p>
+<h2 id="2-cgroups">*.2. cgroups</h2>
+<p>cgroups：限制被namespace隔离起来的资源，还可以为资源设置权重、计算使用量、操控任务（进程或线程）启停等。</p>
+<p>cgroups是Linux内核提供的一种机制，这种机制可以根据需求把一系列系统任务及其子任务整合（或分隔）到按资源划分等级的不同组内，从而为系统资源管理提供一个统一的框架。cgroups的实现本质上是给任务挂上钩子，当任务运行的过程中涉及某种资源时，就会触发钩子上所附带的子系统进行检测</p>
+<p>cgroups为了不同用户层面的管理资源，并提供统一化的接口，包括如下四个功能：</p>
+<ul>
+<li>资源限制：cgroups可以对资源的总和进行限制，当超过上限即触发OOM。</li>
+<li>优先级分配：分配CPU分得的时间片以及磁盘I/O带宽，决定其优限级。</li>
+<li>资源统计：统计内存使用时长，CPU使用量等。</li>
+<li>任务控制：实现任务挂起，恢复等操作。</li>
+</ul>
 
     </div>
 

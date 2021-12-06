@@ -593,15 +593,149 @@ IO虚拟化：主引导记录，全局唯一标识分区表。
 
 
 
+# 12. Multi-core processor
+
+最小的操作粒度（Cache Line）：一般是64字节，通常L1 Cache 进一步划分为单独的数据缓存（Data Cache）与指令缓存（Instruction Cache）。所有核心共享最末级缓存（Last Level Cache，LLC）。
+
+直写策略（Write Through）：在写时，立刻将修改的值刷回内存（该值会同时保留在高速缓存中）。
+
+写回策略（Write Back）：将值暂时存在高速缓存中。只有在出现高速缓存逐出（Cache Eviction），或是CPU 核心调用写回指令时，修改才会被更新至物理内存。
+
+非一致缓存访问（Non-Uniform Cache Access，NUCA）：不同核心访问时延会依据缓存行所在位置有所差别。
+
+```go
+var a, b int
+
+func main() {
+    go func() {
+        a++ 
+        fmt.Println("b = ", b)
+    }()
+    go func() {
+        b++
+        fmt.Println("a = ", a)
+    }()
+    time.Sleep(time.Second)
+}
+```
+
+内存一致性模型（Memory Consistency Model，简称为内存模型）明确定义了不同核心对于共享内存操作需要遵循的顺序。以上述代码为例，不同情况下(a, b)可能的取值范围(0, 0), (1, 0), (0, 1), (1, 1)也会发生改变。
+
+严格一致性模型（Strict Consistency）：所有访存操作都是严格按程序顺序。
+
+顺序一致性模型（Sequential Consistency）：不同核心看到的访存操作顺序完全一致，这个顺序称为全局顺序。在这种模型下，不可能出现(a, b)=(0, 0)的情况。
+
+TSO一致性模型（Total Store Ordering）：保证对**不同地址且无依赖**的读读、读写、写写操作之间的全局可见顺序，只有写读的全局可见顺序不能得到保证。通过加入写缓冲来实现这个操作，这允许了(0, 0)可能的出现。
+
+PSO一致性模型（Partial Store Ordering）：Is a more relaxed memory consistency model compare to the Total Store Ordering (TSO). PSO is essentially TSO with one additional relaxation to the consistency: PSO only guarantees writes to the same location is in order whereas writes to different memory location may not be in order at all. The processor may rearrange writes so that a sequence of write to memory system may not be in their original order.
+
+弱序一致性模型（Weak-ordering Consistency）：不保证任何不同地址且无依赖的访存操作之间的顺序，也即读读，读写，写读与写写操作之间都可以乱序全局可见。
+
+|                | 读读 | 读写 | 写读 | 写写 |
+| -------------- | ---- | ---- | ---- | ---- |
+| 严格一致性模型 | ✅    | ✅    | ✅    | ✅    |
+| 顺序一致性模型 | ✅    | ✅    | ✅    | ✅    |
+| TSO一致性模型 | ✅    | ✅    | ❌    | ✅    |
+| PSO一致性模型 | ✅ | ✅ | ❌ | ✅（同位置）/❌（不同） |
+| 弱序一致性模型 | ❌    | ❌    | ❌    | ❌    |
+
+硬件内存屏障（Barrier/Fence，简称内存屏障）:
+
+```c
+// Any of these GNU inline assembler statements forbids the GCC compiler 
+// to reorder read and write commands around it:
+asm volatile ("":::"memory");
+__asm__ __volatile__ ("" ::: "memory");
+
+
+// This C11/C++11 function forbids the compiler  
+// to reorder read and write commands around it:
+atomic_signal_fence(memory_order_acq_rel);
+```
+
+|          | 弱顺序一致性                    | TSO一致性模型          | 顺序一致性           |
+| -------- | ------------------------------- | ---------------------- | -------------------- |
+| 体系结构 | ARM，PowerPC                    | x86                    | Dual386，MIPS R10000 |
+| 使用场景 | 嵌入式，手机/平板，高性能服务器 | 桌面电脑，高性能服务器 | 已被淘汰             |
+
+依赖关系：数据依赖（要写入的某值，依赖另一个运行结果，Java的编译器和处理器会满足这个依赖性）；地址依赖（如写操作需要写的地址依赖于读操作读出来的值）、控制依赖（如写操作只有在读操作结束分支满足后才能执行）。
+
+重排序缓冲区（Re-Order Buffer, ROB），让指令按照程序顺序退役（Retire）对应顺序执行中的执行结束，其意味着该条指令对系统的影响终将全局可见。
+
+存取单元（Load/Store Unit，LSU）中预留了读缓冲区与写缓冲区。
+
+阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$
+
+其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0 ≤ p ≤ 1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。
+
+# \*. Docker
+
+## \*. 1. namespace
+
+容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。
+
+namespace 隔离机制：
+
+| namespace | 系统调用参数  | 隔离内容                     |
+| --------- | ------------- | ---------------------------- |
+| UTS       | CLONE_NEWUTS  | 主机名和域名                 |
+| IPC       | CLONE_NEWIPC  | 信号量，消息队列，共享内存   |
+| PID       | CLONE_NEWPID  | 进程编号                     |
+| NetWork   | CLONE_NEWNET  | 网络设备，网络栈，网络端口等 |
+| Mount     | CLONE_NEWNS   | 挂载点（文件系统）           |
+| User      | CLONE_NEWUSER | 用户和用户组                 |
+
+系统调用方式：clone(), setns(), unshare(), 以及/proc下的虚拟文件。
+
+```c
+#inclue<unistd.h>
+#inclue<sys/types.h>
+// fork - create a child process
+// 传统创建进程的方式
+pid_t fork(void);
+
+#include<sched.h>
+// clone - create a child process
+// 是fork更加通用的实现方式，可以使用flag来实现功能。
+int clone(int (fn*)(void *), void *stack, int flags, void *arg, ...);
+// setns - reassociate thread with a namespace
+// 加入现有的namespace中
+int setns(int fd, int nstype);
+// setns - reassociate thread with a namespace
+// 在原进程上进行namespace隔离
+int unshare(int flags); // Docker并未采用
+```
 
 
 
+UTS(Unix Time-haring System) namespace: 提供了主机和域名的隔离，这样每个容器便可以视作独立节点而非宿主机上的一个进程。
 
+IPC(Inter-Process Communication) namespace: 主要包括常见的信号量，消息队列和共享内存。申请IPC其实就是申请了全局唯一的32位ID。IPC namespace实际上就包含了系统的IPC标识符以及实现了POSIX消息队列的文件系统。不同的IPC namespace下的进程之间不可见。
 
+PID(Process ID) namespace: 对进程的PID进行重写，不同namespace下的进程可以拥有相同的PID，所有PID namespace维持一个树状结构。其中init进程具有屏蔽权限，一旦init被销毁，那么同一个namespace下的PID都会收到SIGKILL而被杀死
 
+mount namespace: 是历史上第一个namespace，所以标志位比较特殊，就是CLONE_NEWNS。隔离以后，不同namespace下的文件将不受影响。
 
+在2006年引入了挂载传播(mount propagation)机制，使得挂载可以定义挂载对象之间的关系，决定了事件如何传播到其他挂载的对象。包括：共享(share)，从属(slave)，共享/从属(share and slave)，私有(private)，不可绑定(unbinable)，共五种。
 
+network namespace: 提供了网络资源的隔离，包括网络设备、IPv4/IPv6协议栈、IP路由表、防火墙，/proc/net目录，/sys/class/net目录以及socket等。一个物理的网络设备只能处于一个network namespace中，通过创建veth pair创建通道以达到通信目的。
 
+在建立网桥之前，新旧namespace通过建立pipe，init在pipe一段循环等待，直到管道另一边传来veth的信息，init才结束等待。
 
+user namespace: 直到Linux内核3.8开始都未完全实现，还有部分文件系统未支持。设计主要隔离了安全相关的标识符(identifier)和属性(attribute)，包括用户ID，用户组ID，root目录，key（密钥）以及特殊权限。Docker在1.10开始才支持user namespace，启动daemon时指定userns-remap，则容器内的root将不再等于宿主机内的root。
 
+namespace 的核心实际上是通过层次关联起来，每个namespace都源自于root namespace的映射。
+
+## \*.2. cgroups
+
+cgroups：限制被namespace隔离起来的资源，还可以为资源设置权重、计算使用量、操控任务（进程或线程）启停等。
+
+cgroups是Linux内核提供的一种机制，这种机制可以根据需求把一系列系统任务及其子任务整合（或分隔）到按资源划分等级的不同组内，从而为系统资源管理提供一个统一的框架。cgroups的实现本质上是给任务挂上钩子，当任务运行的过程中涉及某种资源时，就会触发钩子上所附带的子系统进行检测
+
+cgroups为了不同用户层面的管理资源，并提供统一化的接口，包括如下四个功能：
+
+-   资源限制：cgroups可以对资源的总和进行限制，当超过上限即触发OOM。
+-   优先级分配：分配CPU分得的时间片以及磁盘I/O带宽，决定其优限级。
+-   资源统计：统计内存使用时长，CPU使用量等。
+-   任务控制：实现任务挂起，恢复等操作。
 

@@ -25,6 +25,7 @@
   - QQ: 643601464
   - WeChat: zjc643601464
   - Lark: [Add me as Contact](https://www.feishu.cn/invitation/page/add_contact/?token=84fjea0d-a6bf-452a-af18-6f663429af2d&amp;unique_id=RrNxlaALcRoDz4M3fOO9nA==)
+  - Mail: [Email me](mailto:chasing1020@gmail.com)
 
 # **Link**
 - I would appreciate it if you could add my blog to your links.
