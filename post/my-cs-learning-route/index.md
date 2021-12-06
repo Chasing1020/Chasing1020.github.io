@@ -66,5 +66,5 @@ For me personally, this chapter is almost all from the potholes I have stepped i
 
 # 7. Compilers 
 
-1.   [《compilers principles techniques and tools》](http://ce.sharif.edu/courses/94-95/1/ce414-2/resources/root/Text%20Books/Compiler%20Design/Alfred%20V.%20Aho,%20Monica%20S.%20Lam,%20Ravi%20Sethi,%20Jeffrey%20D.%20Ullman-Compilers%20-%20Principles,%20Techniques,%20and%20Tools-Pearson_Addison%20Wesley%20(2006).pdf): 被誉为《龙书》的编译原理书籍，建议耐心看网课一点一点攻破，并且这可能是我唯一推荐阅读中文版的书，因为难度实在太大。
+1.   [《compilers principles techniques and tools》](http://ce.sharif.edu/courses/94-95/1/ce414-2/resources/root/Text%20Books/Compiler%20Design/Alfred%20V.%20Aho,%20Monica%20S.%20Lam,%20Ravi%20Sethi,%20Jeffrey%20D.%20Ullman-Compilers%20-%20Principles,%20Techniques,%20and%20Tools-Pearson_Addison%20Wesley%20(2006).pdf): Known as the "Dragon Book" of compilation principles books, it is recommended to patiently watch online classes little by little to break through, and this may be the only book I recommend reading the Chinese version, because the difficulty is too great.
 2.   [《Writing An Interpreter In Go》](https://book.douban.com/subject/27034273/)：Interpreter written in Go language, which can be used as a supplementary reading material.
