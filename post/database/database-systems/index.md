@@ -257,6 +257,10 @@ A hardware page is the largest block of data that the storage device can guarant
 
 This means that if our database page is larger than our hardware page, the DBMS will have to take extra measures to ensure that the data gets written out safely since the program can get partway through writing a database page to disk when the system crashes.
 
+Example: MySQL Doublewrite Buffer: The doublewrite buffer is a storage area where `InnoDB` writes pages flushed from the buffer pool before writing the pages to their proper positions in the `InnoDB` data files. If there is an operating system, storage subsystem, or unexpected [**mysqld**](https://dev.mysql.com/doc/refman/5.7/en/mysqld.html) process exit in the middle of a page write, `InnoDB` can find a good copy of the page from the doublewrite buffer during crash recovery.
+
+Although data is written twice, the doublewrite buffer does not require twice as much I/O overhead or twice as many I/O operations. Data is written to the doublewrite buffer in a large sequential chunk, with a single `fsync()` call to the operating system
+
 >   DataBase Heap
 
 A heap file is an unordered collection of pages with tuples that are stored in random order.

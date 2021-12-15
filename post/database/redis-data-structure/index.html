@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Redis Data Structure">
 <meta itemprop="description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样"><meta itemprop="datePublished" content="2021-10-28T13:44:47+08:00" />
 <meta itemprop="dateModified" content="2021-10-28T13:44:47+08:00" />
-<meta itemprop="wordCount" content="2360">
+<meta itemprop="wordCount" content="2367">
 <meta itemprop="keywords" content="Redis," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis Data Structure"/>
 <meta name="twitter:description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 2360 words </span>
+          <span class="more-meta"> 2367 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -458,7 +458,7 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
     <span class="n">byte</span><span class="p">[]</span> <span class="n">compressed_data</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">struct</span> <span class="n">quicklistNode</span> <span class="p">{</span>
-	<span class="n">quicklistNode</span><span class="o">*</span> <span class="n">prev</span><span class="p">;</span>
+    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">prev</span><span class="p">;</span>
     <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
     <span class="n">ziplist</span><span class="o">*</span> <span class="n">zl</span><span class="p">;</span>
     <span class="n">int32</span> <span class="n">size</span><span class="p">;</span>
@@ -508,7 +508,7 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </code></pre></td></tr></table>
 </div>
 </div><p>每次查询时，从header最高层开始，遍历找到最后一个比当前层要小的元素，之后发生降层。</p>
-<p>插入时，设置分到第n层的概率为(1/2)^n，即每一层晋升率为50%，然而官方的源码中晋升率为25%。</p>
+<p>插入时，设置分到第n层的概率为$(1/2)^n$，即每一层晋升率为50%，(官方的源码中晋升率为25%，相对扁平)。</p>
 <p>更新时，Redis采用的策略是：先删除再插入，能够较好调整位置。</p>
 <p>如果score相同，Redis会将排序指标设计为Value(strcmp)，来防止性能退化至O(n)。</p>
 <h2 id="6-list-pack">6. List Pack</h2>
@@ -556,10 +556,10 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">raxNode</span> <span class="p">{</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">isKey</span><span class="p">;</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">isNull</span><span class="p">;</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">isCompressed</span><span class="p">;</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="mi">29</span><span class="o">&gt;</span> <span class="n">size</span><span class="p">;</span>
+    <span class="n">int1</span> <span class="n">isKey</span><span class="p">;</span>
+    <span class="n">int1</span> <span class="n">isNull</span><span class="p">;</span>
+    <span class="n">int1</span> <span class="n">isCompressed</span><span class="p">;</span>
+    <span class="n">int29</span> <span class="n">size</span><span class="p">;</span>
     <span class="n">byte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>

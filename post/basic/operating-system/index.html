@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="11255">
+<meta itemprop="wordCount" content="11827">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,8 +140,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 11255 words </span>
-          <span class="more-meta"> 23 mins read </span>
+          <span class="more-meta"> 11827 words </span>
+          <span class="more-meta"> 24 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -176,7 +176,7 @@
     <li><a href="#12-multi-core-processor">12. Multi-core processor</a></li>
     <li><a href="#-docker">*. Docker</a>
       <ul>
-        <li><a href="#-1-namespace">*. 1. namespace</a></li>
+        <li><a href="#1-namespace">*.1. namespace</a></li>
         <li><a href="#2-cgroups">*.2. cgroups</a></li>
       </ul>
     </li>
@@ -1169,7 +1169,7 @@
 <p>阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$</p>
 <p>其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0 ≤ p ≤ 1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
 <h1 id="-docker">*. Docker</h1>
-<h2 id="-1-namespace">*. 1. namespace</h2>
+<h2 id="1-namespace">*.1. namespace</h2>
 <p>容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。</p>
 <p>namespace 隔离机制：</p>
 <table>
@@ -1270,6 +1270,16 @@
 <li>优先级分配：分配CPU分得的时间片以及磁盘I/O带宽，决定其优限级。</li>
 <li>资源统计：统计内存使用时长，CPU使用量等。</li>
 <li>任务控制：实现任务挂起，恢复等操作。</li>
+</ul>
+<p>镜像分层：每个镜像都由一系列镜像层构成，采用COW机制，并根据文件内容索引镜像和镜像层。联合挂载技术可以在一个挂载点同时挂载多个文件系统，将挂载点的原目录与被挂载内容进行整合，使得最终可见的文件系统将会包含整合之后的各层的文件和目录。</p>
+<p>OverlayFS是一种新型联合文件系统（union filesystem），Linux内核版本3.18开始支持，它允许用户将一个文件系统与另一个文件系统重叠（overlay），在上层的文件系统中记录更改，而下层的文件系统保持不变。</p>
+<p>libnetwork：在Docker的桥接网络模式中，docker0的IP地址作为连于之上的容器的默认网关地址存在。</p>
+<ul>
+<li>Bridge驱动：默认方式，Container会接到Docker网桥上，与外界通信采用NAT，增加了通信复杂性。</li>
+<li>host驱动：不创建默认的namespace，使用宿主机的网卡、IP和端口，避免了地址转换问题。</li>
+<li>overlay驱动：采用IETF的VXLAN方式，适合大规模的云计算虚拟化SDN controller模式，但是需要额外配置服务，如Consul，etcd和ZooKeeper等，在启动时添加参数</li>
+<li>remote驱动：没有使用真正的网络服务发现，调用了用户自己的网络驱动插件。</li>
+<li>null驱动：Container有自己的namespace，但是不会做任何网络相关的配置。</li>
 </ul>
 
     </div>

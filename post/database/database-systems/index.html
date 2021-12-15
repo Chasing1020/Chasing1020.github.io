@@ -61,7 +61,7 @@ A database management system (DBMS) is software that allows applications to stor
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases."><meta itemprop="datePublished" content="2021-11-25T14:11:42+08:00" />
 <meta itemprop="dateModified" content="2021-11-25T14:11:42+08:00" />
-<meta itemprop="wordCount" content="13736">
+<meta itemprop="wordCount" content="13848">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Database Systems"/>
 <meta name="twitter:description" content="Reference Book: Database System Concepts Seventh Edition
@@ -156,8 +156,8 @@ A database management system (DBMS) is software that allows applications to stor
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 13736 words </span>
-          <span class="more-meta"> 65 mins read </span>
+          <span class="more-meta"> 13848 words </span>
+          <span class="more-meta"> 66 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -521,6 +521,8 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>The storage device guarantees an atomic write of the size of the hardware page.</p>
 <p>A hardware page is the largest block of data that the storage device can guarantee failsafe writes. So if the hardware page is 4 KB and the system tries to write 4 KB to the disk, either all 4 KB will be written, or none of it will.</p>
 <p>This means that if our database page is larger than our hardware page, the DBMS will have to take extra measures to ensure that the data gets written out safely since the program can get partway through writing a database page to disk when the system crashes.</p>
+<p>Example: MySQL Doublewrite Buffer: The doublewrite buffer is a storage area where <code>InnoDB</code> writes pages flushed from the buffer pool before writing the pages to their proper positions in the <code>InnoDB</code> data files. If there is an operating system, storage subsystem, or unexpected <a href="https://dev.mysql.com/doc/refman/5.7/en/mysqld.html"><strong>mysqld</strong></a> process exit in the middle of a page write, <code>InnoDB</code> can find a good copy of the page from the doublewrite buffer during crash recovery.</p>
+<p>Although data is written twice, the doublewrite buffer does not require twice as much I/O overhead or twice as many I/O operations. Data is written to the doublewrite buffer in a large sequential chunk, with a single <code>fsync()</code> call to the operating system</p>
 <blockquote>
 <p>DataBase Heap</p>
 </blockquote>
