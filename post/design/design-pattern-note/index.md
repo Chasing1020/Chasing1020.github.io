@@ -772,6 +772,8 @@ public class StreamDecoder extends Reader {
 javax.faces.context.FacesContext 在底层使用了 LifeCycle、ViewHandler 和 NavigationHandler 这几个类。（但绝大多数客户端不知道）
 javax.faces.context.ExternalContext 在内部使用了 ServletContext、HttpSession、 HttpServletRequest、 HttpServletResponse 和其他一些类。
 
+微服务中，API网关的设计也是门面模式
+
 
 ### 2.6.Flyweight
 

@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="11827">
+<meta itemprop="wordCount" content="11828">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 11827 words </span>
+          <span class="more-meta"> 11828 words </span>
           <span class="more-meta"> 24 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -403,7 +403,7 @@
 </span><span class="cp"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等</p>
+</div><p>Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等。</p>
 <h2 id="52-thread">5.2. Thread</h2>
 <p>线程分为用户态线程和内核态线程，一般来说，有三种调度模型：</p>
 <p>用户对内核：多对一，一对一，多对多。没有一对多（即一个用户线程对应多个内核线程）。</p>
@@ -1167,7 +1167,7 @@
 <p>重排序缓冲区（Re-Order Buffer, ROB），让指令按照程序顺序退役（Retire）对应顺序执行中的执行结束，其意味着该条指令对系统的影响终将全局可见。</p>
 <p>存取单元（Load/Store Unit，LSU）中预留了读缓冲区与写缓冲区。</p>
 <p>阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$</p>
-<p>其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0 ≤ p ≤ 1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
+<p>其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
 <h1 id="-docker">*. Docker</h1>
 <h2 id="1-namespace">*.1. namespace</h2>
 <p>容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。</p>

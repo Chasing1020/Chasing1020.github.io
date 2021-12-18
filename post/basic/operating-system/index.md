@@ -186,7 +186,7 @@ int main(int argc, char *argv[]) {
 int clone(int (fn*)(void *), void *stack, int flags, void *arg, ...);
 ```
 
-Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等
+Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等。
 
 ## 5.2. Thread
 
@@ -666,7 +666,7 @@ atomic_signal_fence(memory_order_acq_rel);
 
 阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$
 
-其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0 ≤ p ≤ 1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。
+其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。
 
 # \*. Docker
 
