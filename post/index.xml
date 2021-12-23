@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Dec 2021 14:16:11 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Dec 2021 18:24:56 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My CS Learning Route</title>
       <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
@@ -16,6 +16,15 @@
       <description>It&amp;rsquo;s been a year and a half since I studied computer science, and as a period mentor wanted me to organize and share my own computer science related study materials and routes.
 The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
 In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.</description>
+    </item>
+    
+    <item>
+      <title>Gorm Source Code</title>
+      <link>http://Chasing1020.github.io/post/database/gorm-source-code/</link>
+      <pubDate>Wed, 22 Dec 2021 18:24:56 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/database/gorm-source-code/</guid>
+      <description>Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt</description>
     </item>
     
     <item>

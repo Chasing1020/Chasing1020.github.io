@@ -14,7 +14,7 @@
 
 - My main field of study is Back-End Development, Cloud-Native and Microservices.
 
-- My favorite languages in order of preference are: Golang > Java > Python > Rust.
+- My favorite languages in order of preference are: Golang > Java > Python > Rust > JavaScript.
 
 # **Contact**
 
@@ -22,8 +22,8 @@
 
 - And you can contact me via: 
 
-  - QQ: 643601464
-  - WeChat: zjc643601464
+  - QQ: [643601464](tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=643601464)
+  - WeChat: [zjc643601464](weixin://dl/chat?zjc643601464)
   - Lark: [Add me as Contact](https://www.feishu.cn/invitation/page/add_contact/?token=84fjea0d-a6bf-452a-af18-6f663429af2d&amp;unique_id=RrNxlaALcRoDz4M3fOO9nA==)
   - Mail: [Email me](mailto:chasing1020@gmail.com)
 

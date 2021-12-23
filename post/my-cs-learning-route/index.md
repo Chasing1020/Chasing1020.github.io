@@ -30,7 +30,7 @@ For me personally, this chapter is almost all from the potholes I have stepped i
 # 3. Data Structure
 
 
-1.   [《Data Structures and Algorithms》](https://www.cs.bham.ac.uk/~jxb/DSA/dsa.pdf)：As a class note, the books are not very extensive, but they are also all very concise and can be used as a table of contents for study.
+1.   [《Data Structures and Algorithms》](https://www.cs.bham.ac.uk/~jxb/DSA/dsa.pdf): As a class note, the books are not very extensive, but they are also all very concise and can be used as a table of contents for study.
 2.   [MIT's Course Introduction To Algorithms 3rd Edition](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/): This course provides an introduction to mathematical modeling of computational problems. It covers the common algorithms, algorithmic paradigms, and data structures used to solve these problems. The course emphasizes the relationship between algorithms and programming, and introduces basic performance measures and analysis techniques for these problems.
 3.   [《Introduction To Algorithms 3rd Edition》](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf): It can be counted as the bible of algorithm books, which covers very comprehensive knowledge points and is relatively difficult, requiring a lot of time and patience. In contrast, I would recommend reading the following book.
 4.   [《Algorithhms 4th Edition by Robert Sedgewick, Kevin Wayne.pdf》](https://github.com/SuperChenSSS/Algorithm-Training/blob/master/Algorithhms%204th%20Edition%20by%20Robert%20Sedgewick%2C%20Kevin%20Wayne.pdf): A classic book on algorithms written in Java language, with moderate difficulty and rich corresponding illustrations, is more suitable for reading.
@@ -67,4 +67,4 @@ For me personally, this chapter is almost all from the potholes I have stepped i
 # 7. Compilers 
 
 1.   [《compilers principles techniques and tools》](http://ce.sharif.edu/courses/94-95/1/ce414-2/resources/root/Text%20Books/Compiler%20Design/Alfred%20V.%20Aho,%20Monica%20S.%20Lam,%20Ravi%20Sethi,%20Jeffrey%20D.%20Ullman-Compilers%20-%20Principles,%20Techniques,%20and%20Tools-Pearson_Addison%20Wesley%20(2006).pdf): Known as the "Dragon Book" of compilation principles books, it is recommended to patiently watch online classes little by little to break through, and this may be the only book I recommend reading the Chinese version, because the difficulty is too great.
-2.   [《Writing An Interpreter In Go》](https://book.douban.com/subject/27034273/)：Interpreter written in Go language, which can be used as a supplementary reading material.
+2.   [《Writing An Interpreter In Go》](https://book.douban.com/subject/27034273/): Interpreter written in Go language, which can be used as a supplementary reading material.

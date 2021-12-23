@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="11828">
+<meta itemprop="wordCount" content="12274">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,8 +140,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 11828 words </span>
-          <span class="more-meta"> 24 mins read </span>
+          <span class="more-meta"> 12274 words </span>
+          <span class="more-meta"> 25 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -217,6 +217,10 @@
 <h1 id="2-hardware-infrastructure">2. Hardware Infrastructure</h1>
 <p>冯诺依曼架构：中央处理单元，存储器，输入输出。</p>
 <p>缓存结构：CPU缓存是由若干个缓存行决定的，每个缓存行包括一个有效位（valid bit），一个标记地址（tag address）。物理地址在逻辑上分为三段。Tag、Index(Set)、Way。物理地址能表示Index(Set)的最大数目为组，支持Tag最大的数目为路（Way）。</p>
+<p>物理地址结构：Tag（物理地址）+ Set（组号）+ OffSet（组内偏移）</p>
+<p>直接映射：内存与CPU的CacheLine相对位置固定，导致淘汰换出频繁。</p>
+<p>全相联映射：灵活，电路设计困难，只适合小容量Cache。</p>
+<p>组相联映射：CPU和主存都分组，同组的缓存行数量称为路，组内采用直接映射，组间采用全相联映射。</p>
 <p>CPU访问设备的方式：内存映射输入输出（Memory-Mapped I/O），将IO设备和物理内存放到同一个存储空间。</p>
 <p>如果CPU通过不断轮询，查看MMIO是否有输入效率会很低，所以更高效的做法是利用中断，主动通知CPU。</p>
 <h1 id="3-operating-system-architecture">3. Operating System Architecture</h1>
@@ -229,10 +233,10 @@
 <li>
 <p>宏内核架构（Monolithic Kernel）：又称单内核，现代Unix，Linux，Windows都采用宏内核。</p>
 <ul>
-<li>模块化：使用可加载内核模块（Loadable Kernel Module）机制，使内核与其他模块（如驱动）解耦；</li>
-<li>抽象：采用“Everything is a file”思想，为上层应用提供统一接口，降低复杂性，增强维护性。</li>
-<li>分层：Dijkstra提出的“THE”操作系统，分为6层，更好地组织各种功能</li>
-<li>层级：应用于资源管理，如调度算法优先级分类，控制组（cgroup）分类</li>
+<li>模块化（modularity）：使用可加载内核模块（Loadable Kernel Module）机制，使内核与其他模块（如驱动）解耦；</li>
+<li>抽象（abstraction）：采用“Everything is a file”思想，为上层应用提供统一接口，降低复杂性，增强维护性。</li>
+<li>分层（layering）：Dijkstra提出的“THE”操作系统，分为6层，更好地组织各种功能</li>
+<li>层级（hierarchy）：应用于资源管理，如调度算法优先级分类，控制组（cgroup）分类</li>
 </ul>
 </li>
 <li>
@@ -253,6 +257,16 @@
 <p>CPU的内存管理单元（Memory Management Unit，MMU）负责虚拟地址到物理地址的转换，此外，还有地址旁路缓存（Translation Lookaside Buffer，TLB）</p>
 <p>分段机制：如将应用分成代码段，数据段。每个段表，作为段内地址与段内偏移来确定位置。很容易产生外部碎片。</p>
 <p>分页机制：用虚拟页号与页内偏移量，按固定大小管理，减少外部碎片。</p>
+<blockquote>
+<p>访存次数（一般访问TLB不算访存）</p>
+</blockquote>
+<p><strong>页式存储</strong>，2次：第一次、访问内存中的页表，利用逻辑地址中的页号查找到页帧号，与逻辑地址中的页内偏移拼接形成物理地址；第二次：得到物理地址后，再一次访问内存，存取指令或者数据。</p>
+<p><strong>段式存储</strong>，2次（同上）</p>
+<p><strong>段页式存储</strong>，3次：</p>
+<p>第一次：访问内存中的段表查到页表的起始地址</p>
+<p>第二次：访问内存中的页表找到页帧号，形成物理地址</p>
+<p>第三次：得到物理地址后，再一次访问内存，存取指令或者数据</p>
+<p><strong>多级页表</strong>，若页表划分为N级，则需要访问内存N+1次。TLB命中，只需访问1次内存即可。</p>
 <h2 id="41-paging">4.1. Paging</h2>
 <p>64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。</p>
 <p>32位系统下的2级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项4字节，所以一个页表页可以对应1024页表项(4KB/4B=1024=$2^{10}$)。所以，20+12分别对应二级页表(2*10)，和页表内偏移量。</p>
@@ -283,7 +297,7 @@
 <h1 id="5-process-and-thread">5. Process and Thread</h1>
 <h2 id="51-process">5.1. Process</h2>
 <p>进程的状态：新生（new）、就绪（ready）、运行（running）、阻塞（blocked）、终止（terminated）</p>
-<p>进程的内存空间布局：（在/proc/PID/maps查看布局）</p>
+<p>进程的内存空间布局：（在/proc/&lt;PID&gt;/maps查看布局）</p>
 <ul>
 <li>
 <p>内核部分：空间最顶端的部分，只有进入内核态才可见</p>
@@ -454,7 +468,7 @@
 <p>经典调度策略：</p>
 <ul>
 <li>
-<p>FIFO/FCFS（First In First Out/First Come First Serve）：在长短任务混合的情况下对短任务不友好。</p>
+<p>FIFO/FCFS（First In First Out / First Come First Serve）：在长短任务混合的情况下对短任务不友好。</p>
 </li>
 <li>
 <p>SJF（Shortest Job First）：表现严重依赖于任务到达的时间点。</p>
@@ -1009,7 +1023,7 @@
 </ul>
 <p>Generic Interrupt Controller：ARM下的通用中断控制器，负责对设备的中断信号处理。每个中断有四种状态：</p>
 <ul>
-<li>Inactive：无效，此时中断未到来</li>
+<li>Inactive：无效，此时中断未到来。</li>
 <li>Pending：有效状态，中断已发生，CPU未响应中断。</li>
 <li>Active：CPU处于响应并处理中断的过程中。</li>
 <li>Active &amp; Pending：处理中断时，有相同的中断号发生。</li>
@@ -1167,7 +1181,7 @@
 <p>重排序缓冲区（Re-Order Buffer, ROB），让指令按照程序顺序退役（Retire）对应顺序执行中的执行结束，其意味着该条指令对系统的影响终将全局可见。</p>
 <p>存取单元（Load/Store Unit，LSU）中预留了读缓冲区与写缓冲区。</p>
 <p>阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$</p>
-<p>其中S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
+<p>其中 S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而 s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
 <h1 id="-docker">*. Docker</h1>
 <h2 id="1-namespace">*.1. namespace</h2>
 <p>容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。</p>

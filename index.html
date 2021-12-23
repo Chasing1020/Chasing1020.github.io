@@ -136,7 +136,7 @@
       <div class="post-category">
           <a href="/categories/note/"> note </a>
           </div>
-        <span class="more-meta"> 1213 words </span>
+        <span class="more-meta"> 1215 words </span>
         <span class="more-meta"> 6 mins read </span>
     </div>
   </header>
@@ -149,6 +149,29 @@ In some ways, this route can be more of a substitute for college courses outside
     </div>
     <div class="read-more">
       <a href="/post/my-cs-learning-route/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/database/gorm-source-code/">Gorm Source Code</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-12-22 </span>
+      <div class="post-category">
+          <a href="/categories/note/"> Note </a>
+          </div>
+        <span class="more-meta"> 2413 words </span>
+        <span class="more-meta"> 5 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt
+    </div>
+    <div class="read-more">
+      <a href="/post/database/gorm-source-code/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -257,8 +280,8 @@ A database management system (DBMS) is software that allows applications to stor
       <div class="post-category">
           <a href="/categories/note/"> Note </a>
           </div>
-        <span class="more-meta"> 11828 words </span>
-        <span class="more-meta"> 24 mins read </span>
+        <span class="more-meta"> 12274 words </span>
+        <span class="more-meta"> 25 mins read </span>
     </div>
   </header>
   
@@ -291,29 +314,6 @@ A database management system (DBMS) is software that allows applications to stor
     </div>
     <div class="read-more">
       <a href="/post/cloud-native/kubernetes/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/database/redis-data-structure/">Redis Data Structure</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-10-28 </span>
-      <div class="post-category">
-          <a href="/categories/note/"> Note </a>
-          </div>
-        <span class="more-meta"> 2367 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样
-    </div>
-    <div class="read-more">
-      <a href="/post/database/redis-data-structure/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
