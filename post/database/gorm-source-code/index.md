@@ -340,7 +340,7 @@ func (not NotConditions) Build(builder Builder) {
 
 # 4. Hooks
 
-利用借口实现，在执行对应操作时，会先进行相关的检查操作，实现较为简单。
+利用接口实现，在执行对应操作时，会先进行相关的检查操作，实现较为简单。
 
 ```go
 func BeforeCreate(db *gorm.DB) {
