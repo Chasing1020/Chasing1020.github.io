@@ -472,7 +472,7 @@
 </div>
 </div><p>Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等。</p>
 <h2 id="52-thread">5.2. Thread</h2>
-<p>Linux操作系统把所有的线程都当作进程来实现，内核并没有准备特别的调度算法或者定义特别的数据结构来表征线程。仅仅被市委与其他进程做了资源共享的进程。</p>
+<p>Linux操作系统把所有的线程都当作进程来实现，内核并没有准备特别的调度算法或者定义特别的数据结构来表征线程。仅仅被视为与其他进程做了资源共享的进程。</p>
 <p>线程分为用户态线程和内核态线程，一般来说，有三种调度模型：</p>
 <p>用户对内核：多对一，一对一，多对多。没有一对多（即一个用户线程对应多个内核线程）。</p>
 <div class="highlight"><div class="chroma">
@@ -517,7 +517,7 @@
 </div><p>sleep会让线程挂起数秒，或者是使用cond_wait在条件变量为同步方式等待。</p>
 <h1 id="6-operating-system-scheduling">6. Operating System Scheduling</h1>
 <p>Long-term Scheduling：决定当前真正可以被调度的进程数量。</p>
-<p>Shoet-term Scheduling：负责进程在就绪、运行、阻塞三个状态之间的转换。</p>
+<p>Short-term Scheduling：负责进程在就绪、运行、阻塞三个状态之间的转换。</p>
 <p>Midium-term Scheduling：负责管理内存，换页机制等</p>
 <p>经典调度策略：</p>
 <ul>
