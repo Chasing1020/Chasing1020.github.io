@@ -9,21 +9,21 @@
 // interfaces returned via that Conn, such as calls on Tx, Stmt,
 // Result, Rows)
 type driverConn struct {
-	db        *DB
-	createdAt time.Time
+    db        *DB
+    createdAt time.Time
 
-	sync.Mutex  // guards following
-	ci          driver.Conn
-	needReset   bool // The connection session should be reset before use if true.
-	closed      bool
-	finalClosed bool // ci.Close has been called
-	openStmt    map[*driverStmt]bool
+    sync.Mutex  // guards following
+    ci          driver.Conn
+    needReset   bool // The connection session should be reset before use if true.
+    closed      bool
+    finalClosed bool // ci.Close has been called
+    openStmt    map[*driverStmt]bool
 
-	// guarded by db.mu
-	inUse      bool
-	returnedAt time.Time // Time the connection was created or returned.
-	onPut      []func()  // code (with db.mu held) run when conn is next returned
-	dbmuClosed bool      // same as closed, but guarded by db.mu, for removeClosedStmtLocked
+    // guarded by db.mu
+    inUse      bool
+    returnedAt time.Time // Time the connection was created or returned.
+    onPut      []func()  // code (with db.mu held) run when conn is next returned
+    dbmuClosed bool      // same as closed, but guarded by db.mu, for removeClosedStmtLocked
 }
 ```
 
@@ -39,20 +39,20 @@ sql.DB可以执行一系列重要的任务：包括使用驱动打开和关闭�
 
 // DB GORM DB definition
 type DB struct {
-	*Config
-	Error        error
-	RowsAffected int64
-	Statement    *Statement
-	clone        int
+    *Config
+    Error        error
+    RowsAffected int64
+    Statement    *Statement
+    clone        int
 }
 
 // Session session config when create session with Session() method
 type Session struct {
-	// ...
-	Context                  context.Context
-	Logger                   logger.Interface
-	NowFunc                  func() time.Time
-	CreateBatchSize          int
+    // ...
+    Context                  context.Context
+    Logger                   logger.Interface
+    NowFunc                  func() time.Time
+    CreateBatchSize          int
 }
 ```
 
@@ -61,19 +61,19 @@ type Session struct {
 ```go
 // Statement statement
 type Statement struct {
-	*DB
-	TableExpr            *clause.Expr
-	Table                string
-	Model                interface{}
-	Unscoped             bool
-	Dest                 interface{}
-	ReflectValue         reflect.Value
-	Clauses              map[string]clause.Clause
-	// ...
-	ConnPool             ConnPool
-	Schema               *schema.Schema
-	Context              context.Context
-	// ...
+    *DB
+    TableExpr            *clause.Expr
+    Table                string
+    Model                interface{}
+    Unscoped             bool
+    Dest                 interface{}
+    ReflectValue         reflect.Value
+    Clauses              map[string]clause.Clause
+    // ...
+    ConnPool             ConnPool
+    Schema               *schema.Schema
+    Context              context.Context
+    // ...
 }
 ```
 
@@ -87,11 +87,11 @@ type Statement struct {
 
 ```go
 type Field struct {
-	Name                   string
-	DBName                 string
-	BindNames              []string
-	DataType               DataType
-	GORMDataType           DataType
+    Name                   string
+    DBName                 string
+    BindNames              []string
+    DataType               DataType
+    GORMDataType           DataType
     // ... 
     FieldType              reflect.Type
     Tag                    reflect.StructTag
@@ -118,8 +118,8 @@ type StructTag string
 // returned by Get is unspecified. To determine whether a tag is
 // explicitly set to the empty string, use Lookup.
 func (tag StructTag) Get(key string) string {
-	v, _ := tag.Lookup(key)
-	return v
+    v, _ := tag.Lookup(key)
+    return v
 }
 ```
 
@@ -130,18 +130,18 @@ func (schema *Schema) ParseField(fieldStruct reflect.StructField) *Field {
     // ...
     
     
-	// default value is function or null or blank (primary keys)
-	field.DefaultValue = strings.TrimSpace(field.DefaultValue)
-	skipParseDefaultValue := strings.Contains(field.DefaultValue, "(") &&
-		strings.Contains(field.DefaultValue, ")") || strings.ToLower(field.DefaultValue) == "null" || field.DefaultValue == ""
-	switch reflect.Indirect(fieldValue).Kind() {
-	case reflect.Bool:
-		field.DataType = Bool
-		if field.HasDefaultValue && !skipParseDefaultValue {
-			if field.DefaultValueInterface, err = strconv.ParseBool(field.DefaultValue); err != nil {
-				schema.err = fmt.Errorf("failed to parse %s as default value for bool, got error: %v", field.DefaultValue, err)
-			}
-		}
+    // default value is function or null or blank (primary keys)
+    field.DefaultValue = strings.TrimSpace(field.DefaultValue)
+    skipParseDefaultValue := strings.Contains(field.DefaultValue, "(") &&
+        strings.Contains(field.DefaultValue, ")") || strings.ToLower(field.DefaultValue) == "null" || field.DefaultValue == ""
+    switch reflect.Indirect(fieldValue).Kind() {
+    case reflect.Bool:
+        field.DataType = Bool
+        if field.HasDefaultValue && !skipParseDefaultValue {
+            if field.DefaultValueInterface, err = strconv.ParseBool(field.DefaultValue); err != nil {
+                schema.err = fmt.Errorf("failed to parse %s as default value for bool, got error: %v", field.DefaultValue, err)
+            }
+        }
     case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
     // case ...
     }
@@ -155,31 +155,31 @@ func (schema *Schema) ParseField(fieldStruct reflect.StructField) *Field {
 ```go
 // Interface clause interface
 type Interface interface {
-	Name() string
-	Build(Builder)
-	MergeClause(*Clause)
+    Name() string
+    Build(Builder)
+    MergeClause(*Clause)
 }
 
 // Expression expression interface
 type Expression interface {
-	Build(builder Builder)
+    Build(builder Builder)
 }
 
 // Builder builder interface
 type Builder interface {
-	Writer
-	WriteQuoted(field interface{})
-	AddVar(Writer, ...interface{})
+    Writer
+    WriteQuoted(field interface{})
+    AddVar(Writer, ...interface{})
 }
 
 // Clause
 type Clause struct {
-	Name                string // WHERE
-	BeforeExpression    Expression
-	AfterNameExpression Expression
-	AfterExpression     Expression
-	Expression          Expression
-	Builder             ClauseBuilder
+    Name                string // WHERE
+    BeforeExpression    Expression
+    AfterNameExpression Expression
+    AfterExpression     Expression
+    Expression          Expression
+    Builder             ClauseBuilder
 }
 ```
 
@@ -194,60 +194,60 @@ package clause
 
 // Select select attrs when querying, updating, creating
 type Select struct {
-	Distinct   bool
-	Columns    []Column
-	Expression Expression
+    Distinct   bool
+    Columns    []Column
+    Expression Expression
 }
 
 func (s Select) Name() string {
-	return "SELECT"
+    return "SELECT"
 }
 
 func (s Select) Build(builder Builder) {
-	if len(s.Columns) > 0 {
-		if s.Distinct {
-			builder.WriteString("DISTINCT ")
-		}
+    if len(s.Columns) > 0 {
+        if s.Distinct {
+            builder.WriteString("DISTINCT ")
+        }
 
-		for idx, column := range s.Columns {
-			if idx > 0 {
-				builder.WriteByte(',')
-			}
-			builder.WriteQuoted(column)
-		}
-	} else {
-		builder.WriteByte('*')
-	}
+        for idx, column := range s.Columns {
+            if idx > 0 {
+                builder.WriteByte(',')
+            }
+            builder.WriteQuoted(column)
+        }
+    } else {
+        builder.WriteByte('*')
+    }
 }
 
 func (s Select) MergeClause(clause *Clause) {
-	if s.Expression != nil {
-		if s.Distinct {
-			if expr, ok := s.Expression.(Expr); ok {
-				expr.SQL = "DISTINCT " + expr.SQL
-				clause.Expression = expr
-				return
-			}
-		}
+    if s.Expression != nil {
+        if s.Distinct {
+            if expr, ok := s.Expression.(Expr); ok {
+                expr.SQL = "DISTINCT " + expr.SQL
+                clause.Expression = expr
+                return
+            }
+        }
 
-		clause.Expression = s.Expression
-	} else {
-		clause.Expression = s
-	}
+        clause.Expression = s.Expression
+    } else {
+        clause.Expression = s
+    }
 }
 
 // CommaExpression represents a group of expressions separated by commas.
 type CommaExpression struct {
-	Exprs []Expression
+    Exprs []Expression
 }
 
 func (comma CommaExpression) Build(builder Builder) {
-	for idx, expr := range comma.Exprs {
-		if idx > 0 {
-			_, _ = builder.WriteString(", ")
-		}
-		expr.Build(builder)
-	}
+    for idx, expr := range comma.Exprs {
+        if idx > 0 {
+            _, _ = builder.WriteString(", ")
+        }
+        expr.Build(builder)
+    }
 }
 ```
 
@@ -260,38 +260,38 @@ package clause
 
 // From from clause
 type From struct {
-	Tables []Table
-	Joins  []Join
+    Tables []Table
+    Joins  []Join
 }
 
 // Name from clause name
 func (from From) Name() string {
-	return "FROM"
+    return "FROM"
 }
 
 // Build build from clause
 func (from From) Build(builder Builder) {
-	if len(from.Tables) > 0 {
-		for idx, table := range from.Tables {
-			if idx > 0 {
-				builder.WriteByte(',')
-			}
+    if len(from.Tables) > 0 {
+        for idx, table := range from.Tables {
+            if idx > 0 {
+                builder.WriteByte(',')
+            }
 
-			builder.WriteQuoted(table)
-		}
-	} else {
-		builder.WriteQuoted(currentTable)
-	}
+            builder.WriteQuoted(table)
+        }
+    } else {
+        builder.WriteQuoted(currentTable)
+    }
 
-	for _, join := range from.Joins {
-		builder.WriteByte(' ')
-		join.Build(builder)
-	}
+    for _, join := range from.Joins {
+        builder.WriteByte(' ')
+        join.Build(builder)
+    }
 }
 
 // MergeClause merge from clause
 func (from From) MergeClause(clause *Clause) {
-	clause.Expression = from
+    clause.Expression = from
 }
 ```
 
@@ -301,38 +301,38 @@ func (from From) MergeClause(clause *Clause) {
 
 ```go
 func (not NotConditions) Build(builder Builder) {
-	if len(not.Exprs) > 1 {
-		builder.WriteByte('(')
-	}
+    if len(not.Exprs) > 1 {
+        builder.WriteByte('(')
+    }
 
-	for idx, c := range not.Exprs {
-		if idx > 0 {
-			builder.WriteString(" AND ")
-		}
+    for idx, c := range not.Exprs {
+        if idx > 0 {
+            builder.WriteString(" AND ")
+        }
 
-		if negationBuilder, ok := c.(NegationExpressionBuilder); ok {
-			negationBuilder.NegationBuild(builder)
-		} else {
-			builder.WriteString("NOT ")
-			e, wrapInParentheses := c.(Expr)
-			if wrapInParentheses {
-				sql := strings.ToLower(e.SQL)
-				if wrapInParentheses = strings.Contains(sql, "and") || strings.Contains(sql, "or"); wrapInParentheses {
-					builder.WriteByte('(')
-				}
-			}
+        if negationBuilder, ok := c.(NegationExpressionBuilder); ok {
+            negationBuilder.NegationBuild(builder)
+        } else {
+            builder.WriteString("NOT ")
+            e, wrapInParentheses := c.(Expr)
+            if wrapInParentheses {
+                sql := strings.ToLower(e.SQL)
+                if wrapInParentheses = strings.Contains(sql, "and") || strings.Contains(sql, "or"); wrapInParentheses {
+                    builder.WriteByte('(')
+                }
+            }
 
-			c.Build(builder)
+            c.Build(builder)
 
-			if wrapInParentheses {
-				builder.WriteByte(')')
-			}
-		}
-	}
+            if wrapInParentheses {
+                builder.WriteByte(')')
+            }
+        }
+    }
 
-	if len(not.Exprs) > 1 {
-		builder.WriteByte(')')
-	}
+    if len(not.Exprs) > 1 {
+        builder.WriteByte(')')
+    }
 }
 ```
 
@@ -429,38 +429,38 @@ func (s Service) DoSomething() (err error) {
 ```java
 @Test
 public void testUpdateWithTx() {
-	Connection conn = null;
-	try {
-		//1.获取连接的操作（
-		//① 手写的连接：JDBCUtils.getConnection();
-		//② 使用数据库连接池：C3P0;DBCP;Druid
-		//2.对数据表进行一系列CRUD操作
-		//① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)
+    Connection conn = null;
+    try {
+        //1.获取连接的操作（
+        //① 手写的连接：JDBCUtils.getConnection();
+        //② 使用数据库连接池：C3P0;DBCP;Druid
+        //2.对数据表进行一系列CRUD操作
+        //① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)
 //version2.0的增删改public void update(Connection conn,String sql,Object ... args){}
 //version2.0的查询 public <T> T getInstance(Connection conn,Class<T> clazz,String sql,Object ... args){}
-		//② 使用dbutils提供的jar包中提供的QueryRunner类
-			
-		//提交数据
-		conn.commit();
-			
-	
-	} catch (Exception e) {
-		e.printStackTrace();
-			
-			
-		try {
-			//回滚数据
-			conn.rollback();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-			
-	}finally{
-		//3.关闭连接等操作
-		//① JDBCUtils.closeResource();
-		//② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作
-			
-	}
+        //② 使用dbutils提供的jar包中提供的QueryRunner类
+            
+        //提交数据
+        conn.commit();
+            
+    
+    } catch (Exception e) {
+        e.printStackTrace();
+            
+            
+        try {
+            //回滚数据
+            conn.rollback();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+            
+    }finally{
+        //3.关闭连接等操作
+        //① JDBCUtils.closeResource();
+        //② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作
+            
+    }
 }
 ```
 

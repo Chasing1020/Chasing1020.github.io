@@ -1,5 +1,5 @@
 
-It's been a year and a half since I studied computer science, and as a period mentor wanted me to organize and share my own computer science related study materials and routes.
+As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.
 
 The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
 

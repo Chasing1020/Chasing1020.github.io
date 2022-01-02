@@ -593,7 +593,7 @@
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2100</span><span class="p">):</span>
 
   <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">4</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">100</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span><span class="o">%</span><span class="mi">400</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
-	
+    
     <span class="k">break</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;2019-2100第一个闰年是</span><span class="si">%d</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">i</span><span class="p">)</span>
@@ -788,7 +788,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;shu_chasing&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>		   <span class="c1">#输出0</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>           <span class="c1">#输出0</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="p">,</span><span class="mi">10</span><span class="p">))</span>    <span class="c1">#7</span>
 </code></pre></td></tr></table>
 </div>
@@ -806,8 +806,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;shu_chasing&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>		   <span class="c1">#输出2</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="p">,</span><span class="mi">10</span><span class="p">))</span>	<span class="c1">#输出1</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">))</span>           <span class="c1">#输出2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="p">,</span><span class="mi">10</span><span class="p">))</span>    <span class="c1">#输出1</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="5替换replace">5.替换replace</h3>
@@ -824,7 +824,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;I love math&#39;</span>
 <span class="nb">str</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;math&#39;</span><span class="p">,</span><span class="s1">&#39;programming&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>	<span class="c1">#输出I love programming</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>    <span class="c1">#输出I love programming</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="6拆分split">6.拆分split</h3>
@@ -837,8 +837,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">str</span><span class="o">=</span><span class="s1">&#39;D:\software\python&#39;</span>
-<span class="nb">str</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>		<span class="c1">#注意这里是两个\\</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>		<span class="c1">#输出[&#39;D:&#39;, &#39;software&#39;, &#39;python&#39;]，转为列表类型</span>
+<span class="nb">str</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>        <span class="c1">#注意这里是两个\\</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>        <span class="c1">#输出[&#39;D:&#39;, &#39;software&#39;, &#39;python&#39;]，转为列表类型</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="7拼接join">7.拼接join</h3>
@@ -860,11 +860,11 @@ join的参数支持一切可以迭代的对象（列表，元组，字典，文�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nb">str</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;D:&#39;</span><span class="p">,</span> <span class="s1">&#39;software&#39;</span><span class="p">,</span> <span class="s1">&#39;python&#39;</span><span class="p">]</span>
-<span class="nb">str</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>	<span class="c1">#转义字符</span>
+<span class="nb">str</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>    <span class="c1">#转义字符</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>              <span class="c1">#D:\software\python</span>
 <span class="nb">str</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;D:&#39;</span><span class="p">,</span> <span class="s1">&#39;software&#39;</span><span class="p">,</span> <span class="s1">&#39;python&#39;</span><span class="p">]</span>
 <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>		<span class="c1">#输出D:softwarepython</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>        <span class="c1">#输出D:softwarepython</span>
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="第四章列表list-">第四章——列表list[ ]</h1>
@@ -986,7 +986,7 @@ join的参数支持一切可以迭代的对象（列表，元组，字典，文�
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">namelist</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;xiaozhang&#34;</span><span class="p">,</span><span class="s2">&#34;2.3&#34;</span><span class="p">,</span><span class="s2">&#34;10&#34;</span><span class="p">]</span><span class="c1">#可以为不同类型的变量，储存混合类型</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">namelist</span><span class="p">:</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
 <span class="c1">#增加</span>
 
@@ -1156,8 +1156,8 @@ a=a*3
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>list.index(item)		#从头到尾找</p>
-<p>list.index(item, start, end)	#在开始和结束之间找</p>
+<p>list.index(item)        #从头到尾找</p>
+<p>list.index(item, start, end)    #在开始和结束之间找</p>
 </blockquote>
 <h3 id="6reverse反转和sort排序">6.reverse反转和sort排序</h3>
 <div class="highlight"><div class="chroma">
@@ -1263,7 +1263,7 @@ a=a*3
 <span class="c1">#办公室3的人数是：3</span>
 <span class="c1">#2</span>
 <span class="c1">#3</span>
-<span class="c1">#4	</span>
+<span class="c1">#4    </span>
 </code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -1294,9 +1294,9 @@ sort(func, key, reverse)</p>
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">t1</span><span class="o">=</span><span class="p">(</span><span class="mf">2.33</span><span class="p">,</span><span class="s1">&#39;abcd&#39;</span><span class="p">,</span><span class="mi">786</span><span class="p">,)</span>
 <span class="n">t2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
 <span class="n">t3</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;ab&#39;</span><span class="p">,[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="mf">2.3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>	<span class="c1">#(2.33, &#39;abcd&#39;, 786)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>	<span class="c1">#(1,)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">t3</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> 	<span class="c1">#2.3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>    <span class="c1">#(2.33, &#39;abcd&#39;, 786)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>    <span class="c1">#(1,)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t3</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>     <span class="c1">#2.3</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>如果创建空的元组</p>
@@ -1324,11 +1324,11 @@ sort(func, key, reverse)</p>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">tup1</span><span class="o">=</span><span class="p">()</span>		<span class="c1">#空的元组</span>
-<span class="n">tup2</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>	<span class="c1">#整形</span>
-<span class="n">tup3</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>		<span class="c1">#含有一个元素的元组，如果只有一个，则需要加逗号,在这里也可以写tup3=100,</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">tup1</span><span class="o">=</span><span class="p">()</span>        <span class="c1">#空的元组</span>
+<span class="n">tup2</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>    <span class="c1">#整形</span>
+<span class="n">tup3</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>        <span class="c1">#含有一个元素的元组，如果只有一个，则需要加逗号,在这里也可以写tup3=100,</span>
 <span class="c1">#可以不需要小括号，但是一定要逗号</span>
-<span class="n">tup4</span><span class="o">=</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>	<span class="c1">#含有多个元素的元组</span>
+<span class="n">tup4</span><span class="o">=</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>    <span class="c1">#含有多个元素的元组</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tup1</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">tup2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tup2</span><span class="p">))</span>
@@ -1360,9 +1360,9 @@ sort(func, key, reverse)</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">tup1</span><span class="o">=</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">23.4</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">tup1</span><span class="p">)</span>		<span class="c1">#输出(&#39;abc&#39;, 10, 23.4)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tup1</span><span class="p">)</span>        <span class="c1">#输出(&#39;abc&#39;, 10, 23.4)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">tup1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>		<span class="c1">#输出23.4</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tup1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>        <span class="c1">#输出23.4</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">tup1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span><span class="c1"># 输出(&#39;abc&#39;, 10)，这里只有[0,2)，即[0,1]，左闭右开</span>
 </code></pre></td></tr></table>
@@ -1640,9 +1640,9 @@ sort(func, key, reverse)</p>
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#enumerate</span>
 <span class="nb">str</span><span class="o">=</span><span class="s1">&#39;chasing&#39;</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
 <span class="c1">#(0, &#39;c&#39;)</span>
 <span class="c1">#(1, &#39;h&#39;)</span>
 <span class="c1">#(2, &#39;a&#39;)</span>
@@ -1678,7 +1678,7 @@ sort(func, key, reverse)</p>
 <span class="n">str1</span><span class="o">=</span><span class="s2">&#34;chasing&#34;</span>
 <span class="n">turple1</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list1</span><span class="p">,</span> <span class="n">str1</span><span class="p">,</span> <span class="n">turple1</span><span class="p">):</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="c1">#(1, &#39;c&#39;, 2)</span>
 <span class="c1">#(7, &#39;h&#39;, 4)</span>
 <span class="c1">#(3, &#39;a&#39;, 6)</span>
@@ -1714,15 +1714,15 @@ sort(func, key, reverse)</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#字典的定义</span>
 <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;chasing&#34;</span><span class="p">,</span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="s2">&#34;18&#34;</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">])</span>	<span class="c1">#输出chasing</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">])</span>	<span class="c1">#输出18</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">])</span>    <span class="c1">#输出chasing</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">])</span>    <span class="c1">#输出18</span>
 <span class="c1">#print(info[&#34;gender&#34;])</span>
 <span class="c1">#错误，KeyError: &#39;gender&#39;</span>
 
 <span class="c1">#直接访问</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;gender&#34;</span><span class="p">))</span>	
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;gender&#34;</span><span class="p">))</span>    
 <span class="c1">#输出None，没有找到默认返回None</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;gender&#34;</span><span class="p">,</span><span class="s2">&#34;not found&#34;</span><span class="p">))</span>	<span class="c1">#修改默认的值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;gender&#34;</span><span class="p">,</span><span class="s2">&#34;not found&#34;</span><span class="p">))</span>    <span class="c1">#修改默认的值</span>
 <span class="c1">#输出not found，没有找到返回not found</span>
 </code></pre></td></tr></table>
 </div>
@@ -1771,10 +1771,10 @@ sort(func, key, reverse)</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;chasing&#34;</span><span class="p">,</span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="s2">&#34;19&#34;</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;删除前：</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">info</span><span class="p">)</span>	<span class="c1">#删除前：{&#39;name&#39;: &#39;chasing&#39;, &#39;age&#39;: &#39;18&#39;}</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;删除前：</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">info</span><span class="p">)</span>    <span class="c1">#删除前：{&#39;name&#39;: &#39;chasing&#39;, &#39;age&#39;: &#39;18&#39;}</span>
 
-<span class="n">info</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>			       <span class="c1">#只是清空</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;删除后：</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">info</span><span class="p">)</span>	<span class="c1">#删除后：{}</span>
+<span class="n">info</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                   <span class="c1">#只是清空</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;删除后：</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">info</span><span class="p">)</span>    <span class="c1">#删除后：{}</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="5修改">5、修改</h2>
@@ -1788,7 +1788,7 @@ sort(func, key, reverse)</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;chasing&#34;</span><span class="p">,</span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="s2">&#34;19&#34;</span><span class="p">}</span>
 <span class="n">info</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">]</span><span class="o">=</span><span class="mi">20</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">])</span>	<span class="c1">#输出20</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&#34;age&#34;</span><span class="p">])</span>    <span class="c1">#输出20</span>
 
 </code></pre></td></tr></table>
 </div>
@@ -1803,9 +1803,9 @@ sort(func, key, reverse)</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;chasing&#34;</span><span class="p">,</span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="s2">&#34;18&#34;</span><span class="p">,</span><span class="s2">&#34;id&#34;</span><span class="p">:</span><span class="mi">19120397</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>		<span class="c1">#得到所有的键dict_keys([&#39;name&#39;, &#39;age&#39;, &#39;id&#39;])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>	 <span class="c1">#得到所有的值dict_values([&#39;chasing&#39;, &#39;18&#39;, 19120397])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>		<span class="c1">#得到所有的项dict_items([(&#39;name&#39;, &#39;chasing&#39;), (&#39;age&#39;, &#39;18&#39;), (&#39;id&#39;, 19120397)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>        <span class="c1">#得到所有的键dict_keys([&#39;name&#39;, &#39;age&#39;, &#39;id&#39;])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>     <span class="c1">#得到所有的值dict_values([&#39;chasing&#39;, &#39;18&#39;, 19120397])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>        <span class="c1">#得到所有的项dict_items([(&#39;name&#39;, &#39;chasing&#39;), (&#39;age&#39;, &#39;18&#39;), (&#39;id&#39;, 19120397)])</span>
 <span class="c1">#每个键值对都是元组</span>
 </code></pre></td></tr></table>
 </div>
@@ -1833,11 +1833,11 @@ sort(func, key, reverse)</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;chasing&#34;</span><span class="p">,</span><span class="s2">&#34;age&#34;</span><span class="p">:</span><span class="s2">&#34;18&#34;</span><span class="p">,</span><span class="s2">&#34;id&#34;</span><span class="p">:</span><span class="mi">19120397</span><span class="p">}</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">info</span><span class="o">.</span><span class="n">iems</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="s2">&#34;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
 <span class="c1"># name</span>
 <span class="c1"># age</span>
 <span class="c1"># id</span>
@@ -1847,7 +1847,7 @@ sort(func, key, reverse)</p>
 <span class="c1"># name    chasing</span>
 <span class="c1"># age     18</span>
 <span class="c1"># id      19120397</span>
-	
+    
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="第八章集合--">第八章——集合 { }</h1>
@@ -1868,9 +1868,9 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">s</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>	<span class="c1">#输出{1, 2, 3}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>    <span class="c1">#输出{1, 2, 3}</span>
 <span class="n">s</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>	<span class="c1">#输出{1, 2, 3}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>    <span class="c1">#输出{1, 2, 3}</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="2小结">2、小结</h2>
@@ -1949,7 +1949,7 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
-	<span class="n">code</span>
+    <span class="n">code</span>
     <span class="k">return</span> <span class="n">val</span>
 </code></pre></td></tr></table>
 </div>
@@ -1964,8 +1964,8 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">printname</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;chasing&#34;</span><span class="p">)</span>
-<span class="n">printname</span><span class="p">()</span>		<span class="c1">#输出chasing</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;chasing&#34;</span><span class="p">)</span>
+<span class="n">printname</span><span class="p">()</span>        <span class="c1">#输出chasing</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="2带参数函数">2、带参数函数</h2>
@@ -1978,9 +1978,9 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-	<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> 	<span class="c1">#输出3</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>     <span class="c1">#输出3</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="3带返回值函数">3、带返回值函数</h2>
@@ -1996,9 +1996,9 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-	<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
-	<span class="k">return</span> <span class="n">c</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>		<span class="c1">#输出3</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
+    <span class="k">return</span> <span class="n">c</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>        <span class="c1">#输出3</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol start="2">
@@ -2016,11 +2016,11 @@ for、update、add、remove、pop、clear、del等等</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">divid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
-	<span class="n">shang</span><span class="o">=</span><span class="n">a</span><span class="o">//</span><span class="n">b</span>	
-	<span class="n">yushu</span><span class="o">=</span><span class="n">a</span><span class="o">%</span><span class="n">b</span>
-	<span class="k">return</span> <span class="n">shang</span><span class="p">,</span><span class="n">yushu</span>		<span class="c1">#多个返回值用逗号分隔</span>
+    <span class="n">shang</span><span class="o">=</span><span class="n">a</span><span class="o">//</span><span class="n">b</span>    
+    <span class="n">yushu</span><span class="o">=</span><span class="n">a</span><span class="o">%</span><span class="n">b</span>
+    <span class="k">return</span> <span class="n">shang</span><span class="p">,</span><span class="n">yushu</span>        <span class="c1">#多个返回值用逗号分隔</span>
 <span class="n">sh</span><span class="p">,</span><span class="n">yu</span><span class="o">=</span><span class="n">devid</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;商：</span><span class="si">%d</span><span class="s2">，余数：</span><span class="si">%d</span><span class="s2">&#34;</span><span class="o">%</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">yu</span><span class="p">))</span>		<span class="c1">#输出商：2，余数：1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;商：</span><span class="si">%d</span><span class="s2">，余数：</span><span class="si">%d</span><span class="s2">&#34;</span><span class="o">%</span><span class="p">(</span><span class="n">sh</span><span class="p">,</span><span class="n">yu</span><span class="p">))</span>        <span class="c1">#输出商：2，余数：1</span>
 </code></pre></td></tr></table>
 </div>
 </div><ol start="3">
@@ -2047,12 +2047,12 @@ for、update、add、remove、pop、clear、del等等</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
 <span class="k">def</span> <span class="nf">test1</span><span class="p">():</span>
-	<span class="n">a</span><span class="o">=</span><span class="mi">10</span>	<span class="c1">#优先使用全局变量</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-	<span class="n">a</span><span class="o">=</span><span class="mi">200</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">10</span>    <span class="c1">#优先使用全局变量</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">200</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">test2</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="n">test1</span><span class="p">()</span>
 <span class="n">test2</span><span class="p">()</span>
 <span class="c1"># 10</span>
@@ -2082,12 +2082,12 @@ for、update、add、remove、pop、clear、del等等</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
 <span class="k">def</span> <span class="nf">test1</span><span class="p">():</span>
-	<span class="k">global</span> <span class="n">a</span><span class="o">=</span><span class="mi">10</span>	<span class="c1">#添加global</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-	<span class="n">a</span><span class="o">=</span><span class="mi">200</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">a</span><span class="o">=</span><span class="mi">10</span>    <span class="c1">#添加global</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">200</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">test2</span><span class="p">():</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="n">test1</span><span class="p">()</span>
 <span class="n">test2</span><span class="p">()</span>
 <span class="c1"># 5</span>
@@ -2247,7 +2247,8 @@ for、update、add、remove、pop、clear、del等等</p>
 
   <span class="copyright-year">
     &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
   </span>
 </div>
 

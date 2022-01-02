@@ -344,9 +344,9 @@ Xpath支持ID、Class、Name定位功能，以以下三者为例：
 <strong>4、当标签页重复时，Xpath提供了层级过滤</strong>
 例如：找不到儿子，那么就先找他的爸爸，实在不行可以再找他的爷爷
 1）、支持通过 / 进行层级递进，找到符合层级关系的标签
-　　　	//form/div/input[@placeholder=&ldquo;用户名&rdquo;]
+　　　    //form/div/input[@placeholder=&ldquo;用户名&rdquo;]
 2）、当层级都重复时，可以通过单个层级的属性进行定位
-　	  　//form/div[@class=&lsquo;login-user&rsquo;]/input
+　      　//form/div[@class=&lsquo;login-user&rsquo;]/input
 <strong>5、一个元素它的兄弟元素跟它的标签一样，这时候无法通过层级定位到。因为都是一个父亲生的，多胞胎兄弟。Xpath提供了索引过滤</strong>
 　　　　通过索引，在List中定位属性，与python的索引有些差别，Xpath从1开始
 　　　　//select[@name=&lsquo;city&rsquo;][1]/option[1]
@@ -476,7 +476,7 @@ Xpath支持ID、Class、Name定位功能，以以下三者为例：
 前面我们已经学习了定位元素， 定位只是第一步， 定位之后需要对这个元素进行操作， 或单击（按钮） 或输入（输入框） ， 下面就来认识 WebDriver 中最常用的几个方法：</p>
 <p>clear()： 清除文本。</p>
 <p>send_keys (value)： 模拟按键输入。</p>
-<p>click()：	单击元素。</p>
+<p>click()：    单击元素。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1705,7 +1705,8 @@ window.scrollTo(0,450);
 
   <span class="copyright-year">
     &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
   </span>
 </div>
 

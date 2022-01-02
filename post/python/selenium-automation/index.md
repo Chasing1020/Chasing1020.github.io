@@ -104,7 +104,7 @@ dr.find_element_by_tag_name("input")
 ```
 
 **1、 通过xpath定位，xpath定位有多种写法，这里列几个常用写法: **
-	Xpath支持ID、Class、Name定位功能，以以下三者为例：
+    Xpath支持ID、Class、Name定位功能，以以下三者为例：
 　1）、通过ID定位
 　　　　//*[@id='kw']
 　2）、通过Class定位
@@ -118,11 +118,11 @@ dr.find_element_by_tag_name("input")
 　　　　将 * 换位任意标签名，则可根据标签进行筛选
 　　　　//input[@placeholder='用户名'] 
 **4、当标签页重复时，Xpath提供了层级过滤**
-	例如：找不到儿子，那么就先找他的爸爸，实在不行可以再找他的爷爷
-	1）、支持通过 / 进行层级递进，找到符合层级关系的标签
-　　　	//form/div/input[@placeholder="用户名"]
-	2）、当层级都重复时，可以通过单个层级的属性进行定位
- 　	  　//form/div[@class='login-user']/input
+    例如：找不到儿子，那么就先找他的爸爸，实在不行可以再找他的爷爷
+    1）、支持通过 / 进行层级递进，找到符合层级关系的标签
+　　　    //form/div/input[@placeholder="用户名"]
+    2）、当层级都重复时，可以通过单个层级的属性进行定位
+ 　      　//form/div[@class='login-user']/input
 **5、一个元素它的兄弟元素跟它的标签一样，这时候无法通过层级定位到。因为都是一个父亲生的，多胞胎兄弟。Xpath提供了索引过滤**
 　　　　通过索引，在List中定位属性，与python的索引有些差别，Xpath从1开始
 　　　　//select[@name='city'][1]/option[1]
@@ -205,7 +205,7 @@ clear()： 清除文本。
 
 send_keys (value)： 模拟按键输入。
 
-click()：	单击元素。
+click()：    单击元素。
 
 ```python
 from selenium import webdriver

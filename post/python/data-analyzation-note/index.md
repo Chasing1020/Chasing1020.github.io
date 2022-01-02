@@ -356,7 +356,7 @@ print('\n5）物体在三维空间距离原点的最近值：%f'%dists.min())
 ```python
 import pandas as pd
 import numpy as np
-from pandas import Series,DataFrame	#使用pd.
+from pandas import Series,DataFrame    #使用pd.
 ```
 
 ## series对象

@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="13174">
+<meta itemprop="wordCount" content="13183">
 <meta itemprop="keywords" content="Note," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 13174 words </span>
+          <span class="more-meta"> 13183 words </span>
           <span class="more-meta"> 27 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -233,10 +233,10 @@
 <li>
 <p>宏内核架构（Monolithic Kernel）：又称单内核，现代Unix，Linux，Windows都采用宏内核。</p>
 <ul>
-<li>模块化（modularity）：使用可加载内核模块（Loadable Kernel Module）机制，使内核与其他模块（如驱动）解耦；</li>
+<li>模块化（modularity）：使用可加载内核模块（Loadable Kernel Module）机制，使内核与其他模块（如驱动）解耦。</li>
 <li>抽象（abstraction）：采用“Everything is a file”思想，为上层应用提供统一接口，降低复杂性，增强维护性。</li>
-<li>分层（layering）：Dijkstra提出的“THE”操作系统，分为6层，更好地组织各种功能</li>
-<li>层级（hierarchy）：应用于资源管理，如调度算法优先级分类，控制组（cgroup）分类</li>
+<li>分层（layering）：Dijkstra提出的“THE”操作系统，分为6层，更好地组织各种功能。</li>
+<li>层级（hierarchy）：应用于资源管理，如调度算法优先级分类，控制组（cgroup）分类。</li>
 </ul>
 </li>
 <li>
@@ -327,11 +327,15 @@
 <table>
 <thead>
 <tr>
-<th>TASK_RUNNING</th>
-<th>正在执行或者是运行队列中等待执行</th>
+<th>标记</th>
+<th>状态</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>TASK_RUNNING</td>
+<td>正在执行或者是运行队列中等待执行</td>
+</tr>
 <tr>
 <td>TASK_INTERRUPTIBLE</td>
 <td>进程正在阻塞，等待某一事件的达成。</td>
@@ -353,13 +357,13 @@
 <p>进程的内存空间布局：（在/proc/&lt;PID&gt;/maps查看布局）</p>
 <ul>
 <li>
-<p>内核部分：空间最顶端的部分，只有进入内核态才可见</p>
+<p>内核部分：空间最顶端的部分，只有进入内核态才可见。</p>
 </li>
 <li>
-<p>用户栈：自顶向下，保存各种临时变量的值</p>
+<p>用户栈：自顶向下，保存各种临时变量的值。</p>
 </li>
 <li>
-<p>代码库：保存依赖共享的代码库，如libc等，这段标记为只读</p>
+<p>代码库：保存依赖共享的代码库，如libc等，这段标记为只读。</p>
 </li>
 <li>
 <p>数据与代码段：自底向上，这个段用于保存二进制文件，加载时会被载入虚拟空间中。</p>
@@ -623,7 +627,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-	<span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
     <span class="n">turn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
     
@@ -634,7 +638,7 @@
 
 
 <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-	<span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
     <span class="n">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
     
@@ -887,7 +891,7 @@
 <span class="kt">void</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">new_msg</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
+        <span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
         <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
         <span class="k">while</span> <span class="p">(</span><span class="n">empty_slot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>            
@@ -961,7 +965,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">sem</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">wakeup</span><span class="p">;</span>
-   	<span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
+       <span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">cond</span> <span class="n">sem_cond</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -1525,7 +1529,8 @@
 
   <span class="copyright-year">
     &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
   </span>
 </div>
 
