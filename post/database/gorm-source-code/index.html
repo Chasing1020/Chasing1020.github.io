@@ -49,7 +49,7 @@
 <meta itemprop="name" content="Gorm Source Code">
 <meta itemprop="description" content="Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt"><meta itemprop="datePublished" content="2021-12-22T18:24:56+08:00" />
 <meta itemprop="dateModified" content="2021-12-22T18:24:56+08:00" />
-<meta itemprop="wordCount" content="2413">
+<meta itemprop="wordCount" content="2426">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Gorm Source Code"/>
 <meta name="twitter:description" content="Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 2413 words </span>
+          <span class="more-meta"> 2426 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -909,6 +909,9 @@
 </span><span class="lnt">19
 </span><span class="lnt">20
 </span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Service</span><span class="p">)</span> <span class="nf">DoSomething</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
@@ -920,6 +923,9 @@
         <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
             <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
             <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">r</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
         <span class="p">}</span>
         <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Commit</span><span class="p">()</span>
     <span class="p">}()</span>
@@ -1037,9 +1043,9 @@
           <a href="/tags/database/">DataBase</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/my-cs-learning-route/">
+        <a class="prev" href="/post/cloud-native/akf-availability-cube/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">My CS Learning Route</span>
+            <span class="prev-text nav-default">AKF Availability Cube</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/java/concurrency-programming/">

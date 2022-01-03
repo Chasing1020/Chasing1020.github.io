@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Dec 2021 18:24:56 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 15:53:45 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My CS Learning Route</title>
       <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
@@ -16,6 +16,15 @@
       <description>As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.
 The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
 In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.</description>
+    </item>
+    
+    <item>
+      <title>AKF Availability Cube</title>
+      <link>http://Chasing1020.github.io/post/cloud-native/akf-availability-cube/</link>
+      <pubDate>Mon, 03 Jan 2022 15:53:45 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/cloud-native/akf-availability-cube/</guid>
+      <description>AKF Availability Cube 随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre）</description>
     </item>
     
     <item>

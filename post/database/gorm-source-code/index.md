@@ -411,6 +411,9 @@ func (s Service) DoSomething() (err error) {
             tx.Rollback()
             return
         }
+        if r := recover(); r != nil {
+            tx.Rollback()
+        }
         err = tx.Commit()
     }()
     if _, err = tx.Exec(...); err != nil {
