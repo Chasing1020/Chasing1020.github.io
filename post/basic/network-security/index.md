@@ -117,6 +117,10 @@ $M_s$: MAC key for data sent from server to client
 
 >   Diffie Hellman Algorithm
 
+DH algorithm is based on a famous problem called Discrete Logarithm Problem (DLP).
+
+It based on a theory that if I define a prime p, and *g* is a [primitive root modulo](https://en.wikipedia.org/wiki/Primitive_root_modulo_n) p. If gives you a random number $a$, it is esay to calculate $g^amodp$. But it is difficult to get the inverse solution $a$ if you only have $p$, $g$, and $g^amodp$.	
+
 They first agree between them a large prime number p, and a generator (or base) g (where 0 < g < p).
 
 Alice chooses a secret integer a (her private key) and then calculates $g^a mod p$ (which is her public key). Bob chooses his private key b, and calculates his public key in the same way.
@@ -170,7 +174,7 @@ IPSec provides datagram-level encryption, authentication, integrity, and it has 
 
 # 6. Firewall
 
-Firewall isolates organization’s internal network from larger Internet, allowing some packets to pass, blocking others
+Firewall isolates organization’s internal network from larger Internet, allowing some packets to pass, blocking others.
 
 Stateless packet filtering examples: 
 

@@ -58,7 +58,7 @@
   message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
   access and availability: services must be accessible and available to users. Access is the basis of availability."><meta itemprop="datePublished" content="2022-01-06T22:39:42+08:00" />
 <meta itemprop="dateModified" content="2022-01-06T22:39:42+08:00" />
-<meta itemprop="wordCount" content="994">
+<meta itemprop="wordCount" content="1058">
 <meta itemprop="keywords" content="Network," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Network Security"/>
 <meta name="twitter:description" content="1. Definition of security   confidentiality: only sender, intended receiver should “understand” message contents
@@ -152,7 +152,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 994 words </span>
+          <span class="more-meta"> 1058 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -285,6 +285,8 @@
 <blockquote>
 <p>Diffie Hellman Algorithm</p>
 </blockquote>
+<p>DH algorithm is based on a famous problem called Discrete Logarithm Problem (DLP).</p>
+<p>It based on a theory that if I define a prime p, and <em>g</em> is a <a href="https://en.wikipedia.org/wiki/Primitive_root_modulo_n">primitive root modulo</a> p. If gives you a random number $a$, it is esay to calculate $g^amodp$. But it is difficult to get the inverse solution $a$ if you only have $p$, $g$, and $g^amodp$.</p>
 <p>They first agree between them a large prime number p, and a generator (or base) g (where 0 &lt; g &lt; p).</p>
 <p>Alice chooses a secret integer a (her private key) and then calculates $g^a mod p$ (which is her public key). Bob chooses his private key b, and calculates his public key in the same way.</p>
 <p>Bob knows $b$ and $g^a$, so he can calculate $(g^a)^b mod p = g^{ab} mod p$. Therefore both Alice and Bob know a shared secret $g^{ab} mod p$. An eavesdropper Eve who was listening in on the communication knows p, g, Alice’s public key $(g^a mod p)$ and Bob’s public key $(g^b mod p)$. She is unable to calculate the shared secret from these values.</p>
@@ -347,7 +349,7 @@
 </li>
 </ol>
 <h1 id="6-firewall">6. Firewall</h1>
-<p>Firewall isolates organization’s internal network from larger Internet, allowing some packets to pass, blocking others</p>
+<p>Firewall isolates organization’s internal network from larger Internet, allowing some packets to pass, blocking others.</p>
 <p>Stateless packet filtering examples:</p>
 <table>
 <thead>
