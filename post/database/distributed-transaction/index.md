@@ -1,11 +1,18 @@
+The Eight Fallacies of Distributed Computing by Peter Deutsch.
 
-按照需求对数据库的划分：
+Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences.
 
-垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴；
+1.	The network is reliable
+2.	Latency is zero
+3.	Bandwidth is infinite
+4.	The network is secure
+5.	Topology doesn't change
+6.	There is one administrator
+7.	Transport cost is zero
+8.	The network is homogeneous
 
-水平划分：对库进行分库分表，即AKF模型中的Z轴。
 
-## 1. Two Phase Commit
+# 1. 2PC
 
 XA规范中定义的分布式事务模型包括四个组成部分：
 
@@ -16,6 +23,69 @@ XA规范中定义的分布式事务模型包括四个组成部分：
 
 二阶段提交是一种强一致性的设计。设置一个中心的协调者（Coordinator，也称Transaction Manager，TM）与多个被调度的业务节点参与者（Participant，也称Resource Manager，RM）。
 
-第一阶段（prepare）：TM向所有RM发送Prepare消息，每个参与者都执行事务
+第一阶段（prepare）：
 
-第二阶段（commit/rollback）：当事务管理者(TM)确认所有参与者(RM)都ready后，向所有参与者发送commit命令。
+1.   TM记录事务开始日志。
+2.   向所有RM发送Prepare消息，等待响应。
+3.   每个参与者都执行事务，记录Undo/Redo日志，向TM返回结果，RM并不提交事务。
+4.   TM记录准备完成日志。
+
+第二阶段（if commit）：
+
+1.   当事务管理者(TM)确认所有参与者(RM)都ready后，TM记录事务提交日志。
+2.   TM向所有RM发送commit命令。
+3.   RM提交事务，向TM返回执行结果。
+4.   TM记录事务结束日志。
+
+第二阶段（if rollback）：
+
+1.   当事务管理者(TM)确认有任一参与者(RM)失败或超时后，TM记录事务会滚日志。
+2.   TM向所有RM发送rollback命令。
+3.   RM回滚事务，向TM返回执行结果。
+4.   TM记录事务结束日志。
+
+2PC是对业务侵入性较小的强一致性的保证。对于MySQL，XA执行过程中，对对应的资源都要加锁，阻塞其他事务访问。并且TM很容易发生单点故障，此时便会存在数据不一致与不确定性。
+
+# 2. Saga
+
+Saga理论基础来源于Hector & Kenneth 在1987年[发表的论⽂《SAGAS》](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf)。它把分布式事务看作一组本地分支事务构成的事务链，业务流程中每个参与者都提交本地事务。在执行链中任何一个失败，则反方向进行补偿操作。
+
+<p align="center">
+  <img src="https://img.alicdn.com/tfs/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png" alt="saga"/>
+</p>
+
+
+	补偿是子事务的提交，对线上其他事务可见，即：已经产生了影响，只能尽可能补偿。
+
+Saga是满足了BASE，并不支持隔离性，可能会发生脏读脏写。吞吐量较高，一阶段提交本地事务，无锁，高性能。事件驱动架构，参与者可异步执行，而且子事务并不一定都需要是DB相关操作。
+
+# 3. TCC
+
+TCC（Try-Confirm-Cancel）理论源于 Pat Helland 在2007年[发表的论文《Life beyond Distributed Transactions:an Apostate’s Opinion》](https://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf)。其将支持把自定义的分支事务纳入到全局事务的管理中
+
+全局事务是由若干分支事务组成的，分支事务要满足2PC模型的要求。
+
+<p align="center">
+  <img src="https://img.alicdn.com/tfs/TB14Kguw1H2gK0jSZJnXXaT1FXa-853-482.png" alt="saga"/>
+</p>
+
+将TM变成多节点，引入超时补偿的概念，并不会锁住所有资源。
+
+-   Try 阶段：完成所有业务检查，预留必须业务资源。
+-   Confirm 阶段：确认执行真正执行业务，只使用 Try 阶段预留的业务资源。一旦异常，发现事务提交标记，重试所有Confirm操作（需要保证幂等性）。
+-   Cancel 阶段：取消执行，释放 Try 阶段预留的业务资源。一旦异常，发现事务会滚标记，重试所有Cancel操作（需要保证幂等性）。
+
+TCC满足BASE，相较于2PC，吞吐性、可用性更高。在业务层面保证隔离性。
+
+# 4. AT
+
+AT（Automatic Transaction）模式不依赖参与者对AX事务的支持。
+
+在seata的实现中，Automatic (Branch) Transaction Mode对应AT模式，Manual (Branch) Transaction Mode对应TCC模式。
+
+-   第一阶段（prepare）：在本地事务中，一并提交业务数据更新和相应回滚日志记录。
+-   第二阶段（commit）：马上成功结束，**自动** 异步批量清理回滚日志。
+-   第二阶段（rollback）：通过回滚日志，**自动** 生成补偿操作，完成数据回滚。
+
+隔离级别为RU，未提交的事务数据也会被其他事务读到。
+

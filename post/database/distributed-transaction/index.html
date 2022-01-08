@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&amp;rsquo;t change There is one administrator Transport cost is zero The network is homogeneous" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="Distributed Transaction" />
-<meta property="og:description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two" />
+<meta property="og:description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&rsquo;t change There is one administrator Transport cost is zero The network is homogeneous" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://Chasing1020.github.io/post/database/distributed-transaction/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-01-03T23:08:08+08:00" />
-<meta property="article:modified_time" content="2022-01-03T23:08:08+08:00" />
+<meta property="article:published_time" content="2022-01-08T15:08:08+08:00" />
+<meta property="article:modified_time" content="2022-01-08T15:08:08+08:00" />
 
 <meta itemprop="name" content="Distributed Transaction">
-<meta itemprop="description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two"><meta itemprop="datePublished" content="2022-01-03T23:08:08+08:00" />
-<meta itemprop="dateModified" content="2022-01-03T23:08:08+08:00" />
-<meta itemprop="wordCount" content="587">
+<meta itemprop="description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&rsquo;t change There is one administrator Transport cost is zero The network is homogeneous"><meta itemprop="datePublished" content="2022-01-08T15:08:08+08:00" />
+<meta itemprop="dateModified" content="2022-01-08T15:08:08+08:00" />
+<meta itemprop="wordCount" content="1675">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distributed Transaction"/>
-<meta name="twitter:description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two"/>
+<meta name="twitter:description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&rsquo;t change There is one administrator Transport cost is zero The network is homogeneous"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -136,12 +136,12 @@
       <h1 class="post-title">Distributed Transaction</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2022-01-03 </span>
+        <span class="post-time"> 2022-01-08 </span>
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 587 words </span>
-          <span class="more-meta"> 2 mins read </span>
+          <span class="more-meta"> 1675 words </span>
+          <span class="more-meta"> 4 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -151,20 +151,28 @@
   <div class="post-toc-content always-active">
     <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#1-two-phase-commit">1. Two Phase Commit</a></li>
-      </ul>
-    </li>
+    <li><a href="#1-2pc">1. 2PC</a></li>
+    <li><a href="#2-saga">2. Saga</a></li>
+    <li><a href="#3-tcc">3. TCC</a></li>
+    <li><a href="#4-at">4. AT</a></li>
   </ul>
 </nav>
   </div>
 </div>
     <div class="post-content">
-      <p>按照需求对数据库的划分：</p>
-<p>垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴；</p>
-<p>水平划分：对库进行分库分表，即AKF模型中的Z轴。</p>
-<h2 id="1-two-phase-commit">1. Two Phase Commit</h2>
+      <p>The Eight Fallacies of Distributed Computing by Peter Deutsch.</p>
+<p>Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences.</p>
+<ol>
+<li>The network is reliable</li>
+<li>Latency is zero</li>
+<li>Bandwidth is infinite</li>
+<li>The network is secure</li>
+<li>Topology doesn&rsquo;t change</li>
+<li>There is one administrator</li>
+<li>Transport cost is zero</li>
+<li>The network is homogeneous</li>
+</ol>
+<h1 id="1-2pc">1. 2PC</h1>
 <p>XA规范中定义的分布式事务模型包括四个组成部分：</p>
 <ul>
 <li>RM（Resource Manager，资源管理器），负责管理分布式系统中的部分数据资源，保障该部分数据的一致性，满足规范要求的数据管理系统均可作为RM参与分布式事务，最典型的应用是数据库，如MySQL、Oracle、SQLServer等均支持该规范</li>
@@ -173,8 +181,58 @@
 <li>CRM（Communication Resource Managers，通信管理器），负责全局事务过程中的跨节点通信</li>
 </ul>
 <p>二阶段提交是一种强一致性的设计。设置一个中心的协调者（Coordinator，也称Transaction Manager，TM）与多个被调度的业务节点参与者（Participant，也称Resource Manager，RM）。</p>
-<p>第一阶段（prepare）：TM向所有RM发送Prepare消息，每个参与者都执行事务</p>
-<p>第二阶段（commit/rollback）：当事务管理者(TM)确认所有参与者(RM)都ready后，向所有参与者发送commit命令。</p>
+<p>第一阶段（prepare）：</p>
+<ol>
+<li>TM记录事务开始日志。</li>
+<li>向所有RM发送Prepare消息，等待响应。</li>
+<li>每个参与者都执行事务，记录Undo/Redo日志，向TM返回结果，RM并不提交事务。</li>
+<li>TM记录准备完成日志。</li>
+</ol>
+<p>第二阶段（if commit）：</p>
+<ol>
+<li>当事务管理者(TM)确认所有参与者(RM)都ready后，TM记录事务提交日志。</li>
+<li>TM向所有RM发送commit命令。</li>
+<li>RM提交事务，向TM返回执行结果。</li>
+<li>TM记录事务结束日志。</li>
+</ol>
+<p>第二阶段（if rollback）：</p>
+<ol>
+<li>当事务管理者(TM)确认有任一参与者(RM)失败或超时后，TM记录事务会滚日志。</li>
+<li>TM向所有RM发送rollback命令。</li>
+<li>RM回滚事务，向TM返回执行结果。</li>
+<li>TM记录事务结束日志。</li>
+</ol>
+<p>2PC是对业务侵入性较小的强一致性的保证。对于MySQL，XA执行过程中，对对应的资源都要加锁，阻塞其他事务访问。并且TM很容易发生单点故障，此时便会存在数据不一致与不确定性。</p>
+<h1 id="2-saga">2. Saga</h1>
+<p>Saga理论基础来源于Hector &amp; Kenneth 在1987年<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">发表的论⽂《SAGAS》</a>。它把分布式事务看作一组本地分支事务构成的事务链，业务流程中每个参与者都提交本地事务。在执行链中任何一个失败，则反方向进行补偿操作。</p>
+<p align="center">
+  <img src="https://img.alicdn.com/tfs/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png" alt="saga"/>
+</p>
+<pre><code>补偿是子事务的提交，对线上其他事务可见，即：已经产生了影响，只能尽可能补偿。
+</code></pre>
+<p>Saga是满足了BASE，并不支持隔离性，可能会发生脏读脏写。吞吐量较高，一阶段提交本地事务，无锁，高性能。事件驱动架构，参与者可异步执行，而且子事务并不一定都需要是DB相关操作。</p>
+<h1 id="3-tcc">3. TCC</h1>
+<p>TCC（Try-Confirm-Cancel）理论源于 Pat Helland 在2007年<a href="https://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf">发表的论文《Life beyond Distributed Transactions:an Apostate’s Opinion》</a>。其将支持把自定义的分支事务纳入到全局事务的管理中</p>
+<p>全局事务是由若干分支事务组成的，分支事务要满足2PC模型的要求。</p>
+<p align="center">
+  <img src="https://img.alicdn.com/tfs/TB14Kguw1H2gK0jSZJnXXaT1FXa-853-482.png" alt="saga"/>
+</p>
+<p>将TM变成多节点，引入超时补偿的概念，并不会锁住所有资源。</p>
+<ul>
+<li>Try 阶段：完成所有业务检查，预留必须业务资源。</li>
+<li>Confirm 阶段：确认执行真正执行业务，只使用 Try 阶段预留的业务资源。一旦异常，发现事务提交标记，重试所有Confirm操作（需要保证幂等性）。</li>
+<li>Cancel 阶段：取消执行，释放 Try 阶段预留的业务资源。一旦异常，发现事务会滚标记，重试所有Cancel操作（需要保证幂等性）。</li>
+</ul>
+<p>TCC满足BASE，相较于2PC，吞吐性、可用性更高。在业务层面保证隔离性。</p>
+<h1 id="4-at">4. AT</h1>
+<p>AT（Automatic Transaction）模式不依赖参与者对AX事务的支持。</p>
+<p>在seata的实现中，Automatic (Branch) Transaction Mode对应AT模式，Manual (Branch) Transaction Mode对应TCC模式。</p>
+<ul>
+<li>第一阶段（prepare）：在本地事务中，一并提交业务数据更新和相应回滚日志记录。</li>
+<li>第二阶段（commit）：马上成功结束，<strong>自动</strong> 异步批量清理回滚日志。</li>
+<li>第二阶段（rollback）：通过回滚日志，<strong>自动</strong> 生成补偿操作，完成数据回滚。</li>
+</ul>
+<p>隔离级别为RU，未提交的事务数据也会被其他事务读到。</p>
 
     </div>
 
@@ -186,7 +244,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-01-03
+        2022-01-08
         
     </span>
   </p>
@@ -201,13 +259,13 @@
           <a href="/tags/database/">DataBase</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/basic/network-security/">
+        <a class="prev" href="/post/my-cs-learning-route/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Network Security</span>
+            <span class="prev-text nav-default">My CS Learning Route</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/cloud-native/akf-availability-cube/">
-            <span class="next-text nav-default">AKF Availability Cube</span>
+        <a class="next" href="/post/basic/network-security/">
+            <span class="next-text nav-default">Network Security</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
