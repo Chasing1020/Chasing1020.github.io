@@ -6,7 +6,16 @@
     <description>Recent content in DataBase on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Dec 2021 18:24:56 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 23:08:08 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Distributed Transaction</title>
+      <link>http://Chasing1020.github.io/post/database/distributed-transaction/</link>
+      <pubDate>Mon, 03 Jan 2022 23:08:08 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/database/distributed-transaction/</guid>
+      <description>按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two</description>
+    </item>
+    
     <item>
       <title>Gorm Source Code</title>
       <link>http://Chasing1020.github.io/post/database/gorm-source-code/</link>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Note on Chasing&#39;s blog</title>
+    <title>note on Chasing&#39;s blog</title>
     <link>http://Chasing1020.github.io/tags/note/</link>
-    <description>Recent content in Note on Chasing&#39;s blog</description>
+    <description>Recent content in note on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 28 Nov 2021 23:35:55 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/note/index.xml" rel="self" type="application/rss+xml" />
@@ -25,15 +25,6 @@ In some ways, this route can be more of a substitute for college courses outside
       
       <guid>http://Chasing1020.github.io/post/mathematic-fomulars/</guid>
       <description>Mathematic Fomulars The mathematical typesetting is based on LaTeX, so if you need to search for the way to make a particular symbol, include latex in your search. But note: Not all LaTeX macros are available without using additional packages, and those packages likely will only work if you are creating a PDF. On the plus side, if you are working in PDF, you can use additional packages that give much better control and/or easier syntax.</description>
-    </item>
-    
-    <item>
-      <title>Operating System</title>
-      <link>http://Chasing1020.github.io/post/basic/operating-system/</link>
-      <pubDate>Fri, 12 Nov 2021 19:33:04 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/basic/operating-system/</guid>
-      <description>1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限</description>
     </item>
     
   </channel>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>DataBase · Chasing&#39;s blog</title>
+  <title>Distributed Transaction - Chasing&#39;s blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing" /><meta name="description" content="Hugo theme even example site." /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,9 +26,7 @@
 <meta name="generator" content="Hugo 0.88.1 with theme even" />
 
 
-<link rel="canonical" href="http://Chasing1020.github.io/tags/database/" />
-  <link href="http://Chasing1020.github.io/tags/database/index.xml" rel="alternate" type="application/rss+xml" title="Chasing&#39;s blog" />
-  <link href="http://Chasing1020.github.io/tags/database/index.xml" rel="feed" type="application/rss+xml" title="Chasing&#39;s blog" />
+<link rel="canonical" href="http://Chasing1020.github.io/post/database/distributed-transaction/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -41,15 +39,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="DataBase" />
-<meta property="og:description" content="Hugo theme even example site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://Chasing1020.github.io/tags/database/" />
+<meta property="og:title" content="Distributed Transaction" />
+<meta property="og:description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/database/distributed-transaction/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-03T23:08:08+08:00" />
+<meta property="article:modified_time" content="2022-01-03T23:08:08+08:00" />
 
-<meta itemprop="name" content="DataBase">
-<meta itemprop="description" content="Hugo theme even example site."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="DataBase"/>
-<meta name="twitter:description" content="Hugo theme even example site."/>
+<meta itemprop="name" content="Distributed Transaction">
+<meta itemprop="description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two"><meta itemprop="datePublished" content="2022-01-03T23:08:08+08:00" />
+<meta itemprop="dateModified" content="2022-01-03T23:08:08+08:00" />
+<meta itemprop="wordCount" content="587">
+<meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Distributed Transaction"/>
+<meta name="twitter:description" content="按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -127,47 +130,104 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          <section id="archive" class="archive">
-  <div class="archive-title tag">
-        <h2 class="archive-name">DataBase</h2>
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Distributed Transaction</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-03 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 587 words </span>
+          <span class="more-meta"> 2 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
+    </header>
 
-  <div class="archive-post">
-      <span class="archive-post-time">
-        2022-01-03
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/database/distributed-transaction/" class="archive-post-link">
-          Distributed Transaction
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2021-12-22
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/database/gorm-source-code/" class="archive-post-link">
-          Gorm Source Code
-        </a>
-      </span>
-    </div><div class="archive-post">
-      <span class="archive-post-time">
-        2021-11-25
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/database/database-systems/" class="archive-post-link">
-          Database Systems
-        </a>
-      </span>
-    </div>
-</section>
-
-<nav class="pagination">
-  
-  
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1-two-phase-commit">1. Two Phase Commit</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>按照需求对数据库的划分：</p>
+<p>垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴；</p>
+<p>水平划分：对库进行分库分表，即AKF模型中的Z轴。</p>
+<h2 id="1-two-phase-commit">1. Two Phase Commit</h2>
+<p>XA规范中定义的分布式事务模型包括四个组成部分：</p>
+<ul>
+<li>RM（Resource Manager，资源管理器），负责管理分布式系统中的部分数据资源，保障该部分数据的一致性，满足规范要求的数据管理系统均可作为RM参与分布式事务，最典型的应用是数据库，如MySQL、Oracle、SQLServer等均支持该规范</li>
+<li>TM（Transaction Manager，事务管理器），负责协调跨RM的全局事务的开启、提交和回滚</li>
+<li>AP（Application Program，应用程序），通过TM定义事务边界，执行全局事务</li>
+<li>CRM（Communication Resource Managers，通信管理器），负责全局事务过程中的跨节点通信</li>
+</ul>
+<p>二阶段提交是一种强一致性的设计。设置一个中心的协调者（Coordinator，也称Transaction Manager，TM）与多个被调度的业务节点参与者（Participant，也称Resource Manager，RM）。</p>
+<p>第一阶段（prepare）：TM向所有RM发送Prepare消息，每个参与者都执行事务</p>
+<p>第二阶段（commit/rollback）：当事务管理者(TM)确认所有参与者(RM)都ready后，向所有参与者发送commit命令。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-01-03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/database/">DataBase</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/basic/network-security/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Network Security</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/cloud-native/akf-availability-cube/">
+            <span class="next-text nav-default">AKF Availability Cube</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
 
       </div>
     </main>
@@ -220,6 +280,26 @@
 
 
 <script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+  
+  
+  
+  
+  
+  </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 
 
 <script type="application/javascript">

@@ -49,7 +49,7 @@
 <meta itemprop="name" content="AKF Availability Cube">
 <meta itemprop="description" content="AKF Availability Cube 随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre）"><meta itemprop="datePublished" content="2022-01-03T15:53:45+08:00" />
 <meta itemprop="dateModified" content="2022-01-03T15:53:45+08:00" />
-<meta itemprop="wordCount" content="1443">
+<meta itemprop="wordCount" content="1442">
 <meta itemprop="keywords" content="Cloud," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AKF Availability Cube"/>
 <meta name="twitter:description" content="AKF Availability Cube 随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre）"/>
@@ -140,7 +140,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 1443 words </span>
+          <span class="more-meta"> 1442 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -167,7 +167,7 @@
 </div>
     <div class="post-content">
       <h1 id="akf-availability-cube">AKF Availability Cube</h1>
-<p>随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre），做成一个一个微服务（Micro-service）已经是如今的大趋势。</p>
+<p>随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre），做成一个个微服务（Micro-service）已经是如今的大趋势。</p>
 <h2 id="scale-cube-model">Scale Cube Model</h2>
 <p>从拆分的角度来看，也分成多个可以考虑的维度，其中最常用定义分割服务、定义微服务和扩展产品的模型即是比例立方模型。其中保证可用性的解决方案AKF Availability Cube便是最经典的模型。用于指导有关如何实现高可用性的讨论，以及评估现有系统理论上“设计”可用性的工具。它是关于高可用性设计的两部分系列中的第一部分。 <img src="https://akfpartners.com/uploads/blog/Availability_Cube_draft.jpg" alt=""></p>
 <h2 id="measuring-availability">Measuring Availability</h2>
@@ -175,13 +175,13 @@
 <blockquote>
 <p>Clock is not the best measure</p>
 </blockquote>
-<p>时间对于业务的影响是不相等的，这取决于业务是否处于高峰期；企业的商业术语：收入、成本、利润、投资回报率，都以金钱而非时间作为衡量；基础设施组建的时间作为测度是不准确的，他们并不会捕获程序的异常，尽管服务无法运行。</p>
+<p>时间对于业务的影响是不相等的，这取决于业务是否处于高峰期；企业的商业术语：收入、成本、利润、投资回报率，都以金钱而非时间作为衡量；基础设施组件的时间作为测度是不准确的，他们并不会捕获程序的异常，尽管服务无法运行。</p>
 <blockquote>
 <p>Transactional Metics</p>
 </blockquote>
 <ul>
 <li>Rates: 以速度记录，例如登录、添加到购物车、注册、下载、订单等。应用统计过程控制或其他分析方法来建立指示交易速度异常偏差的阈值。</li>
-<li>Ratios: 不希望的或失败的结果的比例可用于衡量服务质量。对此类比率的分析将建立异常的偏差水平。</li>
+<li>Ratios: 预料外的或失败的结果的比例可用于衡量服务质量。对此类比率的分析将建立异常的偏差水平。</li>
 <li>Patterns: 交易模式可以识别预期的活动，没有预期的模式更改可能表示您的产品或服务存在可用性问题。</li>
 </ul>
 <h2 id="3-dimensions-of-scaling">3-Dimensions of scaling</h2>
@@ -268,9 +268,9 @@
           <a href="/tags/cloud/">Cloud</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/my-cs-learning-route/">
+        <a class="prev" href="/post/database/distributed-transaction/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">My CS Learning Route</span>
+            <span class="prev-text nav-default">Distributed Transaction</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/database/gorm-source-code/">

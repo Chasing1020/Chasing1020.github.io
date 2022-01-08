@@ -6,7 +6,7 @@
     <description>Recent content on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 03 Jan 2022 15:53:45 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Jan 2022 22:39:42 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My CS Learning Route</title>
       <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
@@ -37,6 +37,27 @@ In some ways, this route can be more of a substitute for college courses outside
   To achieve faster access, I have rebuilt this blog by it in replacing of hexo.
   The frequency of updating this blog is unknown, depending on the state of my recent studies.
   About me   I am a college student majoring in Computer Science in Shanghai University.</description>
+    </item>
+    
+    <item>
+      <title>Network Security</title>
+      <link>http://Chasing1020.github.io/post/basic/network-security/</link>
+      <pubDate>Thu, 06 Jan 2022 22:39:42 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/basic/network-security/</guid>
+      <description>1. Definition of security   confidentiality: only sender, intended receiver should “understand” message contents
+ sender encrypts message receiver decrypts message    authentication: sender, receiver want to confirm identity of each other
+  message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
+  access and availability: services must be accessible and available to users. Access is the basis of availability.</description>
+    </item>
+    
+    <item>
+      <title>Distributed Transaction</title>
+      <link>http://Chasing1020.github.io/post/database/distributed-transaction/</link>
+      <pubDate>Mon, 03 Jan 2022 23:08:08 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/database/distributed-transaction/</guid>
+      <description>按照需求对数据库的划分： 垂直划分：将某一个功能放到单独的数据库中，即AKF模型的Y轴； 水平划分：对库进行分库分表，即AKF模型中的Z轴。 1. Two</description>
     </item>
     
     <item>
