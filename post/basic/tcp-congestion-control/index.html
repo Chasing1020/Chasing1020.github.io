@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>TCP Congestion Control - Chasing&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/basic/tcp-congestion-control/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="TCP Congestion Control" />
+<meta property="og:description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/basic/tcp-congestion-control/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-18T22:37:50+08:00" />
+<meta property="article:modified_time" content="2022-01-18T22:37:50+08:00" />
+
+<meta itemprop="name" content="TCP Congestion Control">
+<meta itemprop="description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层"><meta itemprop="datePublished" content="2022-01-18T22:37:50+08:00" />
+<meta itemprop="dateModified" content="2022-01-18T22:37:50+08:00" />
+<meta itemprop="wordCount" content="1477">
+<meta itemprop="keywords" content="Network," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TCP Congestion Control"/>
+<meta name="twitter:description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">TCP Congestion Control</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-01-18 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 1477 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-overview">1. Overview</a></li>
+    <li><a href="#2-tahoe">2. Tahoe</a></li>
+    <li><a href="#3-reno">3. Reno</a></li>
+    <li><a href="#4-new-reno">4. New Reno</a></li>
+    <li><a href="#5-cubic">5. Cubic</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="1-overview">1. Overview</h1>
+<p>最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 <a href="http://www.cs.binghamton.edu/~nael/cs428-528/deeper/jacobson-congestion.pdf">TCP 拥塞控制</a>引入网络。</p>
+<p>IP层并没有提供拥塞控制功能，各个主机不知道什么是合理的速度。理想场景利用负反馈控制窗口，每一个TCP连接，引入变量<code>CongestionWindow</code>与<code>SlowStartThreshold</code>。</p>
+<h1 id="2-tahoe">2. Tahoe</h1>
+<p>定义拥塞发生事件：超时或者是3个冗余ACK。MSS：Maximum Segment Size</p>
+<p>SlowStart（SS）状态：</p>
+<ul>
+<li>每一次RTT，cwnd&gt;&gt;=1，保持SS。</li>
+<li>超时或者是3-ACK：重发，cwnd=1MSS，ssthresh=cwnd&gt;&gt;1，保持SS。</li>
+<li>如果达到警戒阈值，进入CA。</li>
+</ul>
+<p>CongestionAvoidance（CA）状态：</p>
+<ul>
+<li>每一次RTT，cwnd倍增，保持CA。</li>
+<li>超时或者是3-ACK：重发，cwnd=1MSS，进入SS。</li>
+</ul>
+<h1 id="3-reno">3. Reno</h1>
+<p>定义新的状态：FastRecovery，考虑到2-ACK必定乱序造成的，丢包肯定会造成2-ACK。但是超时的情况下必定会进入SS。</p>
+<p>SlowStart（SS）状态：</p>
+<ul>
+<li>每一次RTT，cwnd倍增。</li>
+<li>超时：重发，cwnd=1MSS，ssthresh=cwnd&gt;&gt;1，保持SS。</li>
+<li>3-ACK：<code>快速重传</code>，ssthresh=cwnd&gt;&gt;1，cwnd=ssthresh+3，进入FR。</li>
+<li>如果达到警戒阈值，进入CA。</li>
+</ul>
+<p>CongestionAvoidance（CA）状态：</p>
+<ul>
+<li>
+<p>每一次RTT，cwnd倍增。</p>
+</li>
+<li>
+<p>超时：重发，cwnd=1MSS，进入SS。</p>
+</li>
+<li>
+<p>3-ACK：ssthres=cwnd&gt;&gt;1，cwnd=ssthres+3，重传，进入FR。</p>
+</li>
+</ul>
+<p>FastRecovery（FR）状态：</p>
+<ul>
+<li>dupACK: cwnd=cwnd+1MSS，保持FR。</li>
+<li>newACK：cwnd=ssthresth，进入CA。</li>
+<li>超时：ssthtresh=cwnd&gt;&gt;1，cwnd=1，重传，进入SS。</li>
+</ul>
+<h1 id="4-new-reno">4. New Reno</h1>
+<p>Reno存在的问题：从FR恢复过快，但是实际上在拥塞时分组是成串被丢弃的，后面段的丢失，超时后还是会进入进入SS，使得cwnd又回到1。</p>
+<p>改进：由发送方记住缺少确认的段，当这些缺少的段都被确认后，再走出FR状态。</p>
+<p>FastRecovery（FR）状态：</p>
+<ul>
+<li>
+<p>dupACK：同上，cwnd=cwnd+1，保持FR</p>
+</li>
+<li>
+<p>部分确认（PACK）：收到部分新确认，保持FR</p>
+<ul>
+<li>
+<p>发送确认后面的段，冗余ACK数量=0， 定时器复位不要超时了， cwnd=cwnd+1</p>
+</li>
+<li>
+<p>有新段可以发送，发送新的段</p>
+</li>
+</ul>
+</li>
+<li>
+<p>恢复确认（RACK）：收到所有拥塞时未确认的段确认，cwnd = ssthresh ，定时器复位，进入CA阶段</p>
+</li>
+</ul>
+<p>存在问题：只能恢复一个段的丢失。</p>
+<p>考虑<a href="https://datatracker.ietf.org/doc/html/rfc793">RFC793</a>，在TCP头部保留有Options</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |        Destination Port       |
+|             16 bit            |             16 bit            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                         Sequence Number                       |
+|                              32 bit                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                       Acknowledgment Number                   |
+|                              32 bit                           |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Data  |          |U|A|P|R|S|F|                                |
+|Offset | Reserved |R|C|S|S|Y|I|            Window              |
+|       |          |G|K|H|T|N|N|                                |
+|4 bits |  6 bits  |  6 bits   |            16 bit              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|            Checksum          |          Urgent Pointer        |
+|             16 bits          |             16 bits            |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|            Options           |          Padding               |
+|        variable length       |                                |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                            data                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre></td></tr></table>
+</div>
+</div><p>通过SACK，如接收方给出哪些段收到了，哪些段乱序到达了等信息给发送方。发送端一次发送多个丢失段，每RTT可以重传多个丢失段，提升效率。修改TCP首部的Options如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     nop      |     nop       |    SACK(5)   |     L = 10      |
+|    8 bits    |    8 bits     |    8 bits    |     8 bits      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          Left Edge                            |
+|                            32 bit                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                          Right Edge                           |
+|                            32 bit                             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre></td></tr></table>
+</div>
+</div><p>SACK（Several ACK）：在NewReno的基础上，使用pipe=待确认的段数量（ 在管道中已发送出去的段数） th=cwnd&gt;&gt;1，cwnd=th+3。pipe不能够太满，也不能够太少。</p>
+<h1 id="5-cubic">5. Cubic</h1>
+<p>WIP</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-01-18
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/network/">Network</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/database/advanced-mysql/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Advanced MySQL</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/database/distributed-transaction/">
+            <span class="next-text nav-default">Distributed Transaction</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+  
+  
+  
+  
+  
+  
+  </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['{', '}']]
+    },
+  };
+  </script> 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-CDYPFNXQDZ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

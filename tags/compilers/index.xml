@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Compilers on Chasing&#39;s blog</title>
+    <link>http://Chasing1020.github.io/tags/compilers/</link>
+    <description>Recent content in Compilers on Chasing&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 05 Mar 2022 17:00:35 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/compilers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Compilers</title>
+      <link>http://Chasing1020.github.io/post/basic/compilers/</link>
+      <pubDate>Sat, 05 Mar 2022 17:00:35 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/basic/compilers/</guid>
+      <description>1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$</description>
+    </item>
+    
+  </channel>
+</rss>

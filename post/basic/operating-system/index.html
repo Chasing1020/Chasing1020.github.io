@@ -33,6 +33,10 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
+
+
+
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
@@ -49,7 +53,7 @@
 <meta itemprop="name" content="Operating System">
 <meta itemprop="description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta itemprop="datePublished" content="2021-11-12T19:33:04+08:00" />
 <meta itemprop="dateModified" content="2021-11-12T19:33:04+08:00" />
-<meta itemprop="wordCount" content="13183">
+<meta itemprop="wordCount" content="13756">
 <meta itemprop="keywords" content="Operating System," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Operating System"/>
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"/>
@@ -140,8 +144,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 13183 words </span>
-          <span class="more-meta"> 27 mins read </span>
+          <span class="more-meta"> 13756 words </span>
+          <span class="more-meta"> 28 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -321,7 +325,81 @@
 <p>Explicit Free List：仅仅把空闲的链接起来，所以每个空闲块只用维护两个指针和块大小，分配速度比隐式快。</p>
 <p>Segregated Free List：维护多条显示链表，找到块大小最合适的空闲块，有空余则插入空闲链表中。</p>
 <p>Cache coloring：不同位置的物理页标上不同颜色，连续分配内存物理页时，优先选择不同物理页颜色的进行分配。</p>
-<h1 id="5-process-and-thread">5. Process and Thread</h1>
+<blockquote>
+<p>Zero Copy</p>
+</blockquote>
+<p>传统的内存访问方式，如read/write，每次操作都需要进行内核态与用户态之间的切换，<code>read()</code> 把数据从存储器 (磁盘、网卡等) 读取到用户缓冲区，<code>write()</code> 则是把数据从用户缓冲区写出到存储器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="c1">// 其中void *buf指向的内存空间要求合法判断，为了安全考虑，
+</span><span class="c1">// 内核会发起从用户内存到内核内存的拷贝的调用
+</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+<span class="n">ssize_t</span> <span class="nf">write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一般Linux零拷贝有三种实现方式：1.减少拷贝次数，2.绕过内核直接IO，3.COW技术（只读则不用拷贝）</p>
+<p>方法一：采用mmap+write，可以减少一次CPU拷贝，节省50%内存，适用于大文件传输；小文件反而会造成更多的内存碎片浪费。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="c1">// mmap creates a new mapping in the virtual address space of the calling process.
+</span><span class="c1">// The starting address for the new mapping is specified in addr.
+</span><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>方法二：采用Linux内核版本2.1引入的sendfile系统调用，因为这种拷贝发生在内核态，相比于read/write节省了将数据拷贝至用户态的时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/sendfile.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="c1">// sendfile copies data between one file descriptor and another.
+</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">sendfile</span><span class="p">(</span><span class="kt">int</span> <span class="n">out_fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">in_fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define _GNU_SOURCE </span><span class="cm">/* See feature_test_macros(7) */</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="c1">// splice moves data between two file descriptors 
+</span><span class="c1">// without copying between kernel address space and user address space.
+</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">splice</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd_in</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_in</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd_out</span><span class="p">,</span>
+               <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_out</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="5-process-and-thread">5. Process and Thread</h1>
 <h2 id="51-process">5.1. Process</h2>
 <p>进程的状态：新生（new）、就绪（ready）、运行（running）、阻塞（blocked）、终止（terminated）。在进程结构体中的state域做了标记</p>
 <table>
@@ -1554,15 +1632,16 @@
   
   
   
+  
   </script>
   <script>
     window.MathJax = {
     tex: {
       tags: 'ams',  
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
+      inlineMath: [['$', '$'], ['{', '}']]
     },
   };
-  </script>
+  </script> 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 

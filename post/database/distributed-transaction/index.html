@@ -33,6 +33,10 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
+
+
+
+
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
@@ -49,7 +53,7 @@
 <meta itemprop="name" content="Distributed Transaction">
 <meta itemprop="description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&rsquo;t change There is one administrator Transport cost is zero The network is homogeneous"><meta itemprop="datePublished" content="2022-01-08T15:08:08+08:00" />
 <meta itemprop="dateModified" content="2022-01-08T15:08:08+08:00" />
-<meta itemprop="wordCount" content="1675">
+<meta itemprop="wordCount" content="2163">
 <meta itemprop="keywords" content="DataBase," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Distributed Transaction"/>
 <meta name="twitter:description" content="The Eight Fallacies of Distributed Computing by Peter Deutsch. Essentially everyone, when they first build a distributed application, makes the following eight assumptions. All prove to be false in the long run and all cause big trouble and painful learning experiences. The network is reliable Latency is zero Bandwidth is infinite The network is secure Topology doesn&rsquo;t change There is one administrator Transport cost is zero The network is homogeneous"/>
@@ -140,8 +144,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 1675 words </span>
-          <span class="more-meta"> 4 mins read </span>
+          <span class="more-meta"> 2163 words </span>
+          <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -155,6 +159,7 @@
     <li><a href="#2-saga">2. Saga</a></li>
     <li><a href="#3-tcc">3. TCC</a></li>
     <li><a href="#4-at">4. AT</a></li>
+    <li><a href="#-conclusion">*. Conclusion</a></li>
   </ul>
 </nav>
   </div>
@@ -233,6 +238,85 @@
 <li>第二阶段（rollback）：通过回滚日志，<strong>自动</strong> 生成补偿操作，完成数据回滚。</li>
 </ul>
 <p>隔离级别为RU，未提交的事务数据也会被其他事务读到。</p>
+<h1 id="-conclusion">*. Conclusion</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>XA</th>
+<th>AT</th>
+<th>TCC</th>
+<th>Saga</th>
+<th>本地/事务消息方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一致性</strong></td>
+<td>强一致</td>
+<td>强一致</td>
+<td>最终一致</td>
+<td>最终一致</td>
+<td>最终一致</td>
+</tr>
+<tr>
+<td><strong>隔离性</strong></td>
+<td>支持</td>
+<td>读未提交</td>
+<td>支持（通过业务层面在Try阶段的资源锁定实现隔离）</td>
+<td><strong>不支持</strong></td>
+<td><strong>不支持</strong></td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td>全局锁，性能差</td>
+<td>吞吐量差，优于XA</td>
+<td>Try操作使资源锁定可以尽早释放，系统吞吐量高</td>
+<td>吞吐量高</td>
+<td>吞吐量高</td>
+</tr>
+<tr>
+<td><strong>业务侵入</strong></td>
+<td>无侵入</td>
+<td>无侵入</td>
+<td>较高</td>
+<td>较低</td>
+<td>较低</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>强一致性保证 业务无侵入</td>
+<td>业务无侵入 适用于短事务</td>
+<td>由业务层面来保证隔离性 性能相对较高，吞吐量高</td>
+<td>性能相对较高，吞吐量高 对业务侵入较少</td>
+<td>对业务侵入较少 通过消息中间件解耦，下游事务异步化</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>需要XA规范。存在同步阻塞、单点故障、数据不一致、不确定性等可用性问题</td>
+<td>事务隔离级别为脏读 不适用于长事务</td>
+<td>业务改造成本较高，业务需分拆为Try/Confirm/Cancel三个操作 引入中间态，业务复杂，不利于迭代维护。</td>
+<td>不具备隔离性，易出现脏读，脏写问题，可能造成脏写无法回滚</td>
+<td>不具备隔离性 不具备事务回滚，只能重试</td>
+</tr>
+<tr>
+<td><strong>适用业务</strong></td>
+<td>强一致性 短事务 一般可用性</td>
+<td>强一致性 短事务 一般可用性</td>
+<td>最终一致性 短事务 强可用性</td>
+<td>最终一致性 长事务 强可用性 不要求隔离性</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>备注</strong></td>
+<td></td>
+<td></td>
+<td>需要注意处理空回滚，重复提交，悬挂等异常情况</td>
+<td>需要注意处理空补偿，重复提交，悬挂等异常情况</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
     </div>
 
@@ -259,9 +343,9 @@
           <a href="/tags/database/">DataBase</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/my-cs-learning-route/">
+        <a class="prev" href="/post/basic/tcp-congestion-control/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">My CS Learning Route</span>
+            <span class="prev-text nav-default">TCP Congestion Control</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/basic/network-security/">
@@ -344,15 +428,16 @@
   
   
   
+  
   </script>
   <script>
     window.MathJax = {
     tex: {
       tags: 'ams',  
-      inlineMath: [['$', '$'], ['\\(', '\\)']]
+      inlineMath: [['$', '$'], ['{', '}']]
     },
   };
-  </script>
+  </script> 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
 

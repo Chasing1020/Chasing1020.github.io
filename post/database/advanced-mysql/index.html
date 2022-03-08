@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Advanced MySQL - Chasing&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Query Engine 1.1. Relational Model 关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。 查询流程 SQL（Parser）：词" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/database/advanced-mysql/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Advanced MySQL" />
+<meta property="og:description" content="1. Query Engine 1.1. Relational Model 关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。 查询流程 SQL（Parser）：词" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/database/advanced-mysql/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-03T16:11:16+08:00" />
+<meta property="article:modified_time" content="2022-02-03T16:11:16+08:00" />
+
+<meta itemprop="name" content="Advanced MySQL">
+<meta itemprop="description" content="1. Query Engine 1.1. Relational Model 关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。 查询流程 SQL（Parser）：词"><meta itemprop="datePublished" content="2022-02-03T16:11:16+08:00" />
+<meta itemprop="dateModified" content="2022-02-03T16:11:16+08:00" />
+<meta itemprop="wordCount" content="1277">
+<meta itemprop="keywords" content="MySQL," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Advanced MySQL"/>
+<meta name="twitter:description" content="1. Query Engine 1.1. Relational Model 关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。 查询流程 SQL（Parser）：词"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Advanced MySQL</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-03 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 1277 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-query-engine">1. Query Engine</a>
+      <ul>
+        <li><a href="#11-relational-model">1.1. Relational Model</a></li>
+        <li><a href="#12-execution-engine">1.2. Execution Engine</a></li>
+        <li><a href="#13-storage">1.3. Storage</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-log">2. Log</a>
+      <ul>
+        <li><a href="#21-undo-log">2.1. Undo Log</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="1-query-engine">1. Query Engine</h1>
+<h2 id="11-relational-model">1.1. Relational Model</h2>
+<p>关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。</p>
+<blockquote>
+<p>查询流程</p>
+</blockquote>
+<p>SQL（Parser）：词法分析和语法分析。</p>
+<p>AST（Logical Optimizer）：基于关系代数表达式的逻辑计划，基于规则的优化，依据关系代数的等价交换原则做逻辑变换。</p>
+<p>Logical Plan（Physical Optimizer）：基于代价的优化，依据统计信息，对数据读取，表连接方式，连接顺序等进行优化；计算多种可能的执行计划的代价，生成代价最小的物理执行计划</p>
+<p>Physical Plan（Executor）：采取串行或者是并行的方式执行Operator，自顶向下或者自顶向上返回数据。</p>
+<blockquote>
+<p>关系代数等价原则</p>
+</blockquote>
+<p>在满足生成相同结果集的条件下，依据关系代数的等价交换原则做逻辑交换，包括：谓词下推（尽早进行过滤；分解复杂条件；笛卡尔积转Join），投影下推，排序、Limit、聚合下推，投影消除，排序消除等。</p>
+<p>非关联子查询（子查询不包含非子查询的列）：将子查询展开改写，对于包含IN的子查询转为JOIN</p>
+<p>关联子查询（子查询包含非子查询的列）：优化器添加Apply Operator，将整个包含子查询的表达式转移到Apply的右子树上，尽力将Apply转化为等价的JOIN。需要将INNER PLAN包含相关的列的算子提前到Apply中或之上。</p>
+<h2 id="12-execution-engine">1.2. Execution Engine</h2>
+<h2 id="13-storage">1.3. Storage</h2>
+<p>插入流程：</p>
+<ol>
+<li>Client发起请求，查询处理器使用数据字典和统计信息生成最有执行计划</li>
+<li>调用事务管理相关逻辑，如锁、分配事务号时间戳等</li>
+<li>调用文件管理器WAL，向缓存区管理器插入数据和索引</li>
+</ol>
+<p>检索流程：</p>
+<ol>
+<li>Client发起请求，查询处理器使用数据字典和统计信息生成最有执行计划</li>
+<li>调用事务管理相关逻辑，如锁、分配事务号时间戳等</li>
+<li>调用缓存区管理器查询索引或者是数据的缓存，向文件管理器查询数据和索引，并且写入缓存</li>
+</ol>
+<blockquote>
+<p>存储形式组织</p>
+</blockquote>
+<p>列存储：方便数据压缩，适用于OLAP，或者是查询只涉及部分列。</p>
+<p>如果涉及到多个不同的列，就需要多次IO来组合最后的记录</p>
+<p>数据粒度Page：将多行数据聚合Page，用于传统的MySQL，PostgreSQL等。存在读写放大问题，元数据少。</p>
+<p>数据粒度Tuple：适用于新型NVM介质，但行记录就是最小的访问单元，减少Tuple和Page之间的编解码，元数据多。</p>
+<blockquote>
+<p>索引组织结构</p>
+</blockquote>
+<p>B-Tree：</p>
+<p>优点：1. 非叶子结点不包含数据，高度小，单次请求设计的磁盘IO次数少； 2. 每次查询都要到叶子结点，路径长度相同，效率稳定； 3. 所有查询都从根节点出发，范围查询效率高。</p>
+<p>缺点：分裂时，逻辑连续的叶子节点在物理上不连续，会产生大量随机的IO，影响性能。</p>
+<p>LSM（Log- Structured Merge Tree）</p>
+<p>通过内存插入与磁盘顺序写一致，大幅提升写操作，适用于HBase，效率比MySQL高一个量级。</p>
+<p>位图索引：</p>
+<p>统计范围速度较快，不适用于范围广、或者频繁更新的列</p>
+<h1 id="2-log">2. Log</h1>
+<h2 id="21-undo-log">2.1. Undo Log</h2>
+<p>Undo存储位置，在Undo Tablespace的页面，和正常的表空间一样，修改也由redolog记录，所以事物会滚时会操作两边redolog。落盘时，也和普通的数据页一样，由backgroud thread定期从缓冲区刷入磁盘。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2022-02-03
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/mysql/">MySQL</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/rust/safety-in-systems-programming/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Safety in Systems Programming</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/basic/tcp-congestion-control/">
+            <span class="next-text nav-default">TCP Congestion Control</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+  <script type="text/javascript">
+  
+  
+  
+  
+  
+  
+  </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['{', '}']]
+    },
+  };
+  </script> 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-CDYPFNXQDZ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script id="baidu_push">
+  (function(){
+    if (window.location.hostname === 'localhost') return;
+    var bp = document.createElement('script'); bp.async = true;
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script>
+
+
+
+
+</body>
+</html>

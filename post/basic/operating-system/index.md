@@ -151,6 +151,53 @@ Segregated Free List：维护多条显示链表，找到块大小最合适的空
 
 Cache coloring：不同位置的物理页标上不同颜色，连续分配内存物理页时，优先选择不同物理页颜色的进行分配。
 
+>    Zero Copy
+
+传统的内存访问方式，如read/write，每次操作都需要进行内核态与用户态之间的切换，`read()` 把数据从存储器 (磁盘、网卡等) 读取到用户缓冲区，`write()` 则是把数据从用户缓冲区写出到存储器：
+
+```C
+#include <unistd.h>
+
+// 其中void *buf指向的内存空间要求合法判断，为了安全考虑，
+// 内核会发起从用户内存到内核内存的拷贝的调用
+ssize_t read(int fd, void *buf, size_t count);
+ssize_t write(int fd, const void *buf, size_t count);
+```
+
+一般Linux零拷贝有三种实现方式：1.减少拷贝次数，2.绕过内核直接IO，3.COW技术（只读则不用拷贝）
+
+方法一：采用mmap+write，可以减少一次CPU拷贝，节省50%内存，适用于大文件传输；小文件反而会造成更多的内存碎片浪费。
+
+```C
+#include <sys/mman.h>
+// mmap creates a new mapping in the virtual address space of the calling process.
+// The starting address for the new mapping is specified in addr.
+void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+```
+
+方法二：采用Linux内核版本2.1引入的sendfile系统调用，因为这种拷贝发生在内核态，相比于read/write节省了将数据拷贝至用户态的时间。
+
+```c
+#include <sys/sendfile.h>
+
+// sendfile copies data between one file descriptor and another.
+ssize_t sendfile(int out_fd, int in_fd, off_t *offset, size_t count);
+```
+
+方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据
+
+```c
+#define _GNU_SOURCE /* See feature_test_macros(7) */
+#include <fcntl.h>
+
+// splice moves data between two file descriptors 
+// without copying between kernel address space and user address space.
+ssize_t splice(int fd_in, loff_t *off_in, int fd_out,
+               loff_t *off_out, size_t len, unsigned int flags);
+```
+
+
+
 # 5. Process and Thread
 
 ## 5.1. Process
