@@ -53,7 +53,7 @@
 <meta itemprop="name" content="Compilers">
 <meta itemprop="description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$"><meta itemprop="datePublished" content="2022-03-05T17:00:35+08:00" />
 <meta itemprop="dateModified" content="2022-03-05T17:00:35+08:00" />
-<meta itemprop="wordCount" content="7429">
+<meta itemprop="wordCount" content="7735">
 <meta itemprop="keywords" content="Compilers," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Compilers"/>
 <meta name="twitter:description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$"/>
@@ -144,8 +144,8 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 7429 words </span>
-          <span class="more-meta"> 15 mins read </span>
+          <span class="more-meta"> 7735 words </span>
+          <span class="more-meta"> 16 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
@@ -160,6 +160,7 @@
     <li><a href="#3-lexical-analysis">3. Lexical Analysis</a></li>
     <li><a href="#4-sytax-analysis">4. Sytax Analysis</a></li>
     <li><a href="#5-sytax-directed-translation">5. Sytax-Directed Translation</a></li>
+    <li><a href="#6-intermediate-code-generation">6. Intermediate Code Generation</a></li>
   </ul>
 </nav>
   </div>
@@ -580,11 +581,16 @@
 <h1 id="5-sytax-directed-translation">5. Sytax-Directed Translation</h1>
 <p>面向文法翻译：以CFG的文法符号设置语义属性，用来表述语法成分对应的语义信息，基于语义规则来进行计算。</p>
 <p>语法制导定义（Syntax-Directed Definitions, SDD）：将每个文法符号和语义属性集合相关联，每个产生式和一组语义规则相关联。</p>
-<p>语法制导翻译方案（Syntax- Directed Translation, SDT）：在产生式右部嵌入程序片段的CFG（位置距决定执行时间），被称之为语义动作，是SDD具体的方案。</p>
+<p>语法制导翻译方案（Syntax-Directed Translation, SDT）：在产生式右部嵌入程序片段的CFG（位置距决定执行时间），被称之为语义动作，是SDD具体的方案。</p>
 <p>综合属性：只能通过子结点或者本身的属性值来定义，终结符可以具有综合属性（由词法分析器提供的词法值）。</p>
 <p>继承属性：在分析树上继承属性只能由该结点的父亲，兄弟或者自身属性值来定义。</p>
 <p>属性文法：没有副作用SDD。</p>
 <p>属性值计算顺序：将有向图变为拓扑排序，从无依赖的结点出发。</p>
+<p>S-SDD：仅仅使用综合属性的SDD，可以自底向上顺序来计算它各个节点的属性值。将每一个语义动作放在产生式最后即可转换为SDT。</p>
+<p>L-SDD：在各属性之间，依赖图的边可以从左到右但是不能从右到左，不能从右到左，每一个S-SDD都是L-SDD。将继承属性紧靠在出现之前的位置，综合属性放在最右端即可转换为SDT。</p>
+<h1 id="6-intermediate-code-generation">6. Intermediate Code Generation</h1>
+<p>类型表达式（Type Expressions）：可以为其命名，类型名也是表达式，包括数组构造符、指针、笛卡尔积、函数构造符、记录构造符（结构体内的标识符与类型信息的笛卡尔积）。</p>
+<p>语义分析期间，对每一个标识符都会收集类型信息，确定这个类型的宽度，并分配一个相对地址，保存在符号表的记录中。</p>
 
     </div>
 
