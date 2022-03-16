@@ -33,7 +33,7 @@
 
 >    name: xzablog
 >
->    link: http://xzalab.site
+>    link: http://xzalab.top
 
 >    name: zedia
 >
@@ -58,7 +58,7 @@
 >    name: cuberCSL
 >
 >    link: https://cubercsl.site/
- 
+
 >    name: Picasun
 >
 >    link: https://picasun.github.io
@@ -94,7 +94,7 @@
 >    name: 智ℳ
 >
 >    link: https://blog.csdn.net/weixin_44593461
- 
+
 
 >    name: halfrost
 >
