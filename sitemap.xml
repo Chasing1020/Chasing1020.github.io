@@ -22,15 +22,57 @@
   </url>
   
   <url>
+    <loc>http://Chasing1020.github.io/post/about-computer-science/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/about-cs/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://Chasing1020.github.io/categories/</loc>
-    <lastmod>2022-03-05T17:00:35+08:00</lastmod>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://Chasing1020.github.io/</loc>
-    <lastmod>2022-03-05T17:00:35+08:00</lastmod>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/note/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/categories/note/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/</loc>
+    <lastmod>2022-03-24T22:27:02+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -44,27 +86,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/basic/compilers/</loc>
-    <lastmod>2022-03-05T17:00:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/note/</loc>
-    <lastmod>2022-03-05T17:00:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/</loc>
-    <lastmod>2022-03-05T17:00:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/</loc>
     <lastmod>2022-03-05T17:00:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -185,13 +206,6 @@
   <url>
     <loc>http://Chasing1020.github.io/tags/java/</loc>
     <lastmod>2021-12-05T14:16:11+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/tags/note/</loc>
-    <lastmod>2021-11-28T23:35:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

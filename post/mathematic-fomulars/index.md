@@ -101,7 +101,7 @@ This article is about the basics about math symbols in Latex.
 | $\bar{a}$             | \bar{a}             |
 | $\grave{a}$           | \grave{a}           |
 | $\acute{a}$           | \acute{a}           |
-| $\dot{a}              | \dot{a}             |
+| $\stackrel{·}{\sim}$  | \dot{a}             |
 | $\ddot{a}$            | \ddot{a}            |
 | $\not{a}$             | \not{a}             |
 | $\mathring{a}$        | \mathring{a}        |
@@ -126,6 +126,12 @@ This article is about the basics about math symbols in Latex.
 | $\cdots$              | \cdots              |
 | $\vdots$              | \vdots              |
 | $\ddots$              | \ddots              |
+
+$\stackrel{\bf{}}{\sim}$
+
+
+
+
 
 ### Brackets etc
 
