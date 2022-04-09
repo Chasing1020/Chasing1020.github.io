@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.88.1 with theme even" />
+<meta name="generator" content="Hugo 0.89.1 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/database/mysql-basic-note/" />
@@ -1428,11 +1428,11 @@ create table if not exists 表名(
 长度代表显示的最大宽度，无其他含义。</p>
 <pre><code>小数
 	浮点数类型：
-        float，4字节
-        double, 8字节
+		float，4字节
+		double, 8字节
 	定点数类型：
-        dec(M, D), M+2字节 最大范围和double相同，有效位有M,D决定
-        decimal(M, D), 
+		dec(M, D), M+2字节 最大范围和double相同，有效位有M,D决定
+		decimal(M, D), 
 </code></pre>
 <p>定义
 float(M, D)
@@ -1448,15 +1448,15 @@ dec(M, D)</p>
 <p>对于使用的原则：所选择类型越简单越好，能保存数值的类型越小越好</p>
 <pre><code>字符串
 	较短的文本：
-        char(M), 最多字符数是M，不是字节数，开辟空间时的长度固定，效率较高
-        varchar(M),可变长度的字符，效率低于char
-        binary,
-        varbinarty,与上类似，存二进制类型
-        enum(字段),如设置enum('男','女')那么在添加的时候只能添加这两种类型
-        set(多个成员), 与enum类似，不过可以一次选取多个成员
+		char(M), 最多字符数是M，不是字节数，开辟空间时的长度固定，效率较高
+		varchar(M),可变长度的字符，效率低于char
+		binary,
+		varbinarty,与上类似，存二进制类型
+		enum(字段),如设置enum('男','女')那么在添加的时候只能添加这两种类型
+		set(多个成员), 与enum类似，不过可以一次选取多个成员
 	较长的文本：
-        text
-        blob
+		text
+		blob
 </code></pre>
 <p>如果是存储季节如春夏秋冬，则使用char效率会高于varchar
 char的长度M可以省略，默认为1，而varchar的长度M不可以省略</p>

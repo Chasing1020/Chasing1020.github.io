@@ -27,7 +27,7 @@ A database management system (DBMS) is software that allows applications to stor
 
 
 
-<meta name="generator" content="Hugo 0.88.1 with theme even" />
+<meta name="generator" content="Hugo 0.89.1 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/database/database-systems/" />
@@ -2245,7 +2245,7 @@ There are parallel versions of every operator.</p>
 <p>Replace all Cartesian Products with inner joins using the join predicates:</p>
 <p>$\pi_{name}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } (artist ⋈_{id=artist_id} appears))$</p>
 <p>Eliminate redundant attributes before pipeline breakers to reduce materialization cost:</p>
-<p>$\pi_{name}(\pi_{id}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } $\<br>
+<p>$\pi_{name}(\pi_{id}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } $\
 $(\pi_{id}(\pi_{id, name}(artist) ⋈_{id=artist_{id}} \pi_{artist_{id}, album_{id}}(appears))))$</p>
 <blockquote>
 <p>Nested Sub-Queries</p>

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.88.1 with theme even" />
+<meta name="generator" content="Hugo 0.89.1 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/python/crawler-note/" />
@@ -53,7 +53,7 @@
 <meta itemprop="name" content="Crawler Note">
 <meta itemprop="description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）"><meta itemprop="datePublished" content="2020-10-12T20:12:03+08:00" />
 <meta itemprop="dateModified" content="2020-10-12T20:12:03+08:00" />
-<meta itemprop="wordCount" content="6730">
+<meta itemprop="wordCount" content="6726">
 <meta itemprop="keywords" content="Crawler," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Crawler Note"/>
 <meta name="twitter:description" content="网页爬虫项目实战经验 此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。 同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）"/>
@@ -144,7 +144,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 6730 words </span>
+          <span class="more-meta"> 6726 words </span>
           <span class="more-meta"> 14 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -503,7 +503,7 @@ $　　与字符串结束的地方匹配</p>
 评注：可以用来计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）</p>
 <p>11、匹配空白行的正则表达式：ns*r
 评注：可以用来删除空白行</p>
-<p>12、匹配HTML标记的正则表达式：&lt;(S*?)[^&gt;]*&gt;.*?|&lt;.*? /&gt;
+<p>12、匹配HTML标记的正则表达式：&lt;(S*?)[^&gt;]<em>&gt;.</em>?|&lt;.*? /&gt;
 评注：网上流传的版本太糟糕，上面这个也仅仅能匹配部分，对于复杂的嵌套标记依旧无能为力</p>
 <p>13、匹配首尾空白字符的正则表达式：^s*|s*$
 评注：可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式</p>
@@ -575,7 +575,7 @@ $　　与字符串结束的地方匹配</p>
 匹配空行的正则表达式：n[s| ]<em>r
 匹配HTML标记的正则表达式：/&lt;(.</em>)&gt;.<em>|&lt;(.</em>) /&gt;/
 匹配首尾空格的正则表达式：(^s*)|(s*$)
-匹配Email地址的正则表达式：w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*
+匹配Email地址的正则表达式：w+([-+.]w+)<em>@w+([-.]w+)</em>.w+([-.]w+)*
 匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?</p>
 <h1 id="3-urllib">3. Urllib</h1>
 <hr>
