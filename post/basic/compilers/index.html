@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/basic/compilers/" />
@@ -53,7 +53,7 @@
 <meta itemprop="name" content="Compilers">
 <meta itemprop="description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$"><meta itemprop="datePublished" content="2022-03-05T17:00:35+08:00" />
 <meta itemprop="dateModified" content="2022-04-16T23:48:27+08:00" />
-<meta itemprop="wordCount" content="7735">
+<meta itemprop="wordCount" content="7740">
 <meta itemprop="keywords" content="Compilers," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Compilers"/>
 <meta name="twitter:description" content="1. Overview 2. Language Grammar 字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。 乘积（product）：字母表$\sum_1$"/>
@@ -144,7 +144,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 7735 words </span>
+          <span class="more-meta"> 7740 words </span>
           <span class="more-meta"> 16 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -381,53 +381,51 @@
 </span><span class="lnt">40
 </span><span class="lnt">41
 </span><span class="lnt">42
-</span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-GO" data-lang="GO"><span class="c1">// next advances the scanner by reading the next token.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">nlsemi</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span> <span class="p">=</span> <span class="kc">false</span>
-
-<span class="nx">redo</span><span class="p">:</span>
-	<span class="c1">// skip white space
-</span><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
-	<span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
-	<span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-	<span class="p">}</span>
-
-	<span class="c1">// token start
-</span><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-
-	<span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
-    	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> 
-        <span class="c1">// omit 
-</span><span class="c1"></span>        <span class="k">default</span><span class="p">:</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">errorf</span><span class="p">(</span><span class="s">&#34;invalid character %#U&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-		<span class="k">goto</span> <span class="nx">redo</span>
-	<span class="p">}</span>
-
-	<span class="k">return</span>
-
-<span class="nx">assignop</span><span class="p">:</span>
-	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;=&#39;</span> <span class="p">{</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-		<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_AssignOp</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_Operator</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-GO" data-lang="GO"><span class="line"><span class="cl"><span class="c1">// next advances the scanner by reading the next token.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">nlsemi</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">redo</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// skip white space
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// token start
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// omit 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">errorf</span><span class="p">(</span><span class="s">&#34;invalid character %#U&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">goto</span> <span class="nx">redo</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">assignop</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;=&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_AssignOp</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_Operator</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="4-sytax-analysis">4. Sytax Analysis</h1>
 <blockquote>
@@ -451,15 +449,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="nx">A</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="nx">NonTerminal</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">A</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-        <span class="c1">// 将A[i]-&gt;A[j]y的产生式替换成产生式组A[i]-&gt;d[1]y|d[2]y|...|d[k]y
-</span><span class="c1"></span>        <span class="c1">// A[j]-&gt;d[1]|d[2]|...|d[k]，是所有A[j]产生式
-</span><span class="c1"></span>    <span class="p">}</span>
-    <span class="c1">// 消除A[i]产生式之间的立即左递归
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">A</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="nx">NonTerminal</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 将A[i]-&gt;A[j]y的产生式替换成产生式组A[i]-&gt;d[1]y|d[2]y|...|d[k]y
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// A[j]-&gt;d[1]|d[2]|...|d[k]，是所有A[j]产生式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 消除A[i]产生式之间的立即左递归
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>提取左公因子算法：改写产生式来推迟决定，如果多个选项有公共最长前缀$\alpha, \alpha ≠ \varepsilon$，即存在非平凡（nontrivial）的公共前缀，则可以将所有A-产生式替换。</p>
 <p>S_文法：不含$\varepsilon$产生式，候选式唯一，每个产生式右部以终结符开始，同一非终结符的各个候选式的首终结符都不同。</p>
@@ -504,20 +502,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">PredictRecursion</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">A</span> <span class="o">:=</span> <span class="nf">SelectExpression</span><span class="p">()</span> <span class="c1">// A-&gt;X[1]X[2]...X[k]
-</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">k</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">].(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">case</span> <span class="nx">NonTerminal</span><span class="p">:</span>
-            <span class="nf">CallExpression</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
-            <span class="k">case</span> <span class="nx">Terminal</span><span class="p">:</span>
-            <span class="nf">ReadNext</span><span class="p">()</span>
-            <span class="k">default</span><span class="p">:</span>
-            <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;type assert error&#34;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">PredictRecursion</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">A</span> <span class="o">:=</span> <span class="nf">SelectExpression</span><span class="p">()</span> <span class="c1">// A-&gt;X[1]X[2]...X[k]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">k</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">].(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">NonTerminal</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">CallExpression</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">Terminal</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">ReadNext</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;type assert error&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>非递归预测分析法：为预测分析表构造一个自动机。</p>
 <p>预测分析法实现步骤：构造文法；改造文法，消除二义性、消除左递归、消除回溯；求每个变量的$FIRST, FOLLOW$集，进而得到$SELECT$集；检查是不是$LL(1)$文法，如果是，构造预测分析表；进行递归/非递归分析。</p>
@@ -536,7 +534,7 @@
 <li>圆点后面为终结符：待约项目</li>
 <li>圆点后面为空串：归约项目</li>
 </ul>
-<p>增广语法：如果G是S开始符号的文法，则G的增光文法G&rsquo;是G中加上开始符号S&rsquo;和产生式$S'\rightarrow S$的文法，使得文法开始符号仅出现在一个产生式的左边，从而使得分析器只有一个接受状态。</p>
+<p>增广语法：如果G是S开始符号的文法，则G的增光文法G&rsquo;是G中加上开始符号S&rsquo;和产生式$S&rsquo;\rightarrow S$的文法，使得文法开始符号仅出现在一个产生式的左边，从而使得分析器只有一个接受状态。</p>
 <p>项目集的闭包：给定项目集I，有</p>
 <ul>
 <li>$CLOSURE(I) = I \cup {B\rightarrow ·\gamma|A \rightarrow \alpha·B\beta \in CLOSURE(I), B\rightarrow \gamma \in P }$</li>
@@ -556,8 +554,8 @@
 <li>$M=(C, V_N\cup V_T, GOTO, I_0,F)$
 <ul>
 <li>$C ={ I_0 }\cup {I|\exists J\in C, X\in V_N \cup V_T, I = GOTO(J,X) }$</li>
-<li>$I_0=CLOSURE({S'\rightarrow .S})$</li>
-<li>$F={CLOSURE({S'\rightarrow S.})}$</li>
+<li>$I_0=CLOSURE({S&rsquo;\rightarrow .S})$</li>
+<li>$F={CLOSURE({S&rsquo;\rightarrow S.})}$</li>
 </ul>
 </li>
 </ul>
@@ -695,7 +693,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

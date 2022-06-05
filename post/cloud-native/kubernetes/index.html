@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="Kubernetes 场景：管理容器化的工作负载和服务，可促进声明式配置和自动化 功能：服务发现和负载均衡、存储编排、自动部署和回滚、自动完成装箱计算、自我修复、" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/cloud-native/kubernetes/" />
@@ -233,13 +233,13 @@ cloud-controller-manager 仅运行特定于云平台的控制回路。 如果你
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-minikube start
-
-minikube dashboard
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+</span></span><span class="line"><span class="cl">sudo install minikube-linux-amd64 /usr/local/bin/minikube
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">minikube start
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">minikube dashboard
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在浏览器出现minikube仪表盘即安装成功。</p>
 <p>使用 <code>kubectl create</code> 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker 镜像运行 Container。</p>
@@ -248,8 +248,8 @@ minikube dashboard
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl create deployment hello-node --image<span class="o">=</span>k8s.gcr.io/echoserver:1.4
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kubectl create deployment hello-node --image<span class="o">=</span>k8s.gcr.io/echoserver:1.4
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看 Deployment：</p>
 <div class="highlight"><div class="chroma">
@@ -257,8 +257,8 @@ minikube dashboard
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl get deployments
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kubectl get deployments
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看 Pod：</p>
 <div class="highlight"><div class="chroma">
@@ -266,8 +266,8 @@ minikube dashboard
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">kubectl get pods
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kubectl get pods
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>输出结果类似于这样：</p>
 <div class="highlight"><div class="chroma">
@@ -276,9 +276,9 @@ minikube dashboard
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">NAME                          READY     STATUS    RESTARTS   AGE
-hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NAME                          READY     STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="cl">hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每当运行kubectl时，即像RESTAPI服务器发送请求，创建Pod并且调度到工作节点，kubetlet收到通知，再去告诉Docker运行镜像</p>
 <h2 id="3-pod">3. Pod</h2>
@@ -299,15 +299,15 @@ hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl explain pods
-kubetcl create -f xx.yaml
-kubectl get po xx -o json
-kubectl delete po xx
-kubectl logs xx
-kubectl port-forward xx 8888:8080
-kubetcl get ns
-kubectl create namespace mynamespace
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl explain pods
+</span></span><span class="line"><span class="cl">kubetcl create -f xx.yaml
+</span></span><span class="line"><span class="cl">kubectl get po xx -o json
+</span></span><span class="line"><span class="cl">kubectl delete po xx
+</span></span><span class="line"><span class="cl">kubectl logs xx
+</span></span><span class="line"><span class="cl">kubectl port-forward xx 8888:8080
+</span></span><span class="line"><span class="cl">kubetcl get ns
+</span></span><span class="line"><span class="cl">kubectl create namespace mynamespace
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过yaml定义的Pod，包含metadata：名称命名空间，标签；spec：Pod实际说明，包括容器，数据卷等；status：Pod当前信息，所处条件，容器状态。</p>
 <p>此外，还可以手动给Pod添加标签，每一个Pod有两种标签，在yaml的metadata处为Pod附加标签</p>
@@ -322,8 +322,8 @@ kubectl create namespace mynamespace
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl describe po kubia-liveness
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl describe po kubia-liveness
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="322-replicatoincontroller">3.2.2. ReplicatoinController</h4>
 <p>ReplicationController用于确保pod始终是可以运行状态，如果Pod以任何原因消失，那么ReplicationController会注意到缺少，并创建一个Pod替代。运行时，Replication会持续监控正在运行的Pod列表，保证相对应的类型的Pod与预期相符，就算有多余Pod也会删除。</p>
@@ -340,14 +340,14 @@ kubectl create namespace mynamespace
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl get pods
-kubectl get rc
-kubectl describe rc kubia
-kubectl label pod xx <span class="nv">app</span><span class="o">=</span>foo --overwrite <span class="c1"># 修改后将不再由该RC管理</span>
-kubectl edit rc kubia
-<span class="c1"># 当然，可以使用export KUBE_EDITOR=&#34;/usr/bin/vim&#34;来决定编辑器</span>
-kubectl scale rc kubia --replicas<span class="o">=</span><span class="m">10</span> <span class="c1"># 扩容</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods
+</span></span><span class="line"><span class="cl">kubectl get rc
+</span></span><span class="line"><span class="cl">kubectl describe rc kubia
+</span></span><span class="line"><span class="cl">kubectl label pod xx <span class="nv">app</span><span class="o">=</span>foo --overwrite <span class="c1"># 修改后将不再由该RC管理</span>
+</span></span><span class="line"><span class="cl">kubectl edit rc kubia
+</span></span><span class="line"><span class="cl"><span class="c1"># 当然，可以使用export KUBE_EDITOR=&#34;/usr/bin/vim&#34;来决定编辑器</span>
+</span></span><span class="line"><span class="cl">kubectl scale rc kubia --replicas<span class="o">=</span><span class="m">10</span> <span class="c1"># 扩容</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其主要由三个部分构成：</p>
 <p>label selector：确定当前ReplicationController作用域下有多少Pod</p>
@@ -374,8 +374,8 @@ kubectl scale rc kubia --replicas<span class="o">=</span><span class="m">10</spa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl label node xx <span class="nv">disk</span><span class="o">=</span>ssd
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl label node xx <span class="nv">disk</span><span class="o">=</span>ssd
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>即可以对该节点保证运行设定好的校验ssd的Pod。</p>
 <h4 id="325-jobs">3.2.5. Jobs</h4>
@@ -391,8 +391,8 @@ kubectl scale rc kubia --replicas<span class="o">=</span><span class="m">10</spa
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl get svc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get svc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以通过创建服务，来让一个单一稳定的IP访问到Pod，在服务的整个生命周期内，这个地址会保持不变，在服务后的Pod可以删除重建，但是对外的IP不会变化。</p>
 <p>为了外部连接k8s的服务，在服务和pod之间不会直接相连的，而是存在一个endpoint资源，用以暴露服务ip和端口的列表。</p>
@@ -506,7 +506,7 @@ kubectl scale rc kubia --replicas<span class="o">=</span><span class="m">10</spa
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

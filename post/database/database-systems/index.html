@@ -20,14 +20,14 @@
 1. Relational Model Readings: Chapters 1-2, 6
  Definition
  DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
-A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases." /><meta name="keywords" content="Hugo, theme, even" />
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases." />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/database/database-systems/" />
@@ -546,7 +546,7 @@ Schema: is a description of a particular collection of data, using a given data 
 <p>Page Layout</p>
 </blockquote>
 <p>Every page contains a header of meta-data about the page&rsquo;s contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.</p>
-<p>The most common layout scheme is called slotted pages. The slot array maps &ldquo;slots&rdquo; to the tuples' starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.</p>
+<p>The most common layout scheme is called slotted pages. The slot array maps &ldquo;slots&rdquo; to the tuples&rsquo; starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.</p>
 <p>Each tuple is assigned a unique record identifier. Most common: <strong>page_id</strong>+ <strong>offset/slot</strong>, Can also contain file location info.</p>
 <p>Each tuple is prefixed with a header that contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
 <p>DBMS can physically <strong>denormalize</strong> (e.g., &ldquo;pre join&rdquo;) related tuples and store them together in the same page.</p>
@@ -1009,16 +1009,16 @@ Schema: is a description of a particular collection of data, using a given data 
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">FindKey</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
-  <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
-     <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">FindKey</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>Cuckoo Hasing</li>
@@ -2174,11 +2174,11 @@ There are parallel versions of every operator.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">studnet</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">studnet</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>The algrbra expression is:</p>
 <p>$\pi_{name,cid}(\sigma_{grade=&lsquo;A&rsquo;}(student⋈enrolled))$</p>
@@ -2205,11 +2205,11 @@ There are parallel versions of every operator.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>$\pi_{name,cid}(student⋈\sigma_{grade={&lsquo;A&rsquo;}}(enrolled))$</p>
 <p>$\pi_{name,cid}(\pi_{sid,name}(student)⋈\pi_{cid,sid}(\sigma_{grade={&lsquo;A&rsquo;}}(enrolled)))$</p>
@@ -2229,12 +2229,12 @@ There are parallel versions of every operator.</p>
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">NAME</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">,</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">,</span><span class="w"> </span><span class="n">ALBUM</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ARTIST_ID</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ALBUM_ID</span><span class="o">=</span><span class="n">ALBUM</span><span class="p">.</span><span class="n">ID</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">ALBUM</span><span class="p">.</span><span class="n">NAME</span><span class="o">=</span><span class="s2">&#34;Andy&#39;s OG Remix&#34;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">NAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">,</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">,</span><span class="w"> </span><span class="n">ALBUM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ARTIST_ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ALBUM_ID</span><span class="o">=</span><span class="n">ALBUM</span><span class="p">.</span><span class="n">ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">ALBUM</span><span class="p">.</span><span class="n">NAME</span><span class="o">=</span><span class="s2">&#34;Andy&#39;s OG Remix&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.</p>
 <p>$\pi_{name}(\sigma_{id=artist_id \wedge album_id=album.id \wedge name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))$</p>
@@ -2272,18 +2272,18 @@ table</li>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
-</span><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
-</span><span class="w"></span><span class="p">)</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Decompose</p>
 <div class="highlight"><div class="chroma">
@@ -2302,19 +2302,19 @@ table</li>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- For each sailor with the highest rating (over all sailors) and at least 
-</span><span class="c1">-- two reservations for red boats, find the sailor id and the earliest date 
-</span><span class="c1">-- on which the sailor has a reservation for a red boat.
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">boats</span><span class="w"> </span><span class="n">B</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">bid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">bid</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="w">
-</span><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">S2</span><span class="p">.</span><span class="n">rating</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S2</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w">
-</span><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- For each sailor with the highest rating (over all sailors) and at least 
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- two reservations for red boats, find the sailor id and the earliest date 
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- on which the sailor has a reservation for a red boat.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">boats</span><span class="w"> </span><span class="n">B</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">bid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">bid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">S2</span><span class="p">.</span><span class="n">rating</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S2</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>For harder queries, the optimizer breaks up queries into blocks and then concentrates on one block at a time.</p>
 <p>Sub-queries are written to a temporary table that are discarded after the query finishes.</p>
@@ -2323,8 +2323,8 @@ table</li>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="c1">-- Nested Block
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="c1">-- Nested Block
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>An optimizer transforms a query&rsquo;s expressions (e.g., <strong>WHERE</strong> clause predicates) into the optimal/minimal set of expressions.</p>
 <p>Implemented using if/then/else clauses or a pattern-matching rule engine.</p>
@@ -2367,31 +2367,31 @@ table</li>
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- Impossible / Unnecessary Predicates
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">-- return empty set
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">-- remove where predicate
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">-- Join Elimination
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="o">*</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
-</span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="c1">-- after optimize 
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="c1">-- after optimize
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">-- Merging Predicates
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="w">
-</span><span class="w"></span><span class="k">OR</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="c1">-- after optimize
-</span><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
-</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Impossible / Unnecessary Predicates
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">-- return empty set
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">-- remove where predicate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Join Elimination
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Merging Predicates
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">OR</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Cost-based Query Planning</p>
@@ -3084,7 +3084,7 @@ if you do not use the Thomas Write Rule.</p>
 <ul>
 <li>transactions acquire appropriate lock on physical version before they can read/write a logical tuple.</li>
 </ul>
-<p>The DBMS uses the tuples' pointer field to create a <strong>version chain</strong> per logical tuple.</p>
+<p>The DBMS uses the tuples&rsquo; pointer field to create a <strong>version chain</strong> per logical tuple.</p>
 <ul>
 <li>
 <p>This allows the DBMS to find the version that is visible to a particular transactions at runtime.</p>
@@ -3742,7 +3742,7 @@ if you do not use the Thomas Write Rule.</p>
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

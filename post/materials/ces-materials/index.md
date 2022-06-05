@@ -16,7 +16,9 @@
 >    如有个人补充资料，欢迎前往开源社区项目libshu提交PR，导航: https://github.com/shuosc/libshu
 
 ## 1. 面向对象程序设计
+
 OOP历年试卷
+
 > 链接: https://pan.baidu.com/s/1UPVNIDUHoBK6N3x6w5vnTw 
 > 
 > 提取码: 4hd3
@@ -24,6 +26,7 @@ OOP历年试卷
 ## 2. 计算机组成原理（1-2）
 
 因为资料太少，就不分了
+
 > 链接: https://pan.baidu.com/s/1Lk_a0IezoaA0clFS_kQYJA
 > 
 > 提取码: l76i
@@ -46,9 +49,11 @@ OOP历年试卷
 
 
 ## 5. 离散数学（1）
+
 课本、试卷
+
 > 链接: https://pan.baidu.com/s/1BRzkz8_Mj6SyubMH_wwZLQ
-> 
+>
 > 提取码: ff8j
 
 ## 6. 离散数学（2）
@@ -59,14 +64,45 @@ OOP历年试卷
 > 
 > 提取码: kes0
 
-
 ## 7. 概率论与数理统计
+
 试卷非常全
+
 > 链接: https://pan.baidu.com/s/1OiB_NtoXdcsWuaqWYBK0zQ 
 > 
 > 提取码: mmb2
 
+## 8. 操作系统
 
+课本
+
+> 链接: https://pan.baidu.com/s/1jvjSzjeZKArY7-xxipWA7A
+> 
+> 提取码: ohbe
+
+## 9. 编码理论
+
+试卷
+
+> 链接: https://pan.baidu.com/s/1A2wrYHBKOC34bBA0twL8Bw
+> 
+> 提取码: apm4
+
+## 10. 软件工程
+
+课本、试卷
+
+> 链接: https://pan.baidu.com/s/1SyvWYF6S32vai9Zmfd3veg
+> 
+> 提取码: frp1
+
+## 11. 编译原理
+
+课本、试卷
+
+> 链接: https://pan.baidu.com/s/1BBfrcxm8s9MEczF7Bbqhqw
+> 
+> 提取码: rgl3
 
 ## *. 附录
 

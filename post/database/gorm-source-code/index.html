@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/database/gorm-source-code/" />
@@ -199,28 +199,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// driverConn wraps a driver.Conn with a mutex, to
-</span><span class="c1">// be held during all calls into the Conn. (including any calls onto
-</span><span class="c1">// interfaces returned via that Conn, such as calls on Tx, Stmt,
-</span><span class="c1">// Result, Rows)
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">driverConn</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">db</span>        <span class="o">*</span><span class="nx">DB</span>
-    <span class="nx">createdAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-
-    <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>  <span class="c1">// guards following
-</span><span class="c1"></span>    <span class="nx">ci</span>          <span class="nx">driver</span><span class="p">.</span><span class="nx">Conn</span>
-    <span class="nx">needReset</span>   <span class="kt">bool</span> <span class="c1">// The connection session should be reset before use if true.
-</span><span class="c1"></span>    <span class="nx">closed</span>      <span class="kt">bool</span>
-    <span class="nx">finalClosed</span> <span class="kt">bool</span> <span class="c1">// ci.Close has been called
-</span><span class="c1"></span>    <span class="nx">openStmt</span>    <span class="kd">map</span><span class="p">[</span><span class="o">*</span><span class="nx">driverStmt</span><span class="p">]</span><span class="kt">bool</span>
-
-    <span class="c1">// guarded by db.mu
-</span><span class="c1"></span>    <span class="nx">inUse</span>      <span class="kt">bool</span>
-    <span class="nx">returnedAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="c1">// Time the connection was created or returned.
-</span><span class="c1"></span>    <span class="nx">onPut</span>      <span class="p">[]</span><span class="kd">func</span><span class="p">()</span>  <span class="c1">// code (with db.mu held) run when conn is next returned
-</span><span class="c1"></span>    <span class="nx">dbmuClosed</span> <span class="kt">bool</span>      <span class="c1">// same as closed, but guarded by db.mu, for removeClosedStmtLocked
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// driverConn wraps a driver.Conn with a mutex, to
+</span></span></span><span class="line"><span class="cl"><span class="c1">// be held during all calls into the Conn. (including any calls onto
+</span></span></span><span class="line"><span class="cl"><span class="c1">// interfaces returned via that Conn, such as calls on Tx, Stmt,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Result, Rows)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">driverConn</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">db</span>        <span class="o">*</span><span class="nx">DB</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">createdAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>  <span class="c1">// guards following
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ci</span>          <span class="nx">driver</span><span class="p">.</span><span class="nx">Conn</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">needReset</span>   <span class="kt">bool</span> <span class="c1">// The connection session should be reset before use if true.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">closed</span>      <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">finalClosed</span> <span class="kt">bool</span> <span class="c1">// ci.Close has been called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">openStmt</span>    <span class="kd">map</span><span class="p">[</span><span class="o">*</span><span class="nx">driverStmt</span><span class="p">]</span><span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// guarded by db.mu
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">inUse</span>      <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">returnedAt</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="c1">// Time the connection was created or returned.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">onPut</span>      <span class="p">[]</span><span class="kd">func</span><span class="p">()</span>  <span class="c1">// code (with db.mu held) run when conn is next returned
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">dbmuClosed</span> <span class="kt">bool</span>      <span class="c1">// same as closed, but guarded by db.mu, for removeClosedStmtLocked
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>sql.DB数据结构对数据库做了一层简单的抽象，但是需要明确的是：<code>sql.DB不是一个连接，也不是映射到任何DataBase或者是Schema的概念</code>。</p>
 <p>sql.DB可以执行一系列重要的任务：包括使用驱动打开和关闭实际底层数据库的连接；通过管理连接池，涉及相关的事务。</p>
@@ -248,25 +248,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
-<span class="c1">// DB GORM DB definition
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">DB</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="o">*</span><span class="nx">Config</span>
-    <span class="nx">Error</span>        <span class="kt">error</span>
-    <span class="nx">RowsAffected</span> <span class="kt">int64</span>
-    <span class="nx">Statement</span>    <span class="o">*</span><span class="nx">Statement</span>
-    <span class="nx">clone</span>        <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="c1">// Session session config when create session with Session() method
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="nx">Context</span>                  <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
-    <span class="nx">Logger</span>                   <span class="nx">logger</span><span class="p">.</span><span class="nx">Interface</span>
-    <span class="nx">NowFunc</span>                  <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-    <span class="nx">CreateBatchSize</span>          <span class="kt">int</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// DB GORM DB definition
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">DB</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">Config</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Error</span>        <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">RowsAffected</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Statement</span>    <span class="o">*</span><span class="nx">Statement</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">clone</span>        <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Session session config when create session with Session() method
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Session</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Context</span>                  <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Logger</span>                   <span class="nx">logger</span><span class="p">.</span><span class="nx">Interface</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">NowFunc</span>                  <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">CreateBatchSize</span>          <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中数据库对象放置在Statement中</p>
 <div class="highlight"><div class="chroma">
@@ -289,23 +289,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Statement statement
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Statement</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="o">*</span><span class="nx">DB</span>
-    <span class="nx">TableExpr</span>            <span class="o">*</span><span class="nx">clause</span><span class="p">.</span><span class="nx">Expr</span>
-    <span class="nx">Table</span>                <span class="kt">string</span>
-    <span class="nx">Model</span>                <span class="kd">interface</span><span class="p">{}</span>
-    <span class="nx">Unscoped</span>             <span class="kt">bool</span>
-    <span class="nx">Dest</span>                 <span class="kd">interface</span><span class="p">{}</span>
-    <span class="nx">ReflectValue</span>         <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span>
-    <span class="nx">Clauses</span>              <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">clause</span><span class="p">.</span><span class="nx">Clause</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="nx">ConnPool</span>             <span class="nx">ConnPool</span>
-    <span class="nx">Schema</span>               <span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Schema</span>
-    <span class="nx">Context</span>              <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Statement statement
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Statement</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">DB</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">TableExpr</span>            <span class="o">*</span><span class="nx">clause</span><span class="p">.</span><span class="nx">Expr</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Table</span>                <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Model</span>                <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Unscoped</span>             <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Dest</span>                 <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ReflectValue</span>         <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Clauses</span>              <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">clause</span><span class="p">.</span><span class="nx">Clause</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ConnPool</span>             <span class="nx">ConnPool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Schema</span>               <span class="o">*</span><span class="nx">schema</span><span class="p">.</span><span class="nx">Schema</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Context</span>              <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="2-parse">2. Parse</h1>
 <p>对于一般数据对象，涉及对表的转换，一般需要这个对象提供信息：</p>
@@ -326,18 +326,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Field</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Name</span>                   <span class="kt">string</span>
-    <span class="nx">DBName</span>                 <span class="kt">string</span>
-    <span class="nx">BindNames</span>              <span class="p">[]</span><span class="kt">string</span>
-    <span class="nx">DataType</span>               <span class="nx">DataType</span>
-    <span class="nx">GORMDataType</span>           <span class="nx">DataType</span>
-    <span class="c1">// ... 
-</span><span class="c1"></span>    <span class="nx">FieldType</span>              <span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span>
-    <span class="nx">Tag</span>                    <span class="nx">reflect</span><span class="p">.</span><span class="nx">StructTag</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Field</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span>                   <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DBName</span>                 <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">BindNames</span>              <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DataType</span>               <span class="nx">DataType</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">GORMDataType</span>           <span class="nx">DataType</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">FieldType</span>              <span class="nx">reflect</span><span class="p">.</span><span class="nx">Type</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Tag</span>                    <span class="nx">reflect</span><span class="p">.</span><span class="nx">StructTag</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对应reflect包下的Tag操作</p>
 <div class="highlight"><div class="chroma">
@@ -363,26 +363,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// A StructTag is the tag string in a struct field.
-</span><span class="c1">//
-</span><span class="c1">// By convention, tag strings are a concatenation of
-</span><span class="c1">// optionally space-separated key:&#34;value&#34; pairs.
-</span><span class="c1">// Each key is a non-empty string consisting of non-control
-</span><span class="c1">// characters other than space (U+0020 &#39; &#39;), quote (U+0022 &#39;&#34;&#39;),
-</span><span class="c1">// and colon (U+003A &#39;:&#39;).  Each value is quoted using U+0022 &#39;&#34;&#39;
-</span><span class="c1">// characters and Go string literal syntax.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">StructTag</span> <span class="kt">string</span>
-
-<span class="c1">// Get returns the value associated with key in the tag string.
-</span><span class="c1">// If there is no such key in the tag, Get returns the empty string.
-</span><span class="c1">// If the tag does not have the conventional format, the value
-</span><span class="c1">// returned by Get is unspecified. To determine whether a tag is
-</span><span class="c1">// explicitly set to the empty string, use Lookup.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">tag</span> <span class="nx">StructTag</span><span class="p">)</span> <span class="nf">Get</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="nx">v</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">tag</span><span class="p">.</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nx">v</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// A StructTag is the tag string in a struct field.
+</span></span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1">// By convention, tag strings are a concatenation of
+</span></span></span><span class="line"><span class="cl"><span class="c1">// optionally space-separated key:&#34;value&#34; pairs.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Each key is a non-empty string consisting of non-control
+</span></span></span><span class="line"><span class="cl"><span class="c1">// characters other than space (U+0020 &#39; &#39;), quote (U+0022 &#39;&#34;&#39;),
+</span></span></span><span class="line"><span class="cl"><span class="c1">// and colon (U+003A &#39;:&#39;).  Each value is quoted using U+0022 &#39;&#34;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// characters and Go string literal syntax.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">StructTag</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get returns the value associated with key in the tag string.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If there is no such key in the tag, Get returns the empty string.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If the tag does not have the conventional format, the value
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returned by Get is unspecified. To determine whether a tag is
+</span></span></span><span class="line"><span class="cl"><span class="c1">// explicitly set to the empty string, use Lookup.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">tag</span> <span class="nx">StructTag</span><span class="p">)</span> <span class="nf">Get</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">tag</span><span class="p">.</span><span class="nf">Lookup</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">v</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在对数据类型进行解析时，会执行如下的操作</p>
 <div class="highlight"><div class="chroma">
@@ -409,27 +409,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">schema</span> <span class="o">*</span><span class="nx">Schema</span><span class="p">)</span> <span class="nf">ParseField</span><span class="p">(</span><span class="nx">fieldStruct</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">StructField</span><span class="p">)</span> <span class="o">*</span><span class="nx">Field</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    
-    
-    <span class="c1">// default value is function or null or blank (primary keys)
-</span><span class="c1"></span>    <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">)</span>
-    <span class="nx">skipParseDefaultValue</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="s">&#34;(&#34;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="s">&#34;)&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;null&#34;</span> <span class="o">||</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="o">==</span> <span class="s">&#34;&#34;</span>
-    <span class="k">switch</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">Indirect</span><span class="p">(</span><span class="nx">fieldValue</span><span class="p">).</span><span class="nf">Kind</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Bool</span><span class="p">:</span>
-        <span class="nx">field</span><span class="p">.</span><span class="nx">DataType</span> <span class="p">=</span> <span class="nx">Bool</span>
-        <span class="k">if</span> <span class="nx">field</span><span class="p">.</span><span class="nx">HasDefaultValue</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">skipParseDefaultValue</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValueInterface</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">ParseBool</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                <span class="nx">schema</span><span class="p">.</span><span class="nx">err</span> <span class="p">=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;failed to parse %s as default value for bool, got error: %v&#34;</span><span class="p">,</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="k">case</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int8</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int16</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int32</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int64</span><span class="p">:</span>
-    <span class="c1">// case ...
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">schema</span> <span class="o">*</span><span class="nx">Schema</span><span class="p">)</span> <span class="nf">ParseField</span><span class="p">(</span><span class="nx">fieldStruct</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">StructField</span><span class="p">)</span> <span class="o">*</span><span class="nx">Field</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// default value is function or null or blank (primary keys)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">TrimSpace</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">skipParseDefaultValue</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="s">&#34;(&#34;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="s">&#34;)&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#34;null&#34;</span> <span class="o">||</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span> <span class="o">==</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">Indirect</span><span class="p">(</span><span class="nx">fieldValue</span><span class="p">).</span><span class="nf">Kind</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">field</span><span class="p">.</span><span class="nx">DataType</span> <span class="p">=</span> <span class="nx">Bool</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">field</span><span class="p">.</span><span class="nx">HasDefaultValue</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">skipParseDefaultValue</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValueInterface</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">ParseBool</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">schema</span><span class="p">.</span><span class="nx">err</span> <span class="p">=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;failed to parse %s as default value for bool, got error: %v&#34;</span><span class="p">,</span> <span class="nx">field</span><span class="p">.</span><span class="nx">DefaultValue</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int8</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int16</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int32</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int64</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// case ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="3-cause">3. Cause</h1>
 <p>对于复杂的SQL语句，一般是由多个子句组合而成，对于每一个子句，Gorm做了简单的抽象，并把子句生成的过程简化为Build方法。</p>
@@ -465,35 +465,35 @@
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Interface clause interface
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Interface</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span>
-    <span class="nf">Build</span><span class="p">(</span><span class="nx">Builder</span><span class="p">)</span>
-    <span class="nf">MergeClause</span><span class="p">(</span><span class="o">*</span><span class="nx">Clause</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// Expression expression interface
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Expression</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// Builder builder interface
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Builder</span> <span class="kd">interface</span> <span class="p">{</span>
-    <span class="nx">Writer</span>
-    <span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">field</span> <span class="kd">interface</span><span class="p">{})</span>
-    <span class="nf">AddVar</span><span class="p">(</span><span class="nx">Writer</span><span class="p">,</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
-<span class="p">}</span>
-
-<span class="c1">// Clause
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Clause</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Name</span>                <span class="kt">string</span> <span class="c1">// WHERE
-</span><span class="c1"></span>    <span class="nx">BeforeExpression</span>    <span class="nx">Expression</span>
-    <span class="nx">AfterNameExpression</span> <span class="nx">Expression</span>
-    <span class="nx">AfterExpression</span>     <span class="nx">Expression</span>
-    <span class="nx">Expression</span>          <span class="nx">Expression</span>
-    <span class="nx">Builder</span>             <span class="nx">ClauseBuilder</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Interface clause interface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Interface</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Build</span><span class="p">(</span><span class="nx">Builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">MergeClause</span><span class="p">(</span><span class="o">*</span><span class="nx">Clause</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Expression expression interface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Expression</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Builder builder interface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Builder</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Writer</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">field</span> <span class="kd">interface</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">AddVar</span><span class="p">(</span><span class="nx">Writer</span><span class="p">,</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Clause
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Clause</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span>                <span class="kt">string</span> <span class="c1">// WHERE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">BeforeExpression</span>    <span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AfterNameExpression</span> <span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AfterExpression</span>     <span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Expression</span>          <span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Builder</span>             <span class="nx">ClauseBuilder</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中，Builder函数返回是Gorm链式操作的核心。</p>
 <h2 id="31-select">3.1. Select</h2>
@@ -561,66 +561,66 @@
 </span><span class="lnt">59
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">clause</span>
-
-<span class="c1">// Select select attrs when querying, updating, creating
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Select</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Distinct</span>   <span class="kt">bool</span>
-    <span class="nx">Columns</span>    <span class="p">[]</span><span class="nx">Column</span>
-    <span class="nx">Expression</span> <span class="nx">Expression</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s">&#34;SELECT&#34;</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Columns</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Distinct</span> <span class="p">{</span>
-            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;DISTINCT &#34;</span><span class="p">)</span>
-        <span class="p">}</span>
-
-        <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">column</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Columns</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">)</span>
-            <span class="p">}</span>
-            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">column</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">MergeClause</span><span class="p">(</span><span class="nx">clause</span> <span class="o">*</span><span class="nx">Clause</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Distinct</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span><span class="p">.(</span><span class="nx">Expr</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-                <span class="nx">expr</span><span class="p">.</span><span class="nx">SQL</span> <span class="p">=</span> <span class="s">&#34;DISTINCT &#34;</span> <span class="o">+</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">SQL</span>
-                <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">expr</span>
-                <span class="k">return</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">s</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// CommaExpression represents a group of expressions separated by commas.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">CommaExpression</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Exprs</span> <span class="p">[]</span><span class="nx">Expression</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">comma</span> <span class="nx">CommaExpression</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">expr</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">comma</span><span class="p">.</span><span class="nx">Exprs</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-            <span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;, &#34;</span><span class="p">)</span>
-        <span class="p">}</span>
-        <span class="nx">expr</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">clause</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Select select attrs when querying, updating, creating
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Select</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Distinct</span>   <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Columns</span>    <span class="p">[]</span><span class="nx">Column</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Expression</span> <span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;SELECT&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Columns</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Distinct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;DISTINCT &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">column</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Columns</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">column</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Select</span><span class="p">)</span> <span class="nf">MergeClause</span><span class="p">(</span><span class="nx">clause</span> <span class="o">*</span><span class="nx">Clause</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Distinct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">expr</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span><span class="p">.(</span><span class="nx">Expr</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">expr</span><span class="p">.</span><span class="nx">SQL</span> <span class="p">=</span> <span class="s">&#34;DISTINCT &#34;</span> <span class="o">+</span> <span class="nx">expr</span><span class="p">.</span><span class="nx">SQL</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">expr</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">s</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// CommaExpression represents a group of expressions separated by commas.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">CommaExpression</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Exprs</span> <span class="p">[]</span><span class="nx">Expression</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">comma</span> <span class="nx">CommaExpression</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">expr</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">comma</span><span class="p">.</span><span class="nx">Exprs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;, &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">expr</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="32-from">3.2. From</h2>
 <p>采用分类方式，考虑SQL92和SQL99语法上的差异</p>
@@ -665,44 +665,44 @@
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">clause</span>
-
-<span class="c1">// From from clause
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">From</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Tables</span> <span class="p">[]</span><span class="nx">Table</span>
-    <span class="nx">Joins</span>  <span class="p">[]</span><span class="nx">Join</span>
-<span class="p">}</span>
-
-<span class="c1">// Name from clause name
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s">&#34;FROM&#34;</span>
-<span class="p">}</span>
-
-<span class="c1">// Build build from clause
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">from</span><span class="p">.</span><span class="nx">Tables</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">table</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">from</span><span class="p">.</span><span class="nx">Tables</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">)</span>
-            <span class="p">}</span>
-
-            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">currentTable</span><span class="p">)</span>
-    <span class="p">}</span>
-
-    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">join</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">from</span><span class="p">.</span><span class="nx">Joins</span> <span class="p">{</span>
-        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)</span>
-        <span class="nx">join</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// MergeClause merge from clause
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">MergeClause</span><span class="p">(</span><span class="nx">clause</span> <span class="o">*</span><span class="nx">Clause</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">from</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">clause</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// From from clause
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">From</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Tables</span> <span class="p">[]</span><span class="nx">Table</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Joins</span>  <span class="p">[]</span><span class="nx">Join</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Name from clause name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">Name</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;FROM&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Build build from clause
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">from</span><span class="p">.</span><span class="nx">Tables</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">table</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">from</span><span class="p">.</span><span class="nx">Tables</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">table</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteQuoted</span><span class="p">(</span><span class="nx">currentTable</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">join</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">from</span><span class="p">.</span><span class="nx">Joins</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">join</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// MergeClause merge from clause
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">from</span> <span class="nx">From</span><span class="p">)</span> <span class="nf">MergeClause</span><span class="p">(</span><span class="nx">clause</span> <span class="o">*</span><span class="nx">Clause</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">clause</span><span class="p">.</span><span class="nx">Expression</span> <span class="p">=</span> <span class="nx">from</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="33-where">3.3. Where</h2>
 <p>判定多种数据的结构进行合并操作。</p>
@@ -744,41 +744,41 @@
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">not</span> <span class="nx">NotConditions</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
-        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;(&#39;</span><span class="p">)</span>
-    <span class="p">}</span>
-
-    <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
-            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34; AND &#34;</span><span class="p">)</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="nx">negationBuilder</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.(</span><span class="nx">NegationExpressionBuilder</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-            <span class="nx">negationBuilder</span><span class="p">.</span><span class="nf">NegationBuild</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;NOT &#34;</span><span class="p">)</span>
-            <span class="nx">e</span><span class="p">,</span> <span class="nx">wrapInParentheses</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.(</span><span class="nx">Expr</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
-                <span class="nx">sql</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">SQL</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">sql</span><span class="p">,</span> <span class="s">&#34;and&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">sql</span><span class="p">,</span> <span class="s">&#34;or&#34;</span><span class="p">);</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
-                    <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;(&#39;</span><span class="p">)</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-
-            <span class="nx">c</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
-                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;)&#39;</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
-        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;)&#39;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">not</span> <span class="nx">NotConditions</span><span class="p">)</span> <span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span> <span class="nx">Builder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;(&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">idx</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34; AND &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">negationBuilder</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.(</span><span class="nx">NegationExpressionBuilder</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">negationBuilder</span><span class="p">.</span><span class="nf">NegationBuild</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;NOT &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">e</span><span class="p">,</span> <span class="nx">wrapInParentheses</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.(</span><span class="nx">Expr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">sql</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">SQL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">sql</span><span class="p">,</span> <span class="s">&#34;and&#34;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">sql</span><span class="p">,</span> <span class="s">&#34;or&#34;</span><span class="p">);</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;(&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nx">c</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="nx">builder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">wrapInParentheses</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">not</span><span class="p">.</span><span class="nx">Exprs</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">builder</span><span class="p">.</span><span class="nf">WriteByte</span><span class="p">(</span><span class="sc">&#39;)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>后续一系列操作与此类似，在此不再一一列出。</p>
 <h1 id="4-hooks">4. Hooks</h1>
@@ -807,27 +807,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BeforeCreate</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">SkipHooks</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeSave</span> <span class="o">||</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeCreate</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nf">callMethod</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">tx</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">(</span><span class="nx">called</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeSave</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">value</span><span class="p">.(</span><span class="nx">BeforeSaveInterface</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-               <span class="nx">called</span> <span class="p">=</span> <span class="kc">true</span>
-               <span class="nx">db</span><span class="p">.</span><span class="nf">AddError</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nf">BeforeSave</span><span class="p">(</span><span class="nx">tx</span><span class="p">))</span>
-            <span class="p">}</span>
-         <span class="p">}</span>
-
-         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeCreate</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">value</span><span class="p">.(</span><span class="nx">BeforeCreateInterface</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-               <span class="nx">called</span> <span class="p">=</span> <span class="kc">true</span>
-               <span class="nx">db</span><span class="p">.</span><span class="nf">AddError</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nf">BeforeCreate</span><span class="p">(</span><span class="nx">tx</span><span class="p">))</span>
-            <span class="p">}</span>
-         <span class="p">}</span>
-         <span class="k">return</span> <span class="nx">called</span>
-      <span class="p">})</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BeforeCreate</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">SkipHooks</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeSave</span> <span class="o">||</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeCreate</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">callMethod</span><span class="p">(</span><span class="nx">db</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">value</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">tx</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">(</span><span class="nx">called</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeSave</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">value</span><span class="p">.(</span><span class="nx">BeforeSaveInterface</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="nx">called</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">               <span class="nx">db</span><span class="p">.</span><span class="nf">AddError</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nf">BeforeSave</span><span class="p">(</span><span class="nx">tx</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">BeforeCreate</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">value</span><span class="p">.(</span><span class="nx">BeforeCreateInterface</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="nx">called</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">               <span class="nx">db</span><span class="p">.</span><span class="nf">AddError</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nf">BeforeCreate</span><span class="p">(</span><span class="nx">tx</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">         <span class="k">return</span> <span class="nx">called</span>
+</span></span><span class="line"><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="5-transaction">5. Transaction</h1>
 <p>Gorm采用的策略是，在事务执行过程中，判断DB对象的err信息，不为空则返回</p>
@@ -861,33 +861,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BeginTransaction</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">SkipDefaultTransaction</span> <span class="o">&amp;&amp;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">tx</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Begin</span><span class="p">();</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-         <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span>
-         <span class="nx">db</span><span class="p">.</span><span class="nf">InstanceSet</span><span class="p">(</span><span class="s">&#34;gorm:started_transaction&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="nx">gorm</span><span class="p">.</span><span class="nx">ErrInvalidTransaction</span> <span class="p">{</span>
-         <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="p">=</span> <span class="kc">nil</span>
-      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-         <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span>
-      <span class="p">}</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">CommitOrRollbackTransaction</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">SkipDefaultTransaction</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">InstanceGet</span><span class="p">(</span><span class="s">&#34;gorm:started_transaction&#34;</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
-         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="nx">db</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
-         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nx">db</span><span class="p">.</span><span class="nf">Commit</span><span class="p">()</span>
-         <span class="p">}</span>
-
-         <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">ConnPool</span>
-      <span class="p">}</span>
-   <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BeginTransaction</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">SkipDefaultTransaction</span> <span class="o">&amp;&amp;</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">tx</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Begin</span><span class="p">();</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">db</span><span class="p">.</span><span class="nf">InstanceSet</span><span class="p">(</span><span class="s">&#34;gorm:started_transaction&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="o">==</span> <span class="nx">gorm</span><span class="p">.</span><span class="nx">ErrInvalidTransaction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">Error</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">CommitOrRollbackTransaction</span><span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">gorm</span><span class="p">.</span><span class="nx">DB</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">Config</span><span class="p">.</span><span class="nx">SkipDefaultTransaction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">InstanceGet</span><span class="p">(</span><span class="s">&#34;gorm:started_transaction&#34;</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">Error</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">db</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">db</span><span class="p">.</span><span class="nf">Commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nx">db</span><span class="p">.</span><span class="nx">Statement</span><span class="p">.</span><span class="nx">ConnPool</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">ConnPool</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>实际上还可以采用一种比较优雅的设计实现。</p>
 <div class="highlight"><div class="chroma">
@@ -918,31 +918,31 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Service</span><span class="p">)</span> <span class="nf">DoSomething</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">tx</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">Begin</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
-            <span class="k">return</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">r</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-            <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
-        <span class="p">}</span>
-        <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Commit</span><span class="p">()</span>
-    <span class="p">}()</span>
-    <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="k">return</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="nx">Service</span><span class="p">)</span> <span class="nf">DoSomething</span><span class="p">()</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tx</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nf">Begin</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nb">recover</span><span class="p">();</span> <span class="nx">r</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="o">...</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里可以对比Java的JDBC操作，采用trycatch实现回滚。</p>
 <div class="highlight"><div class="chroma">
@@ -984,42 +984,42 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdateWithTx</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="k">try</span> <span class="o">{</span>
-        <span class="c1">//1.获取连接的操作（
-</span><span class="c1"></span>        <span class="c1">//① 手写的连接：JDBCUtils.getConnection();
-</span><span class="c1"></span>        <span class="c1">//② 使用数据库连接池：C3P0;DBCP;Druid
-</span><span class="c1"></span>        <span class="c1">//2.对数据表进行一系列CRUD操作
-</span><span class="c1"></span>        <span class="c1">//① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)
-</span><span class="c1">//version2.0的增删改public void update(Connection conn,String sql,Object ... args){}
-</span><span class="c1">//version2.0的查询 public &lt;T&gt; T getInstance(Connection conn,Class&lt;T&gt; clazz,String sql,Object ... args){}
-</span><span class="c1"></span>        <span class="c1">//② 使用dbutils提供的jar包中提供的QueryRunner类
-</span><span class="c1"></span>            
-        <span class="c1">//提交数据
-</span><span class="c1"></span>        <span class="n">conn</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
-            
-    
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-            
-            
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="c1">//回滚数据
-</span><span class="c1"></span>            <span class="n">conn</span><span class="o">.</span><span class="na">rollback</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-            
-    <span class="o">}</span><span class="k">finally</span><span class="o">{</span>
-        <span class="c1">//3.关闭连接等操作
-</span><span class="c1"></span>        <span class="c1">//① JDBCUtils.closeResource();
-</span><span class="c1"></span>        <span class="c1">//② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作
-</span><span class="c1"></span>            
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdateWithTx</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//1.获取连接的操作（
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//① 手写的连接：JDBCUtils.getConnection();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//② 使用数据库连接池：C3P0;DBCP;Druid
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//2.对数据表进行一系列CRUD操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//version2.0的增删改public void update(Connection conn,String sql,Object ... args){}
+</span></span></span><span class="line"><span class="cl"><span class="c1">//version2.0的查询 public &lt;T&gt; T getInstance(Connection conn,Class&lt;T&gt; clazz,String sql,Object ... args){}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//② 使用dbutils提供的jar包中提供的QueryRunner类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            
+</span></span><span class="line"><span class="cl">        <span class="c1">//提交数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">conn</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//回滚数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">conn</span><span class="o">.</span><span class="na">rollback</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">    <span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//3.关闭连接等操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//① JDBCUtils.closeResource();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -1125,7 +1125,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

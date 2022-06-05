@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/database/redis-data-structure/" />
@@ -53,7 +53,7 @@
 <meta itemprop="name" content="Redis Data Structure">
 <meta itemprop="description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样"><meta itemprop="datePublished" content="2021-10-28T13:44:47+08:00" />
 <meta itemprop="dateModified" content="2022-04-16T23:48:27+08:00" />
-<meta itemprop="wordCount" content="2367">
+<meta itemprop="wordCount" content="2373">
 <meta itemprop="keywords" content="Redis," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redis Data Structure"/>
 <meta name="twitter:description" content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样"/>
@@ -144,7 +144,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 2367 words </span>
+          <span class="more-meta"> 2373 words </span>
           <span class="more-meta"> 5 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -185,14 +185,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">RedisObject</span> <span class="p">{</span>
-    <span class="n">int4</span> <span class="n">type</span><span class="p">;</span>      <span class="c1">// 4bits   \ 
-</span><span class="c1"></span>    <span class="n">int4</span> <span class="n">enconding</span><span class="p">;</span> <span class="c1">// 4bits   = 4bytes
-</span><span class="c1"></span>    <span class="n">int24</span> <span class="n">lru</span><span class="p">;</span>      <span class="c1">// 24bits /
-</span><span class="c1"></span>    <span class="n">int32</span> <span class="n">refcount</span><span class="p">;</span> <span class="c1">// 4bytes
-</span><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>      <span class="c1">// 8bytes (64bit-system)
-</span><span class="c1"></span><span class="p">}</span> <span class="n">robj</span><span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">RedisObject</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int4</span> <span class="n">type</span><span class="p">;</span>      <span class="c1">// 4bits   \ 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">int4</span> <span class="n">enconding</span><span class="p">;</span> <span class="c1">// 4bits   = 4bytes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">int24</span> <span class="n">lru</span><span class="p">;</span>      <span class="c1">// 24bits /
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">int32</span> <span class="n">refcount</span><span class="p">;</span> <span class="c1">// 4bytes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">;</span>      <span class="c1">// 8bytes (64bit-system)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">robj</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>RedisObject对于不通对象都是相同的，对于这样的结构，每个都需要16byte的空间。</p>
 <p>Redis可以说是当代内存抠门学的设计典范之一。</p>
@@ -209,7 +209,7 @@
 </ul>
 <h2 id="1-sds">1. SDS</h2>
 <p>Redis字符串简称SDS（Simple Dynamic String）。
-C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strlen获取长度的复杂度是O(n)，所以Redis没有使用C的传统结束符，而是使用了SDS这样的数据结构。</p>
+C语言传统以NULL，即&rsquo;\0&rsquo;作为字符串结束符，这样使用strlen获取长度的复杂度是O(n)，所以Redis没有使用C的传统结束符，而是使用了SDS这样的数据结构。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -220,13 +220,13 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">SDS</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">T</span> <span class="n">capacity</span><span class="p">;</span>
-    <span class="n">T</span> <span class="n">len</span><span class="p">;</span>
-    <span class="n">byte</span> <span class="n">flags</span><span class="p">;</span>
-    <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">SDS</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte</span> <span class="n">flags</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里的len和capacity类比于Go的[]byte切片，为了支持append内容，必然会涉及到分配新数组与复制的过程，将会带来不少的开销。</p>
 <div class="highlight"><div class="chroma">
@@ -242,16 +242,16 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="n">sds</span> <span class="nf">sdscatlen</span><span class="p">(</span><span class="n">sds</span> <span class="n">s</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="n">size_len</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">size_t</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">sdslen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">sdsMakeRoomFor</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// OOM
-</span><span class="c1"></span>    <span class="n">mencpy</span><span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="n">curlen</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-    <span class="n">sdssetlen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">curlen</span><span class="o">+</span><span class="n">len</span><span class="p">);</span>
-    <span class="n">s</span><span class="p">[</span><span class="n">curlen</span><span class="o">+</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">sds</span> <span class="nf">sdscatlen</span><span class="p">(</span><span class="n">sds</span> <span class="n">s</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="n">size_len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">curlen</span> <span class="o">=</span> <span class="n">sdslen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">sdsMakeRoomFor</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">// OOM
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">mencpy</span><span class="p">(</span><span class="n">s</span><span class="o">+</span><span class="n">curlen</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sdssetlen</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">curlen</span><span class="o">+</span><span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="n">curlen</span><span class="o">+</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>选择使用范型为了追求极限的性能优化，可以在较短时使用byte和short。</p>
 <p>Redis设定String不能超过512MB，创建时的len和capacity一样长，不会分配多余空间。</p>
@@ -265,12 +265,12 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">RedisDB</span><span class="p">{</span>
-    <span class="n">dict</span><span class="o">*</span> <span class="n">dict</span><span class="p">;</span>
-    <span class="n">dict</span><span class="o">*</span> <span class="n">expires</span><span class="p">;</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">RedisDB</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dict</span><span class="o">*</span> <span class="n">dict</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dict</span><span class="o">*</span> <span class="n">expires</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>除了hash结构以外，Redis也有全局字典记录键值对。</p>
 <div class="highlight"><div class="chroma">
@@ -294,24 +294,24 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">dictEntry</span> <span class="p">{</span>
-    <span class="kt">void</span><span class="o">*</span> <span class="n">key</span><span class="p">;</span>
-    <span class="kt">void</span><span class="o">*</span> <span class="n">val</span><span class="p">;</span>
-    <span class="n">dictEntry</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">struct</span> <span class="n">dictht</span> <span class="p">{</span>
-    <span class="n">dictEntry</span><span class="o">**</span> <span class="n">table</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">used</span><span class="p">;</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="k">struct</span> <span class="n">dict</span> <span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>    <span class="n">dicht</span> <span class="n">ht</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">dictEntry</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dictEntry</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">dictht</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dictEntry</span><span class="o">**</span> <span class="n">table</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">used</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">dict</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">dicht</span> <span class="n">ht</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Redis的字典与Java的HashMap接近，采用分桶解决哈希冲突，即一维数组+二维链表的方式。</p>
 <p>当hash表中元素等于一维数组的长度时，开始扩容，如果Redis在做bgsave，为了减少内存页的过多分离(COW)，就不会扩容，但是如果元素个数达到了5倍，还是会发生强制扩容。</p>
@@ -335,22 +335,22 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="n">dictEntry</span> <span class="o">*</span><span class="nf">dictAddRaw</span><span class="p">(</span><span class="n">dict</span> <span class="o">*</span><span class="n">d</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">dictEntry</span> <span class="o">**</span><span class="n">existing</span><span class="p">){</span> 
-    <span class="kt">long</span> <span class="n">index</span><span class="p">;</span>
-    <span class="n">dictEntry</span> <span class="o">*</span><span class="n">entry</span><span class="p">;</span>
-    <span class="n">dictht</span> <span class="o">*</span><span class="n">ht</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">dictisRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="n">_dictRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">index</span> <span class="o">=</span> <span class="n">_dictKeyIndex</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">dictHashKey</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">key</span><span class="p">),</span> <span class="n">existing</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-    <span class="n">ht</span> <span class="o">=</span> <span class="n">dictIsRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">?</span> <span class="o">&amp;</span><span class="n">d</span><span class="o">-&gt;</span><span class="n">ht</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="o">&amp;</span><span class="n">d</span><span class="o">-&gt;</span><span class="n">ht</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="n">entry</span> <span class="o">=</span> <span class="n">zmalloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">entry</span><span class="p">))</span><span class="err">；</span>
-    <span class="n">entry</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">ht</span><span class="o">-&gt;</span><span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
-    <span class="n">ht</span><span class="o">-&gt;</span><span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="p">;</span>
-    <span class="n">ht</span><span class="o">-&gt;</span><span class="n">used</span><span class="o">++</span><span class="p">;</span>
-    <span class="n">dictSetKey</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">entry</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="n">dictEntry</span> <span class="o">*</span><span class="nf">dictAddRaw</span><span class="p">(</span><span class="n">dict</span> <span class="o">*</span><span class="n">d</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">dictEntry</span> <span class="o">**</span><span class="n">existing</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dictEntry</span> <span class="o">*</span><span class="n">entry</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dictht</span> <span class="o">*</span><span class="n">ht</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">dictisRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="n">_dictRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">index</span> <span class="o">=</span> <span class="n">_dictKeyIndex</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">dictHashKey</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">key</span><span class="p">),</span> <span class="n">existing</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ht</span> <span class="o">=</span> <span class="n">dictIsRehashing</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">?</span> <span class="o">&amp;</span><span class="n">d</span><span class="o">-&gt;</span><span class="n">ht</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="o">&amp;</span><span class="n">d</span><span class="o">-&gt;</span><span class="n">ht</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">entry</span> <span class="o">=</span> <span class="n">zmalloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">entry</span><span class="p">))</span><span class="err">；</span>
+</span></span><span class="line"><span class="cl">    <span class="n">entry</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">ht</span><span class="o">-&gt;</span><span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ht</span><span class="o">-&gt;</span><span class="n">table</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ht</span><span class="o">-&gt;</span><span class="n">used</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dictSetKey</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">entry</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此外，在客户端空闲时，Redis也设计了定时任务(databaseCron)，对字典进行主动搬迁。</p>
 <p>Redis的Set采用的与字典相同的数据结构，不过是Value都为NULL(和Go一样)。</p>
@@ -372,19 +372,19 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">ziplist</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">int32</span> <span class="n">zlbytes</span><span class="p">;</span>
-    <span class="n">int32</span> <span class="n">zltail_offset</span><span class="p">;</span>
-    <span class="n">int16</span> <span class="n">zllength</span><span class="p">;</span>
-    <span class="n">T</span><span class="p">[]</span> <span class="n">entries</span><span class="p">;</span>
-    <span class="n">int8</span> <span class="n">zlend</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">entry</span> <span class="p">{</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">prevlen</span><span class="p">;</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">;</span>
-    <span class="n">optional</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">ziplist</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">zlbytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">zltail_offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int16</span> <span class="n">zllength</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="p">[]</span> <span class="n">entries</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int8</span> <span class="n">zlend</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">entry</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">prevlen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optional</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>zltial_offset用于记录最后一个元素的偏移量，prevlen用于记录前一个entry的长度，倒序遍历时可以快速定位到下一个元素位置。</p>
 <p>encoding字段为记录编码信息，做了相当复杂的设计，类似于UTF8编码，采用了前缀位类区分内容。</p>
@@ -405,17 +405,17 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">listNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">listNode</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
-    <span class="n">listNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">list</span> <span class="p">{</span>
-    <span class="n">listNode</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
-    <span class="n">listNoed</span> <span class="o">*</span><span class="n">tail</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">length</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">listNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listNode</span> <span class="o">*</span><span class="n">prev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listNode</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">list</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listNode</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">listNoed</span> <span class="o">*</span><span class="n">tail</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>早期的Redis在元素少时使用ziplist，元素多时使用linkedlist，这样前后指针就需要16字节，浪费内存空间。</p>
 <div class="highlight"><div class="chroma">
@@ -450,35 +450,35 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">ziplist</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">int32</span> <span class="n">zlbytes</span><span class="p">;</span>
-    <span class="n">int32</span> <span class="n">zltail_offset</span><span class="p">;</span>
-    <span class="n">int16</span> <span class="n">zllength</span><span class="p">;</span>
-    <span class="n">T</span><span class="p">[]</span> <span class="n">entries</span><span class="p">;</span>
-    <span class="n">int8</span> <span class="n">zlend</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">ziplist_compressed</span> <span class="p">{</span>
-    <span class="n">int32</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">byte</span><span class="p">[]</span> <span class="n">compressed_data</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">quicklistNode</span> <span class="p">{</span>
-    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">prev</span><span class="p">;</span>
-    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
-    <span class="n">ziplist</span><span class="o">*</span> <span class="n">zl</span><span class="p">;</span>
-    <span class="n">int32</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">int16</span> <span class="n">count</span><span class="p">;</span>
-    <span class="n">int2</span> <span class="n">encoding</span><span class="p">;</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-<span class="k">struct</span> <span class="n">quicklist</span> <span class="p">{</span>
-    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">head</span><span class="p">;</span>
-    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">tail</span><span class="p">;</span>
-    <span class="kt">long</span> <span class="n">count</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">nodes</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">compressDepth</span><span class="p">;</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">ziplist</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">zlbytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">zltail_offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int16</span> <span class="n">zllength</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="p">[]</span> <span class="n">entries</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int8</span> <span class="n">zlend</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">ziplist_compressed</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte</span><span class="p">[]</span> <span class="n">compressed_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">quicklistNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">prev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ziplist</span><span class="o">*</span> <span class="n">zl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int16</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int2</span> <span class="n">encoding</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">quicklist</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">quicklistNode</span><span class="o">*</span> <span class="n">tail</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">nodes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">compressDepth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每个ziplist长度为8kb，超过这个值会新建一个ziplist。一般而言，Redis默认的压缩深度为0，可以采用LZF算法对内存进行压缩，可以选择压缩深度。</p>
 <h2 id="5-skip-list">5. Skip List</h2>
@@ -498,18 +498,18 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">zslnode</span> <span class="p">{</span>
-    <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
-    <span class="kt">double</span> <span class="n">score</span><span class="p">;</span>
-    <span class="n">zslnode</span><span class="o">*</span><span class="p">[]</span> <span class="n">forwards</span><span class="p">;</span>
-    <span class="n">zslnode</span><span class="o">*</span> <span class="n">backward</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">zsl</span> <span class="p">{</span>
-    <span class="n">zslnode</span><span class="o">*</span> <span class="n">header</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">maxLevel</span><span class="p">;</span>
-    <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">zslnode</span><span class="o">*&gt;</span> <span class="n">ht</span><span class="p">;</span> 
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">zslnode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">score</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zslnode</span><span class="o">*</span><span class="p">[]</span> <span class="n">forwards</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zslnode</span><span class="o">*</span> <span class="n">backward</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">zsl</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zslnode</span><span class="o">*</span> <span class="n">header</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">maxLevel</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">zslnode</span><span class="o">*&gt;</span> <span class="n">ht</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每次查询时，从header最高层开始，遍历找到最后一个比当前层要小的元素，之后发生降层。</p>
 <p>插入时，设置分到第n层的概率为$(1/2)^n$，即每一层晋升率为50%，(官方的源码中晋升率为25%，相对扁平)。</p>
@@ -532,18 +532,18 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">listpack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="n">int32</span> <span class="n">total_bytes</span><span class="p">;</span>
-    <span class="n">int16</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">T</span><span class="p">[]</span>   <span class="n">entries</span><span class="p">;</span>
-    <span class="n">int8</span> <span class="n">end</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">lpentry</span> <span class="p">{</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">;</span>
-    <span class="n">optional</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
-    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">length</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">listpack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int32</span> <span class="n">total_bytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int16</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="p">[]</span>   <span class="n">entries</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int8</span> <span class="n">end</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">lpentry</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">encoding</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optional</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&lt;</span><span class="n">var</span><span class="o">&gt;</span> <span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>listpack采用varint进行编码，不同的长度编码可以是1-5中任意一个。解决了ziplist级联更新的行为，元素间独立，不会对后续有影响。不过由于ziplist使用过广泛，现在只有Stream采用了listpack。</p>
 <h2 id="7-rax">7. Rax</h2>
@@ -559,14 +559,14 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">raxNode</span> <span class="p">{</span>
-    <span class="n">int1</span> <span class="n">isKey</span><span class="p">;</span>
-    <span class="n">int1</span> <span class="n">isNull</span><span class="p">;</span>
-    <span class="n">int1</span> <span class="n">isCompressed</span><span class="p">;</span>
-    <span class="n">int29</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">byte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">raxNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int1</span> <span class="n">isKey</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int1</span> <span class="n">isNull</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int1</span> <span class="n">isCompressed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">int29</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte</span><span class="p">[]</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>rax在结构上并不是严格的RadixTree，如果中间节点有多个子节点，路由就是一个字符。如果只有一个叶子节点，那么路由键就是字符串。</p>
 <div class="highlight"><div class="chroma">
@@ -585,19 +585,19 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="k">struct</span> <span class="n">data</span> <span class="p">{</span>
-    <span class="n">optional</span> <span class="k">struct</span> <span class="p">{</span>
-        <span class="n">byte</span><span class="p">[]</span> <span class="n">childKey</span><span class="p">;</span>
-        <span class="n">raxNode</span><span class="o">*</span> <span class="n">childNode</span><span class="p">;</span>
-    <span class="p">}</span> <span class="n">child</span><span class="p">;</span>
-    <span class="n">optional</span> <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">struct</span> <span class="n">data</span> <span class="p">{</span>
-    <span class="n">byte</span><span class="p">[]</span> <span class="n">childKeys</span><span class="p">;</span>
-    <span class="n">raxNode</span><span class="o">*</span><span class="p">[]</span> <span class="n">childNodes</span><span class="p">;</span>
-    <span class="n">optional</span> <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">data</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optional</span> <span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte</span><span class="p">[]</span> <span class="n">childKey</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">raxNode</span><span class="o">*</span> <span class="n">childNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="n">child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optional</span> <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">data</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">byte</span><span class="p">[]</span> <span class="n">childKeys</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raxNode</span><span class="o">*</span><span class="p">[]</span> <span class="n">childNodes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">optional</span> <span class="n">string</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果叶子节点只有一个，就是压缩结构。反之则是存在多个路由键，一个键对应一个字符。</p>
 
@@ -704,7 +704,7 @@ C语言传统以NULL，即'\0&rsquo;作为字符串结束符，这样使用strle
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

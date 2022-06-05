@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/java/concurrency-programming/" />
@@ -215,22 +215,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|----------------------------------------------------------------------------------------|--------------------|
-|                                    Object Header (64 bits)                             |        State       |
-|-------------------------------------------------------|--------------------------------|--------------------|
-|                  Mark Word (32 bits)                  |      Klass Word (32 bits)      |                    |
-|-------------------------------------------------------|--------------------------------|--------------------|
-| identity_hashcode:25 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Normal       |
-|-------------------------------------------------------|--------------------------------|--------------------|
-|  thread:23 | epoch:2 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Biased       |
-|-------------------------------------------------------|--------------------------------|--------------------|
-|               ptr_to_lock_record:30          | lock:2 |      OOP to metadata object    | Lightweight Locked |
-|-------------------------------------------------------|--------------------------------|--------------------|
-|               ptr_to_heavyweight_monitor:30  | lock:2 |      OOP to metadata object    | Heavyweight Locked |
-|-------------------------------------------------------|--------------------------------|--------------------|
-|                                              | lock:2 |      OOP to metadata object    |    Marked for GC   |
-|-------------------------------------------------------|--------------------------------|--------------------|
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|----------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                    Object Header (64 bits)                             |        State       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                  Mark Word (32 bits)                  |      Klass Word (32 bits)      |                    |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| identity_hashcode:25 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Normal       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|  thread:23 | epoch:2 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Biased       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|               ptr_to_lock_record:30          | lock:2 |      OOP to metadata object    | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|               ptr_to_heavyweight_monitor:30  | lock:2 |      OOP to metadata object    | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                              | lock:2 |      OOP to metadata object    |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -272,22 +272,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|------------------------------------------------------------------------------------------------------------|--------------------|
-|                                            Object Header (128 bits)                                        |        State       |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                                  Mark Word (64 bits)                         |    Klass Word (64 bits)     |                    |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-| unused:25 | identity_hashcode:31 | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-| thread:54 |       epoch:2        | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                       ptr_to_lock_record:62                         | lock:2 |    OOP to metadata object   | Lightweight Locked |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                     ptr_to_heavyweight_monitor:62                   | lock:2 |    OOP to metadata object   | Heavyweight Locked |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                                                                     | lock:2 |    OOP to metadata object   |    Marked for GC   |
-|------------------------------------------------------------------------------|-----------------------------|--------------------|
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|------------------------------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                            Object Header (128 bits)                                        |        State       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                  Mark Word (64 bits)                         |    Klass Word (64 bits)     |                    |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| unused:25 | identity_hashcode:31 | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| thread:54 |       epoch:2        | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                       ptr_to_lock_record:62                         | lock:2 |    OOP to metadata object   | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                     ptr_to_heavyweight_monitor:62                   | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                                                     | lock:2 |    OOP to metadata object   |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -333,22 +333,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|--------------------------------------------------------------------------------------------------------------|--------------------|
-|                                            Object Header (96 bits)                                           |        State       |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                                  Mark Word (64 bits)                           |    Klass Word (32 bits)     |                    |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-| unused:25 | identity_hashcode:31 | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-| thread:54 |       epoch:2        | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                         ptr_to_lock_record                            | lock:2 |    OOP to metadata object   | Lightweight Locked |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                     ptr_to_heavyweight_monitor                        | lock:2 |    OOP to metadata object   | Heavyweight Locked |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-|                                                                       | lock:2 |    OOP to metadata object   |    Marked for GC   |
-|--------------------------------------------------------------------------------|-----------------------------|--------------------|
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|--------------------------------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                            Object Header (96 bits)                                           |        State       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                  Mark Word (64 bits)                           |    Klass Word (32 bits)     |                    |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| unused:25 | identity_hashcode:31 | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| thread:54 |       epoch:2        | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                         ptr_to_lock_record                            | lock:2 |    OOP to metadata object   | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                     ptr_to_heavyweight_monitor                        | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                                                       | lock:2 |    OOP to metadata object   |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>偏向锁：大多数情况下，没有锁竞争，偏向锁在等到竞争时才会释放锁。有竞争时 ，会在全局安全点撤销偏向锁。</p>
 <p>使用-XX:BiasedeLoackingStartupDelay=0，如果大多数锁处于竞争状态，可以使用-XX:UseBiasedLocking=false关闭，这样程序会默认进入轻量级锁的状态。</p>
@@ -414,10 +414,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">memory</span> <span class="o">=</span> <span class="n">allocate</span><span class="o">();</span>  <span class="c1">// 1. 分配对象的内存空间
-</span><span class="c1"></span><span class="n">ctorInstance</span><span class="o">(</span><span class="n">memory</span><span class="o">);</span> <span class="c1">// 2. 初始化对象，完成后instance != null
-</span><span class="c1"></span><span class="n">instance</span> <span class="o">=</span> <span class="n">memory</span><span class="o">;</span>    <span class="c1">// 3. 设置instance指向刚分配的内存地址
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">memory</span> <span class="o">=</span> <span class="n">allocate</span><span class="o">();</span>  <span class="c1">// 1. 分配对象的内存空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ctorInstance</span><span class="o">(</span><span class="n">memory</span><span class="o">);</span> <span class="c1">// 2. 初始化对象，完成后instance != null
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">instance</span> <span class="o">=</span> <span class="n">memory</span><span class="o">;</span>    <span class="c1">// 3. 设置instance指向刚分配的内存地址
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>回顾类加载的时机：<strong>加载</strong>（通过全限定名获取二进制字节流，转化为方法区运行时数据结构，生成java.lang.Class对象），<strong>验证</strong>（文件格式，元数据，字节码，符号引用），<strong>准备</strong>（正式分配内存并且初始化值，对应上述代码的1，2步骤），<strong>解析</strong>（将常量池的符号引用替换为直接引用；符号引用就是一组符号来描述目标，可以是任何字面量。<strong>直接引用</strong>就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。），<strong>初始化</strong>（初始化阶段是执行初始化方法 &lt;clinit&gt; ()方法的过程，对静态变量/代码块进行初始化，会保证多线程安全性），使用，卸载。</p>
 <p>使用volatile后，可以防止2，3之间的重排序。</p>
@@ -535,7 +535,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

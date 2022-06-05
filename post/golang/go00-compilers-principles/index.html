@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/golang/go00-compilers-principles/" />
@@ -204,16 +204,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;fmt&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用lex命令转化为C语言代码：</p>
 <div class="highlight"><div class="chroma">
@@ -252,39 +252,39 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kt">int</span> <span class="nf">yylex</span> <span class="p">(</span><span class="nx">void</span><span class="p">)</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="nf">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="o">...</span>
-<span class="nx">yy_match</span><span class="p">:</span>
-    <span class="nx">do</span> <span class="p">{</span>
-      <span class="nx">register</span> <span class="nx">YY_CHAR</span> <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_ec</span><span class="p">[</span><span class="nf">YY_SC_TO_UI</span><span class="p">(</span><span class="o">*</span><span class="nx">yy_cp</span><span class="p">)];</span>
-      <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_accept</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="p">(</span><span class="nx">yy_last_accepting_state</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_current_state</span><span class="p">;</span>
-        <span class="p">(</span><span class="nx">yy_last_accepting_cpos</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_cp</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_chk</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="nx">yy_c</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">yy_current_state</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nx">yy_def</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">];</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_current_state</span> <span class="o">&gt;=</span> <span class="mi">30</span> <span class="p">)</span>
-          <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_meta</span><span class="p">[(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
-        <span class="p">}</span>
-      <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="nx">yy_nxt</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
-      <span class="o">++</span><span class="nx">yy_cp</span><span class="p">;</span>
-    <span class="p">}</span> <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">37</span> <span class="p">);</span>
-    <span class="o">...</span>
-
-<span class="nx">do_action</span><span class="p">:</span>
-    <span class="k">switch</span> <span class="p">(</span> <span class="nx">yy_act</span> <span class="p">)</span>
-      <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
-          <span class="o">...</span>
-
-      <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
-          <span class="nx">YY_RULE_SETUP</span>
-          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;PACKAGE &#34;</span><span class="p">);</span>
-          <span class="nx">YY_BREAK</span>
-      <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">yylex</span> <span class="p">(</span><span class="nx">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nx">yy_match</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">register</span> <span class="nx">YY_CHAR</span> <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_ec</span><span class="p">[</span><span class="nf">YY_SC_TO_UI</span><span class="p">(</span><span class="o">*</span><span class="nx">yy_cp</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_accept</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nx">yy_last_accepting_state</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_current_state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nx">yy_last_accepting_cpos</span><span class="p">)</span> <span class="p">=</span> <span class="nx">yy_cp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_chk</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="nx">yy_c</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">yy_current_state</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nx">yy_def</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="nx">yy_current_state</span> <span class="o">&gt;=</span> <span class="mi">30</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">yy_c</span> <span class="p">=</span> <span class="nx">yy_meta</span><span class="p">[(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">yy_current_state</span> <span class="p">=</span> <span class="nx">yy_nxt</span><span class="p">[</span><span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="nx">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">yy_c</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="o">++</span><span class="nx">yy_cp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="nf">while</span> <span class="p">(</span> <span class="nx">yy_base</span><span class="p">[</span><span class="nx">yy_current_state</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">37</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">do_action</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span> <span class="nx">yy_act</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">YY_RULE_SETUP</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;PACKAGE &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="nx">YY_BREAK</span>
+</span></span><span class="line"><span class="cl">      <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>除了基本的宏定义以外，全部函数都使用有限自动机模型来解析输入的字符串，将上述Go代码作为lex输入可得：</p>
 <div class="highlight"><div class="chroma">
@@ -300,16 +300,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">PACKAGE  IDENT
-
-IMPORT  LPAREN
-  QUOTE IDENT QUOTE
-RPAREN
-
-IDENT  IDENT LPAREN RPAREN  LBRACE
-  IDENT DOT IDENT LPAREN QUOTE IDENT QUOTE RPAREN
-RBRACE
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PACKAGE  IDENT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">IMPORT  LPAREN
+</span></span><span class="line"><span class="cl">  QUOTE IDENT QUOTE
+</span></span><span class="line"><span class="cl">RPAREN
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">IDENT  IDENT LPAREN RPAREN  LBRACE
+</span></span><span class="line"><span class="cl">  IDENT DOT IDENT LPAREN QUOTE IDENT QUOTE RPAREN
+</span></span><span class="line"><span class="cl">RBRACE
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Go语言的词法解析通过scanner结构体实现</p>
 <div class="highlight"><div class="chroma">
@@ -331,22 +331,22 @@ RBRACE
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">scanner</span> <span class="kd">struct</span> <span class="p">{</span>
-  <span class="nx">source</span>
-  <span class="nx">mode</span>   <span class="kt">uint</span>
-  <span class="nx">nlsemi</span> <span class="kt">bool</span>
-
-  <span class="c1">// current token, valid after calling next()
-</span><span class="c1"></span>  <span class="nx">line</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">uint</span>
-  <span class="nx">blank</span>     <span class="kt">bool</span> <span class="c1">// line is blank up to col
-</span><span class="c1"></span>  <span class="nx">tok</span>       <span class="nx">token</span>
-  <span class="nx">lit</span>       <span class="kt">string</span>   <span class="c1">// valid if tok is _Name, _Literal, or _Semi (&#34;semicolon&#34;, &#34;newline&#34;, or &#34;EOF&#34;); may be malformed if bad is true
-</span><span class="c1"></span>  <span class="nx">bad</span>       <span class="kt">bool</span>     <span class="c1">// valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
-</span><span class="c1"></span>  <span class="nx">kind</span>      <span class="nx">LitKind</span>  <span class="c1">// valid if tok is _Literal
-</span><span class="c1"></span>  <span class="nx">op</span>        <span class="nx">Operator</span> <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
-</span><span class="c1"></span>  <span class="nx">prec</span>      <span class="kt">int</span>      <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">scanner</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">source</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mode</span>   <span class="kt">uint</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">nlsemi</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// current token, valid after calling next()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">line</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">uint</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">blank</span>     <span class="kt">bool</span> <span class="c1">// line is blank up to col
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">tok</span>       <span class="nx">token</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">lit</span>       <span class="kt">string</span>   <span class="c1">// valid if tok is _Name, _Literal, or _Semi (&#34;semicolon&#34;, &#34;newline&#34;, or &#34;EOF&#34;); may be malformed if bad is true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">bad</span>       <span class="kt">bool</span>     <span class="c1">// valid if tok is _Literal, true if a syntax error occurred, lit may be malformed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">kind</span>      <span class="nx">LitKind</span>  <span class="c1">// valid if tok is _Literal
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">op</span>        <span class="nx">Operator</span> <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">prec</span>      <span class="kt">int</span>      <span class="c1">// valid if tok is _Operator, _AssignOp, or _IncOp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其定义的next获取未解析的下一个字符，根据字符类型决定下一个case。</p>
 <div class="highlight"><div class="chroma">
@@ -379,33 +379,33 @@ RBRACE
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
-  <span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
-  <span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-  <span class="p">}</span>
-
-  <span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
-  <span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
-  <span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
-    <span class="k">return</span>
-  <span class="p">}</span>
-
-  <span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
-  <span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_EOF</span>
-
-  <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="sc">&#39;1&#39;</span><span class="p">,</span> <span class="sc">&#39;2&#39;</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="sc">&#39;4&#39;</span><span class="p">,</span> <span class="sc">&#39;5&#39;</span><span class="p">,</span> <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;7&#39;</span><span class="p">,</span> <span class="sc">&#39;8&#39;</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">:</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">number</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
-  <span class="o">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_EOF</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="sc">&#39;1&#39;</span><span class="p">,</span> <span class="sc">&#39;2&#39;</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="sc">&#39;4&#39;</span><span class="p">,</span> <span class="sc">&#39;5&#39;</span><span class="p">,</span> <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;7&#39;</span><span class="p">,</span> <span class="sc">&#39;8&#39;</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">number</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此外，在go/scanner和go/token也提供了一些接口用以扫描源代码，示例如下</p>
 <div class="highlight"><div class="chroma">
@@ -426,21 +426,21 @@ RBRACE
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">src</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;cos(x)+2i*sin(x)&#34;</span><span class="p">)</span> <span class="c1">//So God exists
-</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scanner</span>
-    <span class="nx">fset</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">NewFileSet</span><span class="p">()</span>
-    <span class="nx">file</span> <span class="o">:=</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">AddFile</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Base</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">ScanComments</span><span class="p">)</span>
-    <span class="k">for</span> <span class="p">{</span>
-        <span class="nx">pos</span><span class="p">,</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nx">tok</span> <span class="o">==</span> <span class="nx">token</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
-            <span class="k">break</span>
-        <span class="p">}</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s\t%s\t%q\n&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Position</span><span class="p">(</span><span class="nx">pos</span><span class="p">),</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">src</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;cos(x)+2i*sin(x)&#34;</span><span class="p">)</span> <span class="c1">//So God exists
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">s</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scanner</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fset</span> <span class="o">:=</span> <span class="nx">token</span><span class="p">.</span><span class="nf">NewFileSet</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">file</span> <span class="o">:=</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">AddFile</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Base</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">Init</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">ScanComments</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">pos</span><span class="p">,</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">tok</span> <span class="o">==</span> <span class="nx">token</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s\t%s\t%q\n&#34;</span><span class="p">,</span> <span class="nx">fset</span><span class="p">.</span><span class="nf">Position</span><span class="p">(</span><span class="nx">pos</span><span class="p">),</span> <span class="nx">tok</span><span class="p">,</span> <span class="nx">lit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="3-syntax-analysis">3. Syntax Analysis</h2>
 <h3 id="31-definition">3.1. Definition</h3>
@@ -457,8 +457,8 @@ RBRACE
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">SourceFile</span> <span class="p">=</span> <span class="nx">PackageClause</span> <span class="s">&#34;;&#34;</span> <span class="p">{</span> <span class="nx">ImportDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">{</span> <span class="nx">TopLevelDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">SourceFile</span> <span class="p">=</span> <span class="nx">PackageClause</span> <span class="s">&#34;;&#34;</span> <span class="p">{</span> <span class="nx">ImportDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">{</span> <span class="nx">TopLevelDecl</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>每一个文件都包含一个 <code>package</code> 的定义以及可选的 <code>import</code> 声明和其他的顶层声明，其还包括syntax结构体。</p>
 <p>最顶层的声名包括了五大基本类型：常量、类型、变量、函数、方法</p>
@@ -476,17 +476,17 @@ RBRACE
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">ConstDecl</span> <span class="p">=</span> <span class="s">&#34;const&#34;</span> <span class="p">(</span> <span class="nx">ConstSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">ConstSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
-<span class="nx">ConstSpec</span> <span class="p">=</span> <span class="nx">IdentifierList</span> <span class="p">[</span> <span class="p">[</span> <span class="nx">Type</span> <span class="p">]</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">.</span>
-
-<span class="nx">TypeDecl</span>  <span class="p">=</span> <span class="s">&#34;type&#34;</span> <span class="p">(</span> <span class="nx">TypeSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">TypeSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
-<span class="nx">TypeSpec</span>  <span class="p">=</span> <span class="nx">AliasDecl</span> <span class="p">|</span> <span class="nx">TypeDef</span> <span class="p">.</span>
-<span class="nx">AliasDecl</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="s">&#34;=&#34;</span> <span class="nx">Type</span> <span class="p">.</span>
-<span class="nx">TypeDef</span>   <span class="p">=</span> <span class="nx">identifier</span> <span class="nx">Type</span> <span class="p">.</span>
-
-<span class="nx">VarDecl</span> <span class="p">=</span> <span class="s">&#34;var&#34;</span> <span class="p">(</span> <span class="nx">VarSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">VarSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
-<span class="nx">VarSpec</span> <span class="p">=</span> <span class="nf">IdentifierList</span> <span class="p">(</span> <span class="nx">Type</span> <span class="p">[</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">|</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">)</span> <span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">ConstDecl</span> <span class="p">=</span> <span class="s">&#34;const&#34;</span> <span class="p">(</span> <span class="nx">ConstSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">ConstSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ConstSpec</span> <span class="p">=</span> <span class="nx">IdentifierList</span> <span class="p">[</span> <span class="p">[</span> <span class="nx">Type</span> <span class="p">]</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">TypeDecl</span>  <span class="p">=</span> <span class="s">&#34;type&#34;</span> <span class="p">(</span> <span class="nx">TypeSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">TypeSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">TypeSpec</span>  <span class="p">=</span> <span class="nx">AliasDecl</span> <span class="p">|</span> <span class="nx">TypeDef</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">AliasDecl</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="s">&#34;=&#34;</span> <span class="nx">Type</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">TypeDef</span>   <span class="p">=</span> <span class="nx">identifier</span> <span class="nx">Type</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">VarDecl</span> <span class="p">=</span> <span class="s">&#34;var&#34;</span> <span class="p">(</span> <span class="nx">VarSpec</span> <span class="p">|</span> <span class="s">&#34;(&#34;</span> <span class="p">{</span> <span class="nx">VarSpec</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="s">&#34;)&#34;</span> <span class="p">)</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">VarSpec</span> <span class="p">=</span> <span class="nf">IdentifierList</span> <span class="p">(</span> <span class="nx">Type</span> <span class="p">[</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">]</span> <span class="p">|</span> <span class="s">&#34;=&#34;</span> <span class="nx">ExpressionList</span> <span class="p">)</span> <span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>此即对应着const、type 和 var，而函数和函数和方法的定义就更加复杂</p>
 <div class="highlight"><div class="chroma">
@@ -510,24 +510,24 @@ RBRACE
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">FunctionDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">FunctionName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
-<span class="nx">FunctionName</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="p">.</span>
-<span class="nx">FunctionBody</span> <span class="p">=</span> <span class="nx">Block</span> <span class="p">.</span>
-
-<span class="nx">MethodDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">Receiver</span> <span class="nx">MethodName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
-<span class="nx">Receiver</span>   <span class="p">=</span> <span class="nx">Parameters</span> <span class="p">.</span>
-
-<span class="nx">Block</span> <span class="p">=</span> <span class="s">&#34;{&#34;</span> <span class="nx">StatementList</span> <span class="s">&#34;}&#34;</span> <span class="p">.</span>
-<span class="nx">StatementList</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">Statement</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
-
-<span class="nx">Statement</span> <span class="p">=</span>
-  <span class="nx">Declaration</span> <span class="p">|</span> <span class="nx">LabeledStmt</span> <span class="p">|</span> <span class="nx">SimpleStmt</span> <span class="p">|</span>
-  <span class="nx">GoStmt</span> <span class="p">|</span> <span class="nx">ReturnStmt</span> <span class="p">|</span> <span class="nx">BreakStmt</span> <span class="p">|</span> <span class="nx">ContinueStmt</span> <span class="p">|</span> <span class="nx">GotoStmt</span> <span class="p">|</span>
-  <span class="nx">FallthroughStmt</span> <span class="p">|</span> <span class="nx">Block</span> <span class="p">|</span> <span class="nx">IfStmt</span> <span class="p">|</span> <span class="nx">SwitchStmt</span> <span class="p">|</span> <span class="nx">SelectStmt</span> <span class="p">|</span> <span class="nx">ForStmt</span> <span class="p">|</span>
-  <span class="nx">DeferStmt</span> <span class="p">.</span>
-
-<span class="nx">SimpleStmt</span> <span class="p">=</span> <span class="nx">EmptyStmt</span> <span class="p">|</span> <span class="nx">ExpressionStmt</span> <span class="p">|</span> <span class="nx">SendStmt</span> <span class="p">|</span> <span class="nx">IncDecStmt</span> <span class="p">|</span> <span class="nx">Assignment</span> <span class="p">|</span> <span class="nx">ShortVarDecl</span> <span class="p">.</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">FunctionDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">FunctionName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">FunctionName</span> <span class="p">=</span> <span class="nx">identifier</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">FunctionBody</span> <span class="p">=</span> <span class="nx">Block</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">MethodDecl</span> <span class="p">=</span> <span class="s">&#34;func&#34;</span> <span class="nx">Receiver</span> <span class="nx">MethodName</span> <span class="nx">Signature</span> <span class="p">[</span> <span class="nx">FunctionBody</span> <span class="p">]</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Receiver</span>   <span class="p">=</span> <span class="nx">Parameters</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Block</span> <span class="p">=</span> <span class="s">&#34;{&#34;</span> <span class="nx">StatementList</span> <span class="s">&#34;}&#34;</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="nx">StatementList</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">Statement</span> <span class="s">&#34;;&#34;</span> <span class="p">}</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Statement</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">Declaration</span> <span class="p">|</span> <span class="nx">LabeledStmt</span> <span class="p">|</span> <span class="nx">SimpleStmt</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">GoStmt</span> <span class="p">|</span> <span class="nx">ReturnStmt</span> <span class="p">|</span> <span class="nx">BreakStmt</span> <span class="p">|</span> <span class="nx">ContinueStmt</span> <span class="p">|</span> <span class="nx">GotoStmt</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">FallthroughStmt</span> <span class="p">|</span> <span class="nx">Block</span> <span class="p">|</span> <span class="nx">IfStmt</span> <span class="p">|</span> <span class="nx">SwitchStmt</span> <span class="p">|</span> <span class="nx">SelectStmt</span> <span class="p">|</span> <span class="nx">ForStmt</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">DeferStmt</span> <span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">SimpleStmt</span> <span class="p">=</span> <span class="nx">EmptyStmt</span> <span class="p">|</span> <span class="nx">ExpressionStmt</span> <span class="p">|</span> <span class="nx">SendStmt</span> <span class="p">|</span> <span class="nx">IncDecStmt</span> <span class="p">|</span> <span class="nx">Assignment</span> <span class="p">|</span> <span class="nx">ShortVarDecl</span> <span class="p">.</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里的语法结构就对应了常见的 switch/case、if/else、for 循环以及 select 等语句。</p>
 <p>这里再次以基础的程序为示例</p>
@@ -547,19 +547,19 @@ RBRACE
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>  <span class="c1">// PkgName
-</span><span class="c1"></span>
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>  <span class="c1">// ImportDecl
-</span><span class="c1"></span>
-<span class="kd">const</span> <span class="nx">word</span> <span class="p">=</span> <span class="s">&#34;world!&#34;</span>  <span class="c1">// ConstDecl
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">mystr</span> <span class="kt">string</span>  <span class="c1">// TypeDecl
-</span><span class="c1"></span><span class="kd">var</span> <span class="nx">hello</span> <span class="nx">mystr</span> <span class="p">=</span> <span class="s">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="nx">world</span> <span class="c1">// VarDecl
-</span><span class="c1"></span>
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">hello</span><span class="p">)</span>  <span class="c1">// FuncDecl  -&gt;  CallExpr  
-</span><span class="c1"></span>                      <span class="c1">//-&gt; SelectorExpr(Name:fmt, Name:Println), Name = hello
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>  <span class="c1">// PkgName
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>  <span class="c1">// ImportDecl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">word</span> <span class="p">=</span> <span class="s">&#34;world!&#34;</span>  <span class="c1">// ConstDecl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">mystr</span> <span class="kt">string</span>  <span class="c1">// TypeDecl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">hello</span> <span class="nx">mystr</span> <span class="p">=</span> <span class="s">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="nx">world</span> <span class="c1">// VarDecl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">hello</span><span class="p">)</span>  <span class="c1">// FuncDecl  -&gt;  CallExpr  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                      <span class="c1">//-&gt; SelectorExpr(Name:fmt, Name:Println), Name = hello
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在执行语法分析的过程中，常见两种方法：</p>
 <p>自顶向下：可以被看作找到当前输入流最左推导的过程，对于任意一个输入流，根据当前的输入符号，确定一个生产规则，使用生产规则右侧的符号替代相应的非终结符向下推导</p>
@@ -585,21 +585,21 @@ RBRACE
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// noder transforms package syntax&#39;s AST into a Node tree.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">noder</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">posMap</span>
-
-    <span class="nx">file</span>           <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">File</span>
-    <span class="nx">linknames</span>      <span class="p">[]</span><span class="nx">linkname</span>
-    <span class="nx">pragcgobuf</span>     <span class="p">[][]</span><span class="kt">string</span>
-    <span class="nx">err</span>            <span class="kd">chan</span> <span class="nx">syntax</span><span class="p">.</span><span class="nx">Error</span>
-    <span class="nx">importedUnsafe</span> <span class="kt">bool</span>
-    <span class="nx">importedEmbed</span>  <span class="kt">bool</span>
-    <span class="nx">trackScopes</span>    <span class="kt">bool</span>
-
-    <span class="nx">funcState</span> <span class="o">*</span><span class="nx">funcState</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// noder transforms package syntax&#39;s AST into a Node tree.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">noder</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">posMap</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">file</span>           <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">File</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">linknames</span>      <span class="p">[]</span><span class="nx">linkname</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pragcgobuf</span>     <span class="p">[][]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">err</span>            <span class="kd">chan</span> <span class="nx">syntax</span><span class="p">.</span><span class="nx">Error</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">importedUnsafe</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">importedEmbed</span>  <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">trackScopes</span>    <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">funcState</span> <span class="o">*</span><span class="nx">funcState</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>利用decls将源文件的所有声明语句转换为Node数组</p>
 <div class="highlight"><div class="chroma">
@@ -627,28 +627,28 @@ RBRACE
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">noder</span><span class="p">)</span> <span class="nf">decls</span><span class="p">(</span><span class="nx">decls</span> <span class="p">[]</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">Decl</span><span class="p">)</span> <span class="p">(</span><span class="nx">l</span> <span class="p">[]</span><span class="nx">ir</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">cs</span> <span class="nx">constState</span>
-    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">decls</span> <span class="p">{</span>
-        <span class="nx">p</span><span class="p">.</span><span class="nf">setlineno</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
-        <span class="k">switch</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="nx">decl</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ImportDecl</span><span class="p">:</span>
-            <span class="nx">p</span><span class="p">.</span><span class="nf">importDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
-        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">VarDecl</span><span class="p">:</span>
-            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">varDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
-        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ConstDecl</span><span class="p">:</span>
-            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">constDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">cs</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
-        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">TypeDecl</span><span class="p">:</span>
-            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">typeDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
-        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">FuncDecl</span><span class="p">:</span>
-            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">funcDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
-        <span class="k">default</span><span class="p">:</span>
-            <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;unhandled Decl&#34;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">noder</span><span class="p">)</span> <span class="nf">decls</span><span class="p">(</span><span class="nx">decls</span> <span class="p">[]</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">Decl</span><span class="p">)</span> <span class="p">(</span><span class="nx">l</span> <span class="p">[]</span><span class="nx">ir</span><span class="p">.</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">cs</span> <span class="nx">constState</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">decls</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">p</span><span class="p">.</span><span class="nf">setlineno</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="nx">decl</span> <span class="o">:=</span> <span class="nx">decl</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ImportDecl</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">p</span><span class="p">.</span><span class="nf">importDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">VarDecl</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">varDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">ConstDecl</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">constDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">cs</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">TypeDecl</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">typeDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="o">*</span><span class="nx">syntax</span><span class="p">.</span><span class="nx">FuncDecl</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">l</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">l</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nf">funcDecl</span><span class="p">(</span><span class="nx">decl</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;unhandled Decl&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>stringer</code> 充分利用了 Go 语言标准库对编译器各种能力的支持，其中包括用于解析抽象语法树的 <code>go/ast</code>、用于格式化代码的 <code>go/fmt</code>等，Go 通过标准库中的这些包对外直接提供了编译器的相关能力，让使用者可以直接在它们上面构建复杂的代码生成机制并实施元编程技术。</p>
 <p>作为二进制文件，<code>stringer</code> 命令的入口就是如下所示的 <code>golang/tools/main.main</code>函数，在下面的代码中，我们初始化了一个用于解析源文件和生成代码的 <code>golang/tools/main.Generator</code>，然后开始拼接生成的文件：</p>
@@ -683,34 +683,34 @@ RBRACE
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">types</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="o">*</span><span class="nx">typeNames</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
-  <span class="o">...</span>
-  <span class="nx">g</span> <span class="o">:=</span> <span class="nx">Generator</span><span class="p">{</span>
-    <span class="nx">trimPrefix</span><span class="p">:</span>  <span class="o">*</span><span class="nx">trimprefix</span><span class="p">,</span>
-    <span class="nx">lineComment</span><span class="p">:</span> <span class="o">*</span><span class="nx">linecomment</span><span class="p">,</span>
-  <span class="p">}</span>
-  <span class="o">...</span>
-
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;// Code generated by \&#34;stringer %s\&#34;; DO NOT EDIT.\n&#34;</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s">&#34; &#34;</span><span class="p">))</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;package %s&#34;</span><span class="p">,</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;import \&#34;strconv\&#34;\n&#34;</span><span class="p">)</span>
-
-  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">typeName</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">types</span> <span class="p">{</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span><span class="p">)</span>
-  <span class="p">}</span>
-
-  <span class="nx">src</span> <span class="o">:=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">format</span><span class="p">()</span>
-
-  <span class="nx">baseName</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s_string.go&#34;</span><span class="p">,</span> <span class="nx">types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-  <span class="nx">outputName</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">baseName</span><span class="p">))</span>
-  <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputName</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;writing output: %s&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">types</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="o">*</span><span class="nx">typeNames</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span> <span class="o">:=</span> <span class="nx">Generator</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">trimPrefix</span><span class="p">:</span>  <span class="o">*</span><span class="nx">trimprefix</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lineComment</span><span class="p">:</span> <span class="o">*</span><span class="nx">linecomment</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;// Code generated by \&#34;stringer %s\&#34;; DO NOT EDIT.\n&#34;</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s">&#34; &#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;package %s&#34;</span><span class="p">,</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;import \&#34;strconv\&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">typeName</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">types</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">src</span> <span class="o">:=</span> <span class="nx">g</span><span class="p">.</span><span class="nf">format</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">baseName</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%s_string.go&#34;</span><span class="p">,</span> <span class="nx">types</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">outputName</span> <span class="p">=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">dir</span><span class="p">,</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ToLower</span><span class="p">(</span><span class="nx">baseName</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputName</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;writing output: %s&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从这段代码中我们能看到最终生成文件的轮廓，最上面的调用的几次 <code>golang/tools/main.Generator.Printf</code> 会在内存中写入文件头的注释、当前包名以及引入的包等，随后会为待处理的类型依次调用 <code>golang/tools/main.Generator.generate</code>，这里会生成一个签名为 <code>_</code> 的函数，通过编译器保证枚举类型的值不会改变：</p>
 <div class="highlight"><div class="chroma">
@@ -742,32 +742,32 @@ RBRACE
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">values</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Value</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">files</span> <span class="p">{</span>
-    <span class="nx">file</span><span class="p">.</span><span class="nx">typeName</span> <span class="p">=</span> <span class="nx">typeName</span>
-    <span class="nx">file</span><span class="p">.</span><span class="nx">values</span> <span class="p">=</span> <span class="kc">nil</span>
-    <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">file</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">ast</span><span class="p">.</span><span class="nf">Inspect</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">file</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">genDecl</span><span class="p">)</span>
-      <span class="nx">values</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">values</span><span class="o">...</span><span class="p">)</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;func _() {\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// An \&#34;invalid array index\&#34; compiler error signifies that the constant values have changed.\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// Re-run the stringer command to generate them again.\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\tvar x [1]struct{}\n&#34;</span><span class="p">)</span>
-  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">values</span> <span class="p">{</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t_ = x[%s - %s]\n&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">originalName</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">str</span><span class="p">)</span>
-  <span class="p">}</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;}\n&#34;</span><span class="p">)</span>
-  <span class="nx">runs</span> <span class="o">:=</span> <span class="nf">splitIntoRuns</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
-  <span class="k">switch</span> <span class="p">{</span>
-  <span class="k">case</span> <span class="nb">len</span><span class="p">(</span><span class="nx">runs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
-  <span class="o">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">generate</span><span class="p">(</span><span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">values</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">Value</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">file</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">g</span><span class="p">.</span><span class="nx">pkg</span><span class="p">.</span><span class="nx">files</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">file</span><span class="p">.</span><span class="nx">typeName</span> <span class="p">=</span> <span class="nx">typeName</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">file</span><span class="p">.</span><span class="nx">values</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">file</span><span class="p">.</span><span class="nx">file</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ast</span><span class="p">.</span><span class="nf">Inspect</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">file</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">genDecl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">values</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">file</span><span class="p">.</span><span class="nx">values</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;func _() {\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// An \&#34;invalid array index\&#34; compiler error signifies that the constant values have changed.\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t// Re-run the stringer command to generate them again.\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\tvar x [1]struct{}\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">values</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\t_ = x[%s - %s]\n&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">originalName</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;}\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">runs</span> <span class="o">:=</span> <span class="nf">splitIntoRuns</span><span class="p">(</span><span class="nx">values</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nb">len</span><span class="p">(</span><span class="nx">runs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>随后调用的 <code>golang/tools/main.Generator.buildOneRun</code> 会生成两个常量的声明语句并为类型定义 <code>String</code> 方法，其中引用的 <code>stringOneRun</code> 常量是方法的模板，与 Web 服务的前端 HTML 模板比较相似：</p>
 <div class="highlight"><div class="chroma">
@@ -787,20 +787,20 @@ RBRACE
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span> <span class="p">[][]</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">values</span> <span class="o">:=</span> <span class="nx">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">declareIndexAndNameVar</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
-  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nx">stringOneRun</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">,</span> <span class="nf">usize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">values</span><span class="p">)),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">stringOneRun</span> <span class="p">=</span> <span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="o">%</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="nx">si</span> <span class="o">&gt;=</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nf">s</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s">&#34;%[1]s(&#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_name</span><span class="p">[</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="p">]:</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Generator</span><span class="p">)</span> <span class="nf">buildOneRun</span><span class="p">(</span><span class="nx">runs</span> <span class="p">[][]</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">typeName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">values</span> <span class="o">:=</span> <span class="nx">runs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\n&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">declareIndexAndNameVar</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">g</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="nx">stringOneRun</span><span class="p">,</span> <span class="nx">typeName</span><span class="p">,</span> <span class="nf">usize</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">values</span><span class="p">)),</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">stringOneRun</span> <span class="p">=</span> <span class="kd">func</span> <span class="p">(</span><span class="nx">i</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">%</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="nx">si</span> <span class="o">&gt;=</span> <span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nf">s</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;%[1]s(&#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;)&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_name</span><span class="p">[</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="p">]:</span><span class="nx">_</span><span class="o">%</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="nx">s_index</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>整个生成代码的过程就是使用编译器提供的库解析源文件并按照已有的模板生成新的代码，这与 Web 服务中利用模板生成 HTML 文件没有太多的区别，只是生成文件的用途稍微有一些不同。</p>
 <h2 id="4-after-ast">4. After AST</h2>
@@ -822,13 +822,13 @@ RBRACE
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">index</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">//cannot inline fib: recursive
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">index</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">index</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fib</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">//cannot inline fib: recursive
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>附其余编译器指示：</p>
 <p>//go:noescape 指令后面必须跟一个没有主体的函数声明（意味着该函数的实现不是用 Go 编写的）</p>
@@ -859,14 +859,14 @@ RBRACE
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">compileSSA</span><span class="p">(</span><span class="nx">fn</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">worker</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">f</span> <span class="o">:=</span> <span class="nf">buildssa</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
-  <span class="nx">pp</span> <span class="o">:=</span> <span class="nf">newProgs</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
-  <span class="nf">genssa</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">pp</span><span class="p">)</span>
-
-  <span class="nx">pp</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">compileSSA</span><span class="p">(</span><span class="nx">fn</span> <span class="o">*</span><span class="nx">Node</span><span class="p">,</span> <span class="nx">worker</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">f</span> <span class="o">:=</span> <span class="nf">buildssa</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pp</span> <span class="o">:=</span> <span class="nf">newProgs</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">worker</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">genssa</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">pp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">pp</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以通过GOSSAFUNC=hello go build hello.go来查看SSA生成的过程。</p>
 <div class="highlight"><div class="chroma">
@@ -893,27 +893,27 @@ RBRACE
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">stmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
-  <span class="o">...</span>
-  <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-  <span class="k">case</span> <span class="nx">OCALLMETH</span><span class="p">,</span> <span class="nx">OCALLINTER</span><span class="p">:</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">callNormal</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">OCALLFUNC</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">ONAME</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PFUNC</span> <span class="p">{</span>
-      <span class="k">if</span> <span class="nx">fn</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Name</span><span class="p">;</span> <span class="nx">compiling_runtime</span> <span class="o">&amp;&amp;</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throw&#34;</span> <span class="o">||</span>
-        <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Pkg</span> <span class="o">==</span> <span class="nx">Runtimepkg</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throwinit&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;gopanic&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicwrap&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;block&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicelen&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicecap&#34;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">m</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">()</span>
-        <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">endBlock</span><span class="p">()</span>
-        <span class="nx">b</span><span class="p">.</span><span class="nx">Kind</span> <span class="p">=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nx">BlockExit</span>
-        <span class="nx">b</span><span class="p">.</span><span class="nf">SetControl</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callDefer</span><span class="p">)</span>
-  <span class="k">case</span> <span class="nx">OGO</span><span class="p">:</span>
-    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callGo</span><span class="p">)</span>
-  <span class="o">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">state</span><span class="p">)</span> <span class="nf">stmt</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">Node</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nx">OCALLMETH</span><span class="p">,</span> <span class="nx">OCALLINTER</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">callNormal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">OCALLFUNC</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Op</span> <span class="o">==</span> <span class="nx">ONAME</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nf">Class</span><span class="p">()</span> <span class="o">==</span> <span class="nx">PFUNC</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="nx">fn</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Name</span><span class="p">;</span> <span class="nx">compiling_runtime</span> <span class="o">&amp;&amp;</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throw&#34;</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">.</span><span class="nx">Sym</span><span class="p">.</span><span class="nx">Pkg</span> <span class="o">==</span> <span class="nx">Runtimepkg</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;throwinit&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;gopanic&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicwrap&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;block&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicelen&#34;</span> <span class="o">||</span> <span class="nx">fn</span> <span class="o">==</span> <span class="s">&#34;panicmakeslicecap&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">m</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">mem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">endBlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">b</span><span class="p">.</span><span class="nx">Kind</span> <span class="p">=</span> <span class="nx">ssa</span><span class="p">.</span><span class="nx">BlockExit</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">b</span><span class="p">.</span><span class="nf">SetControl</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callDefer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nx">OGO</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="nx">n</span><span class="p">.</span><span class="nx">Left</span><span class="p">,</span> <span class="nx">callGo</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>从AST到SAA的转换可以发现，在遇到函数调用、方法调用、使用 defer 或者 go 关键字时都会执行 <code>cmd/compile/internal/gc.state.callResult</code> 和 <code>cmd/compile/internal/gc.state.call</code>生成调用函数的 SSA 节点，这些在开发者看来不同的概念在编译器中都会被实现成静态的函数调用，上层的关键字和方法只是语言为我们提供的语法糖。</p>
 <p>某些中间代码仍然需要编译器优化以去掉无用代码并精简操作数：</p>
@@ -935,21 +935,21 @@ RBRACE
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Compile</span><span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Log</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">f</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;compiling %s\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
-  <span class="p">}</span>
-
-  <span class="nx">phaseName</span> <span class="o">:=</span> <span class="s">&#34;init&#34;</span>
-
-  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">passes</span> <span class="p">{</span>
-    <span class="nx">f</span><span class="p">.</span><span class="nx">pass</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">p</span>
-    <span class="nx">p</span><span class="p">.</span><span class="nf">fn</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
-  <span class="p">}</span>
-
-  <span class="nx">phaseName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Compile</span><span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">Func</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Log</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;compiling %s\n&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">phaseName</span> <span class="o">:=</span> <span class="s">&#34;init&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">passes</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span><span class="p">.</span><span class="nx">pass</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">p</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">p</span><span class="p">.</span><span class="nf">fn</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">phaseName</span> <span class="p">=</span> <span class="s">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="6-machine-code-generation">6. Machine Code Generation</h2>
 <p>SSA 降级是在中间代码生成的过程中完成的，其中将近 50 轮处理的过程中，<code>lower</code> 以及后面的阶段都属于 SSA 降级这一过程，这么多轮的处理会将 SSA 转换成机器特定的操作：</p>
@@ -965,15 +965,15 @@ RBRACE
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">passes</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="nx">pass</span><span class="p">{</span>
-  <span class="o">...</span>
-  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lower&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">lower</span><span class="p">,</span> <span class="nx">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
-  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered deadcode for cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">deadcode</span><span class="p">},</span> <span class="c1">// deadcode immediately before CSE avoids CSE making dead values live again
-</span><span class="c1"></span>  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">cse</span><span class="p">},</span>
-  <span class="o">...</span>
-  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;trim&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">trim</span><span class="p">},</span> <span class="c1">// remove empty blocks
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">passes</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="nx">pass</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lower&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">lower</span><span class="p">,</span> <span class="nx">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered deadcode for cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">deadcode</span><span class="p">},</span> <span class="c1">// deadcode immediately before CSE avoids CSE making dead values live again
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;lowered cse&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">cse</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="nx">name</span><span class="p">:</span> <span class="s">&#34;trim&#34;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">:</span> <span class="nx">trim</span><span class="p">},</span> <span class="c1">// remove empty blocks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>转换过程会对应CPU的架构做分析</p>
 <div class="highlight"><div class="chroma">
@@ -1011,38 +1011,38 @@ RBRACE
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">rewriteValue386</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-  <span class="k">switch</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
-  <span class="k">case</span> <span class="nx">Op386ADCL</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
-  <span class="k">case</span> <span class="nx">Op386ADDL</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADDL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_10</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_20</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
-  <span class="o">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-  <span class="c1">// match: (ADCL x (MOVLconst [c]) f)
-</span><span class="c1"></span>  <span class="c1">// cond:
-</span><span class="c1"></span>  <span class="c1">// result: (ADCLconst [c] x f)
-</span><span class="c1"></span>  <span class="k">for</span> <span class="p">{</span>
-    <span class="nx">_</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="nx">x</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nx">v_1</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">Op</span> <span class="o">!=</span> <span class="nx">Op386MOVLconst</span> <span class="p">{</span>
-      <span class="k">break</span>
-    <span class="p">}</span>
-    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">AuxInt</span>
-    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-    <span class="nx">v</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">Op386ADCLconst</span><span class="p">)</span>
-    <span class="nx">v</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">c</span>
-    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
-    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">true</span>
-  <span class="p">}</span>
-  <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">rewriteValue386</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">switch</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Op</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nx">Op386ADCL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nx">Op386ADDL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">rewriteValue386_Op386ADDL_0</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_10</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span> <span class="o">||</span> <span class="nf">rewriteValue386_Op386ADDL_20</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">rewriteValue386_Op386ADCL_0</span><span class="p">(</span><span class="nx">v</span> <span class="o">*</span><span class="nx">Value</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// match: (ADCL x (MOVLconst [c]) f)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// cond:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// result: (ADCLconst [c] x f)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_</span> <span class="p">=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v_1</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">Op</span> <span class="o">!=</span> <span class="nx">Op386MOVLconst</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">v_1</span><span class="p">.</span><span class="nx">AuxInt</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">Op386ADCLconst</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">.</span><span class="nx">AuxInt</span> <span class="p">=</span> <span class="nx">c</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">.</span><span class="nf">AddArg</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Go 语言的汇编器是基于 Plan 9 汇编器的输入类型设计的</p>
 <div class="highlight"><div class="chroma">
@@ -1069,27 +1069,27 @@ RBRACE
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">hello</span>
-
-<span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-  <span class="nx">c</span> <span class="o">:=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">2</span>
-  <span class="k">return</span> <span class="nx">c</span>
-<span class="p">}</span>
-<span class="err">$</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">linux</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span> <span class="k">go</span> <span class="nx">tool</span> <span class="nx">compile</span> <span class="o">-</span><span class="nx">S</span> <span class="nx">hello</span><span class="p">.</span><span class="k">go</span>
-<span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">hello</span> <span class="nx">STEXT</span> <span class="nx">nosplit</span> <span class="nx">size</span><span class="p">=</span><span class="mi">15</span> <span class="nx">args</span><span class="p">=</span><span class="mh">0x10</span> <span class="nx">locals</span><span class="p">=</span><span class="mh">0x0</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">TEXT</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nf">hello</span><span class="p">(</span><span class="nx">SB</span><span class="p">),</span> <span class="nx">NOSPLIT</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span><span class="o">-</span><span class="mi">16</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">1</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">3</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
-  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">a</span><span class="o">+</span><span class="mi">8</span><span class="p">(</span><span class="nx">SP</span><span class="p">),</span> <span class="nx">AX</span>
-  <span class="mh">0x0005</span> <span class="mo">00005</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">ADDQ</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="nx">AX</span>
-  <span class="mh">0x0009</span> <span class="mo">0000</span><span class="mi">9</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="nx">AX</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">.</span><span class="err">~</span><span class="nx">r1</span><span class="o">+</span><span class="mi">16</span><span class="p">(</span><span class="nx">SP</span><span class="p">)</span>
-  <span class="mh">0x000e</span> <span class="mo">00014</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">RET</span>
-  <span class="mh">0x0000</span> <span class="mi">48</span> <span class="mi">8</span><span class="nx">b</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">48</span> <span class="mi">83</span> <span class="nx">c0</span> <span class="mo">02</span> <span class="mi">48</span> <span class="mi">89</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">10</span> <span class="nx">c3</span>     <span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">.</span><span class="nx">H</span><span class="o">...</span><span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">..</span>
-<span class="o">...</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">hello</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">a</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">c</span> <span class="o">:=</span> <span class="nx">a</span> <span class="o">+</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">c</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">$</span> <span class="nx">GOOS</span><span class="p">=</span><span class="nx">linux</span> <span class="nx">GOARCH</span><span class="p">=</span><span class="nx">amd64</span> <span class="k">go</span> <span class="nx">tool</span> <span class="nx">compile</span> <span class="o">-</span><span class="nx">S</span> <span class="nx">hello</span><span class="p">.</span><span class="k">go</span>
+</span></span><span class="line"><span class="cl"><span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">hello</span> <span class="nx">STEXT</span> <span class="nx">nosplit</span> <span class="nx">size</span><span class="p">=</span><span class="mi">15</span> <span class="nx">args</span><span class="p">=</span><span class="mh">0x10</span> <span class="nx">locals</span><span class="p">=</span><span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">TEXT</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nf">hello</span><span class="p">(</span><span class="nx">SB</span><span class="p">),</span> <span class="nx">NOSPLIT</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span><span class="o">-</span><span class="mi">16</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">1</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>  <span class="nx">FUNCDATA</span>  <span class="err">$</span><span class="mi">3</span><span class="p">,</span> <span class="nx">gclocals</span><span class="err">·</span><span class="mi">33</span><span class="nf">cdeccccebe80329f1fdbee7f5874cb</span><span class="p">(</span><span class="nx">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">PCDATA</span>  <span class="err">$</span><span class="mi">0</span><span class="p">,</span> <span class="err">$</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mo">00000</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="s">&#34;&#34;</span><span class="p">.</span><span class="nx">a</span><span class="o">+</span><span class="mi">8</span><span class="p">(</span><span class="nx">SP</span><span class="p">),</span> <span class="nx">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0005</span> <span class="mo">00005</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">4</span><span class="p">)</span>  <span class="nx">ADDQ</span>  <span class="err">$</span><span class="mi">2</span><span class="p">,</span> <span class="nx">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0009</span> <span class="mo">0000</span><span class="mi">9</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">MOVQ</span>  <span class="nx">AX</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">.</span><span class="err">~</span><span class="nx">r1</span><span class="o">+</span><span class="mi">16</span><span class="p">(</span><span class="nx">SP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x000e</span> <span class="mo">00014</span> <span class="p">(</span><span class="nx">main</span><span class="p">.</span><span class="k">go</span><span class="p">:</span><span class="mi">5</span><span class="p">)</span>  <span class="nx">RET</span>
+</span></span><span class="line"><span class="cl">  <span class="mh">0x0000</span> <span class="mi">48</span> <span class="mi">8</span><span class="nx">b</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">08</span> <span class="mi">48</span> <span class="mi">83</span> <span class="nx">c0</span> <span class="mo">02</span> <span class="mi">48</span> <span class="mi">89</span> <span class="mi">44</span> <span class="mi">24</span> <span class="mi">10</span> <span class="nx">c3</span>     <span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">.</span><span class="nx">H</span><span class="o">...</span><span class="nx">H</span><span class="p">.</span><span class="nx">D</span><span class="err">$</span><span class="p">..</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述汇编代码都是由 <a href="https://draveness.me/golang/tree/cmd/internal/obj.Flushplist"><code>cmd/internal/obj.Flushplist</code></a> 这个函数生成的，该函数会调用架构特定的 <code>Preprocess</code> 和 <code>Assemble</code> 方法。自此完成最终的机器码生成。</p>
 
@@ -1196,7 +1196,7 @@ RBRACE
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

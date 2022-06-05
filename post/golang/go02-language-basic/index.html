@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/golang/go02-language-basic/" />
@@ -189,11 +189,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">funcval</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">fn</span> <span class="kt">uintptr</span>
-    <span class="c1">// variable-size, fn-specific data here
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">funcval</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fn</span> <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// variable-size, fn-specific data here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>funcval使用二级指针，可以处理闭包（1.外部定义，内部引用的自由变量 2.脱离闭包上下文也能保留这些变量）</p>
 <div class="highlight"><div class="chroma">
@@ -215,22 +215,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">create</span><span class="p">()</span> <span class="p">(</span><span class="nx">fs</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="nx">fs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span>
-<span class="p">}</span>
-<span class="c1">// i 在堆区发生变量逃逸
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">fs</span> <span class="o">:=</span> <span class="nf">create</span><span class="p">()</span>
-    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>
-        <span class="nx">fs</span><span class="p">[</span><span class="nx">i</span><span class="p">]()</span> <span class="c1">// 2 2
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">create</span><span class="p">()</span> <span class="p">(</span><span class="nx">fs</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// i 在堆区发生变量逃逸
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fs</span> <span class="o">:=</span> <span class="nf">create</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span><span class="p">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fs</span><span class="p">[</span><span class="nx">i</span><span class="p">]()</span> <span class="c1">// 2 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>函数调用一般分为两种情况：</p>
 <ul>
@@ -283,39 +283,39 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>
-    <span class="nx">data</span>  <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-
-<span class="c1">// Needs to be in sync with ../cmd/link/internal/ld/decodesym.go:/^func.commonsize,
-</span><span class="c1">// ../cmd/compile/internal/gc/reflect.go:/^func.dcommontype and
-</span><span class="c1">// ../reflect/type.go:/^type.rtype.
-</span><span class="c1">// ../internal/reflectlite/type.go:/^type.rtype.
-</span><span class="c1">// 所有类的类型元信息
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">size</span>       <span class="kt">uintptr</span>
-    <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// size of memory prefix holding all pointers
-</span><span class="c1"></span>    <span class="nx">hash</span>       <span class="kt">uint32</span>  <span class="c1">// hash 是对 _type.hash 的拷贝，当我们想将 interface 类型转换成具体类型时，可以使用该字段快速判断目标类型和具体类型是否一致
-</span><span class="c1"></span>    <span class="nx">tflag</span>      <span class="nx">tflag</span>
-    <span class="nx">align</span>      <span class="kt">uint8</span>
-    <span class="nx">fieldAlign</span> <span class="kt">uint8</span>
-    <span class="nx">kind</span>       <span class="kt">uint8</span>
-    <span class="c1">// function for comparing objects of this type
-</span><span class="c1"></span>    <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
-</span><span class="c1"></span>    <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
-    <span class="c1">// gcdata stores the GC type data for the garbage collector.
-</span><span class="c1"></span>    <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
-</span><span class="c1"></span>    <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
-</span><span class="c1"></span>    <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>
-    <span class="nx">str</span>       <span class="nx">nameOff</span>
-    <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">efaceOf</span><span class="p">(</span><span class="nx">ep</span> <span class="o">*</span><span class="kd">interface</span><span class="p">{})</span> <span class="o">*</span><span class="nx">eface</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">eface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">ep</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">eface</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span>  <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Needs to be in sync with ../cmd/link/internal/ld/decodesym.go:/^func.commonsize,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../cmd/compile/internal/gc/reflect.go:/^func.dcommontype and
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../reflect/type.go:/^type.rtype.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../internal/reflectlite/type.go:/^type.rtype.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 所有类的类型元信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">size</span>       <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// size of memory prefix holding all pointers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">hash</span>       <span class="kt">uint32</span>  <span class="c1">// hash 是对 _type.hash 的拷贝，当我们想将 interface 类型转换成具体类型时，可以使用该字段快速判断目标类型和具体类型是否一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">tflag</span>      <span class="nx">tflag</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">align</span>      <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fieldAlign</span> <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">kind</span>       <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// function for comparing objects of this type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// gcdata stores the GC type data for the garbage collector.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span>       <span class="nx">nameOff</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">efaceOf</span><span class="p">(</span><span class="nx">ep</span> <span class="o">*</span><span class="kd">interface</span><span class="p">{})</span> <span class="o">*</span><span class="nx">eface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">eface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">ep</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -334,20 +334,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">_interface</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">dynamicTypeInfo</span> <span class="o">*</span><span class="nx">_implementation</span>
-    <span class="nx">dynamicValue</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// unsafe.Pointer means
-</span><span class="c1"></span>                                   <span class="c1">// *ArbitraryType in Go.
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">_implementation</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">itype</span>   <span class="o">*</span><span class="nx">_type</span>   <span class="c1">// the interface type.
-</span><span class="c1"></span>    <span class="nx">dtype</span>   <span class="o">*</span><span class="nx">_type</span>   <span class="c1">// the dynamic type, which must implement itype.
-</span><span class="c1"></span>    <span class="nx">methods</span> <span class="p">[]</span><span class="o">*</span><span class="nx">_func</span> <span class="c1">// the methods which are defined on dtype
-</span><span class="c1"></span>                     <span class="c1">// and each of them implements a
-</span><span class="c1"></span>                     <span class="c1">// corresponding method declared in itype.
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">_interface</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dynamicTypeInfo</span> <span class="o">*</span><span class="nx">_implementation</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dynamicValue</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// unsafe.Pointer means
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                   <span class="c1">// *ArbitraryType in Go.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">_implementation</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">itype</span>   <span class="o">*</span><span class="nx">_type</span>   <span class="c1">// the interface type.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">dtype</span>   <span class="o">*</span><span class="nx">_type</span>   <span class="c1">// the dynamic type, which must implement itype.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">methods</span> <span class="p">[]</span><span class="o">*</span><span class="nx">_func</span> <span class="c1">// the methods which are defined on dtype
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="c1">// and each of them implements a
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="c1">// corresponding method declared in itype.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中，Go语言每一个新定义的数据类型都会有一个类型元数据记为_type，并记录该类型的大小，边界，名称，是否可比较等等</p>
 <p>同时可以使用type方法来自定义新的类型元数据</p>
@@ -357,9 +357,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">mytype1</span> <span class="p">=</span> <span class="kt">int32</span>
-<span class="kd">type</span> <span class="nx">mytype2</span> <span class="kt">int32</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">mytype1</span> <span class="p">=</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">mytype2</span> <span class="kt">int32</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>前者为起别名，都是同样的数据类型（rune和int32的实现），后者则会完全分配新的类型信息。</p>
 <h3 id="22-non-empty-interface">2.2. Non-empty interface</h3>
@@ -385,25 +385,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">iface</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">tab</span>  <span class="o">*</span><span class="nx">itab</span>
-    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">itab</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">inter</span> <span class="o">*</span><span class="nx">interfacetype</span>
-    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>
-    <span class="nx">hash</span>  <span class="kt">uint32</span>
-    <span class="nx">_</span>     <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
-    <span class="nx">fun</span>   <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">uintptr</span> <span class="c1">// variable sized. fun[0]==0 means _type does not implement inter.
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">interfacetype</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">typ</span>     <span class="nx">_type</span>
-    <span class="nx">pkgpath</span> <span class="nx">name</span>
-    <span class="nx">mhdr</span>    <span class="p">[]</span><span class="nx">imethod</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">iface</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tab</span>  <span class="o">*</span><span class="nx">itab</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">itab</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">inter</span> <span class="o">*</span><span class="nx">interfacetype</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_type</span> <span class="o">*</span><span class="nx">_type</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hash</span>  <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_</span>     <span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fun</span>   <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">uintptr</span> <span class="c1">// variable sized. fun[0]==0 means _type does not implement inter.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">interfacetype</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">typ</span>     <span class="nx">_type</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">pkgpath</span> <span class="nx">name</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mhdr</span>    <span class="p">[]</span><span class="nx">imethod</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Go在运行时，itab会拷贝动态类型方法的地址，以便快速定位到方法，而不用每次都去类型元数据那里去找。</p>
 <p>同时，运行时，对于每一个itab结构体，Go会生成一个512个大小的hashmap，以接口类型为key，动态类型为value类型来缓存itab的信息，与哈希表的table进行异或运算，得到类型。</p>
@@ -423,19 +423,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">itabInitSize</span> <span class="p">=</span> <span class="mi">512</span>
-<span class="c1">// Note: change the formula in the mallocgc call in itabAdd if you change these fields.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">itabTableType</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">size</span>    <span class="kt">uintptr</span>             <span class="c1">// length of entries array. Always a power of 2.
-</span><span class="c1"></span>    <span class="nx">count</span>   <span class="kt">uintptr</span>             <span class="c1">// current number of filled entries.
-</span><span class="c1"></span>    <span class="nx">entries</span> <span class="p">[</span><span class="nx">itabInitSize</span><span class="p">]</span><span class="o">*</span><span class="nx">itab</span> <span class="c1">// really [size] large
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">itabHashFunc</span><span class="p">(</span><span class="nx">inter</span> <span class="o">*</span><span class="nx">interfacetype</span><span class="p">,</span> <span class="nx">typ</span> <span class="o">*</span><span class="nx">_type</span><span class="p">)</span> <span class="kt">uintptr</span> <span class="p">{</span>
-    <span class="c1">// compiler has provided some good hash codes for us.
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">inter</span><span class="p">.</span><span class="nx">typ</span><span class="p">.</span><span class="nx">hash</span> <span class="p">^</span> <span class="nx">typ</span><span class="p">.</span><span class="nx">hash</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">itabInitSize</span> <span class="p">=</span> <span class="mi">512</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Note: change the formula in the mallocgc call in itabAdd if you change these fields.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">itabTableType</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">size</span>    <span class="kt">uintptr</span>             <span class="c1">// length of entries array. Always a power of 2.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">count</span>   <span class="kt">uintptr</span>             <span class="c1">// current number of filled entries.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">entries</span> <span class="p">[</span><span class="nx">itabInitSize</span><span class="p">]</span><span class="o">*</span><span class="nx">itab</span> <span class="c1">// really [size] large
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">itabHashFunc</span><span class="p">(</span><span class="nx">inter</span> <span class="o">*</span><span class="nx">interfacetype</span><span class="p">,</span> <span class="nx">typ</span> <span class="o">*</span><span class="nx">_type</span><span class="p">)</span> <span class="kt">uintptr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// compiler has provided some good hash codes for us.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">inter</span><span class="p">.</span><span class="nx">typ</span><span class="p">.</span><span class="nx">hash</span> <span class="p">^</span> <span class="nx">typ</span><span class="p">.</span><span class="nx">hash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>隐式类型转换</p>
 <div class="highlight"><div class="chroma">
@@ -462,27 +462,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-
-<span class="kd">type</span> <span class="nx">GrpcError</span> <span class="kd">struct</span><span class="p">{}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">GrpcError</span><span class="p">)</span> <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s">&#34;GrpcError&#34;</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">err</span> <span class="o">:=</span> <span class="nf">cal</span><span class="p">()</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>            <span class="c1">// 打印：&lt;nil&gt;
-</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>     <span class="c1">// 打印：false
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">cal</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">err</span> <span class="o">*</span><span class="nx">GrpcError</span> <span class="p">=</span> <span class="kc">nil</span>
-    <span class="k">return</span> <span class="nx">err</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">GrpcError</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="nx">GrpcError</span><span class="p">)</span> <span class="nf">Error</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;GrpcError&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">err</span> <span class="o">:=</span> <span class="nf">cal</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>            <span class="c1">// 打印：&lt;nil&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>     <span class="c1">// 打印：false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">cal</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">err</span> <span class="o">*</span><span class="nx">GrpcError</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 main 中判断 err 是否为 nil，答案是 false。error 是一个非空 interface，底层数据结构是 iface，尽管 data 是 nil，但是 *itab 并不为空，所以 err == nil 答案为 false。</p>
 <h3 id="23-type-assert">2.3. Type Assert</h3>
@@ -548,30 +548,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">runtime</span>
-<span class="c1">// Needs to be in sync with ../cmd/link/internal/ld/decodesym.go:/^func.commonsize,
-</span><span class="c1">// ../cmd/compile/internal/gc/reflect.go:/^func.dcommontype and
-</span><span class="c1">// ../reflect/type.go:/^type.rtype.
-</span><span class="c1">// ../internal/reflectlite/type.go:/^type.rtype.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
-   <span class="nx">size</span>       <span class="kt">uintptr</span>
-   <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// size of memory prefix holding all pointers
-</span><span class="c1"></span>   <span class="nx">hash</span>       <span class="kt">uint32</span>
-   <span class="nx">tflag</span>      <span class="nx">tflag</span>
-   <span class="nx">align</span>      <span class="kt">uint8</span>
-   <span class="nx">fieldAlign</span> <span class="kt">uint8</span>
-   <span class="nx">kind</span>       <span class="kt">uint8</span>
-   <span class="c1">// function for comparing objects of this type
-</span><span class="c1"></span>   <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
-</span><span class="c1"></span>   <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
-   <span class="c1">// gcdata stores the GC type data for the garbage collector.
-</span><span class="c1"></span>   <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
-</span><span class="c1"></span>   <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
-</span><span class="c1"></span>   <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>
-   <span class="nx">str</span>       <span class="nx">nameOff</span>
-   <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">runtime</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Needs to be in sync with ../cmd/link/internal/ld/decodesym.go:/^func.commonsize,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../cmd/compile/internal/gc/reflect.go:/^func.dcommontype and
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../reflect/type.go:/^type.rtype.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ../internal/reflectlite/type.go:/^type.rtype.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">_type</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">size</span>       <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// size of memory prefix holding all pointers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">hash</span>       <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">tflag</span>      <span class="nx">tflag</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">align</span>      <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">fieldAlign</span> <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">kind</span>       <span class="kt">uint8</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// function for comparing objects of this type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">equal</span> <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// gcdata stores the GC type data for the garbage collector.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// If the KindGCProg bit is set in kind, gcdata is a GC program.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// Otherwise it is a ptrmask bitmap. See mbitmap.go for details.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">str</span>       <span class="nx">nameOff</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">ptrToThis</span> <span class="nx">typeOff</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>runtime的包的_type类型是非导出的，所以在reflect包下重写了一遍，称为rtype，并实现了Type接口</p>
 <div class="highlight"><div class="chroma">
@@ -598,27 +598,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">reflect</span>
-<span class="c1">// rtype is the common implementation of most values.
-</span><span class="c1">// It is embedded in other struct types.
-</span><span class="c1">//
-</span><span class="c1">// rtype must be kept in sync with ../runtime/type.go:/^type._type.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">rtype</span> <span class="kd">struct</span> <span class="p">{</span>
-   <span class="nx">size</span>       <span class="kt">uintptr</span>
-   <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// number of bytes in the type that can contain pointers
-</span><span class="c1"></span>   <span class="nx">hash</span>       <span class="kt">uint32</span>  <span class="c1">// hash of type; avoids computation in hash tables
-</span><span class="c1"></span>   <span class="nx">tflag</span>      <span class="nx">tflag</span>   <span class="c1">// extra type information flags
-</span><span class="c1"></span>   <span class="nx">align</span>      <span class="kt">uint8</span>   <span class="c1">// alignment of variable with this type
-</span><span class="c1"></span>   <span class="nx">fieldAlign</span> <span class="kt">uint8</span>   <span class="c1">// alignment of struct field with this type
-</span><span class="c1"></span>   <span class="nx">kind</span>       <span class="kt">uint8</span>   <span class="c1">// enumeration for C
-</span><span class="c1"></span>   <span class="c1">// function for comparing objects of this type
-</span><span class="c1"></span>   <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
-</span><span class="c1"></span>   <span class="nx">equal</span>     <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
-   <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>   <span class="c1">// garbage collection data
-</span><span class="c1"></span>   <span class="nx">str</span>       <span class="nx">nameOff</span> <span class="c1">// string form
-</span><span class="c1"></span>   <span class="nx">ptrToThis</span> <span class="nx">typeOff</span> <span class="c1">// type for pointer to this type, may be zero
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">reflect</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// rtype is the common implementation of most values.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// It is embedded in other struct types.
+</span></span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1">// rtype must be kept in sync with ../runtime/type.go:/^type._type.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">rtype</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">size</span>       <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">ptrdata</span>    <span class="kt">uintptr</span> <span class="c1">// number of bytes in the type that can contain pointers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">hash</span>       <span class="kt">uint32</span>  <span class="c1">// hash of type; avoids computation in hash tables
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">tflag</span>      <span class="nx">tflag</span>   <span class="c1">// extra type information flags
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">align</span>      <span class="kt">uint8</span>   <span class="c1">// alignment of variable with this type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">fieldAlign</span> <span class="kt">uint8</span>   <span class="c1">// alignment of struct field with this type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">kind</span>       <span class="kt">uint8</span>   <span class="c1">// enumeration for C
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// function for comparing objects of this type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">equal</span>     <span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">gcdata</span>    <span class="o">*</span><span class="kt">byte</span>   <span class="c1">// garbage collection data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">str</span>       <span class="nx">nameOff</span> <span class="c1">// string form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nx">ptrToThis</span> <span class="nx">typeOff</span> <span class="c1">// type for pointer to this type, may be zero
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="32-the-lows-of-reflection">3.2. The Lows Of Reflection</h3>
 <p>Reference : <a href="https://go.dev/blog/laws-of-reflection">https://go.dev/blog/laws-of-reflection</a></p>
@@ -636,17 +636,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Type</span> <span class="kd">interface</span> <span class="p">{</span>
-  <span class="nf">Align</span><span class="p">()</span> <span class="kt">int</span>
-  <span class="nf">FieldAlign</span><span class="p">()</span> <span class="kt">int</span>
-  <span class="nf">Method</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nx">Method</span> 
-  <span class="nf">MethodByName</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Method</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>  <span class="c1">// MethodByName 可以获取当前类型对应方法的引用
-</span><span class="c1"></span>  <span class="nf">NumMethod</span><span class="p">()</span> <span class="kt">int</span>
-  <span class="o">...</span>
-  <span class="nf">Implements</span><span class="p">(</span><span class="nx">u</span> <span class="nx">Type</span><span class="p">)</span> <span class="kt">bool</span>  <span class="c1">// Implements 可以判断当前类型是否实现了某个接口
-</span><span class="c1"></span>  <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Type</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">Align</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">FieldAlign</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">Method</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nx">Method</span> 
+</span></span><span class="line"><span class="cl">  <span class="nf">MethodByName</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Method</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>  <span class="c1">// MethodByName 可以获取当前类型对应方法的引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">NumMethod</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">Implements</span><span class="p">(</span><span class="nx">u</span> <span class="nx">Type</span><span class="p">)</span> <span class="kt">bool</span>  <span class="c1">// Implements 可以判断当前类型是否实现了某个接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>反射三大原则：</p>
 <ol>
@@ -686,34 +686,34 @@
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// ValueOf returns a new Value initialized to the concrete value
-</span><span class="c1">// stored in the interface i. ValueOf(nil) returns the zero Value.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
-   <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
-   <span class="p">}</span>
-   <span class="c1">// TODO: Maybe allow contents of a Value to live on the stack.
-</span><span class="c1"></span>   <span class="c1">// For now we make the contents always escape to the heap. It
-</span><span class="c1"></span>   <span class="c1">// makes life easier in a few places (see chanrecv/mapassign
-</span><span class="c1"></span>   <span class="c1">// comment below).
-</span><span class="c1"></span>   <span class="nf">escapes</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-   <span class="k">return</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// unpackEface converts the empty interface i to a Value.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
-    <span class="nx">e</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
-    <span class="c1">// NOTE: don&#39;t read e.word until we know whether it is really a pointer or not.
-</span><span class="c1"></span>    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">typ</span>
-    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
-    <span class="p">}</span>
-    <span class="nx">f</span> <span class="o">:=</span> <span class="nf">flag</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Kind</span><span class="p">())</span>
-    <span class="k">if</span> <span class="nf">ifaceIndir</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">f</span> <span class="o">|=</span> <span class="nx">flagIndir</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">Value</span><span class="p">{</span><span class="nx">t</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">word</span><span class="p">,</span> <span class="nx">f</span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ValueOf returns a new Value initialized to the concrete value
+</span></span></span><span class="line"><span class="cl"><span class="c1">// stored in the interface i. ValueOf(nil) returns the zero Value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// TODO: Maybe allow contents of a Value to live on the stack.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// For now we make the contents always escape to the heap. It
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// makes life easier in a few places (see chanrecv/mapassign
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// comment below).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nf">escapes</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// unpackEface converts the empty interface i to a Value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// NOTE: don&#39;t read e.word until we know whether it is really a pointer or not.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">typ</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span> <span class="o">:=</span> <span class="nf">flag</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Kind</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">ifaceIndir</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">f</span> <span class="o">|=</span> <span class="nx">flagIndir</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">Value</span><span class="p">{</span><span class="nx">t</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">word</span><span class="p">,</span> <span class="nx">f</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>反射方法中，*emptyInterface其实就是eface的重写</p>
 <div class="highlight"><div class="chroma">
@@ -732,19 +732,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TypeOf returns the reflection Type that represents the dynamic type of i.
-</span><span class="c1">// If i is a nil interface value, TypeOf returns nil.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TypeOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Type</span> <span class="p">{</span>
-   <span class="nx">eface</span> <span class="o">:=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
-   <span class="k">return</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">eface</span><span class="p">.</span><span class="nx">typ</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nx">Type</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">nil</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">t</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// TypeOf returns the reflection Type that represents the dynamic type of i.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If i is a nil interface value, TypeOf returns nil.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">TypeOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Type</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">eface</span> <span class="o">:=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">eface</span><span class="p">.</span><span class="nx">typ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nx">Type</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>通过反射获取interface变量</li>
@@ -775,29 +775,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">flag</span> <span class="kt">uintptr</span>
-<span class="c1">// To compare two Values, compare the results of the Interface method.
-</span><span class="c1">// Using == on two Values does not compare the underlying values
-</span><span class="c1">// they represent.
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="c1">// typ holds the type of the value represented by a Value.
-</span><span class="c1"></span>    <span class="nx">typ</span> <span class="o">*</span><span class="nx">rtype</span>
-    <span class="c1">// Pointer-valued data or, if flagIndir is set, pointer to data.
-</span><span class="c1"></span>    <span class="c1">// Valid when either flagIndir is set or typ.pointers() is true.
-</span><span class="c1"></span>    <span class="nx">ptr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-    <span class="c1">// flag holds metadata about the value.
-</span><span class="c1"></span>    <span class="nx">flag</span>
-<span class="p">}</span>
-
-<span class="c1">// Interface returns v&#39;s current value as an interface{}.
-</span><span class="c1">// It is equivalent to:
-</span><span class="c1">// var i interface{} = (v&#39;s underlying value)
-</span><span class="c1">// It panics if the Value was obtained by accessing
-</span><span class="c1">// unexported struct fields.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="nf">Interface</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-   <span class="k">return</span> <span class="nf">valueInterface</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">flag</span> <span class="kt">uintptr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// To compare two Values, compare the results of the Interface method.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Using == on two Values does not compare the underlying values
+</span></span></span><span class="line"><span class="cl"><span class="c1">// they represent.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// typ holds the type of the value represented by a Value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">typ</span> <span class="o">*</span><span class="nx">rtype</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Pointer-valued data or, if flagIndir is set, pointer to data.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Valid when either flagIndir is set or typ.pointers() is true.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ptr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// flag holds metadata about the value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Interface returns v&#39;s current value as an interface{}.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// It is equivalent to:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// var i interface{} = (v&#39;s underlying value)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// It panics if the Value was obtained by accessing
+</span></span></span><span class="line"><span class="cl"><span class="c1">// unexported struct fields.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">v</span> <span class="nx">Value</span><span class="p">)</span> <span class="nf">Interface</span><span class="p">()</span> <span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nf">valueInterface</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -805,9 +805,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="nx">v</span><span class="p">.</span><span class="nf">Interface</span><span class="p">().(</span><span class="kt">int</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">v</span><span class="p">.</span><span class="nf">Interface</span><span class="p">().(</span><span class="kt">int</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>从接口值到反射对象：
@@ -836,13 +836,13 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span>
-    <span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
-    <span class="nx">v</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">SetInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span><span class="p">.</span><span class="nf">Elem</span><span class="p">().</span><span class="nf">SetInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>调用 reflect.ValueOf 获取变量指针；
 调用 reflect.Value.Elem 获取指针指向的变量；
@@ -857,11 +857,11 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">emptyInterface</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">typ</span>  <span class="o">*</span><span class="nx">rtype</span>
-    <span class="nx">word</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">emptyInterface</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">typ</span>  <span class="o">*</span><span class="nx">rtype</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">word</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>用于获取变量类型的 reflect.TypeOf函数将传入的变量隐式转换成 reflect.emptyInterface类型并获取其中存储的类型信息 reflect.rtype：</p>
 <div class="highlight"><div class="chroma">
@@ -887,26 +887,26 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TypeOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Type</span> <span class="p">{</span>
-    <span class="nx">eface</span> <span class="o">:=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">eface</span><span class="p">.</span><span class="nx">typ</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nx">Type</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">nil</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">t</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">nameOff</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">str</span><span class="p">).</span><span class="nf">name</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tflag</span><span class="o">&amp;</span><span class="nx">tflagExtraStar</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">s</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">TypeOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Type</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">eface</span> <span class="o">:=</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">eface</span><span class="p">.</span><span class="nx">typ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">toType</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nx">Type</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">nameOff</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">str</span><span class="p">).</span><span class="nf">name</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tflag</span><span class="o">&amp;</span><span class="nx">tflagExtraStar</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">s</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>reflect.rtype 是一个实现了 reflect.Type 接口的结构体，该结构体实现的 reflect.rtype.String方法可以帮助我们获取当前类型的名称：</p>
 <div class="highlight"><div class="chroma">
@@ -920,14 +920,14 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
-    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">nameOff</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">str</span><span class="p">).</span><span class="nf">name</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tflag</span><span class="o">&amp;</span><span class="nx">tflagExtraStar</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">s</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">rtype</span><span class="p">)</span> <span class="nf">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">nameOff</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">str</span><span class="p">).</span><span class="nf">name</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">tflag</span><span class="o">&amp;</span><span class="nx">tflagExtraStar</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">s</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>reflect.TypeOf的实现原理其实并不复杂，它只是将一个 interface{} 变量转换成了内部的 reflect.emptyInterface 表示，然后从中获取相应的类型信息。</p>
 <p>使用reflect.ValueOf()获取reflect.Value类型，这里先使用了escapes将变量逃逸到堆上，再获取结构体</p>
@@ -978,50 +978,50 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">43
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
-    <span class="p">}</span>
-
-    <span class="nf">escapes</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="c1">// Dummy annotation marking that the value x escapes,
-</span><span class="c1">// for use in cases where the reflect code is so clever that
-</span><span class="c1">// the compiler cannot follow.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">escapes</span><span class="p">(</span><span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">dummy</span><span class="p">.</span><span class="nx">b</span> <span class="p">{</span>
-        <span class="nx">dummy</span><span class="p">.</span><span class="nx">x</span> <span class="p">=</span> <span class="nx">x</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">//dummy 变量就是一个虚拟标注，标记入参 x 逃逸了。这样标记是为了防止反射代码写的过于高级，以至于编译器跟不上了。
-</span><span class="c1"></span><span class="kd">var</span> <span class="nx">dummy</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">b</span> <span class="kt">bool</span>
-    <span class="nx">x</span> <span class="kd">interface</span><span class="p">{}</span>
-<span class="p">}</span>
-
-
-<span class="kd">func</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
-    <span class="nx">e</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
-    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">typ</span>
-    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
-    <span class="p">}</span>
-    <span class="nx">f</span> <span class="o">:=</span> <span class="nf">flag</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Kind</span><span class="p">())</span>
-    <span class="k">if</span> <span class="nf">ifaceIndir</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">f</span> <span class="o">|=</span> <span class="nx">flagIndir</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">Value</span><span class="p">{</span><span class="nx">t</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">word</span><span class="p">,</span> <span class="nx">f</span><span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Value</span> <span class="kd">struct</span> <span class="p">{</span>
-   <span class="c1">// typ holds the type of the value represented by a Value.
-</span><span class="c1"></span>    <span class="nx">typ</span> <span class="o">*</span><span class="nx">rtype</span> <span class="c1">// 类型元数据指针
-</span><span class="c1"></span>    <span class="nx">ptr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// 数据地址
-</span><span class="c1"></span>    <span class="nx">flag</span> <span class="c1">// 位标识符信息
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">escapes</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Dummy annotation marking that the value x escapes,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// for use in cases where the reflect code is so clever that
+</span></span></span><span class="line"><span class="cl"><span class="c1">// the compiler cannot follow.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">escapes</span><span class="p">(</span><span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">dummy</span><span class="p">.</span><span class="nx">b</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dummy</span><span class="p">.</span><span class="nx">x</span> <span class="p">=</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//dummy 变量就是一个虚拟标注，标记入参 x 逃逸了。这样标记是为了防止反射代码写的过于高级，以至于编译器跟不上了。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">dummy</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">unpackEface</span><span class="p">(</span><span class="nx">i</span> <span class="kd">interface</span><span class="p">{})</span> <span class="nx">Value</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">e</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="nx">emptyInterface</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">typ</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">Value</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f</span> <span class="o">:=</span> <span class="nf">flag</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Kind</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nf">ifaceIndir</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">f</span> <span class="o">|=</span> <span class="nx">flagIndir</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">Value</span><span class="p">{</span><span class="nx">t</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">word</span><span class="p">,</span> <span class="nx">f</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Value</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// typ holds the type of the value represented by a Value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">typ</span> <span class="o">*</span><span class="nx">rtype</span> <span class="c1">// 类型元数据指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ptr</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// 数据地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">flag</span> <span class="c1">// 位标识符信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>使用反射运行方法</p>
 <div class="highlight"><div class="chroma">
@@ -1049,28 +1049,28 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">Add</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Func</span> <span class="p">{</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Type</span><span class="p">()</span>
-    <span class="nx">argv</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumIn</span><span class="p">())</span>
-    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">argv</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">In</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span> <span class="p">{</span>
-            <span class="k">return</span>
-        <span class="p">}</span>
-        <span class="nx">argv</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="nx">result</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Call</span><span class="p">(</span><span class="nx">argv</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span> <span class="p">{</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">Int</span><span class="p">())</span> <span class="c1">// #=&gt; 1
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">Add</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Func</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Type</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">argv</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NumIn</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">argv</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nf">In</span><span class="p">(</span><span class="nx">i</span><span class="p">).</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">argv</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">ValueOf</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span> <span class="o">:=</span> <span class="nx">v</span><span class="p">.</span><span class="nf">Call</span><span class="p">(</span><span class="nx">argv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">Kind</span><span class="p">()</span> <span class="o">!=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">result</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">Int</span><span class="p">())</span> <span class="c1">// #=&gt; 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -1176,7 +1176,7 @@ Go语言修改反射后变量只能通过如下方法来实现：</p>
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

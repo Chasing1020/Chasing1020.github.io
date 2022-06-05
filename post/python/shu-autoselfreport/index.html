@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="SHU每日两报脚本 1. 实现原理 利用python中的Selenium库，并结合浏览器驱动，来自动完成每日两报的操作，最后测试结果将每天的体温设置" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="SHU每日两报脚本 1. 实现原理 利用python中的Selenium库，并结合浏览器驱动，来自动完成每日两报的操作，最后测试结果将每天的体温设置" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/python/shu-autoselfreport/" />
@@ -205,14 +205,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">myUsername</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的学号</span>
-<span class="n">myPassword</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的姓名</span>
-<span class="n">baseUrl</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;https://selfreport.shu.edu.cn/&#39;</span> <span class="c1">#默认的每日两报地址</span>
-<span class="n">driverUrl</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;E:\Edgedriver\msedgedriver.exe&#34;</span> <span class="c1">#浏览器驱动，这里以Edge示例，不同的浏览器可以去官网下载</span>
-<span class="kn">from</span> <span class="nn">selenium</span> <span class="c1">#完成web自动化的一系列操作</span>
-<span class="kn">import</span> <span class="nn">time</span> <span class="c1">#设置程序等待时间，等待浏览器加载元素完全</span>
-<span class="kn">import</span> <span class="nn">random</span> <span class="c1">#设置温度随机数</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">myUsername</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的学号</span>
+</span></span><span class="line"><span class="cl"><span class="n">myPassword</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的姓名</span>
+</span></span><span class="line"><span class="cl"><span class="n">baseUrl</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;https://selfreport.shu.edu.cn/&#39;</span> <span class="c1">#默认的每日两报地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">driverUrl</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;E:\Edgedriver\msedgedriver.exe&#34;</span> <span class="c1">#浏览器驱动，这里以Edge示例，不同的浏览器可以去官网下载</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium</span> <span class="c1">#完成web自动化的一系列操作</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span> <span class="c1">#设置程序等待时间，等待浏览器加载元素完全</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span> <span class="c1">#设置温度随机数</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="32-登录账号">3.2. 登录账号</h3>
 <p>准备好以上步骤以后，我们就可以打开浏览器并对其进行相应的操作。</p>
@@ -228,14 +228,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">driverUrl</span><span class="p">)</span><span class="c1">#通过驱动器打开浏览器</span>
-    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">)</span><span class="c1">#访问健康之路链接</span>
-    <span class="n">search_username</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="c1">#找到用户名位置</span>
-    <span class="n">search_username</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myUsername</span><span class="p">)</span><span class="c1">#填写用户名</span>
-    <span class="n">search_password</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span><span class="c1">#找到密码位置</span>
-    <span class="n">search_password</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myPassword</span><span class="p">)</span><span class="c1">#填写密码</span>
-    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span><span class="c1">#找到元素并且自动点击登录</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">driverUrl</span><span class="p">)</span><span class="c1">#通过驱动器打开浏览器</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">)</span><span class="c1">#访问健康之路链接</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_username</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="c1">#找到用户名位置</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_username</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myUsername</span><span class="p">)</span><span class="c1">#填写用户名</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_password</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span><span class="c1">#找到密码位置</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_password</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myPassword</span><span class="p">)</span><span class="c1">#填写密码</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span><span class="c1">#找到元素并且自动点击登录</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>程序执行时，就会将自己的账号密码自动填入进入下章页面。</p>
 <h3 id="33-进入报送历史界面">3.3. 进入报送历史界面</h3>
@@ -247,8 +247,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;lbReportHistory&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span><span class="c1">#找到对应历史报送的按钮，点击</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;lbReportHistory&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span><span class="c1">#找到对应历史报送的按钮，点击</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>然后即可进入历史界面，在这里每天的报送记录罗列如下：</p>
 <p><a href="https://imgchr.com/i/B8AX8O"><img src="https://s1.ax1x.com/2020/10/28/B8AX8O.png" alt="B8AX8O.png"></a></p>
@@ -286,36 +286,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 点击对应的天数：</span>
-<span class="nb">object</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">item</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-<span class="c1"># 勾选承诺项：</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ChengNuo-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-<span class="c1"># 填写体温，随机在36.0-37.0之间</span>
-<span class="n">search_temperature</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_TiWen-inputEl&#34;</span><span class="p">)</span>
-<span class="n">temperature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="mi">370</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">search_temperature</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
-
-<span class="c1"># 勾选状态&#34;良好&#34;</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_0-inputEl&#34;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-
-<span class="c1"># 当天随申码颜色：&#34;绿色&#34;</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_7-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_7-inputEl-icon&#39;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="c1"># webdriver.ActionChains(driver).move_to_element(element).click(element).perform()</span>
-
-<span class="c1"># 明天是否到食堂就餐：&#34;早餐，中餐，晚餐&#34;</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_8-inputEl-icon&#39;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_9-inputEl-icon&#39;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_10-inputEl-icon&#39;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 点击对应的天数：</span>
+</span></span><span class="line"><span class="cl"><span class="nb">object</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">item</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 勾选承诺项：</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ChengNuo-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 填写体温，随机在36.0-37.0之间</span>
+</span></span><span class="line"><span class="cl"><span class="n">search_temperature</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_TiWen-inputEl&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">temperature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="mi">370</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">search_temperature</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 勾选状态&#34;良好&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_0-inputEl&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 当天随申码颜色：&#34;绿色&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_7-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_7-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># webdriver.ActionChains(driver).move_to_element(element).click(element).perform()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 明天是否到食堂就餐：&#34;早餐，中餐，晚餐&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_8-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_9-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_10-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>以上代码均是对于填写页面元素的捕捉，并对发现的第一个元素发起提交按钮。
 在这里，程序代码不能写成如下：</p>
@@ -328,12 +328,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 以下操作无法实现，原因应该是元素定位相互覆盖。</span>
-<span class="c1"># driver.find_element_by_id(&#34;fineui_8-inputEl-icon&#34;).click()</span>
-<span class="c1"># driver.find_element_by_id(&#34;fineui_9-inputEl-icon&#34;).click()</span>
-<span class="c1"># driver.find_element_bu_id(&#34;fineui_10-inputEl-icon&#34;).click()</span>
-<span class="c1"># driver.find_element_by_id(&#34;p1_ctl00_btnSubmit&#34;).click()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 以下操作无法实现，原因应该是元素定位相互覆盖。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># driver.find_element_by_id(&#34;fineui_8-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># driver.find_element_by_id(&#34;fineui_9-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># driver.find_element_bu_id(&#34;fineui_10-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># driver.find_element_by_id(&#34;p1_ctl00_btnSubmit&#34;).click()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>原因是代码中的元素相互覆盖，无法实现操作
 最终选择并点击时的效果如下：
@@ -355,19 +355,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 点击提交</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ctl00_btnSubmit&#34;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1"># 点击确认</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_14&#34;</span><span class="p">)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_19&#34;</span><span class="p">)</span>
-<span class="c1"># element = driver.find_element_by_class_name(&#34;f-btn-text&#34;)</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 点击提交</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ctl00_btnSubmit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 点击确认</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_14&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_19&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># element = driver.find_element_by_class_name(&#34;f-btn-text&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在这里我使用了time.sleep()函数，为了让程序停顿，原页面加载的过程中，会出现提交框晚出现的情况，所以需要让程序“等待”浏览器加载结束，最后填报。</p>
 <h2 id="4-完整代码">4. 完整代码</h2>
@@ -469,101 +469,101 @@
 </span><span class="lnt">94
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#-*- coding = utf-8 -*-</span>
-<span class="c1">#@Time : 2020-10-25 15:24</span>
-<span class="c1">#@Author : Jiancong Zhu</span>
-<span class="c1">#@Email : 643601464@qq.com</span>
-<span class="c1">#@File : release.py</span>
-<span class="c1">#@Software: PyCharm</span>
-
-<span class="n">myUsername</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的学号</span>
-<span class="n">myPassword</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的姓名</span>
-<span class="n">baseUrl</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;https://selfreport.shu.edu.cn/&#39;</span> <span class="c1">#默认的每日两报地址</span>
-<span class="n">driverUrl</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;E:\Edgedriver\msedgedriver.exe&#34;</span> <span class="c1">#浏览器驱动，这里以Edge示例，不同的浏览器可以去个官网下载</span>
-<span class="kn">from</span> <span class="nn">selenium</span>
-<span class="kn">import</span> <span class="n">time</span>
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello,&#34;</span><span class="p">)</span>
-    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">driverUrl</span><span class="p">)</span>
-    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">)</span>
-    <span class="n">search_username</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
-    <span class="n">search_username</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myUsername</span><span class="p">)</span>
-    <span class="n">search_password</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
-    <span class="n">search_password</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myPassword</span><span class="p">)</span>
-    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span><span class="c1">#在此修改你想实现的日期，左闭右开，如这里为[19,26)，即19至25号</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;晨报&#39;</span><span class="p">,</span><span class="s1">&#39;晚报&#39;</span><span class="p">]:</span>
-            <span class="c1"># print(&#34;Hello, world!&#34;)</span>
-            <span class="c1"># driver = webdriver.Edge(driverUrl)</span>
-            <span class="c1"># driver.get(baseUrl)</span>
-            <span class="c1"># driver.find_element_by_id(&#39;username&#39;)</span>
-            <span class="c1"># search_username = driver.find_element_by_id(&#39;username&#39;)</span>
-            <span class="c1"># search_username.send_keys(myUsername)</span>
-            <span class="c1"># search_password = driver.find_element_by_id(&#39;password&#39;)</span>
-            <span class="c1"># search_password.send_keys(myPassword)</span>
-            <span class="c1"># driver.find_element_by_id(&#39;submit&#39;).click()</span>
-
-            <span class="c1"># 进入报送历史：</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;lbReportHistory&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-            <span class="c1"># 点击对应的天数：</span>
-            <span class="nb">object</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">item</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-            <span class="c1"># 勾选承诺项：</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ChengNuo-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-
-            <span class="c1"># 填写体温，随机在36.0-37.0之间</span>
-            <span class="n">search_temperature</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_TiWen-inputEl&#34;</span><span class="p">)</span>
-            <span class="n">temperature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="mi">370</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
-            <span class="n">search_temperature</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
-
-            <span class="c1"># 勾选状态&#34;良好&#34;</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_0-inputEl&#34;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-
-            <span class="c1"># 当天随申码颜色：&#34;绿色&#34;</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_7-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_7-inputEl-icon&#39;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="c1"># webdriver.ActionChains(driver).move_to_element(element).click(element).perform()</span>
-
-            <span class="c1"># 明天是否到食堂就餐：&#34;早餐，中餐，晚餐&#34;</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_8-inputEl-icon&#39;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_9-inputEl-icon&#39;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_10-inputEl-icon&#39;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-
-            <span class="c1"># 以下操作无法实现，原因应该是元素定位相互覆盖。</span>
-            <span class="c1"># driver.find_element_by_id(&#34;fineui_8-inputEl-icon&#34;).click()</span>
-            <span class="c1"># driver.find_element_by_id(&#34;fineui_9-inputEl-icon&#34;).click()</span>
-            <span class="c1"># driver.find_element_bu_id(&#34;fineui_10-inputEl-icon&#34;).click()</span>
-            <span class="c1"># driver.find_element_by_id(&#34;p1_ctl00_btnSubmit&#34;).click()</span>
-
-            <span class="c1"># 点击提交</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ctl00_btnSubmit&#34;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="c1"># 点击确认</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_14&#34;</span><span class="p">)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_19&#34;</span><span class="p">)</span>
-            <span class="c1"># element = driver.find_element_by_class_name(&#34;f-btn-text&#34;)</span>
-            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;world!&#34;</span><span class="p">)</span> <span class="c1"># 输出Hello,world! 完美的结束</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span> <span class="c1">#当程序执行时</span>
-    <span class="n">main</span><span class="p">()</span> <span class="c1">#开始</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#-*- coding = utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#@Time : 2020-10-25 15:24</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#@Author : Jiancong Zhu</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#@Email : 643601464@qq.com</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#@File : release.py</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#@Software: PyCharm</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">myUsername</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的学号</span>
+</span></span><span class="line"><span class="cl"><span class="n">myPassword</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;&#39;</span> <span class="c1">#在此输入你的姓名</span>
+</span></span><span class="line"><span class="cl"><span class="n">baseUrl</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;https://selfreport.shu.edu.cn/&#39;</span> <span class="c1">#默认的每日两报地址</span>
+</span></span><span class="line"><span class="cl"><span class="n">driverUrl</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;E:\Edgedriver\msedgedriver.exe&#34;</span> <span class="c1">#浏览器驱动，这里以Edge示例，不同的浏览器可以去个官网下载</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="n">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Hello,&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">driverUrl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">baseUrl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_username</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_username</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myUsername</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_password</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_password</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">myPassword</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span><span class="c1">#在此修改你想实现的日期，左闭右开，如这里为[19,26)，即19至25号</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;晨报&#39;</span><span class="p">,</span><span class="s1">&#39;晚报&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># print(&#34;Hello, world!&#34;)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver = webdriver.Edge(driverUrl)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.get(baseUrl)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_by_id(&#39;username&#39;)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># search_username = driver.find_element_by_id(&#39;username&#39;)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># search_username.send_keys(myUsername)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># search_password = driver.find_element_by_id(&#39;password&#39;)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># search_password.send_keys(myPassword)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_by_id(&#39;submit&#39;).click()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 进入报送历史：</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;lbReportHistory&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 点击对应的天数：</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">object</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">+</span> <span class="n">item</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 勾选承诺项：</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ChengNuo-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 填写体温，随机在36.0-37.0之间</span>
+</span></span><span class="line"><span class="cl">            <span class="n">search_temperature</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_TiWen-inputEl&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">temperature</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="mi">370</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">search_temperature</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">temperature</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 勾选状态&#34;良好&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_0-inputEl&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 当天随申码颜色：&#34;绿色&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_7-inputEl-icon&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_7-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># webdriver.ActionChains(driver).move_to_element(element).click(element).perform()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 明天是否到食堂就餐：&#34;早餐，中餐，晚餐&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_8-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_9-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s1">&#39;fineui_10-inputEl-icon&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 以下操作无法实现，原因应该是元素定位相互覆盖。</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_by_id(&#34;fineui_8-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_by_id(&#34;fineui_9-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_bu_id(&#34;fineui_10-inputEl-icon&#34;).click()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># driver.find_element_by_id(&#34;p1_ctl00_btnSubmit&#34;).click()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 点击提交</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;p1_ctl00_btnSubmit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 点击确认</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_14&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_id</span><span class="p">(</span><span class="s2">&#34;fineui_19&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># element = driver.find_element_by_class_name(&#34;f-btn-text&#34;)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="s2">&#34;arguments[0].click();&#34;</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;world!&#34;</span><span class="p">)</span> <span class="c1"># 输出Hello,world! 完美的结束</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span> <span class="c1">#当程序执行时</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span> <span class="c1">#开始</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -669,7 +669,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

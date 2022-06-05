@@ -37,7 +37,7 @@ CongestionAvoidance（CA）状态：
 
 -   超时：重发，cwnd=1MSS，进入SS。
 
--   3-ACK：ssthres=cwnd\>\>1，cwnd=ssthres+3，重传，进入FR。
+-   3-ACK：ssthresh=cwnd\>\>1，cwnd=ssthresh+3，重传，进入FR。
 
 FastRecovery（FR）状态：
 

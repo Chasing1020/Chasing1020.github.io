@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/basic/operating-system/" />
@@ -287,17 +287,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">page</span> <span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">;</span> <span class="c1">// 页是不是脏的，是否锁定在内存中
-</span><span class="c1"></span>    <span class="n">atomic_t</span>      <span class="n">_count</span><span class="p">;</span> <span class="c1">// 页的引用计数
-</span><span class="c1"></span>    <span class="n">atomic_t</span>      <span class="n">_mapcount</span><span class="p">;</span>
-    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">private</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">address_space</span> <span class="o">*</span><span class="n">mapping</span><span class="p">;</span>
-    <span class="n">pgoff_t</span>       <span class="n">index</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">list_head</span>     <span class="n">lru</span><span class="p">;</span>
-    <span class="kt">void</span>          <span class="o">*</span><span class="n">virtual</span><span class="p">;</span> <span class="c1">// 页的虚拟地址
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">page</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">;</span> <span class="c1">// 页是不是脏的，是否锁定在内存中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">atomic_t</span>      <span class="n">_count</span><span class="p">;</span> <span class="c1">// 页的引用计数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">atomic_t</span>      <span class="n">_mapcount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">private</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">address_space</span> <span class="o">*</span><span class="n">mapping</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pgoff_t</span>       <span class="n">index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">list_head</span>     <span class="n">lru</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span>          <span class="o">*</span><span class="n">virtual</span><span class="p">;</span> <span class="c1">// 页的虚拟地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。</p>
 <p>32位系统下的2级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项4字节，所以一个页表页可以对应1024页表项(4KB/4B=1024=$2^{10}$)。所以，20+12分别对应二级页表(2*10)，和页表内偏移量。</p>
@@ -339,13 +339,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="c1">// 其中void *buf指向的内存空间要求合法判断，为了安全考虑，
-</span><span class="c1">// 内核会发起从用户内存到内核内存的拷贝的调用
-</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
-<span class="n">ssize_t</span> <span class="nf">write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 其中void *buf指向的内存空间要求合法判断，为了安全考虑，
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 内核会发起从用户内存到内核内存的拷贝的调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">read</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">ssize_t</span> <span class="nf">write</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>一般Linux零拷贝有三种实现方式：1.减少拷贝次数，2.绕过内核直接IO，3.COW技术（只读则不用拷贝）</p>
 <p>方法一：采用mmap+write，可以减少一次CPU拷贝，节省50%内存，适用于大文件传输；小文件反而会造成更多的内存碎片浪费。</p>
@@ -357,11 +357,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="c1">// mmap creates a new mapping in the virtual address space of the calling process.
-</span><span class="c1">// The starting address for the new mapping is specified in addr.
-</span><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// mmap creates a new mapping in the virtual address space of the calling process.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// The starting address for the new mapping is specified in addr.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span><span class="nf">mmap</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prot</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="n">offset</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法二：采用Linux内核版本2.1引入的sendfile系统调用，因为这种拷贝发生在内核态，相比于read/write节省了将数据拷贝至用户态的时间。</p>
 <div class="highlight"><div class="chroma">
@@ -372,11 +372,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/sendfile.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="c1">// sendfile copies data between one file descriptor and another.
-</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">sendfile</span><span class="p">(</span><span class="kt">int</span> <span class="n">out_fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">in_fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/sendfile.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// sendfile copies data between one file descriptor and another.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">sendfile</span><span class="p">(</span><span class="kt">int</span> <span class="n">out_fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">in_fd</span><span class="p">,</span> <span class="n">off_t</span> <span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据</p>
 <div class="highlight"><div class="chroma">
@@ -390,14 +390,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define _GNU_SOURCE </span><span class="cm">/* See feature_test_macros(7) */</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="c1">// splice moves data between two file descriptors 
-</span><span class="c1">// without copying between kernel address space and user address space.
-</span><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">splice</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd_in</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_in</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd_out</span><span class="p">,</span>
-               <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_out</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define _GNU_SOURCE </span><span class="cm">/* See feature_test_macros(7) */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// splice moves data between two file descriptors 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// without copying between kernel address space and user address space.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ssize_t</span> <span class="nf">splice</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd_in</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_in</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd_out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">               <span class="n">loff_t</span> <span class="o">*</span><span class="n">off_out</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="5-process-and-thread">5. Process and Thread</h1>
 <h2 id="51-process">5.1. Process</h2>
@@ -457,13 +457,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#inclue&lt;unistd.h&gt;
-</span><span class="cp">#inclue&lt;sys/types.h&gt;
-</span><span class="cp"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-
-<span class="cp">#inclue&lt;unistd.h&gt;
-</span><span class="cp"></span><span class="kt">int</span> <span class="nf">execve</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#inclue&lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#inclue&lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#inclue&lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">execve</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pathname</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>exevce会根据pathname的路径，将数据段和代码段加载到当前进程地址空间中，再重新初始化堆栈再将PC指向代码段定义的入口</p>
 <p>进程监控：wait</p>
@@ -475,11 +475,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="n">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">wstatus</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">pid_t</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">wstatus</span><span class="p">,</span> <span class="kt">int</span> <span class="n">options</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -511,33 +511,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Fork failed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;ChildProcess: existing</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kt">int</span>  <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Parent process: waitpid failed&#34;</span><span class="p">);</span>
-            <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Parent process: my child has exited</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Parent process: waitpid returns for unkonwn reasons&#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Fork failed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;ChildProcess: existing</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span>  <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Parent process: waitpid failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">WIFEXITED</span><span class="p">(</span><span class="n">status</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Parent process: my child has exited</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;Parent process: waitpid returns for unkonwn reasons&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果父进程没有wait或者没运行到到wait，子进程中止了，父进程未进行适当处理SIGCHLD信号，占用的资源也不会释放，被称为僵尸进程。内核会为僵尸进程保留Pid以及终止时的status。如果父进程退出了，那么子进程的信息也不会被父进程占用，所有的僵尸进程都会被init用wait回收。（如果父进程不退出，一直死循环，那僵尸进程会越来越多）</p>
 <p>进程组（Process Group）：默认父进程和子进程是一个进程组，子进程可以setpgid()创建新进程组或者移入已有进程组。应用程序可以killpg发送信号，通知进程组的每个进程。</p>
@@ -548,9 +548,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;sched.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sched.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Linux支持对clone进行更精密的控制，允许指定进程栈的位置、禁止复制内存等操作。包括隔离namespace等。</p>
 <h2 id="52-thread">5.2. Thread</h2>
@@ -569,15 +569,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> 
-                   <span class="k">const</span> <span class="n">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> 
-                   <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> 
-                   <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">pthread_exit</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">retval</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">pthread_yield</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">pthread_join</span><span class="p">(</span><span class="n">pthread_t</span> <span class="kr">thread</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">retval</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                   <span class="k">const</span> <span class="n">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                   <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                   <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_exit</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">retval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_yield</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_join</span><span class="p">(</span><span class="n">pthread_t</span> <span class="kr">thread</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">retval</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>线程创建函数最后还是会调用clone，其中clone_flag为CLONE_THREAD。</p>
 <p>线程退出函数不是必要的，退出时自动会退出；yield用于让出，会发起sched_yield系统调用。</p>
@@ -590,11 +590,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">sleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>
-<span class="kt">int</span> <span class="nf">pthread_cond_wait</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">cond</span><span class="p">,</span>
-                     <span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">mutex</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">sleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_cond_wait</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">cond</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">mutex</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>sleep会让线程挂起数秒，或者是使用cond_wait在条件变量为同步方式等待。</p>
 <h1 id="6-operating-system-scheduling">6. Operating System Scheduling</h1>
@@ -658,17 +658,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">sched_entity</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="n">load_weight</span> <span class="n">load</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">rb_node</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">list_head</span><span class="p">;</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">on_rq</span><span class="p">;</span>
-    <span class="n">u64</span>    <span class="n">exec_start</span><span class="p">;</span>
-    <span class="n">u64</span>    <span class="n">sum_exec_time</span><span class="p">;</span>
-    <span class="n">u64</span>    <span class="n">vruntime</span><span class="p">;</span>
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sched_entity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">load_weight</span> <span class="n">load</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">rb_node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">list_head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">on_rq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u64</span>    <span class="n">exec_start</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u64</span>    <span class="n">sum_exec_time</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u64</span>    <span class="n">vruntime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Linux操作系统将vruntime作为红黑树的value，在选择下一个运行进程时，只需要找到最左叶子结点的缓存，即只需要O(1)复杂度，而不是O(logn)。</p>
 <h1 id="7-inter-process-communication">7. Inter-Process Communication</h1>
@@ -704,27 +704,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-    <span class="n">turn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
-    
-    <span class="n">do_critical_section</span><span class="p">();</span>
-    
-    <span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span>
-
-
-<span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-    <span class="n">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
-    
-    <span class="n">do_critical_section</span><span class="p">();</span>
-    
-    <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">turn</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">do_critical_section</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">turn</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">&amp;&amp;</span> <span class="n">turn</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">do_critical_section</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>要求访存操作严格顺利执行。</p>
 <p>原子操作：CAS（Compare And Swap），以及FAA（Fetch-And-Add）。</p>
@@ -740,14 +740,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">atomic_CAS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">,</span> <span class="kt">int</span> <span class="n">new_value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span><span class="s">&#34;lock empxchg %[new], %[ptr]&#34;</span>
-                 <span class="o">:</span><span class="s">&#34;+a&#34;</span><span class="p">(</span><span class="n">expected</span><span class="p">),</span> <span class="p">[</span><span class="n">ptr</span><span class="p">]</span> <span class="s">&#34;+m&#34;</span><span class="p">(</span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
-                 <span class="o">:</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="s">&#34;r&#34;</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
-                 <span class="o">:</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">expected</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">atomic_CAS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">,</span> <span class="kt">int</span> <span class="n">new_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span><span class="s">&#34;lock empxchg %[new], %[ptr]&#34;</span>
+</span></span><span class="line"><span class="cl">                 <span class="o">:</span><span class="s">&#34;+a&#34;</span><span class="p">(</span><span class="n">expected</span><span class="p">),</span> <span class="p">[</span><span class="n">ptr</span><span class="p">]</span> <span class="s">&#34;+m&#34;</span><span class="p">(</span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 <span class="o">:</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="s">&#34;r&#34;</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                 <span class="o">:</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">expected</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>ARM平台采用Load-Link和/Store-Conditional的指令组合，通过CPU监视器来实现</p>
 <div class="highlight"><div class="chroma">
@@ -767,20 +767,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">atomic_CAS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">,</span> <span class="kt">int</span> <span class="n">new_value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">oldval</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
-    <span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span>
-        <span class="s">&#34;1: ldxr    %w0, %2</span><span class="se">\n</span><span class="s">&#34;</span>
-        <span class="s">&#34;   cmp     %w0, %3</span><span class="se">\n</span><span class="s">&#34;</span>
-        <span class="s">&#34;   b.ne    %2f</span><span class="se">\n</span><span class="s">&#34;</span>
-        <span class="s">&#34;   stxr    %w1, %w4, %2</span><span class="se">\n</span><span class="s">&#34;</span>
-        <span class="s">&#34;2:&#34;</span>
-        <span class="o">:</span> <span class="s">&#34;=&amp;r&#34;</span> <span class="p">(</span><span class="n">oldval</span><span class="p">),</span> <span class="s">&#34;=&amp;r&#34;</span> <span class="p">(</span><span class="n">ret</span><span class="p">),</span> <span class="s">&#34;+Q&#34;</span> <span class="p">(</span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
-        <span class="o">:</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">expected</span><span class="p">),</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
-        <span class="o">:</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">oldval</span><span class="p">;</span>   
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">atomic_CAS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">,</span> <span class="kt">int</span> <span class="n">new_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">oldval</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">asm</span> <span class="k">volatile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;1: ldxr    %w0, %2</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;   cmp     %w0, %3</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;   b.ne    %2f</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;   stxr    %w1, %w4, %2</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;2:&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="s">&#34;=&amp;r&#34;</span> <span class="p">(</span><span class="n">oldval</span><span class="p">),</span> <span class="s">&#34;=&amp;r&#34;</span> <span class="p">(</span><span class="n">ret</span><span class="p">),</span> <span class="s">&#34;+Q&#34;</span> <span class="p">(</span><span class="o">*</span><span class="n">addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">expected</span><span class="p">),</span> <span class="s">&#34;r&#34;</span> <span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">oldval</span><span class="p">;</span>   
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>自旋锁</p>
 <div class="highlight"><div class="chroma">
@@ -799,19 +799,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">lock_init</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">*</span><span class="n">lock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">lock</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">atomic_CAS</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">unlock</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="o">*</span><span class="n">lock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">lock_init</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">lock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">lock</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">atomic_CAS</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">unlock</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">lock</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>并不保证有限等待，即不具有公平性，会陷入循环等待。</p>
 <p>排号锁</p>
@@ -838,26 +838,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">lock</span> <span class="p">{</span>
-    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">owner</span><span class="p">;</span>
-    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">lock_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">lock</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">my_ticket</span> <span class="o">=</span> <span class="n">atomic_FAA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span> <span class="o">!=</span> <span class="n">my_ticket</span><span class="p">)</span>
-        <span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">unlock</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span><span class="o">++</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">lock</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">lock_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">lock</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">volatile</span> <span class="kt">int</span> <span class="n">my_ticket</span> <span class="o">=</span> <span class="n">atomic_FAA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span> <span class="o">!=</span> <span class="n">my_ticket</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">unlock</span><span class="p">(</span><span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">-&gt;</span><span class="n">owner</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>条件变量</p>
 <div class="highlight"><div class="chroma">
@@ -885,28 +885,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">cond</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">wait_list</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">cond_wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">,</span> <span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">list_append</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">,</span> <span class="n">thread_self</span><span class="p">());</span>
-    <span class="n">atomic_block_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span> <span class="c1">// 原子挂起并释放锁
-</span><span class="c1"></span>    <span class="n">lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span> <span class="c1">// 重新获得互斥锁
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">cond_signal</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">list_empty</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">wakeup</span><span class="p">(</span><span class="n">list_remove</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">cond_broadcast</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">list_empty</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">))</span> <span class="p">{</span>
-        <span class="n">wakeup</span><span class="p">(</span><span class="n">list_remove</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">cond</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">wait_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">cond_wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">,</span> <span class="k">struct</span> <span class="n">lock</span> <span class="o">*</span><span class="n">mutex</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list_append</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">,</span> <span class="n">thread_self</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">atomic_block_unlock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span> <span class="c1">// 原子挂起并释放锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">lock</span><span class="p">(</span><span class="n">mutex</span><span class="p">);</span> <span class="c1">// 重新获得互斥锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">cond_signal</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">list_empty</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wakeup</span><span class="p">(</span><span class="n">list_remove</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">cond_broadcast</span><span class="p">(</span><span class="k">struct</span> <span class="n">cond</span> <span class="o">*</span><span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">list_empty</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wakeup</span><span class="p">(</span><span class="n">list_remove</span><span class="p">(</span><span class="n">cond</span><span class="o">-&gt;</span><span class="n">wait_list</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生产者消费者问题，采用条件变量</p>
 <div class="highlight"><div class="chroma">
@@ -959,53 +959,53 @@
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">empty_slot</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">filled_slot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">cond</span> <span class="n">empty_cond</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">lock</span> <span class="n">empty_cnt_lock</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">cond</span> <span class="n">filled_cond</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">lock</span> <span class="n">filled_cnt_lock</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">new_msg</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
-        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">empty_slot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>            
-        <span class="p">}</span>
-        <span class="n">empty_slot</span><span class="o">--</span><span class="p">;</span>
-        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
-        
-        <span class="n">buffer_add_safe</span><span class="p">(</span><span class="n">new_msg</span><span class="p">);</span>
-        
-        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
-        <span class="n">filled_slot</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cond</span><span class="p">);</span>
-        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">cur_msg</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
-        <span class="k">while</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">filled_slot</span><span class="o">--</span><span class="p">;</span>
-        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
-        
-        <span class="n">cur_msg</span> <span class="o">=</span> <span class="n">buffer_remove_safe</span><span class="p">();</span>
-        
-        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
-        <span class="n">empty_slot</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cond</span><span class="p">);</span>
-        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
-        <span class="n">comsume_msg</span><span class="p">(</span><span class="n">cur_msg</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">empty_slot</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">filled_slot</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">cond</span> <span class="n">empty_cond</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">lock</span> <span class="n">empty_cnt_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">cond</span> <span class="n">filled_cond</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">lock</span> <span class="n">filled_cnt_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">new_msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">empty_slot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">empty_slot</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">buffer_add_safe</span><span class="p">(</span><span class="n">new_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filled_slot</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cond</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cur_msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filled_slot</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">cur_msg</span> <span class="o">=</span> <span class="n">buffer_remove_safe</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">empty_slot</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cond</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_cnt_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">comsume_msg</span><span class="p">(</span><span class="n">cur_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>信号量</p>
 <div class="highlight"><div class="chroma">
@@ -1040,35 +1040,35 @@
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">sem</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">wakeup</span><span class="p">;</span>
-       <span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">cond</span> <span class="n">sem_cond</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">sem</span> <span class="o">*</span><span class="n">S</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
-    <span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">--</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">do</span> <span class="p">{</span>
-            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span><span class="o">--</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="n">signal</span><span class="p">(</span><span class="k">struct</span> <span class="n">sem</span> <span class="o">*</span><span class="n">S</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
-    <span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_cond</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sem</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">wakeup</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">cond</span> <span class="n">sem_cond</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">wait</span><span class="p">(</span><span class="k">struct</span> <span class="n">sem</span> <span class="o">*</span><span class="n">S</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">signal</span><span class="p">(</span><span class="k">struct</span> <span class="n">sem</span> <span class="o">*</span><span class="n">S</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">S</span><span class="o">-&gt;</span><span class="n">wakeup</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_cond</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">S</span><span class="o">-&gt;</span><span class="n">sem_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>生产者消费者问题，采用信号量</p>
 <div class="highlight"><div class="chroma">
@@ -1097,29 +1097,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">sem_t</span> <span class="n">empty_slot</span><span class="p">;</span>
-<span class="n">sem_t</span> <span class="n">empty_slot</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">new_msg</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
-        <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_slot</span><span class="p">);</span> <span class="c1">// P
-</span><span class="c1"></span>        <span class="n">buffer_add_safe</span><span class="p">(</span><span class="n">new_msg</span><span class="p">);</span>
-        <span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span><span class="p">);</span> <span class="c1">// V
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">cur_msg</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span><span class="p">);</span> <span class="c1">// P
-</span><span class="c1"></span>        <span class="n">cur_msg</span> <span class="o">=</span> <span class="n">buffer_remove_safe</span><span class="p">();</span>
-        <span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_slot</span><span class="p">);</span> <span class="c1">// V
-</span><span class="c1"></span>        <span class="n">consume_msg</span><span class="p">(</span><span class="n">cur_msg</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">sem_t</span> <span class="n">empty_slot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">sem_t</span> <span class="n">empty_slot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">new_msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">new_msg</span> <span class="o">=</span> <span class="n">produce_new</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_slot</span><span class="p">);</span> <span class="c1">// P
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">buffer_add_safe</span><span class="p">(</span><span class="n">new_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span><span class="p">);</span> <span class="c1">// V
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cur_msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">filled_slot</span><span class="p">);</span> <span class="c1">// P
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cur_msg</span> <span class="o">=</span> <span class="n">buffer_remove_safe</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty_slot</span><span class="p">);</span> <span class="c1">// V
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">consume_msg</span><span class="p">(</span><span class="n">cur_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>死锁产生的原因：</p>
 <ul>
@@ -1207,16 +1207,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="nf">irqreturn_t</span> <span class="p">(</span><span class="o">*</span><span class="n">irq_headler_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">request_irq</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">irq</span><span class="p">,</span> <span class="c1">// 不同设备的中断号
-</span><span class="c1"></span>                 <span class="n">irq_handler_t</span> <span class="n">handler</span><span class="p">,</span> <span class="c1">// 指向这个中断处理程序的指针
-</span><span class="c1"></span>                 <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">,</span> <span class="c1">// 标志掩码，如关中断等
-</span><span class="c1"></span>                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="c1">// 中断设备名称的的ASCII表示
-</span><span class="c1"></span>                 <span class="kt">void</span><span class="o">*</span> <span class="n">dev</span><span class="p">)</span> <span class="c1">// 共享中断总线，标志中断处理程序
-</span><span class="c1"></span>
-<span class="kt">void</span> <span class="n">free_irq</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">irq</span><span class="p">,</span> <span class="c1">// 注销中断处理程序，释放中断线
-</span><span class="c1"></span>              <span class="kt">void</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span> <span class="c1">// 如果中断总线共享，则仅删除dev对应的处理程序
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">irqreturn_t</span> <span class="p">(</span><span class="o">*</span><span class="n">irq_headler_t</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">request_irq</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">irq</span><span class="p">,</span> <span class="c1">// 不同设备的中断号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="n">irq_handler_t</span> <span class="n">handler</span><span class="p">,</span> <span class="c1">// 指向这个中断处理程序的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">flags</span><span class="p">,</span> <span class="c1">// 标志掩码，如关中断等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="c1">// 中断设备名称的的ASCII表示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                 <span class="kt">void</span><span class="o">*</span> <span class="n">dev</span><span class="p">)</span> <span class="c1">// 共享中断总线，标志中断处理程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">free_irq</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">irq</span><span class="p">,</span> <span class="c1">// 注销中断处理程序，释放中断线
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="kt">void</span> <span class="o">*</span><span class="n">dev</span><span class="p">)</span> <span class="c1">// 如果中断总线共享，则仅删除dev对应的处理程序
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>软中断：处理函数要求是可重入的，要求软中断的执行过程中可以被硬中断抢占。所以，软中断时应该避免全局变量，或者加锁保护关键数据结构。Linux共有10种中断信号，从TASKLET_HI往下包括定时器，网卡收发，块设备中断等。内核会选择恰当时机来处理软中断（大多数时间在硬中断得到处理后，除非CPU还持有未执行的软中断）。</p>
 <div class="highlight"><div class="chroma">
@@ -1228,12 +1228,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">softirq_action</span> <span class="p">{</span>
-    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)(</span><span class="k">struct</span> <span class="n">softirq_action</span> <span class="o">*</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">// 软中断在编译阶段静态分配，最多只能有32个
-</span><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">softirq_action</span> <span class="n">softirq_vec</span><span class="p">[</span><span class="n">NR_SOFTIRQS</span><span class="p">];</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">softirq_action</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)(</span><span class="k">struct</span> <span class="n">softirq_action</span> <span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 软中断在编译阶段静态分配，最多只能有32个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">softirq_action</span> <span class="n">softirq_vec</span><span class="p">[</span><span class="n">NR_SOFTIRQS</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通常标记了软中断后执行的场景有：1.从硬件中断代码返回时；2.在ksoftirqd内核线程中；3.在那些显示检查和执行待处理的软中断代码中，如网络子系统。</p>
 <p>tasklet：软中断只能编译时静态分配，为了动态分配设计了tasklet，每个tasklet只有SCHED（已被调度未执行）和RUN（正在执行），将所有tasklet用链表串起来。此外tasklet不允许多CPU并发执行，同时保证原子性，不允许被其他下半部机制抢占，满足可重入性。</p>
@@ -1248,14 +1248,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">tasklet_struct</span> <span class="p">{</span>
-    <span class="k">struct</span> <span class="n">tasklet_strcut</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 链表中的下一个tasklet
-</span><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">state</span><span class="p">;</span> <span class="c1">// 三个状态：0，准备运行，正在运行（仅限多核作为优化使用） 
-</span><span class="c1"></span>    <span class="n">atomic_t</span> <span class="n">count</span><span class="p">;</span>      <span class="c1">// 引用计数器
-</span><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">func</span><span class="p">)(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">);</span> <span class="c1">// tasklet处理函数
-</span><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">data</span><span class="p">;</span>  <span class="c1">// 给tasklet处理用的参数
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">tasklet_struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">tasklet_strcut</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 链表中的下一个tasklet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">state</span><span class="p">;</span> <span class="c1">// 三个状态：0，准备运行，正在运行（仅限多核作为优化使用） 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">atomic_t</span> <span class="n">count</span><span class="p">;</span>      <span class="c1">// 引用计数器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">func</span><span class="p">)(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">);</span> <span class="c1">// tasklet处理函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">data</span><span class="p">;</span>  <span class="c1">// 给tasklet处理用的参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Work Queue：把需要推迟的函数放在下半部，用内核线程来执行。Work Queue由驱动开发者自己定义，并且由于其是串行的，可能产生阻塞，也会浪费PID资源。</p>
 <p>Concurrency Managed WorkQueue：将工作队列管理还给内核，同一个队列的work不遵守串行，可以并发执行，如果有任务长时间足额，那么CMWQ会自动创建一个新的工作线程去处理该任务后续的工作。</p>
@@ -1285,20 +1285,20 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">a</span><span class="o">++</span> 
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;b = &#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
-    <span class="p">}()</span>
-    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">b</span><span class="o">++</span>
-        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-    <span class="p">}()</span>
-    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="o">++</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;b = &#34;</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">b</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>内存一致性模型（Memory Consistency Model，简称为内存模型）明确定义了不同核心对于共享内存操作需要遵循的顺序。以上述代码为例，不同情况下(a, b)可能的取值范围(0, 0), (1, 0), (0, 1), (1, 1)也会发生改变。</p>
 <p>严格一致性模型（Strict Consistency）：所有访存操作都是严格按程序顺序。</p>
@@ -1368,16 +1368,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// Any of these GNU inline assembler statements forbids the GCC compiler 
-</span><span class="c1">// to reorder read and write commands around it:
-</span><span class="c1"></span><span class="k">asm</span> <span class="nf">volatile</span> <span class="p">(</span><span class="s">&#34;&#34;</span><span class="o">:::</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
-<span class="n">__asm__</span> <span class="nf">__volatile__</span> <span class="p">(</span><span class="s">&#34;&#34;</span> <span class="o">:::</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
-
-
-<span class="c1">// This C11/C++11 function forbids the compiler  
-</span><span class="c1">// to reorder read and write commands around it:
-</span><span class="c1"></span><span class="n">atomic_signal_fence</span><span class="p">(</span><span class="n">memory_order_acq_rel</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// Any of these GNU inline assembler statements forbids the GCC compiler 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// to reorder read and write commands around it:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">asm</span> <span class="nf">volatile</span> <span class="p">(</span><span class="s">&#34;&#34;</span><span class="o">:::</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">__asm__</span> <span class="nf">__volatile__</span> <span class="p">(</span><span class="s">&#34;&#34;</span> <span class="o">:::</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// This C11/C++11 function forbids the compiler  
+</span></span></span><span class="line"><span class="cl"><span class="c1">// to reorder read and write commands around it:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">atomic_signal_fence</span><span class="p">(</span><span class="n">memory_order_acq_rel</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><table>
 <thead>
@@ -1474,23 +1474,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#inclue&lt;unistd.h&gt;
-</span><span class="cp">#inclue&lt;sys/types.h&gt;
-</span><span class="cp"></span><span class="c1">// fork - create a child process
-</span><span class="c1">// 传统创建进程的方式
-</span><span class="c1"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-
-<span class="cp">#include</span><span class="cpf">&lt;sched.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="c1">// clone - create a child process
-</span><span class="c1">// 是fork更加通用的实现方式，可以使用flag来实现功能。
-</span><span class="c1"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
-<span class="c1">// setns - reassociate thread with a namespace
-</span><span class="c1">// 加入现有的namespace中
-</span><span class="c1"></span><span class="kt">int</span> <span class="nf">setns</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nstype</span><span class="p">);</span>
-<span class="c1">// setns - reassociate thread with a namespace
-</span><span class="c1">// 在原进程上进行namespace隔离
-</span><span class="c1"></span><span class="kt">int</span> <span class="nf">unshare</span><span class="p">(</span><span class="kt">int</span> <span class="n">flags</span><span class="p">);</span> <span class="c1">// Docker并未采用
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#inclue&lt;unistd.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#inclue&lt;sys/types.h&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// fork - create a child process
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 传统创建进程的方式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sched.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// clone - create a child process
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 是fork更加通用的实现方式，可以使用flag来实现功能。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">clone</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="n">fn</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">stack</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// setns - reassociate thread with a namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 加入现有的namespace中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">setns</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">nstype</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// setns - reassociate thread with a namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 在原进程上进行namespace隔离
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">unshare</span><span class="p">(</span><span class="kt">int</span> <span class="n">flags</span><span class="p">);</span> <span class="c1">// Docker并未采用
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>UTS(Unix Time-haring System) namespace: 提供了主机和域名的隔离，这样每个容器便可以视作独立节点而非宿主机上的一个进程。</p>
 <p>IPC(Inter-Process Communication) namespace: 主要包括常见的信号量，消息队列和共享内存。申请IPC其实就是申请了全局唯一的32位ID。IPC namespace实际上就包含了系统的IPC标识符以及实现了POSIX消息队列的文件系统。不同的IPC namespace下的进程之间不可见。</p>
@@ -1625,7 +1625,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

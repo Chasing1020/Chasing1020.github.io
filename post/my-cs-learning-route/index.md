@@ -23,9 +23,9 @@ For me personally, this chapter is almost all from the potholes I have stepped i
 # 2. Computer Systems
 
 1.   [Course: Intro to Computer Systems](https://www.cs.cmu.edu/afs/cs/academic/class/15213-f21/www/schedule.html): It is known as a course study site for the must-read book 《CSAPP》.
-1.   [NJU-projectn](https://nju-projectn.github.io/ics-pa-gitbook/ics2021/): The computer system fundamentals course lab at Nanjing University is very helpful for personal improvement after completion.
-
-
+2.   [NJU-projectn](https://nju-projectn.github.io/ics-pa-gitbook/ics2021/): The computer system fundamentals course lab at Nanjing University is very helpful for personal improvement after completion.
+3.   [Write Great Code: Volume 1: Understanding the Machine](https://jdnotes.net/pdf/coding/writegreatcode_vol1.pdf): This book explains the underlying mechanics of how a computer works.
+4.   [What Every Programmer Should Know About Memory](https://www.akkadia.org/drepper/cpumemory.pdf): A paper by Red Hat, Inc. It explains the structure of memory subsystems in use on modern commodity hardware, illustrating why CPU caches were developed, how they work, and what programs should do to achieve optimal performance by utilizing them.
 
 # 3. Data Structure
 
@@ -34,6 +34,7 @@ For me personally, this chapter is almost all from the potholes I have stepped i
 2.   [MIT's Course Introduction To Algorithms 3rd Edition](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/): This course provides an introduction to mathematical modeling of computational problems. It covers the common algorithms, algorithmic paradigms, and data structures used to solve these problems. The course emphasizes the relationship between algorithms and programming, and introduces basic performance measures and analysis techniques for these problems.
 3.   [《Introduction To Algorithms 3rd Edition》](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf): It can be counted as the bible of algorithm books, which covers very comprehensive knowledge points and is relatively difficult, requiring a lot of time and patience. In contrast, I would recommend reading the following book.
 4.   [《Algorithhms 4th Edition by Robert Sedgewick, Kevin Wayne.pdf》](https://github.com/SuperChenSSS/Algorithm-Training/blob/master/Algorithhms%204th%20Edition%20by%20Robert%20Sedgewick%2C%20Kevin%20Wayne.pdf): A classic book on algorithms written in Java language, with moderate difficulty and rich corresponding illustrations, is more suitable for reading.
+5.   [CS 61B Data structures](https://inst.eecs.berkeley.edu/~cs61b/sp22/index.html): A course about data structures and programming methods about Java.
 
 
 

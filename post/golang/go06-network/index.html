@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/golang/go06-network/" />
@@ -185,12 +185,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">netpollinit</span><span class="p">()</span>
-<span class="kd">func</span> <span class="nf">netpollopen</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">uintptr</span><span class="p">,</span> <span class="nx">pd</span> <span class="o">*</span><span class="nx">pollDesc</span><span class="p">)</span> <span class="kt">int32</span>
-<span class="kd">func</span> <span class="nf">netpoll</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int64</span><span class="p">)</span> <span class="nx">gList</span>
-<span class="kd">func</span> <span class="nf">netpollBreak</span><span class="p">()</span>
-<span class="kd">func</span> <span class="nf">netpollIsPollDescriptor</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">bool</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">netpollinit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">netpollopen</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">uintptr</span><span class="p">,</span> <span class="nx">pd</span> <span class="o">*</span><span class="nx">pollDesc</span><span class="p">)</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">netpoll</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int64</span><span class="p">)</span> <span class="nx">gList</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">netpollBreak</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">netpollIsPollDescriptor</span><span class="p">(</span><span class="nx">fd</span> <span class="kt">uintptr</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><a href="https://draveness.me/golang/tree/runtime.netpollinit"><code>runtime.netpollinit</code></a> — 初始化网络轮询器，通过 <a href="https://draveness.me/golang/tree/sync.Once"><code>sync.Once</code></a> 和 <code>netpollInited</code> 变量保证函数只会调用一次；</li>
@@ -217,11 +217,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Author</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`json:&#34;name,omitempty&#34;`</span>
-    <span class="nx">Age</span>  <span class="kt">int32</span>  <span class="s">`json:&#34;age,string,omitempty&#34;`</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Author</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span> <span class="kt">string</span> <span class="s">`json:&#34;name,omitempty&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Age</span>  <span class="kt">int32</span>  <span class="s">`json:&#34;age,string,omitempty&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中最重要的两个方法分别是</p>
 <div class="highlight"><div class="chroma">
@@ -242,21 +242,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Marshal returns the JSON encoding of v.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Marshal</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nx">e</span> <span class="o">:=</span> <span class="nf">newEncodeState</span><span class="p">()</span>
-
-   <span class="nx">err</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">marshal</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">encOpts</span><span class="p">{</span><span class="nx">escapeHTML</span><span class="p">:</span> <span class="kc">true</span><span class="p">})</span>
-   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-   <span class="p">}</span>
-   <span class="nx">buf</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="kc">nil</span><span class="p">),</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">()</span><span class="o">...</span><span class="p">)</span>
-
-   <span class="nx">encodeStatePool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
-
-   <span class="k">return</span> <span class="nx">buf</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Marshal returns the JSON encoding of v.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Marshal</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">e</span> <span class="o">:=</span> <span class="nf">newEncodeState</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nx">err</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">marshal</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">encOpts</span><span class="p">{</span><span class="nx">escapeHTML</span><span class="p">:</span> <span class="kc">true</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">buf</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="kc">nil</span><span class="p">),</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">()</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nx">encodeStatePool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nx">buf</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>与反序列化</p>
 <div class="highlight"><div class="chroma">
@@ -279,23 +279,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Unmarshal parses the JSON-encoded data and stores the result
-</span><span class="c1">// in the value pointed to by v. If v is nil or not a pointer,
-</span><span class="c1">// Unmarshal returns an InvalidUnmarshalError.
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span> <span class="p">{</span>
-   <span class="c1">// Check for well-formedness.
-</span><span class="c1"></span>   <span class="c1">// Avoids filling out half a data structure
-</span><span class="c1"></span>   <span class="c1">// before discovering a JSON syntax error.
-</span><span class="c1"></span>   <span class="kd">var</span> <span class="nx">d</span> <span class="nx">decodeState</span>
-   <span class="nx">err</span> <span class="o">:=</span> <span class="nf">checkValid</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">.</span><span class="nx">scan</span><span class="p">)</span>
-   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">err</span>
-   <span class="p">}</span>
-
-   <span class="nx">d</span><span class="p">.</span><span class="nf">init</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-   <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nf">unmarshal</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Unmarshal parses the JSON-encoded data and stores the result
+</span></span></span><span class="line"><span class="cl"><span class="c1">// in the value pointed to by v. If v is nil or not a pointer,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Unmarshal returns an InvalidUnmarshalError.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">v</span> <span class="kd">interface</span><span class="p">{})</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// Check for well-formedness.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// Avoids filling out half a data structure
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// before discovering a JSON syntax error.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kd">var</span> <span class="nx">d</span> <span class="nx">decodeState</span>
+</span></span><span class="line"><span class="cl">   <span class="nx">err</span> <span class="o">:=</span> <span class="nf">checkValid</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">d</span><span class="p">.</span><span class="nx">scan</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nx">d</span><span class="p">.</span><span class="nf">init</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nf">unmarshal</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>首先校验是否为Valid数据</p>
 <h2 id="3-database">3. DataBase</h2>
@@ -318,16 +318,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Driver</span> <span class="kd">interface</span> <span class="p">{</span>
-	<span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Conn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">Conn</span> <span class="kd">interface</span> <span class="p">{</span>
-	<span class="nf">Prepare</span><span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Stmt</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-	<span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
-	<span class="nf">Begin</span><span class="p">()</span> <span class="p">(</span><span class="nx">Tx</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Driver</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Conn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Conn</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Prepare</span><span class="p">(</span><span class="nx">query</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Stmt</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Begin</span><span class="p">()</span> <span class="p">(</span><span class="nx">Tx</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>database/sql/driver.Driver</code>接口中只包含一个 <code>Open</code> 方法，该方法接收一个数据库连接串作为输入参数并返回一个特定数据库的连接，作为参数的数据库连接串是数据库特定的格式，这个返回的连接仍然是一个接口。
 <code>database/sql</code>中提供的 <code>database/sql.Register</code> 方法可以注册自定义的数据库驱动，这个 package 的内部包含两个变量，分别是 <code>drivers</code> 哈希以及 <code>driversMu</code> 互斥锁，所有的数据库驱动都会存储在这个哈希中：</p>
@@ -346,18 +346,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Register</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">driver</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Driver</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">driversMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">driver</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;sql: Register driver is nil&#34;</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">dup</span> <span class="o">:=</span> <span class="nx">drivers</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span> <span class="nx">dup</span> <span class="p">{</span>
-		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;sql: Register called twice for driver &#34;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">drivers</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="p">=</span> <span class="nx">driver</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Register</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">driver</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Driver</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">driversMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">driver</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;sql: Register driver is nil&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">dup</span> <span class="o">:=</span> <span class="nx">drivers</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span> <span class="nx">dup</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;sql: Register called twice for driver &#34;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">drivers</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="p">=</span> <span class="nx">driver</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>MySQL 驱动会在 <code>go-sql-driver/mysql/mysql.init</code>中调用上述方法将实现 <code>database/sql/driver.Driver</code>接口的结构体注册到全局的驱动列表中：</p>
 <div class="highlight"><div class="chroma">
@@ -367,10 +367,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">sql</span><span class="p">.</span><span class="nf">Register</span><span class="p">(</span><span class="s">&#34;mysql&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">MySQLDriver</span><span class="p">{})</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sql</span><span class="p">.</span><span class="nf">Register</span><span class="p">(</span><span class="s">&#34;mysql&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">MySQLDriver</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>当我们在全局变量中注册了驱动之后，就可以使用 <code>database/sql.Open</code>方法获取特定数据库的连接。在如下所示的方法中，我们通过传入的驱动名获取 <code>database/sql/driver.Driver</code>组成 <code>database/sql.dsnConnector</code>结构体后调用 <code>database/sql.OpenDB</code>：</p>
 <div class="highlight"><div class="chroma">
@@ -387,17 +387,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">driverName</span><span class="p">,</span> <span class="nx">dataSourceName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">DB</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">RLock</span><span class="p">()</span>
-	<span class="nx">driveri</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">drivers</span><span class="p">[</span><span class="nx">driverName</span><span class="p">]</span>
-	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span>
-	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;sql: unknown driver %q (forgotten import?)&#34;</span><span class="p">,</span> <span class="nx">driverName</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="o">...</span>
-	<span class="k">return</span> <span class="nf">OpenDB</span><span class="p">(</span><span class="nx">dsnConnector</span><span class="p">{</span><span class="nx">dsn</span><span class="p">:</span> <span class="nx">dataSourceName</span><span class="p">,</span> <span class="nx">driver</span><span class="p">:</span> <span class="nx">driveri</span><span class="p">}),</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">driverName</span><span class="p">,</span> <span class="nx">dataSourceName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">DB</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">RLock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">driveri</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">drivers</span><span class="p">[</span><span class="nx">driverName</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">driversMu</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;sql: unknown driver %q (forgotten import?)&#34;</span><span class="p">,</span> <span class="nx">driverName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">OpenDB</span><span class="p">(</span><span class="nx">dsnConnector</span><span class="p">{</span><span class="nx">dsn</span><span class="p">:</span> <span class="nx">dataSourceName</span><span class="p">,</span> <span class="nx">driver</span><span class="p">:</span> <span class="nx">driveri</span><span class="p">}),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>database/sql.OpenDB</code> 会返回一个 <code>database/sql.DB</code> 结构，这是标准库包为我们提供的关键结构体，无论是我们直接使用标准库查询数据库，还是使用 GORM 等 ORM 框架都会用到它：</p>
 <div class="highlight"><div class="chroma">
@@ -416,19 +416,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">OpenDB</span><span class="p">(</span><span class="nx">c</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Connector</span><span class="p">)</span> <span class="o">*</span><span class="nx">DB</span> <span class="p">{</span>
-	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
-	<span class="nx">db</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span>
-		<span class="nx">connector</span><span class="p">:</span>    <span class="nx">c</span><span class="p">,</span>
-		<span class="nx">openerCh</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">connectionRequestQueueSize</span><span class="p">),</span>
-		<span class="nx">lastPut</span><span class="p">:</span>      <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="o">*</span><span class="nx">driverConn</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
-		<span class="nx">connRequests</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">uint64</span><span class="p">]</span><span class="kd">chan</span> <span class="nx">connRequest</span><span class="p">),</span>
-		<span class="nx">stop</span><span class="p">:</span>         <span class="nx">cancel</span><span class="p">,</span>
-	<span class="p">}</span>
-	<span class="k">go</span> <span class="nx">db</span><span class="p">.</span><span class="nf">connectionOpener</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-	<span class="k">return</span> <span class="nx">db</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">OpenDB</span><span class="p">(</span><span class="nx">c</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Connector</span><span class="p">)</span> <span class="o">*</span><span class="nx">DB</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">db</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">DB</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">connector</span><span class="p">:</span>    <span class="nx">c</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">openerCh</span><span class="p">:</span>     <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">connectionRequestQueueSize</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lastPut</span><span class="p">:</span>      <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="o">*</span><span class="nx">driverConn</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">connRequests</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">uint64</span><span class="p">]</span><span class="kd">chan</span> <span class="nx">connRequest</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">stop</span><span class="p">:</span>         <span class="nx">cancel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nx">db</span><span class="p">.</span><span class="nf">connectionOpener</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">db</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>结构体 <code>database/sql.DB</code> 在刚刚初始化时不会包含任何的数据库连接，它持有的数据库连接池会在真正应用程序申请连接时在单独的 Goroutine 中获取。<code>database/sql.DB.connectionOpener</code>方法中包含一个不会退出的循环，每当该 Goroutine 收到了请求时都会调用 <code>database/sql.DB.openNewConnection</code></p>
 <div class="highlight"><div class="chroma">
@@ -451,23 +451,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">openNewConnection</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">ci</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">connector</span><span class="p">.</span><span class="nf">Connect</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
-	<span class="o">...</span>
-	<span class="nx">dc</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">driverConn</span><span class="p">{</span>
-		<span class="nx">db</span><span class="p">:</span>         <span class="nx">db</span><span class="p">,</span>
-		<span class="nx">createdAt</span><span class="p">:</span>  <span class="nf">nowFunc</span><span class="p">(),</span>
-		<span class="nx">returnedAt</span><span class="p">:</span> <span class="nf">nowFunc</span><span class="p">(),</span>
-		<span class="nx">ci</span><span class="p">:</span>         <span class="nx">ci</span><span class="p">,</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nf">putConnDBLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">db</span><span class="p">.</span><span class="nf">addDepLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="nx">dc</span><span class="p">)</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="nx">db</span><span class="p">.</span><span class="nx">numOpen</span><span class="o">--</span>
-		<span class="nx">ci</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">openNewConnection</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ci</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">connector</span><span class="p">.</span><span class="nf">Connect</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">dc</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">driverConn</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">db</span><span class="p">:</span>         <span class="nx">db</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">createdAt</span><span class="p">:</span>  <span class="nf">nowFunc</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">returnedAt</span><span class="p">:</span> <span class="nf">nowFunc</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ci</span><span class="p">:</span>         <span class="nx">ci</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nf">putConnDBLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">db</span><span class="p">.</span><span class="nf">addDepLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="nx">dc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">db</span><span class="p">.</span><span class="nx">numOpen</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ci</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>数据库结构体 <a href="https://draveness.me/golang/tree/database/sql.DB"><code>database/sql.DB</code></a> 中的链接器是实现了 <code>database/sql/driver.Connector</code>](<a href="https://draveness.me/golang/tree/database/sql/driver.Connector">https://draveness.me/golang/tree/database/sql/driver.Connector</a>) 类型的接口，我们可以使用该接口创建任意数量完全等价的连接，创建的所有连接都会被加入连接池中，MySQL 的驱动在 <code>go-sql-driver/mysql/mysql.connector.Connect</code>方法实现了连接数据库的逻辑。</p>
 <p>无论是使用 ORM 框架还是直接使用标准库，当我们在查询数据库时都会调用 <code>database/sql.DB.Query</code>方法，该方法的入参就是 SQL 语句和 SQL 语句中的参数，它会初始化新的上下文并调用 <code>database/sql.DB.QueryContext</code></p>
@@ -489,21 +489,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">QueryContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="o">*</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kd">var</span> <span class="nx">rows</span> <span class="o">*</span><span class="nx">Rows</span>
-	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
-	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">maxBadConnRetries</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-		<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">cachedOrNewConn</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrBadConn</span> <span class="p">{</span>
-			<span class="k">break</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrBadConn</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">db</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">alwaysNewConn</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">QueryContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="o">*</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">rows</span> <span class="o">*</span><span class="nx">Rows</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">maxBadConnRetries</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">cachedOrNewConn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrBadConn</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrBadConn</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">db</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">alwaysNewConn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">rows</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>database/sql.DB.query</code> 的执行过程可以分成两个部分，首先调用私有方法 <code>database/sql.DB.conn</code> 获取底层数据库的连接，数据库连接既可能是刚刚通过连接器创建的，也可能是之前缓存的连接；获取连接之后调用 <code>database/sql.DB.queryDC</code>在特定的数据库连接上执行查询：</p>
 <div class="highlight"><div class="chroma">
@@ -543,40 +543,40 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">queryDC</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">txctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">dc</span> <span class="o">*</span><span class="nx">driverConn</span><span class="p">,</span> <span class="nx">releaseConn</span> <span class="kd">func</span><span class="p">(</span><span class="kt">error</span><span class="p">),</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="o">*</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">queryerCtx</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">.(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">QueryerContext</span><span class="p">)</span>
-	<span class="kd">var</span> <span class="nx">queryer</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span>
-	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-		<span class="nx">queryer</span><span class="p">,</span> <span class="nx">ok</span> <span class="p">=</span> <span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">.(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
-		<span class="kd">var</span> <span class="nx">nvdargs</span> <span class="p">[]</span><span class="nx">driver</span><span class="p">.</span><span class="nx">NamedValue</span>
-		<span class="kd">var</span> <span class="nx">rowsi</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Rows</span>
-		<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
-		<span class="nf">withLock</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-			<span class="nx">nvdargs</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">driverArgsConnLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
-			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-				<span class="k">return</span>
-			<span class="p">}</span>
-			<span class="nx">rowsi</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">ctxDriverQuery</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">queryerCtx</span><span class="p">,</span> <span class="nx">queryer</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">nvdargs</span><span class="p">)</span>
-		<span class="p">})</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrSkip</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-				<span class="nf">releaseConn</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-				<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-			<span class="p">}</span>
-			<span class="nx">rows</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Rows</span><span class="p">{</span>
-				<span class="nx">dc</span><span class="p">:</span>          <span class="nx">dc</span><span class="p">,</span>
-				<span class="nx">releaseConn</span><span class="p">:</span> <span class="nx">releaseConn</span><span class="p">,</span>
-				<span class="nx">rowsi</span><span class="p">:</span>       <span class="nx">rowsi</span><span class="p">,</span>
-			<span class="p">}</span>
-			<span class="nx">rows</span><span class="p">.</span><span class="nf">initContextClose</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">txctx</span><span class="p">)</span>
-			<span class="k">return</span> <span class="nx">rows</span><span class="p">,</span> <span class="kc">nil</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="o">...</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">DB</span><span class="p">)</span> <span class="nf">queryDC</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">txctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">dc</span> <span class="o">*</span><span class="nx">driverConn</span><span class="p">,</span> <span class="nx">releaseConn</span> <span class="kd">func</span><span class="p">(</span><span class="kt">error</span><span class="p">),</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">args</span> <span class="p">[]</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="o">*</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">queryerCtx</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">.(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">QueryerContext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">queryer</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">queryer</span><span class="p">,</span> <span class="nx">ok</span> <span class="p">=</span> <span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">.(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">nvdargs</span> <span class="p">[]</span><span class="nx">driver</span><span class="p">.</span><span class="nx">NamedValue</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">rowsi</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Rows</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">withLock</span><span class="p">(</span><span class="nx">dc</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">nvdargs</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">driverArgsConnLocked</span><span class="p">(</span><span class="nx">dc</span><span class="p">.</span><span class="nx">ci</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rowsi</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">ctxDriverQuery</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">queryerCtx</span><span class="p">,</span> <span class="nx">queryer</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">nvdargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">})</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">ErrSkip</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">releaseConn</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rows</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Rows</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">dc</span><span class="p">:</span>          <span class="nx">dc</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">releaseConn</span><span class="p">:</span> <span class="nx">releaseConn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rowsi</span><span class="p">:</span>       <span class="nx">rowsi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rows</span><span class="p">.</span><span class="nf">initContextClose</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">txctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">rows</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述方法在准备了 SQL 查询所需的参数之后，会调用 <code>database/sql.ctxDriverQuery</code>完成 SQL 查询，我们会判断当前的查询上下文究竟实现了哪个接口，然后调用对应接口的 <code>Query</code> 或者 <code>QueryContext</code>：</p>
 <div class="highlight"><div class="chroma">
@@ -594,18 +594,18 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">ctxDriverQuery</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">queryerCtx</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">QueryerContext</span><span class="p">,</span> <span class="nx">queryer</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span><span class="p">,</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">nvdargs</span> <span class="p">[]</span><span class="nx">driver</span><span class="p">.</span><span class="nx">NamedValue</span><span class="p">)</span> <span class="p">(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">queryerCtx</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="nx">queryerCtx</span><span class="p">.</span><span class="nf">QueryContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">nvdargs</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="nx">dargs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">namedValueToValue</span><span class="p">(</span><span class="nx">nvdargs</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-	<span class="p">}</span>
-	<span class="o">...</span>
-	<span class="k">return</span> <span class="nx">queryer</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">dargs</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">ctxDriverQuery</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">queryerCtx</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">QueryerContext</span><span class="p">,</span> <span class="nx">queryer</span> <span class="nx">driver</span><span class="p">.</span><span class="nx">Queryer</span><span class="p">,</span> <span class="nx">query</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">nvdargs</span> <span class="p">[]</span><span class="nx">driver</span><span class="p">.</span><span class="nx">NamedValue</span><span class="p">)</span> <span class="p">(</span><span class="nx">driver</span><span class="p">.</span><span class="nx">Rows</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">queryerCtx</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">queryerCtx</span><span class="p">.</span><span class="nf">QueryContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">nvdargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">dargs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">namedValueToValue</span><span class="p">(</span><span class="nx">nvdargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">...</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">queryer</span><span class="p">.</span><span class="nf">Query</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">dargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>对应的数据库驱动会真正负责执行调用方输入的 SQL 查询，作为中间层的标准库可以不在乎具体的实现，抹平不同关系型数据库的差异，为用户程序提供统一的接口。</p>
 
@@ -712,7 +712,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   

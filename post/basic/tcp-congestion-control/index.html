@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.89.1 with theme even" />
+<meta name="generator" content="Hugo 0.98.0 with theme even" />
 
 
 <link rel="canonical" href="http://Chasing1020.github.io/post/basic/tcp-congestion-control/" />
@@ -53,7 +53,7 @@
 <meta itemprop="name" content="TCP Congestion Control">
 <meta itemprop="description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层"><meta itemprop="datePublished" content="2022-01-18T22:37:50+08:00" />
 <meta itemprop="dateModified" content="2022-04-16T23:48:27+08:00" />
-<meta itemprop="wordCount" content="1477">
+<meta itemprop="wordCount" content="1479">
 <meta itemprop="keywords" content="Network," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="TCP Congestion Control"/>
 <meta name="twitter:description" content="1. Overview 最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 TCP 拥塞控制引入网络。 IP层"/>
@@ -144,7 +144,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 1477 words </span>
+          <span class="more-meta"> 1479 words </span>
           <span class="more-meta"> 3 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -199,7 +199,7 @@
 <p>超时：重发，cwnd=1MSS，进入SS。</p>
 </li>
 <li>
-<p>3-ACK：ssthres=cwnd&gt;&gt;1，cwnd=ssthres+3，重传，进入FR。</p>
+<p>3-ACK：ssthresh=cwnd&gt;&gt;1，cwnd=ssthresh+3，重传，进入FR。</p>
 </li>
 </ul>
 <p>FastRecovery（FR）状态：</p>
@@ -260,30 +260,30 @@
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Source Port          |        Destination Port       |
-|             16 bit            |             16 bit            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                         Sequence Number                       |
-|                              32 bit                           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                       Acknowledgment Number                   |
-|                              32 bit                           |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Data  |          |U|A|P|R|S|F|                                |
-|Offset | Reserved |R|C|S|S|Y|I|            Window              |
-|       |          |G|K|H|T|N|N|                                |
-|4 bits |  6 bits  |  6 bits   |            16 bit              |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Checksum          |          Urgent Pointer        |
-|             16 bits          |             16 bits            |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|            Options           |          Padding               |
-|        variable length       |                                |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                            data                               |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|          Source Port          |        Destination Port       |
+</span></span><span class="line"><span class="cl">|             16 bit            |             16 bit            |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|                         Sequence Number                       |
+</span></span><span class="line"><span class="cl">|                              32 bit                           |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|                       Acknowledgment Number                   |
+</span></span><span class="line"><span class="cl">|                              32 bit                           |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">| Data  |          |U|A|P|R|S|F|                                |
+</span></span><span class="line"><span class="cl">|Offset | Reserved |R|C|S|S|Y|I|            Window              |
+</span></span><span class="line"><span class="cl">|       |          |G|K|H|T|N|N|                                |
+</span></span><span class="line"><span class="cl">|4 bits |  6 bits  |  6 bits   |            16 bit              |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|            Checksum          |          Urgent Pointer        |
+</span></span><span class="line"><span class="cl">|             16 bits          |             16 bits            |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|            Options           |          Padding               |
+</span></span><span class="line"><span class="cl">|        variable length       |                                |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|                            data                               |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过SACK，如接收方给出哪些段收到了，哪些段乱序到达了等信息给发送方。发送端一次发送多个丢失段，每RTT可以重传多个丢失段，提升效率。修改TCP首部的Options如下：</p>
 <div class="highlight"><div class="chroma">
@@ -300,17 +300,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|     nop      |     nop       |    SACK(5)   |     L = 10      |
-|    8 bits    |    8 bits     |    8 bits    |     8 bits      |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                          Left Edge                            |
-|                            32 bit                             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                          Right Edge                           |
-|                            32 bit                             |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|     nop      |     nop       |    SACK(5)   |     L = 10      |
+</span></span><span class="line"><span class="cl">|    8 bits    |    8 bits     |    8 bits    |     8 bits      |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|                          Left Edge                            |
+</span></span><span class="line"><span class="cl">|                            32 bit                             |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span class="line"><span class="cl">|                          Right Edge                           |
+</span></span><span class="line"><span class="cl">|                            32 bit                             |
+</span></span><span class="line"><span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>SACK（Several ACK）：在NewReno的基础上，使用pipe=待确认的段数量（ 在管道中已发送出去的段数） th=cwnd&gt;&gt;1，cwnd=th+3。pipe不能够太满，也不能够太少。</p>
 <h1 id="5-cubic">5. Cubic</h1>
@@ -419,7 +419,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
   <script type="text/javascript">
   
   
