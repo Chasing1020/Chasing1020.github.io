@@ -11,7 +11,7 @@ Therefore, in this article, I will try my best to talk about my experience and t
 
 # 1. Our Environment
 
-> This is a era of prosperity and crisis: Owing to the COVID-19, our world is experiencing changes never seen in a century.
+> This is an era of prosperity and crisis: Owing to the COVID-19, our world is experiencing changes never seen in a century.
 
 The annually spring and autumn recruitment is the barometer of the development of the computer industry, from last year, Tencent paid 40w high salary in the hot search, and then some time ago, due to the epidemic of the re-emergence of the side of layoffs while also locking the head count. Until today President Liu Kiping of Tencent issued an article: "Internal manpower investment will be adjusted from the edge of the business to the core business, in the industry to occur fundamental changes in the industry when actively embracing change".
 
@@ -112,7 +112,7 @@ The fact that you have the grades to get into a computer science college also me
 
 Four years of college life is neither too long nor too short. While enjoying the comfortable campus life, you have become a frog in warm water without realizing it.
 
-We need to break away from the inertia of student thinking under the score measurement system, "Please be sure to remember: four years of college life gives you is just a kind of the undergo of your life, when you graduate, the string of pale scores has been invalidated."
+We need to break away from the inertia of student thinking under the score measurement system, "Please be sure to remember: four years of college life gives you is just a kind of the undergo of your life, when you graduate, the string of pale scores has been invalidated.".
 
 # 7. Remarks
 
@@ -120,7 +120,7 @@ Here are some links related to this post.
 
 1. [Guide of Choice SHU CES](https://lemon-412.github.io/2020/07/17/%E4%B8%8A%E5%A4%A7%E8%AE%A1%E9%99%A2%E6%8A%A5%E8%80%83%E6%8C%87%E5%8C%97/)
 
-2. [A Guide for Newbies in CS](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
+2. [A Guide for newbies in Cyberspace Security](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
 
 Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible. You can find the old version of this post in the [commit](https://github.com/Chasing1020/Chasing1020.github.io/blob/bd2c334e7f4c537bf2cca8e54df1a3d11ea7311a/post/about-computer-science/index.html).
 
