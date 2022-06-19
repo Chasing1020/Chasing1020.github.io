@@ -29,7 +29,7 @@ In this regard, I think the reason for choosing this major should be "you love c
 
 The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.
 
-The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to [2019 Shanghai University undergraduate professional training program](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [2020's Shanghai University undergraduate professional training program](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
+The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to [Shanghai University undergraduate professional training program in 2019](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [Shanghai University undergraduate professional training program in 2020](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
 
 In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:
 
@@ -40,6 +40,7 @@ In most cases, there will not be a significant gap in the daily academic communi
 it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics "to grab a job" one of the directions.
 
 There is no absolute answer to the question of whether a specific major is better or worse. From a personal point of view, the teaching program of the new major still needs time to settle down, 10 weeks of short semesters are compressed together, and even if you take grade 4.0 does not mean that you learned the course well.
+
 
 Remember `what the school teaches != what I need to learn`, you need to be clear about where your future competitiveness in the industry lies. Nowadays, more than 90% of the interview contents of large Internet companies are not what the teachers can teach you, but the fact that the teacher did not teach is not a reason why you don't know that.
 
@@ -121,9 +122,5 @@ Here are some links related to this post.
 
 2. [A Guide for Newbies in CS](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
 
-Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.
-
-
-
-
+Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible. You can find the old version of this post in the [commit](https://github.com/Chasing1020/Chasing1020.github.io/blob/bd2c334e7f4c537bf2cca8e54df1a3d11ea7311a/post/about-computer-science/index.html).
 
