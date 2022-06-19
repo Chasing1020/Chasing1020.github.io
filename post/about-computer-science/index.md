@@ -1,113 +1,129 @@
 
-一年一度分流季，如今再次回看大一在知乎收藏的一系列计算机专业选择的问答，感慨万千。《文心雕龙》有言：“驭文之首术，谋篇之大端”，值得深思。在看到有关计算机各种讨论的热度之下，思考再三，作此篇。
+It is a yearly "divide major" season, and now I am looking back at the series of computer science [questions](https://www.zhihu.com/question/326615493/answer/711051528) and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post. If you find any bugs or grammar issues, please don't hesitate to contact me to fix them. Anyway, thanks again for accepting my poor English.
 
 # 0. Preface
 
-什么是计算机科学与技术？为什么国家需要计算机科学与技术这个专业？这个专业的出路是什么？下一个计算机的风口是什么？计算机未来还会热门吗？
+> What is computer science? Why does our country need students majoring in it? What is the future of this major? Will computer science be popular in the future?
 
-在2年前，我做专业选择的时候，也遇见了这些问题。2年以后，当我以“过来人”的身份，向学弟学妹们介绍这个专业时，一时也难以下笔，一来担心自己能力不足，目光短浅，带来了各种误导；二来本科阶段的专业选择或极大概率影响着一个人的一生，误了他人前程。
+Two years later, when I introduced this major to my younger brother and sister who study at our university as a "past person", it was too difficult for me to write the answer because I was worried about my lack of ability and short-sightedness, which brought all kinds of misguidance to them; secondly, the choice of major at the undergraduate level will probably affect a person's life and mislead others. The third is that the choice of major at the undergraduate level may affect one's life and mislead the future of others.
 
-所以，在本文，我尽量以一个称述者的身份来讲一讲我两年来在计算机专业的经历、所思所想，希望读者能有所收获。所分享的内容，也仅代表我的看法/观点，不代表绝对理论。全文难免有主观倾向，如果有不合适之处，可以评论/联系我，我会尽快更改。
+Therefore, in this article, I will try my best to talk about my experience and thoughts in computer science over the past two years, and hope readers can gain something worthwhile. The content I share is only my opinion and does not represent any absolute theory. 
 
 # 1. Our Environment
 
->   这是一个繁荣和危机并存的时代：中国经济稳中向好发展，世界也正经历百年未有之变局。
+> This is a era of prosperity and crisis: Owing to the COVID-19, our world is experiencing changes never seen in a century.
 
-每年的春招秋招都是计算机行业发展的晴雨表，从去年的腾讯白菜40w高薪炒上了热搜，再到前段时间各大互联网大厂中概股集体跳水，因疫情的重来一边裁员的同时一边也锁HC，至今日总裁刘炽平发文：“内部人力投入将从边缘业务调整至核心业务，在行业发生根本性变化时积极拥抱变化”。
+The annually spring and autumn recruitment is the barometer of the development of the computer industry, from last year, Tencent paid 40w high salary in the hot search, and then some time ago, due to the epidemic of the re-emergence of the side of layoffs while also locking the head count. Until today President Liu Kiping of Tencent issued an article: "Internal manpower investment will be adjusted from the edge of the business to the core business, in the industry to occur fundamental changes in the industry when actively embracing change".
 
-大环境下，如今的互联网已远比不上10年前的所谓的“风口浪尖上，猪都能飞起来”，对此知乎大V霍华德的评价是：”现在互联网从增量时代进入存量时代。大家都没有办法把蛋糕做大了，就只能相互抢对方的蛋糕了“。
+In the general environment, today's Internet is far less than what it was 10 years ago, the so-called "Although it is a pig, it can wind and waves.", which Howard's comment is: "Now the Internet from the era of incremental into the era of stock. Everyone has no way to make the cake bigger, so they can only grab each other's cake".
 
-软件工程领域的圣经《The Mythical Man-Month》指出，以大量人员和较短的时间，并不能缩短软件的开发进度，用“人月”来衡量工作规模的大小是危险的。正因人数≠效率，当下各大厂调整组织结构的途径也非常直白——留下最卷的一批人。这个环境下，只在一个小池子里挖人才，互联网起薪也就显得非常高。
+[The Mythical Man-Month](https://en.wikipedia.org/wiki/The_Mythical_Man-Month) which is the bible of software engineering points out that more people can not shorten the software development progress, and it is dangerous to use "man-month" to measure the size of the work. Because `the number of people != efficiency`, the way to adjust the organizational structure of the current major manufacturers is also very straightforward - leaving the most valuable programmers. In this environment, with only a small pool of talent to dig, the Internet starting salary also seems very high.
 
-如果只是为了高薪/好就业而盲目选择计算机，那也只能说进入了幸存者偏差。实际上，一个客观的事实便是，我校毕业的学生的平均薪资，远远达不到知乎、脉脉的平均水平。优秀的同学能够各家大厂offer拿到手软，平时虚度光阴的学生，尽管选择了计算机，最后出路也往往远没有大家想的那么好。这个行业的薪资分布不是正态分布而是幂律化分布，只有最优秀的一小批人能分到最多的蛋糕，同行业未来发展的方差会非常大。如果你未来会选择入行，请努力成为最前面的那一批人。
+If only to high salary or good employment and blindly choose computer science major, it can only be said to have entered the survivorship bias. An objective fact is that the average salary of students graduating from our school is far below the average level of Zhihu or Maimai. The best students can collect offers from all the big companies, but the students who usually waste their time, even though they choose this major, often end up not as good as they expect. The salary distribution of this industry is not normal but power-law distribution, only a small group of the best people can share the most cake, the variance of the future development of the same industry will be very large. If you will choose to enter the industry in the future, please try to become the front group of people.
 
-对此，我认为选择这个专业的理由应是“你足够热爱”，而不应该是“这个专业很火”。在大一阶段学习的C语言即可判断，如果你喜欢这种通过一个个流程控制（状态机）构建整个秩序世界的流程，并对这个专业有着些许兴趣，那不妨接着阅读后文。
+In this regard, I think the reason for choosing this major should be "you love computer science enough", not "this major is hot". If you like the process of building a whole world of order through a process control (auto-state machine) and have some interest in this major, you may want to read on below.
 
 # 2. About CES
 
-关于我校的计算机工程与科学学院，当下一共开设了4个专业，计算机科学与技术，智能科学与技术，网络空间安全和人工智能，以下分别简称计科，智科，网安，AI。
+> What is the Computer Engineering and Science?
 
-事实上这些专业之间，在本科阶段所学的专业课体现来看，差距并不会有那么大，至少大部分基础课程如数据结构、计算机组成原理、操作系统、计算机网络（即考研408学科）等都是一视同仁的。对应专业的课程会在学习内容上有所侧重，具体细节参考[2019级上海大学本科专业培养方案](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263)与[2020级上海大学本科专业培养方案](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552)。
+The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.
 
-大多数情况下，跨专业的同学日常学术交流也不会有明显的隔阂，因为你在未来工作中用到的技能，和你当前所选的专业关联未必会那么紧密。具体落实到你所学的方向（技术栈）其实与专业关系并没有那么大，比如你选择了计算机科学与技术依旧能去做人工智能方向的学习，选择了AI也可以研究网络安全相关的内容。但是细致来看：
+The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to [2019 Shanghai University undergraduate professional training program](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [2020's Shanghai University undergraduate professional training program](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
 
--   计算机科学与技术：可以理解为计算机行业的理工大类，属于计算机中的基础学科，软硬都有，可选发展方向范围很广，具体研究方向完全取决于你的兴趣。
--   智能科学与技术：需要学习一些信号处理、矩阵代数、脑认知、运筹相关的课程，跨度较大。
--   网络空间安全：在我那年新开的专业，学习范围也不仅仅局限于所谓的“网络安全”，实际上也会区分渗透，逆向，密码学等等。
--   人工智能：所研究方向和专业课安排也与智科接近，包括数理逻辑、数据挖掘、脑认知等，建议数学较好的同学选择，需要非常好的线代与概率论基础，同时这也是数学系和通信方向的同学“抢饭碗”的方向之一。
+In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:
 
-具体专业孰优孰劣没有绝对答案。就个人来看，新专业的教学计划还需要时间沉淀，10周的短学期囫囵吞枣，即使拿了4.0也不见得你真的学会了这门课。大环境下，从事AI相关的大部分需要通过读研提升自己，名校+顶会可以成为真正的offer收割机。
+- Computer science and technology: can be understood as the computer industry, the Polytechnic University class, belongs to the computer in the basic disciplines, both soft and hard, optional development direction range is very wide, and the specific direction of research depends entirely on your interest.
+- Intelligent science and technology: need to learn some signal processing, matrix algebra, brain cognition, and operations research-related courses, across a wide range.
+- Cyberspace security: a new major in my year, the scope of the study is not limited to the so-called "cyber security", but also distinguishes penetration, reverse, cryptography and so on.
+- Artificial intelligence: the research direction and professional course arrangement are also close to the wisdom of science, including mathematical logic, data mining, brain cognition, etc., 
+it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics "to grab a job" one of the directions.
 
-切记`学校教什么≠我要学什么`，你要明确的是你自己未来在行业内的竞争力到底在哪里。如今大型互联网公司的面试内容，超过一半都不是学校能够教会你的，但是老师没有教并不能成为你不会的理由。
+There is no absolute answer to the question of whether a specific major is better or worse. From a personal point of view, the teaching program of the new major still needs time to settle down, 10 weeks of short semesters are compressed together, and even if you take grade 4.0 does not mean that you learned the course well.
+
+Remember `what the school teaches != what I need to learn`, you need to be clear about where your future competitiveness in the industry lies. Nowadays, more than 90% of the interview contents of large Internet companies are not what the teachers can teach you, but the fact that the teacher did not teach is not a reason why you don't know that.
 
 # 3. The future
 
->   进厂、考公、保研、考研、出国还是家里蹲？
+> What I will do in the future?
 
-实际上每条路的划分，选择上也会有所不同。
+In fact, each road is divided and the choice will be different.
 
-进厂：如果没有读研的打算，那么不太建议走算法方向，主要方向包括前端、客户端、后端、测试、运维、安全等。在大三前，务必修完专业课，不要把过多课程留到大四。尽早确定好前面试所用的技术栈，找网课（最好是国外名校公开课、书、博客等自学，求职前期努力刷leetcode背好面经，大三暑假（或大二结束的寒假）尽早去互联网大厂实习，多积累实习经历项目经历。
+`For work`: If you do not have the intention to study what, it is not recommended to go in the direction of algorithms, the main directions include front-end, client, back-end, testing, operations and maintenance, security, etc. Before the junior year, make sure to finish the professional courses, and do not leave too many courses for the senior year. As early as possible to determine the technology stack used in the interview, looking for online classes (preferably open courses in foreign famous universities, books, blogs, and [awesome list](https://github.com/sindresorhus/awesome); job search in the early efforts to do [leetcode](https://leetcode.com/problemset/all/), the summer of the junior year (or the end of the second year of winter) as early as possible to go to the Internet companies for internship, more accumulated internship experience project experience.
+   - Internship: it is best to find the schoolmates or online internal push, more understanding of the department's working environment, overtime status, etc. The primary purpose of the internship is to enrich the resume, it is not recommended to care too much about the salary more or less, the key is you will learn what.
+   - When you are looking for a job with your internship experience, the name of your internship company only exists for the interviewer to have heard of/not heard of two situations. If the goal is to work for a big company, it is not particularly recommended to go to outsourcing companies and traditional industry companies (i.e. companies whose old business is not the Internet) or if you want to take "private jobs" from teachers and make sure to identify the good and bad projects, refer to [Shanghai Jiao Tong University Survives Guide](https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing).
 
--   实习方面，最好找学长学姐或者是网上的内推，更加了解部门的工作环境、加班情况等。实习的首要目的在于为简历镀金，不建议过度在意工资多与少，关键在于学到什么。
--   在你拿着实习经历找工作的时候，你的实习公司名字对于面试官而言，只存在听过/没听过两种情况。如果目标是为了大厂，不是特别建议去外包公司和传统行业公司（即老本行不是互联网的公司），或是接老师的“私活”也务必辨别项目的好坏，参考[上海交通大学生存指南](https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing)。
+`Taking part in the civil servant exam`: Mainly depends on the province, city, unit, and tier, the specific details are unknown.
 
-考公：主要取决于省市、单位、层级，具体细节并不了解。
+`Push avoid`: The specific policy will change every year, refer to The Implementation plan for the work of recommending fresh outstanding undergraduate graduates to be exempted from studying for a master's degree in [2022](https://cs.shu.edu.cn/info/1198/20176.htm) and [2021](https://cs.shu.edu.cn/info/1198/19884.htm) School of Computer Science of Shanghai University. The details of the policy will change every year, but it is important to be clear about where you need to get extra points.
 
-保研：每年具体政策都会发生变化，参考[上海大学计算机学院2022年推荐应届优秀本科毕业生免试攻读硕士学位研究生工作实施方案](https://cs.shu.edu.cn/info/1198/20176.htm)和[上海大学计算机学院2021年推荐免试攻读硕士学位研究生工作实施方案](https://cs.shu.edu.cn/info/1198/19884.htm)，政策的细节每年都在变化，但是需要明确的是自己需要在哪些地方拿到加分点。
+- Note that "the scientific research achievements and competition awards of students who cooperate with their immediate family members or those with significantly higher education, titles and positions than themselves are only for reference and are not included in the calculation system of the comprehensive evaluation results.", means that the route of publishing papers in cooperation with supervisors, finding joint competitions for graduate Ph.D. will not work.
+- On the other hand, `Shanghai University has a lot `of ACM `experts` ==` Shanghai University ACM is powerful != you will be powerful definitely when you come to ACM`, same for CTF, ASC, etc. Some competitions will cost a lot of time investment if you find it is not suitable also please give up the sunk cost in time, spend time to do leetcode than waste time in the competition.
 
--   注意“学生与直系亲属或学历、职称、职务明显高于本人者合作的科研成果、竞赛奖项等仅作为参考，不纳入学生本人推免遴选综合评价成绩计算体系。”，意味着和导师合作发表论文、找研究生博士生联合竞赛等路线行不通。
--   另一方面，`上海大学有很多ACM牛人 = 上海大学ACM很强 ≠ 你来了上海大学ACM就一定会很强`，CTF、ASC等同理，一些比赛会花费大量的时间投入，如果发现不合适也请及时放弃沉没成本，花时间刷刷leetcode比无意义浪费时间在竞赛要好的多。
--   体育和入伍服兵役加分有则有无，除此之外需要特别重视绩点。志愿者方面的加分19年和20年不一样，反正证多不压身，这部分加分很容易，保研的同学尽量刷满。
+`Taking part in the postgraduate entrance exams`: The students with low GPAs who want to fulfill their dreams of a famous domestic school is also the choice of most students who do not want to work for the time being. The preparation time for the exam begins in the second semester of the junior year, choice is greater than effort. The process of preparing for the exam, choosing a school, etc., depends on the individual situation, so I won't go into detail here.
 
-考研：对于绩点不高同学，想圆国内名校梦的最后手段，也是较多数暂时不愿工作同学的选择。考研准备时间从大三下学期开始，主要为一个信息差，选择大于努力。备考流程，择校等，看个人情况，这里就不细讲。
+`Study abroad`: The first thing you need to do is to make sure that you are ready to go to the country you want to go to, whether you need to take IELTS or TOEFL, and whether you want to take GRE. In addition, striving to participate in internationally renowned competitions or publish some academic results but also trying to accumulate some foreign company internship experience, in the application are very plus points. As for whether to stay or return to your home country at the end of your graduate studies abroad, it ultimately depends on your situation.
 
-出国：特别重视GPA，而且需要尽快确定去的国家，考雅思还是托福，是否需要GRE等。家境困难的同学可以尝试争取助教免学费。此外努力争取参加国际知名的比赛，争取发表一些学术成果，同时也可以积攒一些外企实习经验，在申请时都是非常加分的。至于出国读研结束是留下还是回国，最终还是根据个人情况而定。
+# 4. Daily life
 
-家里蹲：欢迎来到[HM University](https://github.com/HMUniversity/About)。
+> What is life like in the college?
 
-# 4. Life
-
-> 学院的生活是什么样的？
-
-1.   19级、20级寝室都分在新世纪，后续住宿情况未知，看学校安排。
-2.   部分课已经删掉了研讨，不过报告还是有不少，有的老师对报告的要求也很多，实际上大部分还是保研或者出国的同学在卷。
-3.   学院的学习资料，课本等，在各大群聊也可见，也可以参考[SHU计算机学院资料整理](https://chasing1020.github.io/post/materials/ces-materials/)。
-4.   期末考试很多历年试卷远不如大一详细，数量较少且不全，需要一定的备考技巧。
-5.   上课方面，大部分女生坐前排较多，能不能脱单自凭本事。
-6.   班级活动上，因为我院上课都是自选的，大家生活轨迹都比较分散，或聚集在自己的小圈子内，自认为班级凝聚感并没有那么强，更多的是在里边催青年大学习（bushi。
-7.   大多数课程包括实验课，都会在东区上，还是比较远的，冬天早八东区很痛苦，建议学个骑车方便些。
-8.   ACM和网安实验室分别在计算机大楼7楼和6楼，目前是对特定学生开放的。团队合作的竞赛务必找好志同道合，愿意投入时间且能力强（不体现在绩点）的同学。
-9.   搞AI的同学争取尽早联系导师，尝试借到GPU的服务器，实力强的同学也可以尝试提前联系导师进研究生课题组。希望科研保研加分的同学需划清利益边界，尽可能保证自己是一作。
+1. Class 19 and 20 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.
+2. Some classes have been deleted from the seminar, but there are still a lot of reports, and some teachers have a lot of requirements.
+3. College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to [SHU School of Computer Science materials collated](https://chasing1020.github.io/post/materials/ces-materials/).
+4. Many of the final exams are far less detailed than the freshman year, most of them are less incomplete, and you will need some preparation skills.
+5. In class, most of the girls sit in the front row more, and whether or not you can get rid of the single depends on your ability.
+6. About class activities, because our courses are self-selected, everyone's daily life trajectory is more scattered or gathered in their small circle, I think the class cohesion is not so strong to some extent.
+7. Most of the courses, including laboratory classes, will be on the East Side, or relatively far, winter morning on eight East Side is very painful, so it is recommended to learn a bicycle for convenience.
+8. ACM and Cyberspace security labs are located on the 7th and 6th floors of the computer building, which are currently open to specific students. For teamwork competitions, it is important to find like-minded partners who are willing to devote their time and have strong abilities (not reflected in their GPAs).
+9. Students who major in AI should try to contact their supervisors as early as possible to try to borrow a GPU server, and those who are strong can also try to contact their supervisors in advance to join their graduate groups.
 
 # 5. On the way
-> 如果你已经决定来计算机学院，以下是一些提前学习的建议可供参考
 
-1.   重视英语！重视英语！重视英语！
-     -   学会使用Google，学会阅读英文资料。
-     -   多在Github, Stackoverflow上学习，少看CSDN, 博客园。
-2.   创建一个GitHub账号，并在此上搭建个人的博客，可使用hugo, hexo等框架，具体流程全程跟着Google，这个过程你会学到很多，包括Git，读文档，写配置文件等操作。
-3.   明确学习方向，学好一门新的语言及相关技术，学习过程中记好笔记。
-     -   后端：Java, Golang, C++, Rust等，以及Web框架如Springboot，Gin，能力强的同学可以提前了解DB、Redis、MQ、ES等技术；
-     -   前端/客户端：JavaScript, TypeScript, Dart, Kotlin, Swift不限，框架包括Vue, React, Angular等，学习Node，以及代理、缓存、网关、隧道等等；
-     -   搞AI的可以开始学习Python, matlab之类，以及常见的tensorflow或者是pytorch，努力提升英语水平，开始尝试提升找文献/阅读文献的能力。
-4. 学习Linux包括WSL，Docker使用，强烈推荐现代人学会Docker省去搭建环境的时间。
-5.   提前学习专业课程知识，参考北大信科的[CS自学指南](https://csdiy.wiki/)，重点学习考研408相关的课程。
-6.   当完成以上后，未来该学什么应该也有大致的方向了，也可以看一下[我的计算机学习路线](https://chasing1020.github.io/post/my-cs-learning-route/)。
+> If you have decided to major in the Computer Science and Technology, here are some suggestions for studying in advance.
+
+1. English counts! English counts! English counts!
+   
+   - Learn to use Google and learn to read English materials. Never use Baidu to find answers. (It is highly recommended to add `127.0.0.1 www.baidu.com` in your /etc/hosts file, which will promise that you will not able to use it.)
+   - Learn more on [Github](https://github.com/), [Stackoverflow](https://stackoverflow.com/) and less on CSDN or Cnblogs.
+   - Learn to fix bugs by [STFW](https://en.wikipedia.org/wiki/STFW) and [RTFM](https://en.wikipedia.org/wiki/RTFM), which is the most important skill for a programmer.
+   - Learn [how to ask questions the smart way](http://www.catb.org/~esr/faqs/smart-questions.html).
+
+2. Create a GitHub account, and build a personal blog on it, you can use [hugo](https://gohugo.io/), [hexo](https://gohugo.io/) and other frameworks, the whole specific process follows Google and official documentation, the process you will learn a lot, including Git, read documents, write configuration files and other operations.
+
+3. Specific learning direction, learning a new language and related technologies, learning process to take notes.
+   
+   - Back-end: Java, Golang, C++, Rust, etc., and Web frameworks such as Springboot, and Gin, capable students can learn about DBMS, Redis, MQ, ES and other technologies in advance.
+   - Front-end/client: JavaScript, TypeScript, Dart, Kotlin, Swift and so on, frameworks including Vue, React, Angular, etc., learning Node.js, as well as agents, caches, gateways, tunnels, etc.
+   - AI can start to learn Python, Matlab and so on, as well as the common TensorFlow or PyTorch, efforts to improve the level of English and start trying to improve the ability to find literature/reading literature.
+
+4. Learn Linux including [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) and [Docker](https://www.docker.com/), it is highly recommended to learn Docker to save the time to build the environment.
+
+5. Learn the professional course knowledge in advance, refer to the [CS Self-Study Guide](https://csdiy.wiki/), it is suggested to learn computer science by doing the labs.
+
+6. When you finish the above, you should have a general direction of what to study in the future, you can also read [My Computer Study Route](https://chasing1020.github.io/post/my-cs-learning-route/).
 
 # 6. Ending
 
-本文也仅表达的是我个人的观点，希望学弟学妹们不要因为我提及的专业的不足而改变了你的看法，或是因为高薪而盲目下了决定。在专业选择的路上，往往一个决定会极大影响未来你的人生轨迹。
+This article is only expressing my personal opinion, I hope students will not change their opinion towards this major because of the shortcomings of the profession I mentioned, or blindly decide because of the so-called high salary. On the way of choosing a major, often a decision will greatly affect the future trajectory of your life.
 
-你有着能进计算机学院的成绩，也意味着你有几乎所有专业的选择权，请谨慎选择自己的专业。毕竟最终的专业选择权利还是在你自己，请一定根据自己的兴趣爱好，家庭环境，未来发展等因素做出决定，请记住在这时任何人，包括你的老师、家人、同学也只能提供建议而已。
+The fact that you have the grades to get into a computer science college also means that you have the right to choose almost any major, so please choose your major carefully. After all, the final choice of major is still yours, so please make sure to make a decision based on your interests, family environment, future development and all kinds of factors, and remember that at this point, anyone, including your teachers, family and classmates, can only just provide advice at all.
 
-四年大学生活说长也长，说短也短，在校园里享受着舒适生活的同时，不觉间也已成为温水中的青蛙。
+Four years of college life is neither too long nor too short. While enjoying the comfortable campus life, you have become a frog in warm water without realizing it.
 
-我们需要跳脱学生思维惯性下的分数衡量体系，“请务必牢记：大学四年留给你的是你的人生，在你毕业之时，那一串苍白的分数其实就已经作废了。”
+We need to break away from the inertia of student thinking under the score measurement system, "Please be sure to remember: four years of college life gives you is just a kind of the undergo of your life, when you graduate, the string of pale scores has been invalidated."
 
-------
+# 7. Remarks
+
+Here are some links related to this post.
+
+1. [Guide of Choice SHU CES](https://lemon-412.github.io/2020/07/17/%E4%B8%8A%E5%A4%A7%E8%AE%A1%E9%99%A2%E6%8A%A5%E8%80%83%E6%8C%87%E5%8C%97/)
+
+2. [A Guide for Newbies in CS](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
+
+Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.
 
 
-友链：[上大计院报考指北](https://lemon-412.github.io/2020/07/17/%E4%B8%8A%E5%A4%A7%E8%AE%A1%E9%99%A2%E6%8A%A5%E8%80%83%E6%8C%87%E5%8C%97/)
 
-博客链接：[https://chasing1020.github.io/](https://chasing1020.github.io/)
+
 
