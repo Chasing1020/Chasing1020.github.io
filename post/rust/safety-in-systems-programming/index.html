@@ -40,7 +40,7 @@ How can we find and/or prevent problems like this?" />
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.33d7c702028b62638e954968582406b5146e3147a989bc79065402144586e42e.css" rel="stylesheet">
+<link href="/sass/main.min.8f590aa0fce1a300d8238361d25789299283ff793eb3daf7a96cff90515ad4ec.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
@@ -50,12 +50,12 @@ How can we find and/or prevent problems like this?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://Chasing1020.github.io/post/rust/safety-in-systems-programming/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-02-19T23:20:42+08:00" />
-<meta property="article:modified_time" content="2022-04-16T23:48:27+08:00" />
+<meta property="article:modified_time" content="2022-06-20T13:09:19+08:00" />
 
 <meta itemprop="name" content="Safety in Systems Programming">
 <meta itemprop="description" content="1. Introduction The gets() function cannot be used securely. Because of its lack of bounds checking, and the inability of the calling program to reliably determine the length of the next incoming line, the use of this function enables malicious users to arbitrarily change a running program&rsquo;s functionality through a buffer overflow attack. It is strongly suggested that the fgets() function be used in all cases.
 How can we find and/or prevent problems like this?"><meta itemprop="datePublished" content="2022-02-19T23:20:42+08:00" />
-<meta itemprop="dateModified" content="2022-04-16T23:48:27+08:00" />
+<meta itemprop="dateModified" content="2022-06-20T13:09:19+08:00" />
 <meta itemprop="wordCount" content="131">
 <meta itemprop="keywords" content="Safety," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Safety in Systems Programming"/>
@@ -201,8 +201,8 @@ strongly suggested that the fgets() function be used in all cases.</p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2022-04-16
-        <a href="https://github.com/Chasing1020/Chasing1020.github.io/commit/a5d525e6543b0463aebd732a2739abf5f4825a0a" title="first commit">(a5d525e)</a>
+        2022-06-20
+        <a href="https://github.com/Chasing1020/Chasing1020.github.io/commit/31f7aafce44ccd67f131b799cfd6f3ed94e5d0de" title="add btn copy to clipboard">(31f7aaf)</a>
     </span>
   </p>
   
@@ -349,5 +349,56 @@ if (!doNotTrack) {
 
 
 
+
+<script>
+function createCopyButton(highlightDiv) {
+  const div = document.createElement("div");
+  div.className = "copy-code";
+  div.innerText = "Copy";
+  div.addEventListener("click", () =>
+    copyCodeToClipboard(div, highlightDiv)
+  );
+  addCopyButtonToDom(div, highlightDiv);
+}
+
+async function copyCodeToClipboard(button, highlightDiv) {
+  const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code")
+    .innerText;
+  try {
+    result = await navigator.permissions.query({ name: "clipboard-write" });
+    if (result.state == "granted" || result.state == "prompt") {
+      await navigator.clipboard.writeText(codeToCopy);
+    } else {
+      copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+    }
+  } catch (_) {
+    copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+  } finally {
+    codeWasCopied(button);
+  }
+}
+
+function codeWasCopied(div) {
+  div.blur();
+  div.innerText = "Copied!";
+  setTimeout(function () {
+    div.innerText = "Copy";
+  }, 3000);
+}
+
+function addCopyButtonToDom(button, highlightDiv) {
+  highlightDiv.insertBefore(button, highlightDiv.firstChild);
+  const wrapper = document.createElement("div");
+  wrapper.className = "highlight-wrapper";
+  highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+  wrapper.appendChild(highlightDiv);
+}
+
+document
+  .querySelectorAll(".highlight")
+  .forEach((highlightDiv) => createCopyButton(highlightDiv));
+
+
+</script>
 </body>
 </html>
