@@ -2,7 +2,7 @@
 # 1. Introduction
 
 The gets() function cannot be used securely.  Because of its lack of bounds checking,
-     and the inability for the calling program to reliably determine the length of the
+     and the inability of the calling program to reliably determine the length of the
      next incoming line, the use of this function enables malicious users to arbitrarily
      change a running program's functionality through a buffer overflow attack.  It is
      strongly suggested that the fgets() function be used in all cases.

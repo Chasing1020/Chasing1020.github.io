@@ -29,7 +29,7 @@ In this regard, I think the reason for choosing this major should be "you love c
 
 The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.
 
-The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to [Shanghai University undergraduate professional training program in 2019](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [Shanghai University undergraduate professional training program in 2020](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
+The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to Shanghai University undergraduate professional training program in [2019](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [2020](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
 
 In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:
 
@@ -59,7 +59,7 @@ In fact, each road is divided and the choice will be different.
 `Push avoid`: The specific policy will change every year, refer to The Implementation plan for the work of recommending fresh outstanding undergraduate graduates to be exempted from studying for a master's degree in [2022](https://cs.shu.edu.cn/info/1198/20176.htm) and [2021](https://cs.shu.edu.cn/info/1198/19884.htm) School of Computer Science of Shanghai University. The details of the policy will change every year, but it is important to be clear about where you need to get extra points.
 
 - Note that "the scientific research achievements and competition awards of students who cooperate with their immediate family members or those with significantly higher education, titles and positions than themselves are only for reference and are not included in the calculation system of the comprehensive evaluation results.", means that the route of publishing papers in cooperation with supervisors, finding joint competitions for graduate Ph.D. will not work.
-- On the other hand, `Shanghai University has a lot `of ACM `experts` ==` Shanghai University ACM is powerful != you will be powerful definitely when you come to ACM`, same for CTF, ASC, etc. Some competitions will cost a lot of time investment if you find it is not suitable also please give up the sunk cost in time, spend time to do leetcode than waste time in the competition.
+- On the other hand, `Shanghai University has a lot of ACM experts == Shanghai University ACM is powerful != you will be powerful definitely when you come to ACM`, same for CTF, ASC, etc. Some competitions will cost a lot of time investment if you find it is not suitable also please give up the sunk cost in time, spend time to do leetcode than waste time in the competition.
 
 `Taking part in the postgraduate entrance exams`: The students with low GPAs who want to fulfill their dreams of a famous domestic school is also the choice of most students who do not want to work for the time being. The preparation time for the exam begins in the second semester of the junior year, choice is greater than effort. The process of preparing for the exam, choosing a school, etc., depends on the individual situation, so I won't go into detail here.
 
@@ -69,7 +69,7 @@ In fact, each road is divided and the choice will be different.
 
 > What is life like in the college?
 
-1. Class 19 and 20 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.
+1. Grade 2019 and 2020 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.
 2. Some classes have been deleted from the seminar, but there are still a lot of reports, and some teachers have a lot of requirements.
 3. College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to [SHU School of Computer Science materials collated](https://chasing1020.github.io/post/materials/ces-materials/).
 4. Many of the final exams are far less detailed than the freshman year, most of them are less incomplete, and you will need some preparation skills.
@@ -90,7 +90,7 @@ In fact, each road is divided and the choice will be different.
    - Learn to fix bugs by [STFW](https://en.wikipedia.org/wiki/STFW) and [RTFM](https://en.wikipedia.org/wiki/RTFM), which is the most important skill for a programmer.
    - Learn [how to ask questions the smart way](http://www.catb.org/~esr/faqs/smart-questions.html).
 
-2. Create a GitHub account, and build a personal blog on it, you can use [hugo](https://gohugo.io/), [hexo](https://gohugo.io/) and other frameworks, the whole specific process follows Google and official documentation, the process you will learn a lot, including Git, read documents, write configuration files and other operations.
+2. Create a GitHub account, and build a personal blog on it, you can use [hugo](https://gohugo.io/), [hexo](https://hexo.io/) and other frameworks, the whole specific process follows Google and official documentation, the process you will learn a lot, including Git, read documents, write configuration files and other operations.
 
 3. Specific learning direction, learning a new language and related technologies, learning process to take notes.
    
