@@ -8,17 +8,6 @@
     <language>en</language>
     <lastBuildDate>Sun, 19 Jun 2022 22:27:02 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My CS Learning Route</title>
-      <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
-      <pubDate>Sun, 28 Nov 2021 23:35:55 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/my-cs-learning-route/</guid>
-      <description>As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.
-The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
-In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.</description>
-    </item>
-    
-    <item>
       <title>About Computer Science</title>
       <link>http://Chasing1020.github.io/post/about-computer-science/</link>
       <pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate>
@@ -113,6 +102,17 @@ Engineering on the other hand, is all about developing products, using well-defi
       
       <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
       <description>1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写</description>
+    </item>
+    
+    <item>
+      <title>My CS Learning Route</title>
+      <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
+      <pubDate>Sun, 28 Nov 2021 23:35:55 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/my-cs-learning-route/</guid>
+      <description>As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.
+The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
+In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.</description>
     </item>
     
     <item>

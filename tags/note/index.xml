@@ -8,6 +8,15 @@
     <language>en</language>
     <lastBuildDate>Sun, 19 Jun 2022 22:27:02 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/note/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About Computer Science</title>
+      <link>http://Chasing1020.github.io/post/about-computer-science/</link>
+      <pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/about-computer-science/</guid>
+      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.</description>
+    </item>
+    
+    <item>
       <title>My CS Learning Route</title>
       <link>http://Chasing1020.github.io/post/my-cs-learning-route/</link>
       <pubDate>Sun, 28 Nov 2021 23:35:55 +0800</pubDate>
@@ -16,15 +25,6 @@
       <description>As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.
 The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.
 In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.</description>
-    </item>
-    
-    <item>
-      <title>About Computer Science</title>
-      <link>http://Chasing1020.github.io/post/about-computer-science/</link>
-      <pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/about-computer-science/</guid>
-      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.</description>
     </item>
     
     <item>

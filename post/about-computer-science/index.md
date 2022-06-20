@@ -29,7 +29,15 @@ In this regard, I think the reason for choosing this major should be "you love c
 
 The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.
 
-The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to Shanghai University undergraduate professional training program in [2019](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [2020](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552).
+The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master's degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to Shanghai University undergraduate professional training program in [2019](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=31263) and [2020](https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&wbtreeid=1192&wbnewsid=32552). And all majors' rankings are represented by the following table:
+
+
+| Name   | 2021 Plan | 2021 Rank | 2020 Plan | 2020 Rank | 2019 Plan | 2019 Rank |
+| ----------------------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| Computer Science and Technology | 110       | 289/1573  | 135       | 560/2029  | 150       | 582/2090  |
+| Intelligent Science and Technology | 26        | 375/1573  | 45        | 486/2029  | 60        | 281/2090  |
+| Cyberspace Security     | 20        | 396/1573  | 25        | 495/2029  |  -         |       -   |
+| Artificial Intelligence | 21        | 366/1573  | -         |      -     |   -        |       -    |
 
 In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:
 
@@ -37,10 +45,9 @@ In most cases, there will not be a significant gap in the daily academic communi
 - Intelligent science and technology: need to learn some signal processing, matrix algebra, brain cognition, and operations research-related courses, across a wide range.
 - Cyberspace security: a new major in my year, the scope of the study is not limited to the so-called "cyber security", but also distinguishes penetration, reverse, cryptography and so on.
 - Artificial intelligence: the research direction and professional course arrangement are also close to the wisdom of science, including mathematical logic, data mining, brain cognition, etc., 
-it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics "to grab a job" one of the directions.
+  it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics "to grab a job" one of the directions.
 
 There is no absolute answer to the question of whether a specific major is better or worse. From a personal point of view, the teaching program of the new major still needs time to settle down, 10 weeks of short semesters are compressed together, and even if you take grade 4.0 does not mean that you learned the course well.
-
 
 Remember `what the school teaches != what I need to learn`, you need to be clear about where your future competitiveness in the industry lies. Nowadays, more than 90% of the interview contents of large Internet companies are not what the teachers can teach you, but the fact that the teacher did not teach is not a reason why you don't know that.
 
@@ -51,8 +58,9 @@ Remember `what the school teaches != what I need to learn`, you need to be clear
 In fact, each road is divided and the choice will be different.
 
 `For work`: If you do not have the intention to study what, it is not recommended to go in the direction of algorithms, the main directions include front-end, client, back-end, testing, operations and maintenance, security, etc. Before the junior year, make sure to finish the professional courses, and do not leave too many courses for the senior year. As early as possible to determine the technology stack used in the interview, looking for online classes (preferably open courses in foreign famous universities, books, blogs, and [awesome list](https://github.com/sindresorhus/awesome); job search in the early efforts to do [leetcode](https://leetcode.com/problemset/all/), the summer of the junior year (or the end of the second year of winter) as early as possible to go to the Internet companies for internship, more accumulated internship experience project experience.
-   - Internship: it is best to find the schoolmates or online internal push, more understanding of the department's working environment, overtime status, etc. The primary purpose of the internship is to enrich the resume, it is not recommended to care too much about the salary more or less, the key is you will learn what.
-   - When you are looking for a job with your internship experience, the name of your internship company only exists for the interviewer to have heard of/not heard of two situations. If the goal is to work for a big company, it is not particularly recommended to go to outsourcing companies and traditional industry companies (i.e. companies whose old business is not the Internet) or if you want to take "private jobs" from teachers and make sure to identify the good and bad projects, refer to [Shanghai Jiao Tong University Survives Guide](https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing).
+
+- Internship: it is best to find the schoolmates or online internal push, more understanding of the department's working environment, overtime status, etc. The primary purpose of the internship is to enrich the resume, it is not recommended to care too much about the salary more or less, the key is you will learn what.
+- When you are looking for a job with your internship experience, the name of your internship company only exists for the interviewer to have heard of/not heard of two situations. If the goal is to work for a big company, it is not particularly recommended to go to outsourcing companies and traditional industry companies (i.e. companies whose old business is not the Internet) or if you want to take "private jobs" from teachers and make sure to identify the good and bad projects, refer to [Shanghai Jiao Tong University Survives Guide](https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing).
 
 `Taking part in the civil servant exam`: Mainly depends on the province, city, unit, and tier, the specific details are unknown.
 
@@ -71,7 +79,7 @@ In fact, each road is divided and the choice will be different.
 
 1. Grade 2019 and 2020 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.
 2. Some classes have been deleted from the seminar, but there are still a lot of reports, and some teachers have a lot of requirements.
-3. College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to [SHU School of Computer Science materials collated](https://chasing1020.github.io/post/materials/ces-materials/).
+3. College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to [CES Materials](https://chasing1020.github.io/post/materials/ces-materials/) and you may find it helpful to browse the [libshu](https://github.com/shuosc/libshu) which includes the material collected by the Open Source Community.
 4. Many of the final exams are far less detailed than the freshman year, most of them are less incomplete, and you will need some preparation skills.
 5. In class, most of the girls sit in the front row more, and whether or not you can get rid of the single depends on your ability.
 6. About class activities, because our courses are self-selected, everyone's daily life trajectory is more scattered or gathered in their small circle, I think the class cohesion is not so strong to some extent.
@@ -85,7 +93,7 @@ In fact, each road is divided and the choice will be different.
 
 1. English counts! English counts! English counts!
    
-   - Learn to use Google and learn to read English materials. Never use Baidu to find answers. (It is highly recommended to add `127.0.0.1 www.baidu.com` in your /etc/hosts file, which will promise that you will not able to use it.)
+   - Learn to use Google and learn to read English materials. Never use Baidu to find answers. (It is highly recommended to add `127.0.0.1 www.baidu.com` in your [/etc/hosts](https://man7.org/linux/man-pages/man5/hosts.5.html) file, which will promise that you will not able to use it.)
    - Learn more on [Github](https://github.com/), [Stackoverflow](https://stackoverflow.com/) and less on CSDN or Cnblogs.
    - Learn to fix bugs by [STFW](https://en.wikipedia.org/wiki/STFW) and [RTFM](https://en.wikipedia.org/wiki/RTFM), which is the most important skill for a programmer.
    - Learn [how to ask questions the smart way](http://www.catb.org/~esr/faqs/smart-questions.html).
@@ -122,5 +130,4 @@ Here are some links related to this post.
 
 2. [A Guide for newbies in Cyberspace Security](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
 
-Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible. You can find the old version of this post in the [commit](https://github.com/Chasing1020/Chasing1020.github.io/blob/bd2c334e7f4c537bf2cca8e54df1a3d11ea7311a/post/about-computer-science/index.html).
-
+Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.

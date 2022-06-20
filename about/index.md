@@ -28,15 +28,16 @@
   - WeChat: [zjc643601464](weixin://dl/chat?zjc643601464)
   - Lark: [Add me as Contact](https://www.feishu.cn/invitation/page/add_contact/?token=84fjea0d-a6bf-452a-af18-6f663429af2d&amp;unique_id=RrNxlaALcRoDz4M3fOO9nA==)
   - Mail: [Email me](mailto:chasing1020@gmail.com)
+  - Telegram: [Add Chasing1020](https://t.me/Chasing1020)
 
 # **Link**
 - I would appreciate it if you could add my blog to your links.
 
 - You can send me your link by any means, an example of the link is below.
 
-### 
-	Name: Chasing’s Blog
-	Url: https://chasing1020.github.io
-	Avatar: https://z3.ax1x.com/2021/10/26/5olW4O.jpg
-	Description: if err != nil
-
+```yaml
+  Name: Chasing’s Blog
+  Url: https://chasing1020.github.io
+  Avatar: https://z3.ax1x.com/2021/10/26/5olW4O.jpg
+  Description: if err != nil
+```
