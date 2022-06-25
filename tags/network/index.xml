@@ -22,10 +22,11 @@
       <pubDate>Thu, 06 Jan 2022 22:39:42 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/basic/network-security/</guid>
-      <description>1. Definition of security   confidentiality: only sender, intended receiver should “understand” message contents
- sender encrypts message receiver decrypts message    authentication: sender, receiver want to confirm identity of each other
-  message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
-  access and availability: services must be accessible and available to users. Access is the basis of availability.</description>
+      <description>1. Definition of security confidentiality: only sender, intended receiver should “understand” message contents
+sender encrypts message receiver decrypts message authentication: sender, receiver want to confirm identity of each other
+message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
+access and availability: services must be accessible and available to users. Access is the basis of availability.
+Without network security, the intruder can eavesdrop, insert messages, impersonation, hijacking(taking over ongoing connection), denial of service and so on.</description>
     </item>
     
   </channel>

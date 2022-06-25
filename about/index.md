@@ -10,11 +10,9 @@
 
 - I am a college student majoring in Computer Science in Shanghai University.
 
-- I am currently working as a back-end developer intern at [ByteDance](https://www.bytedance.com/).
-
 - I like freedom and unrestrained, and don't like being bound.
 
-- My main field of study is Back-End Development, Cloud-Native and Microservices.
+- My main field of study is Cloud-native.
 
 - My favorite languages in order of preference are: Golang > Java > Python > Rust > JavaScript.
 

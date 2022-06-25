@@ -13,7 +13,7 @@
       <pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/about-computer-science/</guid>
-      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.</description>
+      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this</description>
     </item>
     
     <item>
@@ -33,19 +33,9 @@
       <guid>http://Chasing1020.github.io/post/design/software-engineering/</guid>
       <description>Overview Software is more than just a program code. It is considered to be collection of executable programming code, associated libraries and documentations.
 Engineering on the other hand, is all about developing products, using well-defined, scientific principles and methods.
- IEEE Definition
- (1) The application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software.
+IEEE Definition
+(1) The application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software.
 (2) The study of approaches as in the above statement.</description>
-    </item>
-    
-    <item>
-      <title>Safety in Systems Programming</title>
-      <link>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</link>
-      <pubDate>Sat, 19 Feb 2022 23:20:42 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</guid>
-      <description>1. Introduction The gets() function cannot be used securely. Because of its lack of bounds checking, and the inability of the calling program to reliably determine the length of the next incoming line, the use of this function enables malicious users to arbitrarily change a running program&amp;rsquo;s functionality through a buffer overflow attack. It is strongly suggested that the fgets() function be used in all cases.
-How can we find and/or prevent problems like this?</description>
     </item>
     
     <item>
@@ -81,10 +71,11 @@ How can we find and/or prevent problems like this?</description>
       <pubDate>Thu, 06 Jan 2022 22:39:42 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/basic/network-security/</guid>
-      <description>1. Definition of security   confidentiality: only sender, intended receiver should “understand” message contents
- sender encrypts message receiver decrypts message    authentication: sender, receiver want to confirm identity of each other
-  message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
-  access and availability: services must be accessible and available to users. Access is the basis of availability.</description>
+      <description>1. Definition of security confidentiality: only sender, intended receiver should “understand” message contents
+sender encrypts message receiver decrypts message authentication: sender, receiver want to confirm identity of each other
+message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
+access and availability: services must be accessible and available to users. Access is the basis of availability.
+Without network security, the intruder can eavesdrop, insert messages, impersonation, hijacking(taking over ongoing connection), denial of service and so on.</description>
     </item>
     
     <item>
@@ -142,8 +133,8 @@ In some ways, this route can be more of a substitute for college courses outside
       <guid>http://Chasing1020.github.io/post/database/database-systems/</guid>
       <description>Reference Book: Database System Concepts Seventh Edition
 1. Relational Model Readings: Chapters 1-2, 6
- Definition
- DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+Definition
+DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
 A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.</description>
     </item>
     
