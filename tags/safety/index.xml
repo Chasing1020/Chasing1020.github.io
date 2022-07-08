@@ -8,14 +8,13 @@
     <language>en</language>
     <lastBuildDate>Sat, 19 Feb 2022 23:20:42 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/safety/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Stanford CS110L</title>
-      <link>http://Chasing1020.github.io/post/lab/stanford-cs110l/</link>
+      <title>Safety in Systems Programming</title>
+      <link>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</link>
       <pubDate>Sat, 19 Feb 2022 23:20:42 +0800</pubDate>
       
-      <guid>http://Chasing1020.github.io/post/lab/stanford-cs110l/</guid>
-      <description>0. Preface This post is about the solution to the CS110L. This course&amp;rsquo;s lab has very good instructions, so I will not write many steps in detail.
-1. Week1 Part 1: Getting oriented It is easy to install the toolchain by using the rustup.
-1  curl --proto &amp;#39;=https&amp;#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh   1 2 3  fn main(){println!(&amp;#34;Hello, I&amp;#39;m Chasing&amp;#34;);}  Part 2: Rust warmup 1 2 3 4 5 6 7 8 9 10 11 12  /* Implement add_n, which takes a vector of numbers and some number n.</description>
+      <guid>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</guid>
+      <description>1. Introduction The gets() function cannot be used securely. Because of its lack of bounds checking, and the inability of the calling program to reliably determine the length of the next incoming line, the use of this function enables malicious users to arbitrarily change a running program&amp;rsquo;s functionality through a buffer overflow attack. It is strongly suggested that the fgets() function be used in all cases.
+How can we find and/or prevent problems like this?</description>
     </item>
     
   </channel>

@@ -78,6 +78,7 @@
 
 </head>
 <body>
+
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
     <a href="/" class="logo">Chasing&#39;s blog</a>
@@ -90,7 +91,9 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/search/">
+        <li class="mobile-menu-item">🔍</li>
+      </a><a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
@@ -123,6 +126,8 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
+        <a class="menu-item-link" href="/search/">🔍</a>
+      </li><li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/post/">Archives</a>
@@ -140,6 +145,7 @@
 
     </header>
 
+
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
@@ -152,14 +158,14 @@
       <div class="post-category">
           <a href="/categories/note/"> Note </a>
           </div>
-        <span class="more-meta"> 2893 words </span>
-        <span class="more-meta"> 6 mins read </span>
+        <span class="more-meta"> 2876 words </span>
+        <span class="more-meta"> 14 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      It is a yearly &ldquo;divide major&rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this
+      It is a yearly &ldquo;divide major&rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.
     </div>
     <div class="read-more">
       <a href="/post/about-computer-science/" class="read-more-link">Read more...</a>
@@ -213,6 +219,30 @@ IEEE Definition
     </div>
     <div class="read-more">
       <a href="/post/design/software-engineering/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/rust/safety-in-systems-programming/">Safety in Systems Programming</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-02-19 </span>
+      <div class="post-category">
+          <a href="/categories/language/"> Language </a>
+          </div>
+        <span class="more-meta"> 131 words </span>
+        <span class="more-meta"> 1 min read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      1. Introduction The gets() function cannot be used securely. Because of its lack of bounds checking, and the inability of the calling program to reliably determine the length of the next incoming line, the use of this function enables malicious users to arbitrarily change a running program&rsquo;s functionality through a buffer overflow attack. It is strongly suggested that the fgets() function be used in all cases.
+How can we find and/or prevent problems like this?
+    </div>
+    <div class="read-more">
+      <a href="/post/rust/safety-in-systems-programming/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -313,29 +343,6 @@ Without network security, the intruder can eavesdrop, insert messages, impersona
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/cloud-native/akf-availability-cube/">AKF Availability Cube</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2022-01-03 </span>
-      <div class="post-category">
-          <a href="/categories/note/"> Note </a>
-          </div>
-        <span class="more-meta"> 1442 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      AKF Availability Cube 随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre）
-    </div>
-    <div class="read-more">
-      <a href="/post/cloud-native/akf-availability-cube/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -416,8 +423,6 @@ Without network security, the intruder can eavesdrop, insert messages, impersona
   };
   </script> 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
-
 
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 

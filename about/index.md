@@ -8,7 +8,7 @@
 
 # **About me**
 
-- I am a college student majoring in Computer Science in Shanghai University.
+- I am a college student majoring in Computer Science.
 
 - I like freedom and unrestrained, and don't like being bound.
 
@@ -41,6 +41,6 @@
 
 # **Statistics**
 
-- The following widget shows the real-time visitors from all of the world.
+- The following widget shows the real-time visitor form the world.
 
-<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=50cr6hhiajw&amp;m=7&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
+<script async type="text/javascript" src="//rf.revolvermaps.com/0/0/6.js?i=5iyvyryimxz&amp;m=7&amp;c=e63100&amp;cr1=ffffff&amp;f=arial&amp;l=0&amp;bv=90&amp;lx=-420&amp;ly=420&amp;hi=20&amp;he=7&amp;hc=a8ddff&amp;rs=80"></script>

@@ -78,6 +78,7 @@
 
 </head>
 <body>
+
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
     <a href="/" class="logo">Chasing&#39;s blog</a>
@@ -90,7 +91,9 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
+    <a href="/search/">
+        <li class="mobile-menu-item">🔍</li>
+      </a><a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
@@ -123,6 +126,8 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
+        <a class="menu-item-link" href="/search/">🔍</a>
+      </li><li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/post/">Archives</a>
@@ -140,10 +145,34 @@
 
     </header>
 
+
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/cloud-native/akf-availability-cube/">AKF Availability Cube</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-01-03 </span>
+      <div class="post-category">
+          <a href="/categories/note/"> Note </a>
+          </div>
+        <span class="more-meta"> 1442 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      AKF Availability Cube 随着业务规模增长，拆解单体应用（monolith），设计成为面向服务架构（Service-oriented architectutre）
+    </div>
+    <div class="read-more">
+      <a href="/post/cloud-native/akf-availability-cube/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/database/gorm-source-code/">Gorm Source Code</a></h1>
@@ -169,43 +198,20 @@
 
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/java/leetcode/">LeetCode</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-12-20 </span>
-      <div class="post-category">
-          <a href="/categories/note/"> Note </a>
-          </div>
-        <span class="more-meta"> 1520 words </span>
-        <span class="more-meta"> 8 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103.
-    </div>
-    <div class="read-more">
-      <a href="/post/java/leetcode/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/java/concurrency-programming/">Concurrency Programming</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2021-12-05 </span>
       <div class="post-category">
           <a href="/categories/note/"> Note </a>
           </div>
-        <span class="more-meta"> 3038 words </span>
+        <span class="more-meta"> 3027 words </span>
         <span class="more-meta"> 7 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      1. Implements 1 2 3 4 5 graph TD; A--&gt;B; A--&gt;C; B--&gt;D; C--&gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行
+      1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写
     </div>
     <div class="read-more">
       <a href="/post/java/concurrency-programming/" class="read-more-link">Read more...</a>
@@ -417,8 +423,6 @@ A database management system (DBMS) is software that allows applications to stor
   };
   </script> 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
-
 
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
 

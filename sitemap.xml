@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://Chasing1020.github.io/search/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://Chasing1020.github.io/friends/</loc>
     <lastmod>2022-06-20T15:16:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -93,6 +99,27 @@
   </url>
   
   <url>
+    <loc>http://Chasing1020.github.io/categories/language/</loc>
+    <lastmod>2022-06-20T13:09:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/tags/safety/</loc>
+    <lastmod>2022-06-20T13:09:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</loc>
+    <lastmod>2022-06-20T13:09:19+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://Chasing1020.github.io/post/database/advanced-mysql/</loc>
     <lastmod>2022-04-16T23:48:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -163,21 +190,14 @@
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/tags/java/</loc>
+    <loc>http://Chasing1020.github.io/post/java/concurrency-programming/</loc>
     <lastmod>2022-04-16T23:48:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Chasing1020.github.io/post/java/leetcode/</loc>
-    <lastmod>2021-12-20T14:16:11+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/post/java/concurrency-programming/</loc>
+    <loc>http://Chasing1020.github.io/tags/java/</loc>
     <lastmod>2022-04-16T23:48:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -269,13 +289,6 @@
   
   <url>
     <loc>http://Chasing1020.github.io/post/golang/go06-network/</loc>
-    <lastmod>2022-04-16T23:48:27+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://Chasing1020.github.io/categories/language/</loc>
     <lastmod>2022-04-16T23:48:27+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

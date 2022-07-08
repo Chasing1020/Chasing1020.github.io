@@ -130,6 +130,4 @@ Here are some links related to this post.
 
 2. [A Guide for newbies in Cyberspace Security](https://luminolt.cn/post/a-guide-for-newbies-in-cs/)
 
-3. [大讲堂和集市：学生参与开源的道与术](https://mp.weixin.qq.com/s?__biz=MzAwOTA3MjQwMQ==&mid=2651134473&idx=1&sn=9cb1649e2a0285ba5109e6b809d64a39&chksm=80948077b7e30961a178518eeef171f189ce25c68953ad7cbfe16f25fedc5df31573597e11ca&mpshare=1&scene=23&srcid=0625OOIsndAwWsUofTXcTEtG&sharer_sharetime=1656157438444&sharer_shareid=1066a328a9476fe9312545aca32232b7%23rd)
-
 Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.

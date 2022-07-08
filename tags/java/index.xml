@@ -6,23 +6,14 @@
     <description>Recent content in Java on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 20 Dec 2021 14:16:11 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>LeetCode</title>
-      <link>http://Chasing1020.github.io/post/java/leetcode/</link>
-      <pubDate>Mon, 20 Dec 2021 14:16:11 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/java/leetcode/</guid>
-      <description>ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103.</description>
-    </item>
-    
+    <lastBuildDate>Sun, 05 Dec 2021 14:16:11 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Concurrency Programming</title>
       <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
       <pubDate>Sun, 05 Dec 2021 14:16:11 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
-      <description>1. Implements 1 2 3 4 5 graph TD; A--&amp;gt;B; A--&amp;gt;C; B--&amp;gt;D; C--&amp;gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行</description>
+      <description>1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写</description>
     </item>
     
   </channel>

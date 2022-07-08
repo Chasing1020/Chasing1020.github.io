@@ -13,7 +13,7 @@
       <pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/about-computer-science/</guid>
-      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this</description>
+      <description>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.</description>
     </item>
     
     <item>
@@ -36,6 +36,16 @@ Engineering on the other hand, is all about developing products, using well-defi
 IEEE Definition
 (1) The application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software.
 (2) The study of approaches as in the above statement.</description>
+    </item>
+    
+    <item>
+      <title>Safety in Systems Programming</title>
+      <link>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</link>
+      <pubDate>Sat, 19 Feb 2022 23:20:42 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/rust/safety-in-systems-programming/</guid>
+      <description>1. Introduction The gets() function cannot be used securely. Because of its lack of bounds checking, and the inability of the calling program to reliably determine the length of the next incoming line, the use of this function enables malicious users to arbitrarily change a running program&amp;rsquo;s functionality through a buffer overflow attack. It is strongly suggested that the fgets() function be used in all cases.
+How can we find and/or prevent problems like this?</description>
     </item>
     
     <item>
@@ -97,21 +107,12 @@ Without network security, the intruder can eavesdrop, insert messages, impersona
     </item>
     
     <item>
-      <title>LeetCode</title>
-      <link>http://Chasing1020.github.io/post/java/leetcode/</link>
-      <pubDate>Mon, 20 Dec 2021 14:16:11 +0800</pubDate>
-      
-      <guid>http://Chasing1020.github.io/post/java/leetcode/</guid>
-      <description>ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103.</description>
-    </item>
-    
-    <item>
       <title>Concurrency Programming</title>
       <link>http://Chasing1020.github.io/post/java/concurrency-programming/</link>
       <pubDate>Sun, 05 Dec 2021 14:16:11 +0800</pubDate>
       
       <guid>http://Chasing1020.github.io/post/java/concurrency-programming/</guid>
-      <description>1. Implements 1 2 3 4 5 graph TD; A--&amp;gt;B; A--&amp;gt;C; B--&amp;gt;D; C--&amp;gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行</description>
+      <description>1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写</description>
     </item>
     
     <item>
