@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Chasing1020" /><meta name="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" />
+<meta name="author" content="Chasing1020" /><meta name="description" content="1. Implements 1 2 3 4 5 graph TD; A--&amp;gt;B; A--&amp;gt;C; B--&amp;gt;D; C--&amp;gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行" />
 
 
 
@@ -44,19 +44,19 @@
 
 
 <meta property="og:title" content="Concurrency Programming" />
-<meta property="og:description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写" />
+<meta property="og:description" content="1. Implements 1 2 3 4 5 graph TD; A--&gt;B; A--&gt;C; B--&gt;D; C--&gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://Chasing1020.github.io/post/java/concurrency-programming/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-12-05T14:16:11+08:00" />
 <meta property="article:modified_time" content="2022-04-16T23:48:27+08:00" />
 
 <meta itemprop="name" content="Concurrency Programming">
-<meta itemprop="description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写"><meta itemprop="datePublished" content="2021-12-05T14:16:11+08:00" />
+<meta itemprop="description" content="1. Implements 1 2 3 4 5 graph TD; A--&gt;B; A--&gt;C; B--&gt;D; C--&gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行"><meta itemprop="datePublished" content="2021-12-05T14:16:11+08:00" />
 <meta itemprop="dateModified" content="2022-04-16T23:48:27+08:00" />
-<meta itemprop="wordCount" content="3027">
+<meta itemprop="wordCount" content="3038">
 <meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Concurrency Programming"/>
-<meta name="twitter:description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写"/>
+<meta name="twitter:description" content="1. Implements 1 2 3 4 5 graph TD; A--&gt;B; A--&gt;C; B--&gt;D; C--&gt;D; volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -156,7 +156,7 @@
         <div class="post-category">
             <a href="/categories/note/"> Note </a>
             </div>
-          <span class="more-meta"> 3027 words </span>
+          <span class="more-meta"> 3038 words </span>
           <span class="more-meta"> 7 mins read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -177,7 +177,23 @@
 </div>
     <div class="post-content">
       <h1 id="1-implements">1. Implements</h1>
-<p>volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">graph TD;
+</span></span><span class="line"><span class="cl">    A--&gt;B;
+</span></span><span class="line"><span class="cl">    A--&gt;C;
+</span></span><span class="line"><span class="cl">    B--&gt;D;
+</span></span><span class="line"><span class="cl">    C--&gt;D;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。</p>
 <p>保证了1. 保证缓存行的数据写回内存；2. 写回的操作会使其他缓存失效。</p>
 <p>synchronized：普通的方法，锁是实例；静态同步方法，锁是Class；同步方法块，锁是括号里的对象。</p>
 <p>锁保存在对象头，如果是数组，则用三个字宽保存对象头，非数组则用两个自宽保存对象头。</p>
@@ -469,9 +485,9 @@
           <a href="/tags/java/">Java</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/database/gorm-source-code/">
+        <a class="prev" href="/post/java/leetcode/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Gorm Source Code</span>
+            <span class="prev-text nav-default">LeetCode</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         <a class="next" href="/post/my-cs-learning-route/">

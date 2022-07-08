@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>LeetCode - Chasing&#39;s blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Chasing1020" /><meta name="description" content="ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.101.0 with theme even" />
+
+
+<link rel="canonical" href="http://Chasing1020.github.io/post/java/leetcode/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.0aa58257766251ff4fdb63a09fcddd29fe807bcff24bd97820cc3196e725f967.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="LeetCode" />
+<meta property="og:description" content="ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://Chasing1020.github.io/post/java/leetcode/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-20T14:16:11+08:00" />
+<meta property="article:modified_time" content="2021-12-20T14:16:11+08:00" />
+
+<meta itemprop="name" content="LeetCode">
+<meta itemprop="description" content="ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103."><meta itemprop="datePublished" content="2021-12-20T14:16:11+08:00" />
+<meta itemprop="dateModified" content="2021-12-20T14:16:11+08:00" />
+<meta itemprop="wordCount" content="1520">
+<meta itemprop="keywords" content="Java," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LeetCode"/>
+<meta name="twitter:description" content="ID Status Problem Difficulty Frequency 1 ✅ 206.reverse-linked-list Easy 496 2 ✅ 3.longest-substring-without-repeating-characters Medium 455 3 ✅ 146.lru-cache Medium 401 4 ✅ 215.kth-largest-element-in-an-array Medium 333 5 ✅ 25.reverse-nodes-in-k-group Hard 254 6 ✅ 15.3sum Medium 237 7 ✅ 53.maximum-subarray Easy 212 8 ✅ 21.merge-two-sorted-lists Easy 204 9 ✅ 1.two-sum Easy 196 10 ✅ 102.binary-tree-level-order-traversal Medium 189 11 ✅ 121.best-time-to-buy-and-sell-stock Easy 175 12 ✅ 20.valid-parentheses Easy 174 13 ✅ 141.linked-list-cycle Easy 174 14 ✅ 103."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CDYPFNXQDZ');
+  </script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Chasing&#39;s blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Chasing&#39;s blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">LeetCode</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-20 </span>
+        <div class="post-category">
+            <a href="/categories/note/"> Note </a>
+            </div>
+          <span class="more-meta"> 1520 words </span>
+          <span class="more-meta"> 8 mins read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Status</th>
+<th>Problem</th>
+<th>Difficulty</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/reverse-linked-list">206.reverse-linked-list</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>496</td>
+</tr>
+<tr>
+<td>2</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters">3.longest-substring-without-repeating-characters</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>455</td>
+</tr>
+<tr>
+<td>3</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/lru-cache">146.lru-cache</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>401</td>
+</tr>
+<tr>
+<td>4</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/kth-largest-element-in-an-array">215.kth-largest-element-in-an-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>333</td>
+</tr>
+<tr>
+<td>5</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/reverse-nodes-in-k-group">25.reverse-nodes-in-k-group</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>254</td>
+</tr>
+<tr>
+<td>6</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/3sum">15.3sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>237</td>
+</tr>
+<tr>
+<td>7</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/maximum-subarray">53.maximum-subarray</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>212</td>
+</tr>
+<tr>
+<td>8</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/merge-two-sorted-lists">21.merge-two-sorted-lists</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>204</td>
+</tr>
+<tr>
+<td>9</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/two-sum">1.two-sum</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>196</td>
+</tr>
+<tr>
+<td>10</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/binary-tree-level-order-traversal">102.binary-tree-level-order-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>189</td>
+</tr>
+<tr>
+<td>11</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock">121.best-time-to-buy-and-sell-stock</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>175</td>
+</tr>
+<tr>
+<td>12</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/valid-parentheses">20.valid-parentheses</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>174</td>
+</tr>
+<tr>
+<td>13</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/linked-list-cycle">141.linked-list-cycle</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>174</td>
+</tr>
+<tr>
+<td>14</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal">103.binary-tree-zigzag-level-order-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>172</td>
+</tr>
+<tr>
+<td>15</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/search-in-rotated-sorted-array">33.search-in-rotated-sorted-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>172</td>
+</tr>
+<tr>
+<td>16</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree">236.lowest-common-ancestor-of-a-binary-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>167</td>
+</tr>
+<tr>
+<td>17</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/merge-sorted-array">88.merge-sorted-array</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>166</td>
+</tr>
+<tr>
+<td>18</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-palindromic-substring">5.longest-palindromic-substring</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>166</td>
+</tr>
+<tr>
+<td>19</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/number-of-islands">200.number-of-islands</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>164</td>
+</tr>
+<tr>
+<td>20</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/intersection-of-two-linked-lists">160.intersection-of-two-linked-lists</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>163</td>
+</tr>
+<tr>
+<td>21</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/permutations">46.permutations</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>150</td>
+</tr>
+<tr>
+<td>22</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/merge-k-sorted-lists">23.merge-k-sorted-lists</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>143</td>
+</tr>
+<tr>
+<td>23</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/spiral-matrix">54.spiral-matrix</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>140</td>
+</tr>
+<tr>
+<td>24</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/linked-list-cycle-ii">142.linked-list-cycle-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>139</td>
+</tr>
+<tr>
+<td>25</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/add-strings">415.add-strings</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>139</td>
+</tr>
+<tr>
+<td>26</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reverse-linked-list-ii">92.reverse-linked-list-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>137</td>
+</tr>
+<tr>
+<td>27</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-increasing-subsequence">300.longest-increasing-subsequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>126</td>
+</tr>
+<tr>
+<td>28</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/trapping-rain-water">42.trapping-rain-water</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>122</td>
+</tr>
+<tr>
+<td>29</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reorder-list">143.reorder-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>114</td>
+</tr>
+<tr>
+<td>30</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum">124.binary-tree-maximum-path-sum</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>113</td>
+</tr>
+<tr>
+<td>31</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-search">792.binary-search</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>109</td>
+</tr>
+<tr>
+<td>32</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-inorder-traversal">94.binary-tree-inorder-traversal</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>108</td>
+</tr>
+<tr>
+<td>33</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-right-side-view">199.binary-tree-right-side-view</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>105</td>
+</tr>
+<tr>
+<td>34</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/implement-queue-using-stacks">232.implement-queue-using-stacks</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>105</td>
+</tr>
+<tr>
+<td>35</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list">19.remove-nth-node-from-end-of-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>101</td>
+</tr>
+<tr>
+<td>36</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/merge-intervals">56.merge-intervals</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>100</td>
+</tr>
+<tr>
+<td>37</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/climbing-stairs">70.climbing-stairs</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>100</td>
+</tr>
+<tr>
+<td>38</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/median-of-two-sorted-arrays">4.median-of-two-sorted-arrays</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>97</td>
+</tr>
+<tr>
+<td>39</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/edit-distance">72.edit-distance</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>96</td>
+</tr>
+<tr>
+<td>40</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sort-list">148.sort-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>95</td>
+</tr>
+<tr>
+<td>41</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sqrtx">69.sqrtx</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>95</td>
+</tr>
+<tr>
+<td>42</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii">82.remove-duplicates-from-sorted-list-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>95</td>
+</tr>
+<tr>
+<td>43</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/add-two-numbers">2.add-two-numbers</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>92</td>
+</tr>
+<tr>
+<td>44</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/string-to-integer-atoi">8.string-to-integer-atoi</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>88</td>
+</tr>
+<tr>
+<td>45</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/next-permutation">31.next-permutation</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>85</td>
+</tr>
+<tr>
+<td>46</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/first-missing-positive">41.first-missing-positive</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>84</td>
+</tr>
+<tr>
+<td>47</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/generate-parentheses">22.generate-parentheses</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>84</td>
+</tr>
+<tr>
+<td>48</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-common-subsequence">1250.longest-common-subsequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>83</td>
+</tr>
+<tr>
+<td>49</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/restore-ip-addresses">93.restore-ip-addresses</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>79</td>
+</tr>
+<tr>
+<td>50</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reverse-words-in-a-string">151.reverse-words-in-a-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>77</td>
+</tr>
+<tr>
+<td>51</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-preorder-traversal">144.binary-tree-preorder-traversal</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>76</td>
+</tr>
+<tr>
+<td>52</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal">105.construct-binary-tree-from-preorder-and-inorder-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>75</td>
+</tr>
+<tr>
+<td>53</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sliding-window-maximum">239.sliding-window-maximum</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>75</td>
+</tr>
+<tr>
+<td>54</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-window-substring">76.minimum-window-substring</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>73</td>
+</tr>
+<tr>
+<td>55</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/balanced-binary-tree">110.balanced-binary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>71</td>
+</tr>
+<tr>
+<td>56</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sum-root-to-leaf-numbers">129.sum-root-to-leaf-numbers</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>70</td>
+</tr>
+<tr>
+<td>57</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree">104.maximum-depth-of-binary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>69</td>
+</tr>
+<tr>
+<td>58</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/coin-change">322.coin-change</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>68</td>
+</tr>
+<tr>
+<td>59</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/min-stack">155.min-stack</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>68</td>
+</tr>
+<tr>
+<td>60</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/diameter-of-binary-tree">543.diameter-of-binary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>66</td>
+</tr>
+<tr>
+<td>61</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/path-sum-ii">113.path-sum-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>66</td>
+</tr>
+<tr>
+<td>62</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/multiply-strings">43.multiply-strings</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>66</td>
+</tr>
+<tr>
+<td>63</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/symmetric-tree">101.symmetric-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>65</td>
+</tr>
+<tr>
+<td>64</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/validate-binary-search-tree">98.validate-binary-search-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>65</td>
+</tr>
+<tr>
+<td>65</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-valid-parentheses">32.longest-valid-parentheses</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>65</td>
+</tr>
+<tr>
+<td>66</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/subsets">78.subsets</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>65</td>
+</tr>
+<tr>
+<td>67</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/compare-version-numbers">165.compare-version-numbers</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>64</td>
+</tr>
+<tr>
+<td>68</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-path-sum">64.minimum-path-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>62</td>
+</tr>
+<tr>
+<td>69</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/implement-rand10-using-rand7">903.implement-rand10-using-rand7</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>61</td>
+</tr>
+<tr>
+<td>70</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/palindrome-linked-list">234.palindrome-linked-list</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>61</td>
+</tr>
+<tr>
+<td>71</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/combination-sum">39.combination-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>60</td>
+</tr>
+<tr>
+<td>72</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/majority-element">169.majority-element</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>59</td>
+</tr>
+<tr>
+<td>73</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/path-sum">112.path-sum</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>58</td>
+</tr>
+<tr>
+<td>74</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/rotate-image">48.rotate-image</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>58</td>
+</tr>
+<tr>
+<td>75</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-length-of-repeated-subarray">718.maximum-length-of-repeated-subarray</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>57</td>
+</tr>
+<tr>
+<td>76</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array">34.find-first-and-last-position-of-element-in-sorted-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>54</td>
+</tr>
+<tr>
+<td>77</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/invert-binary-tree">226.invert-binary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>53</td>
+</tr>
+<tr>
+<td>78</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-peak-element">162.find-peak-element</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>52</td>
+</tr>
+<tr>
+<td>79</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-common-prefix">14.longest-common-prefix</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>52</td>
+</tr>
+<tr>
+<td>80</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximal-square">221.maximal-square</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>52</td>
+</tr>
+<tr>
+<td>81</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/search-a-2d-matrix-ii">240.search-a-2d-matrix-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>50</td>
+</tr>
+<tr>
+<td>82</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/unique-paths">62.unique-paths</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>50</td>
+</tr>
+<tr>
+<td>83</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list">83.remove-duplicates-from-sorted-list</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>50</td>
+</tr>
+<tr>
+<td>84</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-consecutive-sequence">128.longest-consecutive-sequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>49</td>
+</tr>
+<tr>
+<td>85</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/max-area-of-island">695.max-area-of-island</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>47</td>
+</tr>
+<tr>
+<td>86</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/decode-string">394.decode-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>47</td>
+</tr>
+<tr>
+<td>87</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array">153.find-minimum-in-rotated-sorted-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>46</td>
+</tr>
+<tr>
+<td>88</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-product-subarray">152.maximum-product-subarray</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>46</td>
+</tr>
+<tr>
+<td>89</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/swap-nodes-in-pairs">24.swap-nodes-in-pairs</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>45</td>
+</tr>
+<tr>
+<td>90</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/basic-calculator-ii">227.basic-calculator-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>44</td>
+</tr>
+<tr>
+<td>91</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii">122.best-time-to-buy-and-sell-stock-ii</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>44</td>
+</tr>
+<tr>
+<td>92</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-width-of-binary-tree">662.maximum-width-of-binary-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>44</td>
+</tr>
+<tr>
+<td>93</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/house-robber">198.house-robber</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>43</td>
+</tr>
+<tr>
+<td>94</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/largest-number">179.largest-number</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>43</td>
+</tr>
+<tr>
+<td>95</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/validate-ip-address">468.validate-ip-address</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>43</td>
+</tr>
+<tr>
+<td>96</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/single-number">136.single-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>42</td>
+</tr>
+<tr>
+<td>97</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-size-subarray-sum">209.minimum-size-subarray-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>40</td>
+</tr>
+<tr>
+<td>98</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree">297.serialize-and-deserialize-binary-tree</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>40</td>
+</tr>
+<tr>
+<td>99</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/copy-list-with-random-pointer">138.copy-list-with-random-pointer</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>40</td>
+</tr>
+<tr>
+<td>100</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/move-zeroes">283.move-zeroes</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>40</td>
+</tr>
+<tr>
+<td>101</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/diagonal-traverse">498.diagonal-traverse</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>38</td>
+</tr>
+<tr>
+<td>102</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/basic-calculator">224.basic-calculator</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>38</td>
+</tr>
+<tr>
+<td>103</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/check-completeness-of-a-binary-tree">998.check-completeness-of-a-binary-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>37</td>
+</tr>
+<tr>
+<td>104</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-k-digits">402.remove-k-digits</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>35</td>
+</tr>
+<tr>
+<td>105</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/subarray-sum-equals-k">560.subarray-sum-equals-k</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>35</td>
+</tr>
+<tr>
+<td>106</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/course-schedule">207.course-schedule</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>34</td>
+</tr>
+<tr>
+<td>107</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/lfu-cache">460.lfu-cache</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>34</td>
+</tr>
+<tr>
+<td>108</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-postorder-traversal">145.binary-tree-postorder-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>33</td>
+</tr>
+<tr>
+<td>109</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/word-search">79.word-search</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>33</td>
+</tr>
+<tr>
+<td>110</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/word-break">139.word-break</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>33</td>
+</tr>
+<tr>
+<td>111</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/coin-change-2">518.coin-change-2</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>32</td>
+</tr>
+<tr>
+<td>112</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/daily-temperatures">739.daily-temperatures</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>32</td>
+</tr>
+<tr>
+<td>113</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/powx-n">50.powx-n</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>31</td>
+</tr>
+<tr>
+<td>114</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/permutations-ii">47.permutations-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>31</td>
+</tr>
+<tr>
+<td>115</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/spiral-matrix-ii">59.spiral-matrix-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>31</td>
+</tr>
+<tr>
+<td>116</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reverse-integer">7.reverse-integer</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>30</td>
+</tr>
+<tr>
+<td>117</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/rotate-list">61.rotate-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>30</td>
+</tr>
+<tr>
+<td>118</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/search-a-2d-matrix">74.search-a-2d-matrix</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>29</td>
+</tr>
+<tr>
+<td>119</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/jump-game">55.jump-game</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>28</td>
+</tr>
+<tr>
+<td>120</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst">230.kth-smallest-element-in-a-bst</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>28</td>
+</tr>
+<tr>
+<td>121</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array">26.remove-duplicates-from-sorted-array</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>27</td>
+</tr>
+<tr>
+<td>122</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/candy">135.candy</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>27</td>
+</tr>
+<tr>
+<td>123</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii">123.best-time-to-buy-and-sell-stock-iii</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>27</td>
+</tr>
+<tr>
+<td>124</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/odd-even-linked-list">328.odd-even-linked-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>125</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-palindrome">125.valid-palindrome</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>126</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/delete-node-in-a-bst">450.delete-node-in-a-bst</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>127</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sort-colors">75.sort-colors</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>128</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/container-with-most-water">11.container-with-most-water</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>129</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/implement-stack-using-queues">225.implement-stack-using-queues</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>26</td>
+</tr>
+<tr>
+<td>130</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/k-th-smallest-in-lexicographical-order">440.k-th-smallest-in-lexicographical-order</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>25</td>
+</tr>
+<tr>
+<td>131</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/combination-sum-ii">40.combination-sum-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>25</td>
+</tr>
+<tr>
+<td>132</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/shuffle-an-array">384.shuffle-an-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>24</td>
+</tr>
+<tr>
+<td>133</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/subtree-of-another-tree">572.subtree-of-another-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>24</td>
+</tr>
+<tr>
+<td>134</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/rotate-array">189.rotate-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>23</td>
+</tr>
+<tr>
+<td>135</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-median-from-data-stream">295.find-median-from-data-stream</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>23</td>
+</tr>
+<tr>
+<td>136</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-increasing-path-in-a-matrix">329.longest-increasing-path-in-a-matrix</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>23</td>
+</tr>
+<tr>
+<td>137</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list">114.flatten-binary-tree-to-linked-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>23</td>
+</tr>
+<tr>
+<td>138</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-the-duplicate-number">287.find-the-duplicate-number</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>22</td>
+</tr>
+<tr>
+<td>139</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/add-two-numbers-ii">445.add-two-numbers-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>22</td>
+</tr>
+<tr>
+<td>140</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/decode-ways">91.decode-ways</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>22</td>
+</tr>
+<tr>
+<td>141</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/palindrome-number">9.palindrome-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>22</td>
+</tr>
+<tr>
+<td>142</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/implement-trie-prefix-tree">208.implement-trie-prefix-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>22</td>
+</tr>
+<tr>
+<td>143</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/triangle">120.triangle</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>21</td>
+</tr>
+<tr>
+<td>144</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/3sum-closest">16.3sum-closest</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>21</td>
+</tr>
+<tr>
+<td>145</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal">106.construct-binary-tree-from-inorder-and-postorder-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>20</td>
+</tr>
+<tr>
+<td>146</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string">1128.remove-all-adjacent-duplicates-in-string</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>19</td>
+</tr>
+<tr>
+<td>147</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-parenthesis-string">678.valid-parenthesis-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>19</td>
+</tr>
+<tr>
+<td>148</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/intersection-of-two-arrays">349.intersection-of-two-arrays</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>19</td>
+</tr>
+<tr>
+<td>149</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/regular-expression-matching">10.regular-expression-matching</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>19</td>
+</tr>
+<tr>
+<td>150</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/house-robber-ii">213.house-robber-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>19</td>
+</tr>
+<tr>
+<td>151</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/unique-binary-search-trees">96.unique-binary-search-trees</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>18</td>
+</tr>
+<tr>
+<td>152</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-all-duplicates-in-an-array">442.find-all-duplicates-in-an-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>18</td>
+</tr>
+<tr>
+<td>153</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/fibonacci-number">1013.fibonacci-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>18</td>
+</tr>
+<tr>
+<td>154</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/excel-sheet-column-title">168.excel-sheet-column-title</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>18</td>
+</tr>
+<tr>
+<td>155</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/simplify-path">71.simplify-path</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>18</td>
+</tr>
+<tr>
+<td>156</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/string-compression">443.string-compression</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>157</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/24-game">679.24-game</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>158</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/partition-list">86.partition-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>159</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/jump-game-ii">45.jump-game-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>160</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-triangle-number">611.valid-triangle-number</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>161</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/nth-digit">400.nth-digit</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>162</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/top-k-frequent-elements">347.top-k-frequent-elements</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>163</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/super-egg-drop">923.super-egg-drop</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>164</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/number-of-1-bits">191.number-of-1-bits</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>165</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/number-of-longest-increasing-subsequence">673.number-of-longest-increasing-subsequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>17</td>
+</tr>
+<tr>
+<td>166</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reverse-string">344.reverse-string</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>167</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-anagram">242.valid-anagram</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>168</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/same-tree">100.same-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>169</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/unique-paths-ii">63.unique-paths-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>170</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/gas-station">134.gas-station</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>171</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-swap">670.maximum-swap</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>172</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/repeated-substring-pattern">459.repeated-substring-pattern</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>16</td>
+</tr>
+<tr>
+<td>173</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/next-greater-element-iii">556.next-greater-element-iii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>174</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sudoku-solver">37.sudoku-solver</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>175</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reverse-words-in-a-string-iii">557.reverse-words-in-a-string-iii</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>176</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/next-greater-element-ii">503.next-greater-element-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>177</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/course-schedule-ii">210.course-schedule-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>178</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree">111.minimum-depth-of-binary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>15</td>
+</tr>
+<tr>
+<td>179</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/ugly-number-ii">264.ugly-number-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>14</td>
+</tr>
+<tr>
+<td>180</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/wildcard-matching">44.wildcard-matching</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>14</td>
+</tr>
+<tr>
+<td>181</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/missing-number">268.missing-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>14</td>
+</tr>
+<tr>
+<td>182</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k">892.shortest-subarray-with-sum-at-least-k</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>14</td>
+</tr>
+<tr>
+<td>183</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/interleaving-string">97.interleaving-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>14</td>
+</tr>
+<tr>
+<td>184</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/target-sum">494.target-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>185</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/max-consecutive-ones-iii">1046.max-consecutive-ones-iii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>186</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/4sum">18.4sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>187</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/n-queens">51.n-queens</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>188</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/meeting-rooms-ii">253.meeting-rooms-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>189</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximal-rectangle">85.maximal-rectangle</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>190</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-palindromic-subsequence">516.longest-palindromic-subsequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>191</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-in-mountain-array">1185.find-in-mountain-array</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>192</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted">167.two-sum-ii-input-array-is-sorted</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>13</td>
+</tr>
+<tr>
+<td>193</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/contiguous-array">525.contiguous-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>194</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii">154.find-minimum-in-rotated-sorted-array-ii</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>195</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/surrounded-regions">130.surrounded-regions</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>196</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/distinct-subsequences">115.distinct-subsequences</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>197</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree">108.convert-sorted-array-to-binary-search-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>198</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/single-number-iii">260.single-number-iii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>199</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/letter-combinations-of-a-phone-number">17.letter-combinations-of-a-phone-number</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>200</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/largest-rectangle-in-histogram">84.largest-rectangle-in-histogram</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>201</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/excel-sheet-column-number">171.excel-sheet-column-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>202</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/middle-of-the-linked-list">908.middle-of-the-linked-list</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>203</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/perfect-squares">279.perfect-squares</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>204</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/integer-break">343.integer-break</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>205</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree">893.all-nodes-distance-k-in-binary-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>12</td>
+</tr>
+<tr>
+<td>206</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-level-order-traversal-ii">107.binary-tree-level-order-traversal-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>207</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/partition-equal-subset-sum">416.partition-equal-subset-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>208</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/random-pick-with-weight">912.random-pick-with-weight</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>209</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix">378.kth-smallest-element-in-a-sorted-matrix</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>210</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/number-of-provinces">547.number-of-provinces</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>211</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/count-complete-tree-nodes">222.count-complete-tree-nodes</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>212</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/split-array-largest-sum">410.split-array-largest-sum</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>213</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/zigzag-conversion">6.zigzag-conversion</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>214</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/design-circular-queue">860.design-circular-queue</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>215</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-tree-paths">257.binary-tree-paths</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>216</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/fraction-to-recurring-decimal">166.fraction-to-recurring-decimal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>217</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/house-robber-iii">337.house-robber-iii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>218</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/combinations">77.combinations</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>219</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-continuous-increasing-subsequence">674.longest-continuous-increasing-subsequence</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>220</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv">188.best-time-to-buy-and-sell-stock-iv</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>11</td>
+</tr>
+<tr>
+<td>221</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters">340.longest-substring-with-at-most-k-distinct-characters</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>222</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/squares-of-a-sorted-array">1019.squares-of-a-sorted-array</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>223</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/insert-delete-getrandom-o1">380.insert-delete-getrandom-o1</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>224</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/partition-labels">768.partition-labels</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>225</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list">758.convert-binary-search-tree-to-sorted-doubly-linked-list</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>226</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters">395.longest-substring-with-at-least-k-repeating-characters</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>227</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/factorial-trailing-zeroes">172.factorial-trailing-zeroes</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>228</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/implement-strstr">28.implement-strstr</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>229</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/path-sum-iii">437.path-sum-iii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>230</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/palindromic-substrings">647.palindromic-substrings</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>231</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/integer-to-roman">12.integer-to-roman</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>232</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/design-hashmap">817.design-hashmap</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>233</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/convert-a-number-to-hexadecimal">405.convert-a-number-to-hexadecimal</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>234</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-palindrome-ii">680.valid-palindrome-ii</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>235</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/set-matrix-zeroes">73.set-matrix-zeroes</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>10</td>
+</tr>
+<tr>
+<td>236</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/recover-binary-search-tree">99.recover-binary-search-tree</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>237</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/open-the-lock">753.open-the-lock</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>238</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/merge-two-binary-trees">617.merge-two-binary-trees</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>239</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-duplicate-letters">316.remove-duplicate-letters</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>240</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/count-of-smaller-numbers-after-self">315.count-of-smaller-numbers-after-self</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>241</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/partition-to-k-equal-sum-subsets">698.partition-to-k-equal-sum-subsets</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>242</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/top-k-frequent-words">692.top-k-frequent-words</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>243</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii">117.populating-next-right-pointers-in-each-node-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>244</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-duplicate-substring">1122.longest-duplicate-substring</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>245</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/meeting-rooms">252.meeting-rooms</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>246</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/russian-doll-envelopes">354.russian-doll-envelopes</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>247</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/lexicographical-numbers">386.lexicographical-numbers</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>248</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome">1437.minimum-insertion-steps-to-make-a-string-palindrome</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>9</td>
+</tr>
+<tr>
+<td>249</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-product-of-three-numbers">628.maximum-product-of-three-numbers</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>250</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/single-number-ii">137.single-number-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>251</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/count-primes">204.count-primes</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>252</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/minimum-absolute-difference-in-bst">530.minimum-absolute-difference-in-bst</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>253</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/insert-into-a-binary-search-tree">784.insert-into-a-binary-search-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>254</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/pascals-triangle">118.pascals-triangle</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>255</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/permutation-in-string">567.permutation-in-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>256</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree">109.convert-sorted-list-to-binary-search-tree</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>257</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/subarray-sums-divisible-by-k">1016.subarray-sums-divisible-by-k</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>258</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/permutation-sequence">60.permutation-sequence</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>259</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/word-ladder">127.word-ladder</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>8</td>
+</tr>
+<tr>
+<td>260</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/interval-list-intersections">1028.interval-list-intersections</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>261</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/continuous-subarray-sum">523.continuous-subarray-sum</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>262</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal">925.construct-binary-tree-from-preorder-and-postorder-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>263</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/sum-of-subarray-minimums">943.sum-of-subarray-minimums</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>264</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-depth-of-n-ary-tree">774.maximum-depth-of-n-ary-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>265</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/additive-number">306.additive-number</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>266</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-frequency-stack">931.maximum-frequency-stack</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>267</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/binary-search-tree-iterator">173.binary-search-tree-iterator</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>268</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/power-of-two">231.power-of-two</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>269</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/validate-stack-sequences">983.validate-stack-sequences</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>270</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/product-of-array-except-self">238.product-of-array-except-self</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>271</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/palindrome-partitioning">131.palindrome-partitioning</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>272</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/reorganize-string">778.reorganize-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>273</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/happy-number">202.happy-number</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>274</td>
+<td>✅</td>
+<td><a href="https://leetcode.com/problems/sort-an-array">948.sort-an-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>275</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/evaluate-reverse-polish-notation">150.evaluate-reverse-polish-notation</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>276</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/trapping-rain-water-ii">407.trapping-rain-water-ii</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>277</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/integer-to-english-words">273.integer-to-english-words</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>278</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/number-of-digit-one">233.number-of-digit-one</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>7</td>
+</tr>
+<tr>
+<td>279</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/rotting-oranges">1036.rotting-oranges</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>280</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/brick-wall">554.brick-wall</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>281</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters">159.longest-substring-with-at-most-two-distinct-characters</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>282</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/max-stack">716.max-stack</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>283</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/burst-balloons">312.burst-balloons</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>284</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/clone-graph">133.clone-graph</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>285</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/roman-to-integer">13.roman-to-integer</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>286</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-invalid-parentheses">301.remove-invalid-parentheses</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>287</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/increasing-triplet-subsequence">334.increasing-triplet-subsequence</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>288</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/rectangle-overlap">866.rectangle-overlap</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>289</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree">235.lowest-common-ancestor-of-a-binary-search-tree</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>290</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/add-binary">67.add-binary</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>291</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/group-anagrams">49.group-anagrams</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>292</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii">80.remove-duplicates-from-sorted-array-ii</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>293</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/valid-sudoku">36.valid-sudoku</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>294</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/word-break-ii">140.word-break-ii</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>295</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-gap">164.maximum-gap</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>296</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/single-element-in-a-sorted-array">540.single-element-in-a-sorted-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>297</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/n-ary-tree-level-order-traversal">764.n-ary-tree-level-order-traversal</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>298</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/basic-calculator-iii">785.basic-calculator-iii</a></td>
+<td><span style="color:rgb(233, 30, 99)">Hard</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>299</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array">421.maximum-xor-of-two-numbers-in-an-array</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>300</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/132-pattern">456.132-pattern</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>301</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/kth-largest-element-in-a-stream">789.kth-largest-element-in-a-stream</a></td>
+<td><span style="color:rgb(67, 160, 71)">Easy</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>302</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/find-all-anagrams-in-a-string">438.find-all-anagrams-in-a-string</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+<tr>
+<td>303</td>
+<td>❌</td>
+<td><a href="https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit">1549.longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit</a></td>
+<td><span style="color:rgb(239, 108, 0)">Medium</span></td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Chasing1020</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-12-20
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/database/gorm-source-code/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Gorm Source Code</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/java/concurrency-programming/">
+            <span class="next-text nav-default">Concurrency Programming</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+    <script src="https://utteranc.es/client.js"
+            repo="Chasing1020/Chasing1020.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/utterance">comments powered by utterances.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:chasing1020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/15050926/chasing1020" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/Chasing70059462" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Chasing1020" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.zhihu.com/people/zjc-19-23" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://space.bilibili.com/35693749" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://Chasing1020.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2021 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Chasing</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+  <script type="text/javascript">
+  
+  
+  
+  
+  
+  
+  </script>
+  <script>
+    window.MathJax = {
+    tex: {
+      tags: 'ams',  
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+  };
+  </script> 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-chtml.js"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.5/es5/tex-mml-chtml.js" integrity="sha256-HGLuEfFcsUJGhvB8cQ8nr0gai9EucOOaIxFw7qxmd+w=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+<script>
+function createCopyButton(highlightDiv) {
+  const div = document.createElement("div");
+  div.className = "copy-code";
+  div.innerText = "Copy";
+  div.addEventListener("click", () =>
+    copyCodeToClipboard(div, highlightDiv)
+  );
+  addCopyButtonToDom(div, highlightDiv);
+}
+
+async function copyCodeToClipboard(button, highlightDiv) {
+  const codeToCopy = highlightDiv.querySelector(":last-child > .chroma > code")
+    .innerText;
+  try {
+    result = await navigator.permissions.query({ name: "clipboard-write" });
+    if (result.state == "granted" || result.state == "prompt") {
+      await navigator.clipboard.writeText(codeToCopy);
+    } else {
+      copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+    }
+  } catch (_) {
+    copyCodeBlockExecCommand(codeToCopy, highlightDiv);
+  } finally {
+    codeWasCopied(button);
+  }
+}
+
+function codeWasCopied(div) {
+  div.blur();
+  div.innerText = "Copied!";
+  setTimeout(function () {
+    div.innerText = "Copy";
+  }, 3000);
+}
+
+function addCopyButtonToDom(button, highlightDiv) {
+  highlightDiv.insertBefore(button, highlightDiv.firstChild);
+  const wrapper = document.createElement("div");
+  wrapper.className = "highlight-wrapper";
+  highlightDiv.parentNode.insertBefore(wrapper, highlightDiv);
+  wrapper.appendChild(highlightDiv);
+}
+
+document
+  .querySelectorAll(".highlight")
+  .forEach((highlightDiv) => createCopyButton(highlightDiv));
+
+
+</script>
+</body>
+</html>

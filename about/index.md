@@ -12,8 +12,6 @@
 
 - I like freedom and unrestrained, and don't like being bound.
 
-- My main field of study is Cloud-native.
-
 - My favorite languages in order of preference are: Golang > Java > Python > Rust > JavaScript.
 
 # **Contact**
@@ -29,6 +27,7 @@
   - Telegram: [Add Chasing1020](https://t.me/Chasing1020)
 
 # **Link**
+
 - I would appreciate it if you could add my blog to your links.
 
 - You can send me your link by any means, an example of the link is below.
@@ -39,3 +38,9 @@
   Avatar: https://z3.ax1x.com/2021/10/26/5olW4O.jpg
   Description: if err != nil
 ```
+
+# **Statistics**
+
+- The following widget shows the real-time visitors from all of the world.
+
+<script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=50cr6hhiajw&amp;m=7&amp;c=ff0000&amp;cr1=ffffff&amp;f=arial&amp;l=33" async="async"></script>
