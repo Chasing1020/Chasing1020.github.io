@@ -92,7 +92,7 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/search/">
-        <li class="mobile-menu-item">🔍</li>
+        <li class="mobile-menu-item">Search</li>
       </a><a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
@@ -126,7 +126,7 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/search/">🔍</a>
+        <a class="menu-item-link" href="/search/">Search</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
@@ -153,12 +153,23 @@
 <section id="archive" class="archive">
     <div class="archive-title">
       <span class="archive-post-counter">
-        34 Posts In Total
+        35 Posts In Total
       </span>
     </div>
       <div class="collection-title">
         <h2 class="archive-year">2022</h2>
       </div>
+
+    <div class="archive-post">
+      <span class="archive-post-time">
+        07-04
+      </span>
+      <span class="archive-post-title">
+        <a href="/post/other/amend-hugo-theme-even/" class="archive-post-link">
+          Amend Hugo Theme Even
+        </a>
+      </span>
+    </div>
 
     <div class="archive-post">
       <span class="archive-post-time">
@@ -640,7 +651,7 @@ function codeWasCopied(div) {
   div.innerText = "Copied!";
   setTimeout(function () {
     div.innerText = "Copy";
-  }, 3000);
+  }, 2000);
 }
 
 function addCopyButtonToDom(button, highlightDiv) {

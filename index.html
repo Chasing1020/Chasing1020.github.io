@@ -92,7 +92,7 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/search/">
-        <li class="mobile-menu-item">🔍</li>
+        <li class="mobile-menu-item">Search</li>
       </a><a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
@@ -126,7 +126,7 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/search/">🔍</a>
+        <a class="menu-item-link" href="/search/">Search</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
@@ -150,6 +150,31 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/other/amend-hugo-theme-even/">Amend Hugo Theme Even</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2022-07-04 </span>
+      <div class="post-category">
+          <a href="/categories/note/"> Note </a>
+          </div>
+        <span class="more-meta"> 866 words </span>
+        <span class="more-meta"> 5 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      By default, the theme even doesn&rsquo;t support the search and copy to the clipboard button which is proposed in issues#289 and issues#399. So I have finished implementing the features.
+1. Search Initially, you should add the output of JSON in your ./config.toml file.
+1 2 [outputs] home = [&#34;HTML&#34;, &#34;RSS&#34;, &#34;JSON&#34;] Then create the file ./themes/even/layouts/_default/index.json and add these lines. Then make sure you can see the output in the localhost:1313/index.
+    </div>
+    <div class="read-more">
+      <a href="/post/other/amend-hugo-theme-even/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/about-computer-science/">About Computer Science</a></h1>
@@ -316,33 +341,6 @@ How can we find and/or prevent problems like this?
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/basic/network-security/">Network Security</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2022-01-06 </span>
-      <div class="post-category">
-          <a href="/categories/note/"> Note </a>
-          </div>
-        <span class="more-meta"> 1058 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      1. Definition of security confidentiality: only sender, intended receiver should “understand” message contents
-sender encrypts message receiver decrypts message authentication: sender, receiver want to confirm identity of each other
-message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection
-access and availability: services must be accessible and available to users. Access is the basis of availability.
-Without network security, the intruder can eavesdrop, insert messages, impersonation, hijacking(taking over ongoing connection), denial of service and so on.
-    </div>
-    <div class="read-more">
-      <a href="/post/basic/network-security/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -467,7 +465,7 @@ function codeWasCopied(div) {
   div.innerText = "Copied!";
   setTimeout(function () {
     div.innerText = "Copy";
-  }, 3000);
+  }, 2000);
 }
 
 function addCopyButtonToDom(button, highlightDiv) {

@@ -1,33 +1,29 @@
 const summaryInclude = 100;
 
-// Options for fuse.js
 let fuseOptions = {
   includeMatches: true,
   threshold: 0.1,
-  tokenize:true,
+  tokenize: true,
   location: 0,
   distance: 100000,
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    {name:"title",weight:0.9},
-    {name:"contents",weight:0.8},
-    {name:"tags",weight:0.3},
-    {name:"categories",weight:0.3}
+    {name: "title", weight: 0.9},
+    {name: "contents", weight: 0.8},
+    {name: "tags", weight: 0.3},
+    {name: "categories", weight: 0.3}
   ]
 };
 
-let fuse;
-fetch("../index.json").then(function (response) {
-    return response.json()
-  }).then(function (data) {
-    fuse = new Fuse(data, fuseOptions);
-  });
+let fuse; 
+fetch("../index.json")
+  .then(resp => resp.json())
+  .then(data => fuse = new Fuse(data, fuseOptions));
 
 let searchContent = "";
 
 async function executeSearch() {
-  // Look for "index.json" in the same directory where this script is called.
   searchContent = $('#search-content')[0].value;
   let results = fuse.search(searchContent);
   await populateResults(results);
@@ -36,7 +32,7 @@ async function executeSearch() {
 function highlight(str) { 
   return str.replace(
     new RegExp(searchContent, 'gi'),
-    (searchContent) => `<strong><span style="background-color:yellow;">${searchContent}</span></strong>`
+      searchContent => `<strong><span style="background-color:yellow;">${searchContent}</span></strong>`
     );
 }
 
@@ -44,7 +40,7 @@ async function populateResults(result){
   $('#search-results').html('')
   $.each(result, function(key, value) {
     let contents = value.item.contents;
-    let snippet = "";
+    let snippet = "", start = 0, end = 0;
     let pos = contents.toLocaleLowerCase().indexOf(searchContent.toLocaleLowerCase());
     if (pos != -1) {
       start = pos - summaryInclude;
@@ -68,9 +64,6 @@ async function populateResults(result){
       snippet += contents.substring(0, summaryInclude * 2);
     }
 
-    snippet = highlight(snippet);
-    title = highlight(value.item.title);
-
     let tags = [];
     value.item.tags.forEach(t => tags.push(highlight(t)));
 
@@ -81,7 +74,7 @@ async function populateResults(result){
     <div id="summary-${key}">
       <article style="padding: 0px" class="post">
         <header class="post-header">
-          <h1 class="post-title"><a style="color:black" class="post-link" href="${value.item.permalink}">${title}</a></h1>
+          <h1 class="post-title"><a style="color:black" class="post-link" href="${value.item.permalink}">${highlight(value.item.title)}</a></h1>
           <div class="post-meta">
             <span class="post-time">${value.item.date}</span>
             <div class="post-category"><a href="/categories/${value.item.categories}/"> ${categories} </a></div>
@@ -90,7 +83,7 @@ async function populateResults(result){
         
         <div class="post-content">
           <div class="post-summary">
-            ${snippet}
+            ${highlight(snippet)}
             <a href="${value.item.permalink}" class="read-more-link">Read more...</a>
           </div>
           <footer class="post-footer">

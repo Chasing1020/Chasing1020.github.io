@@ -6,7 +6,18 @@
     <description>Recent content in Note on Chasing&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 19 Jun 2022 22:27:02 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 10:50:10 +0800</lastBuildDate><atom:link href="http://Chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Amend Hugo Theme Even</title>
+      <link>http://Chasing1020.github.io/post/other/amend-hugo-theme-even/</link>
+      <pubDate>Mon, 04 Jul 2022 10:50:10 +0800</pubDate>
+      
+      <guid>http://Chasing1020.github.io/post/other/amend-hugo-theme-even/</guid>
+      <description>By default, the theme even doesn&amp;rsquo;t support the search and copy to the clipboard button which is proposed in issues#289 and issues#399. So I have finished implementing the features.
+1. Search Initially, you should add the output of JSON in your ./config.toml file.
+1 2 [outputs] home = [&amp;#34;HTML&amp;#34;, &amp;#34;RSS&amp;#34;, &amp;#34;JSON&amp;#34;] Then create the file ./themes/even/layouts/_default/index.json and add these lines. Then make sure you can see the output in the localhost:1313/index.</description>
+    </item>
+    
     <item>
       <title>About Computer Science</title>
       <link>http://Chasing1020.github.io/post/about-computer-science/</link>

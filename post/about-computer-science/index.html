@@ -95,7 +95,7 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/search/">
-        <li class="mobile-menu-item">🔍</li>
+        <li class="mobile-menu-item">Search</li>
       </a><a href="/">
         <li class="mobile-menu-item">Home</li>
       </a><a href="/post/">
@@ -129,7 +129,7 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/search/">🔍</a>
+        <a class="menu-item-link" href="/search/">Search</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
@@ -379,7 +379,11 @@ it is recommended that students with good mathematics choose, need very good lin
           <a href="/tags/note/">Note</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/other/amend-hugo-theme-even/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Amend Hugo Theme Even</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/basic/compilers/">
             <span class="next-text nav-default">Compilers</span>
             <span class="next-text nav-mobile">Next</span>
@@ -515,7 +519,7 @@ function codeWasCopied(div) {
   div.innerText = "Copied!";
   setTimeout(function () {
     div.innerText = "Copy";
-  }, 3000);
+  }, 2000);
 }
 
 function addCopyButtonToDom(button, highlightDiv) {
