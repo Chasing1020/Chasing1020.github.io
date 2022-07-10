@@ -38,9 +38,9 @@
 >
 >    link: http://xzalab.top
 
->    name: zedia
+>    name: zidea
 >
->    link: http://blog.zidea.site/
+>    link: https://blog.zidea.site/
 
 >    name: syyan
 >
