@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Safety on Chasing&#39;s blog</title>
+        <link>https://chasing1020.github.io/tags/safety/</link>
+        <description>Recent content in Safety on Chasing&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 19 Feb 2022 23:20:42 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/safety/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Safety in Systems Programming</title>
+        <link>https://chasing1020.github.io/post/safety-in-systems-programming/</link>
+        <pubDate>Sat, 19 Feb 2022 23:20:42 +0800</pubDate>
+        
+        <guid>https://chasing1020.github.io/post/safety-in-systems-programming/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/post/safety-in-systems-programming/rust.webp" alt="Featured image of post Safety in Systems Programming" /&gt;&lt;p&gt;The gets() function cannot be used securely.  Because of its lack of bounds checking,
+and the inability of the calling program to reliably determine the length of the
+next incoming line, the use of this function enables malicious users to arbitrarily
+change a running program&amp;rsquo;s functionality through a buffer overflow attack.  It is
+strongly suggested that the fgets() function be used in all cases.&lt;/p&gt;
+&lt;p&gt;How can we find and/or prevent problems like this?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dynamic analysis: Run the program, watch what it does, and look for problematic behavior.&lt;/li&gt;
+&lt;li&gt;Static analysis: read the source code and try to spot the issues.&lt;/li&gt;
+&lt;li&gt;Write code differently: create habits and frameworks that make it harder to produce these kinds of mistakes.&lt;/li&gt;
+&lt;li&gt;Sandbox: accept that these issues will happen, but try to minimize the consequences.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

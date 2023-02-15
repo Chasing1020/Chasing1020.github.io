@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='The basic of compilers'>
+<title>Compilers</title>
+
+<link rel='canonical' href='https://chasing1020.github.io/post/compilers/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3b649326d90b695e08fa0725ec8adf6ad76cb19fcc1b8379c0021a110a9104c.css"><meta property='og:title' content='Compilers'>
+<meta property='og:description' content='The basic of compilers'>
+<meta property='og:url' content='https://chasing1020.github.io/post/compilers/'>
+<meta property='og:site_name' content='Chasing&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Compilers' /><meta property='article:published_time' content='2022-03-05T17:00:35&#43;08:00'/><meta property='article:modified_time' content='2022-03-05T17:00:35&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/compilers/Compilers.webp' />
+<meta name="twitter:site" content="@Chasing1020">
+    <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="Compilers">
+<meta name="twitter:description" content="The basic of compilers"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://chasing1020.github.io/post/compilers/Compilers.webp' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🖥️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h2 class="site-description">Why there is a universe?</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Chasing1020'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Chasing1020'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/Chasing1020'
+                        target="_blank"
+                        title="Telegram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:chasing1020@gmail.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+      
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-overview">1. Overview</a></li>
+    <li><a href="#2-language-grammar">2. Language Grammar</a></li>
+    <li><a href="#3-lexical-analysis">3. Lexical Analysis</a></li>
+    <li><a href="#4-sytax-analysis">4. Sytax Analysis</a></li>
+    <li><a href="#5-sytax-directed-translation">5. Sytax-Directed Translation</a></li>
+    <li><a href="#6-intermediate-code-generation">6. Intermediate Code Generation</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/compilers/">
+                <img src="/post/compilers/Compilers_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/post/compilers/Compilers_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_800x0_resize_q75_h2_box_2.webp 800w, /post/compilers/Compilers_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="259" 
+                        loading="lazy"
+                        alt="Featured image of post Compilers" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/compilers/">Compilers</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            The basic of compilers
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 05, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    16 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1-overview">1. Overview</h1>
+<h1 id="2-language-grammar">2. Language Grammar</h1>
+<p>字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。</p>
+<p>乘积（product）：字母表$\sum_1$和$\sum_2$的乘积：$\sum_1\sum_2 = {ab|a\in\sum_1, b\in\sum_2}$</p>
+<p>n次幂（power）：字母表$\sum$的n次幂：1. $\sum^0={\varepsilon}$; 2. $\sum^n =\sum^{n-1}\sum, if\ n &gt; 1$</p>
+<p>正闭包（positive closure）：$\sum^+ = \sum \cup \sum^2 \cup\sum^3 \cup&hellip;$</p>
+<p>克林闭包（Kleene closure）：即任意符号串（允许长度0）的集合$\sum^* = \sum^{0} + \sum^+ = \sum^0 \cup \sum \cup \sum^2 \cup \sum^3 \cup &hellip;$</p>
+<hr>
+<p>串（string）：设$\sum$是一个字母表，$\forall x\in \sum^*$，x称为$\sum$上的一个串，串是字母表中的符号的一个有穷序列。</p>
+<p>串的长度（length）：s的长度，记作|s|，即s中符号的个数，长度为0记作空串。</p>
+<p>连接（concatenation）：即y串附加到x串后面形成的串，空串是连接运算的单位元（identity）。</p>
+<p>串的n次幂：将n个串s连接起来：1. $s^0=\varepsilon$; 2. $s^n = s^{n-1}s, n≥1$，</p>
+<hr>
+<p>文法的形式化定义：$G=(V_T,V_N,P,S)$，其中$V_T$：终结符集合；$V_N$：非终结符集合；P：产生式集合；S：开始符号</p>
+<p>终结符（terminal symbol）：所有文法定义的语言的基本符号，即token。</p>
+<ul>
+<li>
+<p>Examples:</p>
+<ul>
+<li>Identifier: strings of letters or digits, starting with a letter</li>
+<li>Integer: a non-empty string of digits</li>
+<li>Keyword: “else” or “if” or “begin” or …</li>
+<li>Whitespace: a non-empty sequence of blanks, newlines, and tabs</li>
+</ul>
+</li>
+</ul>
+<p>非终结符（nonterminal）：表示语法成分的符号，也称为“语法变量”</p>
+<p>产生式（production）：描述了将<strong>终结符</strong>和非终结符组合成串的方法产生式的一般形式：$\alpha\rightarrow\beta$。其中，$\alpha\in(V_T\cup V_N)^+$，且$\alpha$至少包含$V_N$中的一个元素：称为产生时的头部（head）或者左部（left side）；$\beta\in(V_T\cup V_N)^*$：称为产生式的体（body）或者右部（right side）。</p>
+<p>开始符号（start symbol）：$S\in V_N$，表示的是该文法中最大的语法成分。</p>
+<hr>
+<p>产生式的简写：对于一组具有相同左部$\alpha$的产生式$\alpha \rightarrow \beta_1,\alpha \rightarrow \beta_2,&hellip;,\alpha \rightarrow \beta_n$。</p>
+<p>可以简单计为$\alpha \rightarrow \beta_1|\beta_2|&hellip;|\beta_n$。这里的$\beta_1,\beta_2,&hellip;,\beta_n$称为$\alpha$的候选式（candidate）。</p>
+<p>终结符约定：字母表中前面的小写字母；运算符；标点符号；数字；粗体字符串</p>
+<p>非终结符约定：字母表中前面的大写字母；S通常表示开始符号；小写、斜体的名字；代表程序构造的大写字母。</p>
+<p>文法符号：排在后面的大写字母。</p>
+<p>终结符号串：排在后面的小写字母（包括空串）。</p>
+<p>文法符号串：小写希腊字母（包括空串）。</p>
+<hr>
+<p>语言定义</p>
+<p>给定文法$G=(V_T,V_N,P,S)$，如果$\alpha\rightarrow\beta\in P$，那么可以将$\gamma\alpha\delta$中的$\alpha$换成$\beta$。即重写为$\gamma\beta\delta$，记作$\gamma\alpha\delta\Rightarrow\gamma\beta\delta$。此时，称文法中的符号串$\gamma\alpha\delta$直接推导（directly derive）$\gamma\beta\delta$，即用产生式的右部替换产生式的左部。</p>
+<p>如果有$\alpha_0 \Rightarrow \alpha_1 , \alpha_1\Rightarrow \alpha_2 ,&hellip;,  \alpha_{n-1} \Rightarrow \alpha_n $ ，则有$\alpha_0\Rightarrow\alpha_1\Rightarrow\alpha_2\Rightarrow&hellip;\Rightarrow\alpha_n$，称符号串$\alpha_0$经过n步推导出$\alpha_n$，可以简记为$\alpha_0\Rightarrow^n\alpha_n$。</p>
+<p>特别地：$\alpha \Rightarrow^0 \alpha$，$\Rightarrow^+$ 表示经过正数步推导，$\Rightarrow^*$ 表示经过若干步（可以为0）推导。</p>
+<p>句子的推导：从生成语言的角度，句子的规约：从识别语言的角度。</p>
+<p>句型（sentential form）：如果$S\Rightarrow^* \alpha,\alpha \in (V_T\cup V_N)^* $，则称$\alpha$是G的一个句型。</p>
+<ul>
+<li>句型可以包含终结符，也可以包含非终结符，也可能是空串。</li>
+</ul>
+<p>句子（sentence）：如果$S\Rightarrow^* w,\ w\in V_T^*$，则称w是G的一个句子。</p>
+<ul>
+<li>句子是不包含非终结符的句型。</li>
+</ul>
+<p>语言的形式化定义：由文法G开始的符号S推导出的所有句子构成的集合称为文法G生成的语言，记为L(G)。即：$L(G)={w|S\Rightarrow^* w,\ w\in V_T^*}$。</p>
+<p>标识符：令$L={A,B,C,&hellip;,Z,a,b,c,&hellip;,z},D={0,1,2,&hellip;,9}$，则$L(L\cup D)^*$，表示的语言是标识符。</p>
+<hr>
+<blockquote>
+<p>Chomsky文法分类体系</p>
+</blockquote>
+<p>0型文法（Type-0 Grammar）：无限制文法（Unrestricted Grammer）/短语结构文法（Phrase Structure Grammer, PSG）：$\forall\alpha\rightarrow\beta\in P$，$\alpha$中至少包含一个非终结符。</p>
+<ul>
+<li>0型语言：由0型文法G生成的语言L(G)</li>
+</ul>
+<p>1型文法（Type-1 Grammar）：上下文有关文法（Context-Sensitive Grammar，CSG）：$\forall\alpha\rightarrow\beta\in P,\ |\alpha|≤|\beta|$，产生式的一般形式$\alpha_1A\alpha_2\rightarrow\alpha_1\beta\alpha_2(\beta ≠ \varepsilon)$</p>
+<ul>
+<li>1型语言（上下文有关语言）：由1型文法G生成的语言L(G)，CSG中不包含$\varepsilon$产生式。</li>
+</ul>
+<p>2型文法（Type-2 Grammar）：上下文无关文法（Context-Free Grammar, CFG）：$\forall\alpha\rightarrow\beta\in P, \alpha\in V_N$，产生式的一般形式$A\rightarrow\beta$</p>
+<ul>
+<li>2型语言（上下文无关语言）：由2型文法G生成的语言L(G)</li>
+</ul>
+<p>3型文法（Type-3 Grammar）：正则文法（Regular Grammar, RG），右线性（Right Linear）文法：$A\rightarrow wB\ or\ A\rightarrow w$，左线性（left Linear）文法：$A\rightarrow Bw\ or\ A\rightarrow w$，两者都称为正则文法。</p>
+<ul>
+<li>3型语言（正则语言）：由3型文法G生成的语言L(G)</li>
+</ul>
+<p>四种语言的关系，逐级限制，逐级包含：</p>
+<ol>
+<li>0型文法：$\alpha$中至少包含一个非终结符</li>
+<li>1型文法：$|\alpha|≤|\beta|$</li>
+<li>2型文法：$\alpha\in V_N$</li>
+<li>3型文法：$A\rightarrow wB\ or\ A\rightarrow w$（或$A\rightarrow Bw\ or\ A\rightarrow w$）</li>
+</ol>
+<blockquote>
+<p>CFG 分析树</p>
+</blockquote>
+<p>根节点标号既是文法开始符号</p>
+<p>内部节点表示对一个产生式$A\rightarrow\beta$的应用</p>
+<p>叶结点标号既可以是非终结符，也可以是终结符。从左到右排列叶结点得到的符号串称为是这颗树的产出（yield）或边缘（frontier）。</p>
+<p>如果一个文法可以为某个句子生成多棵分析树，则称该文法存在二义性</p>
+<h1 id="3-lexical-analysis">3. Lexical Analysis</h1>
+<blockquote>
+<p>正则表达式定义</p>
+</blockquote>
+<p>$\varepsilon$是一个RE，$L(\varepsilon) = {\varepsilon}$；如果$\alpha\in \sum$，则$\alpha$是一个RE，$L(\alpha) = {\alpha}$。</p>
+<p>假设r, s都是RE，表示的语言分别是L(r), L(s)，则$r|s, rs, r*, (r)$都是RE。</p>
+<p>正则语言（Regular language）或正则集合（Regular language）</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>定律</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$r</td>
+<td>s = s</td>
+</tr>
+<tr>
+<td>$r</td>
+<td>(s</td>
+</tr>
+<tr>
+<td>$r(st)=r(st)$</td>
+<td>连接可结合</td>
+</tr>
+<tr>
+<td>$r(s</td>
+<td>t) = rs</td>
+</tr>
+<tr>
+<td>$\varepsilon r=r\varepsilon =r$</td>
+<td>$\varepsilon$是连接的单位元</td>
+</tr>
+<tr>
+<td>$r^* = (r｜\varepsilon )^*$</td>
+<td>闭包中一定含有$\varepsilon$</td>
+</tr>
+<tr>
+<td>$r^{**} = r^*$</td>
+<td>*具有幂等性</td>
+</tr>
+</tbody>
+</table></div>
+<p>正则文法和正则表达式等价，任意正则文法G，存在定义统一语言的正则表达式r，反之亦然。</p>
+<p>正则定义（regular definition）：指具有如下形式的定义序列$d_1 \rightarrow r_1,d_2 \rightarrow r_2,&hellip;,d_n \rightarrow r_n$</p>
+<ul>
+<li>其中每个$d_i$都是一个新符号，他们都不在字母表$\sum$中，而且各不相同。</li>
+<li>每个$r_i$都是字母表$\sum \cup {d_1, d2_, &hellip;, d_i-1}$上的正则表达式。</li>
+<li>Exp: C语言的标识符
+<ul>
+<li>$digit\rightarrow 0|1|2|&hellip;|9$</li>
+<li>$letter \rightarrow A|B|&hellip;|Z|a|b|&hellip;|z|$_</li>
+<li>$identification \rightarrow letter(letter|digit)*$</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>单词识别</p>
+</blockquote>
+<p>有穷自动机（Finite Automata, FA）：系统根据当前状态和输入信息决定系统后继行为。</p>
+<p>转换图（Transition Graph）：结点表示FA状态，初始状态用start表示，终止状态为双圈，有向边带标记表示转换条件。</p>
+<p>确定的有穷自动机（Deterministic finite automata, DFA）：定义$M=(S,\sum,\delta,s_0 ,F)$</p>
+<ul>
+<li>S：有穷状态集</li>
+<li>$\sum$：输入字母表，即输入符号集合。$\varepsilon$不是$\sum$中的元素</li>
+<li>$\delta$：将$S*\sum$映射到$S$的转换函数。$\forall s\in S, a\in \sum, \delta (s, a)$表示从状态s出发，沿着a边能到达的状态</li>
+<li>$s_0$：开始状态，$s_0\in S$</li>
+<li>$F$：接受状态集合，$F\subsetneqq S$</li>
+</ul>
+<p>非确定的又穷自动机（Nondeterministic finite automata, NFA）：定义$M=(S,\sum,\delta,s_0 ,F)$</p>
+<ul>
+<li>S：有穷状态集</li>
+<li>$\sum$：输入字母表，即输入符号集合。$\varepsilon$不是$\sum$中的元素</li>
+<li>$\delta$：将$S*\sum$映射到 $2^S$  的转换函数。$\forall s\in S, a\in \sum, \delta (s, a)$表示从状态s出发，沿着a边能到达的状态的集合
+<ul>
+<li>如果是带有空边的NFA，则$\delta$：将$S*(\sum \cup{\varepsilon})$映射到 $2^S$  的转换函数。$\forall s\in S, a\in \sum \cup {\varepsilon}, \delta (s, a)$表示从状态s出发，沿着a边能到达的状态的集合</li>
+</ul>
+</li>
+<li>$s_0$：开始状态，$s_0\in S$</li>
+<li>$F$：接受状态集合，$F\subsetneqq S$</li>
+</ul>
+<p>DFA和NFA唯一确定并且相互等价。且带有和不带有$\varepsilon$边的NFA等价。DFA每个状态都是NFA状态构成的一个集合。在Go中，采用scanner结构体next方法作为DFA的输入，获取程序Token。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-GO" data-lang="GO"><span class="line"><span class="cl"><span class="c1">// next advances the scanner by reading the next token.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">scanner</span><span class="p">)</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">nlsemi</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">nlsemi</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">redo</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// skip white space
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nf">stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">startLine</span><span class="p">,</span> <span class="nx">startCol</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\t&#39;</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">!</span><span class="nx">nlsemi</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;\r&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// token start
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">s</span><span class="p">.</span><span class="nx">line</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">col</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nf">pos</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">blank</span> <span class="p">=</span> <span class="nx">s</span><span class="p">.</span><span class="nx">line</span> <span class="p">&gt;</span> <span class="nx">startLine</span> <span class="o">||</span> <span class="nx">startCol</span> <span class="o">==</span> <span class="nx">colbase</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nf">isLetter</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span> <span class="o">||</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">&gt;=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nx">RuneSelf</span> <span class="o">&amp;&amp;</span> <span class="nx">s</span><span class="p">.</span><span class="nf">atIdentChar</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">ident</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="k">case</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// omit 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">errorf</span><span class="p">(</span><span class="s">&#34;invalid character %#U&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">goto</span> <span class="nx">redo</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">assignop</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">ch</span> <span class="o">==</span> <span class="sc">&#39;=&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nf">nextch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_AssignOp</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span><span class="p">.</span><span class="nx">tok</span> <span class="p">=</span> <span class="nx">_Operator</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4-sytax-analysis">4. Sytax Analysis</h1>
+<blockquote>
+<p>自顶向下分析</p>
+</blockquote>
+<p>从分析树的顶部向底部方向构造分析树，可以看成是从文法开始符号S推导出词串w的过程。</p>
+<p>最左推导：每次选择每个句型的最左非终结符替换，$S\Rightarrow^*_{left most}\alpha$，则称$\alpha$是当前文法的最左句型（left- sentential form）。</p>
+<p>最右推导：总是选择每个句型的最右非终结符进行替换。</p>
+<p>预测分析：在输入中向前看固定个数符号来选择正确的A-产生式，不需要回溯，将向前看k个这些文法类可以记$LL(K)$文法类。</p>
+<p>左递归文法：存在一个非终结符$A$，使得对某个串有$A\Rightarrow ^+A\alpha$，那么这个文法是左递归的，会使得递归下降分析器进入无限循环。</p>
+<p>消除左递归：引入非终结符和$_\varepsilon$产生式为代价。伪代码如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Go" data-lang="Go"><span class="line"><span class="cl"><span class="nx">A</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="nx">NonTerminal</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 将A[i]-&gt;A[j]y的产生式替换成产生式组A[i]-&gt;d[1]y|d[2]y|...|d[k]y
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// A[j]-&gt;d[1]|d[2]|...|d[k]，是所有A[j]产生式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 消除A[i]产生式之间的立即左递归
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>提取左公因子算法：改写产生式来推迟决定，如果多个选项有公共最长前缀$\alpha, \alpha ≠ \varepsilon$，即存在非平凡（nontrivial）的公共前缀，则可以将所有A-产生式替换。</p>
+<p>S_文法：不含$\varepsilon$产生式，候选式唯一，每个产生式右部以终结符开始，同一非终结符的各个候选式的首终结符都不同。</p>
+<p>后继符号集：可能在某个句型中紧跟A后边的终结符a的集合，记为$FOLLOW(A)$，如果A是最右符号，则还要添加结束符&quot;$&quot;。</p>
+<ul>
+<li>$FOLLOW(A) = {a|S\Rightarrow ^* \alpha Aa\beta, a\in V_T, \alpha,\beta \in (V_T \cup V_N )^* }$</li>
+</ul>
+<p>产生式的可选集：产生式$A\rightarrow \beta$的可选集是指可以用改产生式进行推导的对应输入符号的集合，记为$SELECT(A\rightarrow \beta)$。</p>
+<ul>
+<li>$SELECT(A\rightarrow \alpha \beta) = {\alpha}; SELECT(A\rightarrow \varepsilon) = FOLLOW(A)$</li>
+</ul>
+<p>q_文法：每个产生式的右部要么是$\varepsilon$要么是终结符开始，具有相同左部的产生式有不相交的可选集。</p>
+<p>串首终结符集：给定一个文法符号串$\alpha$，$\alpha$串首终结符集$FIRST(\alpha)$被定义为可以从$\alpha$推导出的所有串终结符构成的集合。如果$\alpha\Rightarrow ^* \varepsilon$，则$\alpha$也在$FIRST(\alpha)$中。</p>
+<ul>
+<li>$\forall \alpha \in (V_T \cup V_N)^+ , FIRST(\alpha)={a|\alpha \Rightarrow^* a\beta, a\in V_T, \beta \in (V_T \cup V_N)^*}$</li>
+<li>如果$\alpha \Rightarrow ^* \varepsilon$，那么$\varepsilon \in FIRST(\alpha)$</li>
+<li>如果$\varepsilon \notin FIRST(\alpha)$，那么$SELECT(A\rightarrow \alpha) = FIRST(\alpha)$</li>
+<li>如果$\varepsilon \in FIRST(\alpha)$，那么$SELECT(A\rightarrow \alpha)=(FIRST(\alpha)-{\varepsilon})\cup FOLLOW(A)$</li>
+</ul>
+<p>$LL(1)$文法：文法G是$LL(1)$当前仅当任意两个相同的左部产生式$A\rightarrow \alpha|\beta$满足以下条件：</p>
+<ul>
+<li>如果$\alpha$和$\beta$都不能推导出$\varepsilon$，则$FIRST(\alpha)\cap FRIST(\beta) = \Phi$</li>
+<li>$\alpha$和$\beta$至多有一个能够推导出$\varepsilon$</li>
+<li>如果$\beta \Rightarrow ^* \varepsilon$，则$FIRST(\alpha)\cap FOLLOW(A) = \Phi$</li>
+<li>如果$\alpha \Rightarrow ^* \varepsilon$，则$FIRST(\beta)\cap FOLLOW(A) = \Phi$</li>
+</ul>
+<p>递归的预测分析法：在递归下降分析中，根据预测分析表进行产生式的选择，为每个终结符编写对应过程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">PredictRecursion</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">A</span> <span class="o">:=</span> <span class="nf">SelectExpression</span><span class="p">()</span> <span class="c1">// A-&gt;X[1]X[2]...X[k]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">k</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">].(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">NonTerminal</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">CallExpression</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">X</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="nx">Terminal</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">ReadNext</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;type assert error&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>非递归预测分析法：为预测分析表构造一个自动机。</p>
+<p>预测分析法实现步骤：构造文法；改造文法，消除二义性、消除左递归、消除回溯；求每个变量的$FIRST, FOLLOW$集，进而得到$SELECT$集；检查是不是$LL(1)$文法，如果是，构造预测分析表；进行递归/非递归分析。</p>
+<blockquote>
+<p>自底向上的语法分析</p>
+</blockquote>
+<p>从分析树的底部向顶部方向构造分析树，可以看成是将输入串w规约为文法开始符号S的过程。</p>
+<p>移入-归约：将输入串从左到右的扫描中，将0个或多个输入符号移入到栈的顶端，知道能进行归约为止。</p>
+<p>LR文法（Knuth，1963）：最大的、可以构造出相应移入-归约语法分析器的文法类，LR(k)表示需要向前查看k个输入符号的LR分析。</p>
+<ul>
+<li>采用“状态”的自动机表示句柄识别进度</li>
+</ul>
+<p>LR(0)项目：右部某位置标有圆点的产生式，描述了句柄识别状态。</p>
+<ul>
+<li>圆点后面为非终结符：移进项目</li>
+<li>圆点后面为终结符：待约项目</li>
+<li>圆点后面为空串：归约项目</li>
+</ul>
+<p>增广语法：如果G是S开始符号的文法，则G的增光文法G&rsquo;是G中加上开始符号S&rsquo;和产生式$S&rsquo;\rightarrow S$的文法，使得文法开始符号仅出现在一个产生式的左边，从而使得分析器只有一个接受状态。</p>
+<p>项目集的闭包：给定项目集I，有</p>
+<ul>
+<li>$CLOSURE(I) = I \cup {B\rightarrow ·\gamma|A \rightarrow \alpha·B\beta \in CLOSURE(I), B\rightarrow \gamma \in P }$</li>
+</ul>
+<p>后继项目集闭包：给定项目集I对应文法符号X的后继项目集闭包</p>
+<ul>
+<li>$GOTO(I, X) = CLOSURE({A\rightarrow \alpha X·\beta | A\rightarrow \alpha·X\beta \in I})$</li>
+</ul>
+<p>规范LR(0)项目集族（Canonical LR(0) Collection）：</p>
+<ul>
+<li>
+<!-- raw HTML omitted -->
+</li>
+</ul>
+<p>LR(0)自动机：文法$G=(V_N, V_T, P, S)$，则LR(0)自动机定义如下</p>
+<ul>
+<li>$M=(C, V_N\cup V_T, GOTO, I_0,F)$
+<ul>
+<li>$C ={ I_0 }\cup {I|\exists J\in C, X\in V_N \cup V_T, I = GOTO(J,X) }$</li>
+<li>$I_0=CLOSURE({S&rsquo;\rightarrow .S})$</li>
+<li>$F={CLOSURE({S&rsquo;\rightarrow S.})}$</li>
+</ul>
+</li>
+</ul>
+<p>SLR分析：已知项目集I有m个移进项目，n个归约项目</p>
+<p>$A_1 \rightarrow \alpha_1 · a_1 \beta_1; A_2 \rightarrow \alpha_2 · a_2 \beta_2;&hellip;;A_m \rightarrow \alpha_m · a_m \beta_m.$</p>
+<p>$B_1\rightarrow \gamma_1; B_2\rightarrow \gamma_2; &hellip; ;B_n\rightarrow \gamma_n;$</p>
+<p>如果集合${a_1,a_2,&hellip;,a_m}$和$FOLLOW(B_1), FOLLOW(B_2), &hellip;, FOLLOW(B_n)$两两不相交，按原则如果a是下一个输入，$if\ a \in { a_1,a_2,&hellip;,a_n }$，则移进a，$if\ a\in \cup FOLLOW(B_i)$，则用$B_i\rightarrow \gamma_i$归约，否则报错。</p>
+<p>LR(1)项目：$[A\rightarrow \alpha ·\beta]$，的项称为LR(1)项，其中a是一个终结符，表示当前状态下A必须紧跟的终结符，称为该项的展望符。</p>
+<ul>
+<li>
+<p>$CLOUSURE(I)=I\cup{[B\rightarrow ·\gamma,b]|[A\rightarrow \alpha·B\beta, a]\in CLOSURE(I), B\rightarrow \gamma \in P, b \in FIRST(\beta a) }$</p>
+</li>
+<li>
+<p>$GOTO(I,X)=CLOSURE({[A\rightarrow \alpha X·\beta, a]|[A\rightarrow \alpha ·X \beta ]\in I})$</p>
+</li>
+</ul>
+<p>LALR(lookahead-LR)分析思想：找具有相同核心的LR(1)项集，合并；最终分析表如果没有冲突，则为LALR(1)文法。</p>
+<ul>
+<li>形式上与LR(1)相同，大小和LR(0)/SLR相当，分析能力SLR&lt;LALR(1)&lt;LR(1)</li>
+</ul>
+<h1 id="5-sytax-directed-translation">5. Sytax-Directed Translation</h1>
+<p>面向文法翻译：以CFG的文法符号设置语义属性，用来表述语法成分对应的语义信息，基于语义规则来进行计算。</p>
+<p>语法制导定义（Syntax-Directed Definitions, SDD）：将每个文法符号和语义属性集合相关联，每个产生式和一组语义规则相关联。</p>
+<p>语法制导翻译方案（Syntax-Directed Translation, SDT）：在产生式右部嵌入程序片段的CFG（位置距决定执行时间），被称之为语义动作，是SDD具体的方案。</p>
+<p>综合属性：只能通过子结点或者本身的属性值来定义，终结符可以具有综合属性（由词法分析器提供的词法值）。</p>
+<p>继承属性：在分析树上继承属性只能由该结点的父亲，兄弟或者自身属性值来定义。</p>
+<p>属性文法：没有副作用SDD。</p>
+<p>属性值计算顺序：将有向图变为拓扑排序，从无依赖的结点出发。</p>
+<p>S-SDD：仅仅使用综合属性的SDD，可以自底向上顺序来计算它各个节点的属性值。将每一个语义动作放在产生式最后即可转换为SDT。</p>
+<p>L-SDD：在各属性之间，依赖图的边可以从左到右但是不能从右到左，不能从右到左，每一个S-SDD都是L-SDD。将继承属性紧靠在出现之前的位置，综合属性放在最右端即可转换为SDT。</p>
+<h1 id="6-intermediate-code-generation">6. Intermediate Code Generation</h1>
+<p>类型表达式（Type Expressions）：可以为其命名，类型名也是表达式，包括数组构造符、指针、笛卡尔积、函数构造符、记录构造符（结构体内的标识符与类型信息的笛卡尔积）。</p>
+<p>语义分析期间，对每一个标识符都会收集类型信息，确定这个类型的宽度，并分配一个相对地址，保存在符号表的记录中。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/compilers/">Compilers</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
+    >Licensed under CC BY-NC-SA 4.0</a></span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/tinysql-implementation/">
+        
+        
+            <div class="article-image">
+                <img src="/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TinySQL Implementation"
+                        
+                        data-hash="md5-M9w/Cze7g9zZBu/1q&#43;VXAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinySQL Implementation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/amend-hugo-theme-even/">
+        
+        
+            <div class="article-image">
+                <img src="/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Amend Hugo Theme Even"
+                        
+                        data-hash="md5-T2OJEh5E76YCf4utRtmy2A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Amend Hugo Theme Even</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/about-computer-science/">
+        
+        
+            <div class="article-image">
+                <img src="/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post About Computer Science"
+                        
+                        data-hash="md5-tuiBEKC2chin64susIMt9Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">About Computer Science</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/software-engineering/">
+        
+        
+            <div class="article-image">
+                <img src="/post/software-engineering/software-engineering.d9bfa54db195d8c3d921972d913baf79_huc3bea844a9f5997f5ab40a733b4abf51_95434_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Software Engineering"
+                        
+                        data-hash="md5-2b&#43;lTbGV2MPZIZctkTuveQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Software Engineering</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/advanced-mysql/">
+        
+        
+            <div class="article-image">
+                <img src="/post/advanced-mysql/mysql.5b2ee8739542e7c01ef5b96a80ff2bae_hubf29412fdbd9303c575ba06f7ee7c6af_94146_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Advanced MySQL"
+                        
+                        data-hash="md5-Wy7oc5VC58Ae9blqgP8rrg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Advanced MySQL</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Chasing1020/Chasing1020.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2023 Chasing&#39;s blog
+    </section>
+    
+    <section class="powerby">
+        
+            I just want a peaceful life without troubles <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CDYPFNXQDZ');
+</script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>

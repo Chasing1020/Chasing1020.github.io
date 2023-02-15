@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.'>
+<title>About Computer Science</title>
+
+<link rel='canonical' href='https://chasing1020.github.io/post/about-computer-science/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3b649326d90b695e08fa0725ec8adf6ad76cb19fcc1b8379c0021a110a9104c.css"><meta property='og:title' content='About Computer Science'>
+<meta property='og:description' content='It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post.'>
+<meta property='og:url' content='https://chasing1020.github.io/post/about-computer-science/'>
+<meta property='og:site_name' content='Chasing&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Note' /><meta property='article:published_time' content='2022-06-19T22:27:02&#43;08:00'/><meta property='article:modified_time' content='2022-06-19T22:37:02&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/about-computer-science/force.webp' />
+<meta name="twitter:site" content="@Chasing1020">
+    <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="About Computer Science">
+<meta name="twitter:description" content="It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science questions and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://chasing1020.github.io/post/about-computer-science/force.webp' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🖥️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h2 class="site-description">Why there is a universe?</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Chasing1020'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Chasing1020'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/Chasing1020'
+                        target="_blank"
+                        title="Telegram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:chasing1020@gmail.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+      
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-preface">0. Preface</a></li>
+    <li><a href="#1-our-environment">1. Our Environment</a></li>
+    <li><a href="#2-about-ces">2. About CES</a></li>
+    <li><a href="#3-the-future">3. The future</a></li>
+    <li><a href="#4-daily-life">4. Daily life</a></li>
+    <li><a href="#5-on-the-way">5. On the way</a></li>
+    <li><a href="#6-ending">6. Ending</a></li>
+    <li><a href="#7-remarks">7. Remarks</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/about-computer-science/">
+                <img src="/post/about-computer-science/force_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/post/about-computer-science/force_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_800x0_resize_q75_h2_box_2.webp 800w, /post/about-computer-science/force_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="595" 
+                        loading="lazy"
+                        alt="Featured image of post About Computer Science" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/about-computer-science/">About Computer Science</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 19, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    14 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>It is a yearly &ldquo;divide major&rdquo; season, and now I am looking back at the series of computer science <a class="link" href="https://www.zhihu.com/question/326615493/answer/711051528"  target="_blank" rel="noopener"
+    >questions</a> and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post. If you find any bugs or grammar issues, please don&rsquo;t hesitate to contact me to fix them. Anyway, thanks again for accepting my poor English.</p>
+<h1 id="0-preface">0. Preface</h1>
+<blockquote>
+<p>What is computer science? Why does our country need students majoring in it? What is the future of this major? Will computer science be popular in the future?</p>
+</blockquote>
+<p>Two years later, when I introduced this major to my younger brother and sister who study at our university as a &ldquo;past person&rdquo;, it was too difficult for me to write the answer because I was worried about my lack of ability and short-sightedness, which brought all kinds of misguidance to them; secondly, the choice of major at the undergraduate level will probably affect a person&rsquo;s life and mislead others. The third is that the choice of major at the undergraduate level may affect one&rsquo;s life and mislead the future of others.</p>
+<p>Therefore, in this article, I will try my best to talk about my experience and thoughts in computer science over the past two years, and hope readers can gain something worthwhile. The content I share is only my opinion and does not represent any absolute theory.</p>
+<h1 id="1-our-environment">1. Our Environment</h1>
+<blockquote>
+<p>This is an era of prosperity and crisis: Owing to the COVID-19, our world is experiencing changes never seen in a century.</p>
+</blockquote>
+<p>The annually spring and autumn recruitment is the barometer of the development of the computer industry, from last year, Tencent paid 40w high salary in the hot search, and then some time ago, due to the epidemic of the re-emergence of the side of layoffs while also locking the head count. Until today President Liu Kiping of Tencent issued an article: &ldquo;Internal manpower investment will be adjusted from the edge of the business to the core business, in the industry to occur fundamental changes in the industry when actively embracing change&rdquo;.</p>
+<p>In the general environment, today&rsquo;s Internet is far less than what it was 10 years ago, the so-called &ldquo;Although it is a pig, it can wind and waves.&rdquo;, which Howard&rsquo;s comment is: &ldquo;Now the Internet from the era of incremental into the era of stock. Everyone has no way to make the cake bigger, so they can only grab each other&rsquo;s cake&rdquo;.</p>
+<p><a class="link" href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month"  target="_blank" rel="noopener"
+    >The Mythical Man-Month</a> which is the bible of software engineering points out that more people can not shorten the software development progress, and it is dangerous to use &ldquo;man-month&rdquo; to measure the size of the work. Because <code>the number of people != efficiency</code>, the way to adjust the organizational structure of the current major manufacturers is also very straightforward - leaving the most valuable programmers. In this environment, with only a small pool of talent to dig, the Internet starting salary also seems very high.</p>
+<p>If only to high salary or good employment and blindly choose computer science major, it can only be said to have entered the survivorship bias. An objective fact is that the average salary of students graduating from our school is far below the average level of Zhihu or Maimai. The best students can collect offers from all the big companies, but the students who usually waste their time, even though they choose this major, often end up not as good as they expect. The salary distribution of this industry is not normal but power-law distribution, only a small group of the best people can share the most cake, the variance of the future development of the same industry will be very large. If you will choose to enter the industry in the future, please try to become the front group of people.</p>
+<p>In this regard, I think the reason for choosing this major should be &ldquo;you love computer science enough&rdquo;, not &ldquo;this major is hot&rdquo;. If you like the process of building a whole world of order through a process control (auto-state machine) and have some interest in this major, you may want to read on below.</p>
+<h1 id="2-about-ces">2. About CES</h1>
+<blockquote>
+<p>What is the Computer Engineering and Science?</p>
+</blockquote>
+<p>The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.</p>
+<p>The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master&rsquo;s degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to Shanghai University undergraduate professional training program in <a class="link" href="https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&amp;wbtreeid=1192&amp;wbnewsid=31263"  target="_blank" rel="noopener"
+    >2019</a> and <a class="link" href="https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&amp;wbtreeid=1192&amp;wbnewsid=32552"  target="_blank" rel="noopener"
+    >2020</a>. And all majors&rsquo; rankings are represented by the following table:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>2021 Plan</th>
+<th>2021 Rank</th>
+<th>2020 Plan</th>
+<th>2020 Rank</th>
+<th>2019 Plan</th>
+<th>2019 Rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Computer Science and Technology</td>
+<td>110</td>
+<td>289/1573</td>
+<td>135</td>
+<td>560/2029</td>
+<td>150</td>
+<td>582/2090</td>
+</tr>
+<tr>
+<td>Intelligent Science and Technology</td>
+<td>26</td>
+<td>375/1573</td>
+<td>45</td>
+<td>486/2029</td>
+<td>60</td>
+<td>281/2090</td>
+</tr>
+<tr>
+<td>Cyberspace Security</td>
+<td>20</td>
+<td>396/1573</td>
+<td>25</td>
+<td>495/2029</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Artificial Intelligence</td>
+<td>21</td>
+<td>366/1573</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table></div>
+<p>In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:</p>
+<ul>
+<li>Computer science and technology: can be understood as the computer industry, the Polytechnic University class, belongs to the computer in the basic disciplines, both soft and hard, optional development direction range is very wide, and the specific direction of research depends entirely on your interest.</li>
+<li>Intelligent science and technology: need to learn some signal processing, matrix algebra, brain cognition, and operations research-related courses, across a wide range.</li>
+<li>Cyberspace security: a new major in my year, the scope of the study is not limited to the so-called &ldquo;cyber security&rdquo;, but also distinguishes penetration, reverse, cryptography and so on.</li>
+<li>Artificial intelligence: the research direction and professional course arrangement are also close to the wisdom of science, including mathematical logic, data mining, brain cognition, etc.,
+it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics &ldquo;to grab a job&rdquo; one of the directions.</li>
+</ul>
+<p>There is no absolute answer to the question of whether a specific major is better or worse. From a personal point of view, the teaching program of the new major still needs time to settle down, 10 weeks of short semesters are compressed together, and even if you take grade 4.0 does not mean that you learned the course well.</p>
+<p>Remember <code>what the school teaches != what I need to learn</code>, you need to be clear about where your future competitiveness in the industry lies. Nowadays, more than 90% of the interview contents of large Internet companies are not what the teachers can teach you, but the fact that the teacher did not teach is not a reason why you don&rsquo;t know that.</p>
+<h1 id="3-the-future">3. The future</h1>
+<blockquote>
+<p>What I will do in the future?</p>
+</blockquote>
+<p>In fact, each road is divided and the choice will be different.</p>
+<p><code>For work</code>: If you do not have the intention to study what, it is not recommended to go in the direction of algorithms, the main directions include front-end, client, back-end, testing, operations and maintenance, security, etc. Before the junior year, make sure to finish the professional courses, and do not leave too many courses for the senior year. As early as possible to determine the technology stack used in the interview, looking for online classes (preferably open courses in foreign famous universities, books, blogs, and <a class="link" href="https://github.com/sindresorhus/awesome"  target="_blank" rel="noopener"
+    >awesome list</a>; job search in the early efforts to do <a class="link" href="https://leetcode.com/problemset/all/"  target="_blank" rel="noopener"
+    >leetcode</a>, the summer of the junior year (or the end of the second year of winter) as early as possible to go to the Internet companies for internship, more accumulated internship experience project experience.</p>
+<ul>
+<li>Internship: it is best to find the schoolmates or online internal push, more understanding of the department&rsquo;s working environment, overtime status, etc. The primary purpose of the internship is to enrich the resume, it is not recommended to care too much about the salary more or less, the key is you will learn what.</li>
+<li>When you are looking for a job with your internship experience, the name of your internship company only exists for the interviewer to have heard of/not heard of two situations. If the goal is to work for a big company, it is not particularly recommended to go to outsourcing companies and traditional industry companies (i.e. companies whose old business is not the Internet) or if you want to take &ldquo;private jobs&rdquo; from teachers and make sure to identify the good and bad projects, refer to <a class="link" href="https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing"  target="_blank" rel="noopener"
+    >Shanghai Jiao Tong University Survives Guide</a>.</li>
+</ul>
+<p><code>Taking part in the civil servant exam</code>: Mainly depends on the province, city, unit, and tier, the specific details are unknown.</p>
+<p><code>Push avoid</code>: The specific policy will change every year, refer to The Implementation plan for the work of recommending fresh outstanding undergraduate graduates to be exempted from studying for a master&rsquo;s degree in <a class="link" href="https://cs.shu.edu.cn/info/1198/20176.htm"  target="_blank" rel="noopener"
+    >2022</a> and <a class="link" href="https://cs.shu.edu.cn/info/1198/19884.htm"  target="_blank" rel="noopener"
+    >2021</a> School of Computer Science of Shanghai University. The details of the policy will change every year, but it is important to be clear about where you need to get extra points.</p>
+<ul>
+<li>Note that &ldquo;the scientific research achievements and competition awards of students who cooperate with their immediate family members or those with significantly higher education, titles and positions than themselves are only for reference and are not included in the calculation system of the comprehensive evaluation results.&rdquo;, means that the route of publishing papers in cooperation with supervisors, finding joint competitions for graduate Ph.D. will not work.</li>
+<li>On the other hand, <code>Shanghai University has a lot of ACM experts == Shanghai University ACM is powerful != you will be powerful definitely when you come to ACM</code>, same for CTF, ASC, etc. Some competitions will cost a lot of time investment if you find it is not suitable also please give up the sunk cost in time, spend time to do leetcode than waste time in the competition.</li>
+</ul>
+<p><code>Taking part in the postgraduate entrance exams</code>: The students with low GPAs who want to fulfill their dreams of a famous domestic school is also the choice of most students who do not want to work for the time being. The preparation time for the exam begins in the second semester of the junior year, choice is greater than effort. The process of preparing for the exam, choosing a school, etc., depends on the individual situation, so I won&rsquo;t go into detail here.</p>
+<p><code>Study abroad</code>: The first thing you need to do is to make sure that you are ready to go to the country you want to go to, whether you need to take IELTS or TOEFL, and whether you want to take GRE. In addition, striving to participate in internationally renowned competitions or publish some academic results but also trying to accumulate some foreign company internship experience, in the application are very plus points. As for whether to stay or return to your home country at the end of your graduate studies abroad, it ultimately depends on your situation.</p>
+<h1 id="4-daily-life">4. Daily life</h1>
+<blockquote>
+<p>What is life like in the college?</p>
+</blockquote>
+<ol>
+<li>Grade 2019 and 2020 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.</li>
+<li>Some classes have been deleted from the seminar, but there are still a lot of reports, and some teachers have a lot of requirements.</li>
+<li>College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to <a class="link" href="https://chasing1020.github.io/post/materials/ces-materials/"  target="_blank" rel="noopener"
+    >CES Materials</a> and you may find it helpful to browse the <a class="link" href="https://github.com/shuosc/libshu"  target="_blank" rel="noopener"
+    >libshu</a> which includes the material collected by the Open Source Community.</li>
+<li>Many of the final exams are far less detailed than the freshman year, most of them are less incomplete, and you will need some preparation skills.</li>
+<li>In class, most of the girls sit in the front row more, and whether or not you can get rid of the single depends on your ability.</li>
+<li>About class activities, because our courses are self-selected, everyone&rsquo;s daily life trajectory is more scattered or gathered in their small circle, I think the class cohesion is not so strong to some extent.</li>
+<li>Most of the courses, including laboratory classes, will be on the East Side, or relatively far, winter morning on eight East Side is very painful, so it is recommended to learn a bicycle for convenience.</li>
+<li>ACM and Cyberspace security labs are located on the 7th and 6th floors of the computer building, which are currently open to specific students. For teamwork competitions, it is important to find like-minded partners who are willing to devote their time and have strong abilities (not reflected in their GPAs).</li>
+<li>Students who major in AI should try to contact their supervisors as early as possible to try to borrow a GPU server, and those who are strong can also try to contact their supervisors in advance to join their graduate groups.</li>
+</ol>
+<h1 id="5-on-the-way">5. On the way</h1>
+<blockquote>
+<p>If you have decided to major in the Computer Science and Technology, here are some suggestions for studying in advance.</p>
+</blockquote>
+<ol>
+<li>
+<p>English counts! English counts! English counts!</p>
+<ul>
+<li>Learn to use Google and learn to read English materials. Never use Baidu to find answers. (It is highly recommended to add <code>127.0.0.1 www.baidu.com</code> in your <a class="link" href="https://man7.org/linux/man-pages/man5/hosts.5.html"  target="_blank" rel="noopener"
+    >/etc/hosts</a> file, which will promise that you will not able to use it.)</li>
+<li>Learn more on <a class="link" href="https://github.com/"  target="_blank" rel="noopener"
+    >Github</a>, <a class="link" href="https://stackoverflow.com/"  target="_blank" rel="noopener"
+    >Stackoverflow</a> and less on CSDN or Cnblogs.</li>
+<li>Learn to fix bugs by <a class="link" href="https://en.wikipedia.org/wiki/STFW"  target="_blank" rel="noopener"
+    >STFW</a> and <a class="link" href="https://en.wikipedia.org/wiki/RTFM"  target="_blank" rel="noopener"
+    >RTFM</a>, which is the most important skill for a programmer.</li>
+<li>Learn <a class="link" href="http://www.catb.org/~esr/faqs/smart-questions.html"  target="_blank" rel="noopener"
+    >how to ask questions the smart way</a>.</li>
+</ul>
+</li>
+<li>
+<p>Create a GitHub account, and build a personal blog on it, you can use <a class="link" href="https://gohugo.io/"  target="_blank" rel="noopener"
+    >hugo</a>, <a class="link" href="https://hexo.io/"  target="_blank" rel="noopener"
+    >hexo</a> and other frameworks, the whole specific process follows Google and official documentation, the process you will learn a lot, including Git, read documents, write configuration files and other operations.</p>
+</li>
+<li>
+<p>Specific learning direction, learning a new language and related technologies, learning process to take notes.</p>
+<ul>
+<li>Back-end: Java, Golang, C++, Rust, etc., and Web frameworks such as Springboot, and Gin, capable students can learn about DBMS, Redis, MQ, ES and other technologies in advance.</li>
+<li>Front-end/client: JavaScript, TypeScript, Dart, Kotlin, Swift and so on, frameworks including Vue, React, Angular, etc., learning Node.js, as well as agents, caches, gateways, tunnels, etc.</li>
+<li>AI can start to learn Python, Matlab and so on, as well as the common TensorFlow or PyTorch, efforts to improve the level of English and start trying to improve the ability to find literature/reading literature.</li>
+</ul>
+</li>
+<li>
+<p>Learn Linux including <a class="link" href="https://docs.microsoft.com/en-us/windows/wsl/install"  target="_blank" rel="noopener"
+    >WSL</a> and <a class="link" href="https://www.docker.com/"  target="_blank" rel="noopener"
+    >Docker</a>, it is highly recommended to learn Docker to save the time to build the environment.</p>
+</li>
+<li>
+<p>Learn the professional course knowledge in advance, refer to the <a class="link" href="https://csdiy.wiki/"  target="_blank" rel="noopener"
+    >CS Self-Study Guide</a>, it is suggested to learn computer science by doing the labs.</p>
+</li>
+<li>
+<p>When you finish the above, you should have a general direction of what to study in the future, you can also read <a class="link" href="https://chasing1020.github.io/post/my-cs-learning-route/"  target="_blank" rel="noopener"
+    >My Computer Study Route</a>.</p>
+</li>
+</ol>
+<h1 id="6-ending">6. Ending</h1>
+<p>This article is only expressing my personal opinion, I hope students will not change their opinion towards this major because of the shortcomings of the profession I mentioned, or blindly decide because of the so-called high salary. On the way of choosing a major, often a decision will greatly affect the future trajectory of your life.</p>
+<p>The fact that you have the grades to get into a computer science college also means that you have the right to choose almost any major, so please choose your major carefully. After all, the final choice of major is still yours, so please make sure to make a decision based on your interests, family environment, future development and all kinds of factors, and remember that at this point, anyone, including your teachers, family and classmates, can only just provide advice at all.</p>
+<p>Four years of college life is neither too long nor too short. While enjoying the comfortable campus life, you have become a frog in warm water without realizing it.</p>
+<p>We need to break away from the inertia of student thinking under the score measurement system, &ldquo;Please be sure to remember: four years of college life gives you is just a kind of the undergo of your life, when you graduate, the string of pale scores has been invalidated.&rdquo;.</p>
+<h1 id="7-remarks">7. Remarks</h1>
+<p>Here are some links related to this post.</p>
+<ol>
+<li>
+<p><a class="link" href="https://lemon-412.github.io/2020/07/17/%E4%B8%8A%E5%A4%A7%E8%AE%A1%E9%99%A2%E6%8A%A5%E8%80%83%E6%8C%87%E5%8C%97/"  target="_blank" rel="noopener"
+    >Guide of Choice SHU CES</a></p>
+</li>
+<li>
+<p><a class="link" href="https://luminolt.cn/post/a-guide-for-newbies-in-cs/"  target="_blank" rel="noopener"
+    >A Guide for newbies in Cyberspace Security</a></p>
+</li>
+</ol>
+<p>Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/note/">Note</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
+    >Licensed under CC BY-NC-SA 4.0</a></span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Jun 19, 2022 22:37 CST
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/my-cs-learning-route/">
+        
+        
+            <div class="article-image">
+                <img src="/post/my-cs-learning-route/_hucd462030061d06ef689774f7ac872710_22876_55772b3ac45ce1c0c156ad6d85af9587.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post My CS Learning Route"
+                        
+                        data-hash="md5-zdLmWKwPsLibGjeSyHELLg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">My CS Learning Route</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/mathematic-fomulars/">
+        
+        
+            <div class="article-image">
+                <img src="/post/mathematic-fomulars/math.24f51518189b2f31acb1469396a7227e_hu83b9f6e293f1a315f3c631b3d80c5053_31522_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Mathematic Fomulars"
+                        
+                        data-hash="md5-JPUVGBibLzGssUaTlqcifg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Mathematic Fomulars</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/crawler-note/">
+        
+        
+            <div class="article-image">
+                <img src="/post/crawler-note/crawlers.26cae3c9ed83c23bd45bb5263ad3eca8_huf70bc2f5d9712bf049a955dbeedbcb91_33366_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Crawler Note"
+                        
+                        data-hash="md5-Jsrjye2DwjvUW7UmOtPsqA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Crawler Note</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/tinysql-implementation/">
+        
+        
+            <div class="article-image">
+                <img src="/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TinySQL Implementation"
+                        
+                        data-hash="md5-M9w/Cze7g9zZBu/1q&#43;VXAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinySQL Implementation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/amend-hugo-theme-even/">
+        
+        
+            <div class="article-image">
+                <img src="/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Amend Hugo Theme Even"
+                        
+                        data-hash="md5-T2OJEh5E76YCf4utRtmy2A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Amend Hugo Theme Even</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Chasing1020/Chasing1020.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2023 Chasing&#39;s blog
+    </section>
+    
+    <section class="powerby">
+        
+            I just want a peaceful life without troubles <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CDYPFNXQDZ');
+</script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>

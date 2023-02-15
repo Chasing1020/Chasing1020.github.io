@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='创建数组对象 一维数组 1 2 3 name=np.array([&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]) print(name.ndim)#维数 print(name.size)#大小 二维数组 创建 1 2 import numpy as np name=np.array([[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]]) 查看属性 1'>
+<title>Data Analyzation Note</title>
+
+<link rel='canonical' href='https://chasing1020.github.io/post/data-analyzation-note/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3b649326d90b695e08fa0725ec8adf6ad76cb19fcc1b8379c0021a110a9104c.css"><meta property='og:title' content='Data Analyzation Note'>
+<meta property='og:description' content='创建数组对象 一维数组 1 2 3 name=np.array([&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]) print(name.ndim)#维数 print(name.size)#大小 二维数组 创建 1 2 import numpy as np name=np.array([[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]]) 查看属性 1'>
+<meta property='og:url' content='https://chasing1020.github.io/post/data-analyzation-note/'>
+<meta property='og:site_name' content='Chasing&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Data Analyzation' /><meta property='article:published_time' content='2020-10-25T19:13:09&#43;08:00'/><meta property='article:modified_time' content='2020-10-25T19:13:09&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/data-analyzation-note/numpy.webp' />
+<meta name="twitter:site" content="@Chasing1020">
+    <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="Data Analyzation Note">
+<meta name="twitter:description" content="创建数组对象 一维数组 1 2 3 name=np.array([&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]) print(name.ndim)#维数 print(name.size)#大小 二维数组 创建 1 2 import numpy as np name=np.array([[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;],[&amp;#39;1&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;3&amp;#39;,&amp;#39;4&amp;#39;,&amp;#39;5&amp;#39;,&amp;#39;6&amp;#39;]]) 查看属性 1"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://chasing1020.github.io/post/data-analyzation-note/numpy.webp' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🖥️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h2 class="site-description">Why there is a universe?</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Chasing1020'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Chasing1020'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/Chasing1020'
+                        target="_blank"
+                        title="Telegram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:chasing1020@gmail.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+      
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#创建数组对象">创建数组对象</a>
+      <ul>
+        <li><a href="#一维数组">一维数组</a></li>
+        <li><a href="#二维数组">二维数组</a></li>
+        <li><a href="#常用函数属性">常用函数、属性</a></li>
+        <li><a href="#通用函数func">通用函数func</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据汇总与统计">数据汇总与统计</a>
+      <ul>
+        <li><a href="#series对象">series对象</a></li>
+        <li><a href="#data_frame对象">Data_Frame对象</a></li>
+        <li><a href="#读写文件">读写文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/data-analyzation-note/">
+                <img src="/post/data-analyzation-note/numpy_hue3031a62f00ed5687652f7562c1129b7_14028_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/post/data-analyzation-note/numpy_hue3031a62f00ed5687652f7562c1129b7_14028_800x0_resize_q75_h2_box_2.webp 800w, /post/data-analyzation-note/numpy_hue3031a62f00ed5687652f7562c1129b7_14028_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="320" 
+                        loading="lazy"
+                        alt="Featured image of post Data Analyzation Note" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/data-analyzation-note/">Data Analyzation Note</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 25, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    9 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="创建数组对象">创建数组对象</h1>
+<h2 id="一维数组">一维数组</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span><span class="c1">#维数</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="c1">#大小</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二维数组">二维数组</h2>
+<ol>
+<li>创建</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">name</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">],[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">],[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">],[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">]])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>查看属性</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span><span class="c1">#维数，也可以说是矩阵的秩</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="c1">#大小</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="c1">#行数和列数</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="c1">#查看数据类型</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>访问下标</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="c1">#索引为[0,n-1]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span><span class="c1">#索引为[-n,-1]，表示倒数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>切片(slicing)</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">name</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]]:</span><span class="c1">#表示下标1，2和下标2，4#如果使用:，则表示所有的行和列</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]:</span><span class="c1">#表示下标1，2和下标2，4#如果使用:，则表示所有的行和列</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>条件筛选</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">[(</span><span class="n">name</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">name</span><span class="o">==</span><span class="mi">2</span><span class="p">)])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>创建多维数组</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="c1">#生成1-9之间的连续的数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="c1">#将一维数组转为二维数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="c1">#生成3*4的为0的数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span><span class="c1">#生成4*3的为1的数组</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="7">
+<li>多维数组运算</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mi">5</span><span class="c1">#生成全部为5的数组</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="mi">3</span><span class="c1">#生成全部为4的数组</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用函数属性">常用函数、属性</h2>
+<ol>
+<li>函数</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>np.array(列表)</td>
+<td>通过列表创建一个数组对象</td>
+</tr>
+<tr>
+<td>np.arange(起始, 结束, 步长)</td>
+<td>创建一个等差数组(注意区间是左闭右开的)</td>
+</tr>
+<tr>
+<td>np.zeros( (m, n) )</td>
+<td>创建一个m行n列的全零数组</td>
+</tr>
+<tr>
+<td>np.ones( (m, n) )</td>
+<td>创建一个m行n列的全一数组</td>
+</tr>
+<tr>
+<td>np.eye(m)</td>
+<td>创建一个m阶单位方阵</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="2">
+<li>常用对象属性</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>my_array.ndim</td>
+<td>维数</td>
+</tr>
+<tr>
+<td>my_array.size</td>
+<td>大小</td>
+</tr>
+<tr>
+<td>my_array.shape</td>
+<td>以元组形式返回my_array的(行, 列)</td>
+</tr>
+<tr>
+<td>my_array.dtype</td>
+<td>返回my_array中元素的数据类型</td>
+</tr>
+<tr>
+<td>*注意库函数和对象属性的不同，表一中np.是固定的，指的是numpy库；而表二中my_array.xxx()中的my_array要改成你对应的数组的名字（即实例名）。</td>
+<td></td>
+</tr>
+<tr>
+<td>## 切片</td>
+<td></td>
+</tr>
+<tr>
+<td>切片</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>我们将选出一个数组的某一行、某一列或者某一个位置上的元素的操作成为“切片”
+我们先来讨论二维数组的切片:
+最基本的格式是：my_array[m, n]，其中m和n可以为整数 列表 还可以是冒号:
+当m和n是整数时，表示选取m行n列的那个数。
+当m和n其中一个是冒号的时候，表明选中对应的所有行或列。例如my_array[ :, n]表示选择整个第n列</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;切片前：&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;切片后：&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">切片前：
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[1 2 3]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [4 5 6]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [7 8 9]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">切片后：
+</span></span></span><span class="line"><span class="cl"><span class="s1">[2 6]
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="通用函数func">通用函数func</h2>
+<ol>
+<li>常用的一元函数</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abs、fabs</td>
+<td>计算整数、浮点数、复数的绝对值</td>
+</tr>
+<tr>
+<td>sqrt</td>
+<td>计算平方根</td>
+</tr>
+<tr>
+<td>square</td>
+<td>计算平方</td>
+</tr>
+<tr>
+<td>exp</td>
+<td>计算指数</td>
+</tr>
+<tr>
+<td>log、log10</td>
+<td>计算自然对数、底数为10的log</td>
+</tr>
+<tr>
+<td>sign</td>
+<td>计算正负号</td>
+</tr>
+<tr>
+<td>ceil、floor</td>
+<td>天花板、地板函数</td>
+</tr>
+<tr>
+<td>sin、cos、cosh&hellip;</td>
+<td>三角函数</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<ol start="2">
+<li>常用的二元函数</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>将对应的元素相加</td>
+</tr>
+<tr>
+<td>subtract</td>
+<td>从第一个数组中减去第二个数组的元素</td>
+</tr>
+<tr>
+<td>multiply</td>
+<td>数组元素相乘</td>
+</tr>
+<tr>
+<td>divide</td>
+<td>数组元素相除</td>
+</tr>
+<tr>
+<td>power</td>
+<td>计算幂次</td>
+</tr>
+<tr>
+<td>mod</td>
+<td>计算模</td>
+</tr>
+<tr>
+<td>copysign</td>
+<td>将第二个数组的符号赋值给第一个数组</td>
+</tr>
+<tr>
+<td>equal、not_equal</td>
+<td>执行元素比较，返回布尔类型的数组</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="3">
+<li>聚集函数</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sum</td>
+<td>求和</td>
+</tr>
+<tr>
+<td>mean</td>
+<td>算数平均值</td>
+</tr>
+<tr>
+<td>min、max</td>
+<td>最大值和最小值</td>
+</tr>
+<tr>
+<td>argmin、argmax</td>
+<td>最大值和最小值的索引</td>
+</tr>
+<tr>
+<td>cumsum</td>
+<td>从0开始累加</td>
+</tr>
+<tr>
+<td>cumprod</td>
+<td>从1开始累乘</td>
+</tr>
+</tbody>
+</table></div>
+<ol start="4">
+<li>随机数组生成函数</li>
+</ol>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>random</td>
+<td>随机产生[0,1)</td>
+</tr>
+<tr>
+<td>randint</td>
+<td>随机生成给定范围内的一组整数</td>
+</tr>
+<tr>
+<td>uniform</td>
+<td>随机生成给定范围内服从均匀分布的一组浮点数</td>
+</tr>
+<tr>
+<td>choice</td>
+<td>在给定的范围内随机选择元素</td>
+</tr>
+<tr>
+<td>normal</td>
+<td>随机生成一组服从给定均值和方差正态分布的随机数</td>
+</tr>
+<tr>
+<td>## 课后作业</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#P21</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;王微&#39;</span><span class="p">,</span><span class="s1">&#39;肖良英&#39;</span><span class="p">,</span><span class="s2">&#34;方绮雯&#34;</span><span class="p">,</span><span class="s1">&#39;刘旭阳&#39;</span><span class="p">,</span><span class="s1">&#39;钱易铭&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">subjects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Art&#39;</span><span class="p">,</span> <span class="s1">&#39;Database&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">70</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">89</span><span class="p">],[</span><span class="mi">60</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">92</span><span class="p">,</span><span class="mi">90</span><span class="p">],[</span><span class="mi">90</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">91</span><span class="p">],[</span><span class="mi">80</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">83</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">80</span><span class="p">],[</span><span class="mi">88</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">73</span><span class="p">,</span><span class="mi">80</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(1)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(2)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(3)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">subjects</span><span class="p">[(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;English&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;Physics&#39;</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#2.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(1)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">],:])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(2)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]][:,(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;Python&#39;</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;Math&#39;</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(3)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[:,(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;English&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;Art&#39;</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#(4)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[(</span><span class="n">names</span><span class="o">==</span><span class="s1">&#39;王微&#39;</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">names</span><span class="o">==</span><span class="s1">&#39;刘旭阳&#39;</span><span class="p">),(</span><span class="n">subjects</span><span class="o">==</span><span class="s1">&#39;English&#39;</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">subjects</span><span class="o">==</span><span class="s1">&#39;Math&#39;</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#3.</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">1. 一维数组访问。
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">1) 在 subjects 数组中选择并显示序号 1、 2、 4 门课的名称，使用倒序索引选择并显示 names 数组中“方绮雯“。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[&#39;English&#39; &#39;Python&#39; &#39;Art&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">方绮雯
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">2) 选择并显示 names 数组从 2 到最后的数组元素；选择并显示 subjects 数组正序 2~4 的数组元素。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[&#39;方绮雯&#39; &#39;刘旭阳&#39; &#39;钱易铭&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">[&#39;Python&#39; &#39;Chinese&#39; &#39;Art&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">3) 使用布尔条件选择并显示 subjects 数组中的英语和物理科目名称。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[&#39;English&#39; &#39;Physics&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">2. 二维数组访问。
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">l) 选择并显示 scores 数组的 1、 4 行。 
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[60 64 80 75 80 92 90]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [88 72 78 90 91 73 80]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">2) 选择并显示 scores 数组中行序 2、 4 学生的数学和 Python 成绩
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[90 88]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [88 78]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">3) 选择并显示 scores 数组中所有学生的数学和艺术课程成绩。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[85 82]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [64 80]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [93 86]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [82 83]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [72 91]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">4) 选择并显示 scores 数组中“王微”和“刘旭阳”的英语和艺术课程成绩。 
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[85 82]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [82 83]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">3. 生成由整数 10~19 组成的 2x5 的二维数组。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[10 11 12 13 14]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [15 16 17 18 19]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 数据准备</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#P26</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;王微&#39;</span><span class="p">,</span><span class="s1">&#39;肖良英&#39;</span><span class="p">,</span><span class="s2">&#34;方绮雯&#34;</span><span class="p">,</span><span class="s1">&#39;刘旭阳&#39;</span><span class="p">,</span><span class="s1">&#39;钱易铭&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">subjects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;English&#39;</span><span class="p">,</span> <span class="s1">&#39;Python&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Art&#39;</span><span class="p">,</span> <span class="s1">&#39;Database&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">70</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">77</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">89</span><span class="p">],[</span><span class="mi">60</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">92</span><span class="p">,</span><span class="mi">90</span><span class="p">],[</span><span class="mi">90</span><span class="p">,</span><span class="mi">93</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">91</span><span class="p">],[</span><span class="mi">80</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">88</span><span class="p">,</span><span class="mi">83</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">80</span><span class="p">],[</span><span class="mi">88</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">73</span><span class="p">,</span><span class="mi">80</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一题</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1. 将 scores 数组中所有学生的英语成绩减去 3 分并显示。 &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[:,</span> <span class="n">subjects</span> <span class="o">==</span> <span class="s1">&#39;Art&#39;</span><span class="p">]</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 第二题</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">2. 统计 scores 数组中每名学生所有科目的平均分并显示。 &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 第三题  </span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">3. 使用随机函数生成[-1,1]之间服从均匀分布的 3x4 二维数组，并计算所有元素的和。&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">uni</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">uni</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">uni</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">1. 将 scores 数组中所有学生的英语成绩减去 3 分并显示。 
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[79]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [77]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [83]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [80]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [88]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">2. 统计 scores 数组中每名学生所有科目的平均分并显示。 
+</span></span></span><span class="line"><span class="cl"><span class="s1">82.42857142857143
+</span></span></span><span class="line"><span class="cl"><span class="s1">77.28571428571429
+</span></span></span><span class="line"><span class="cl"><span class="s1">89.28571428571429
+</span></span></span><span class="line"><span class="cl"><span class="s1">84.28571428571429
+</span></span></span><span class="line"><span class="cl"><span class="s1">81.71428571428571
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">3. 使用随机函数生成[-1,1]之间服从均匀分布的 3x4 二维数组，并计算所有元素的和。
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[-0.5434021  -0.0569449  -0.10984966 -0.90260813]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [-0.01882247 -0.46660599  0.52140256  0.42474122]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [ 0.3122958  -0.06197657 -0.26717631 -0.08292239]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">-1.2518689400759253
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#P29</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#一、</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1.创建两个一维数组分别存储超市名称和水果名称。</span>
+</span></span><span class="line"><span class="cl"><span class="n">shops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;DaRunFa&#39;</span><span class="p">,</span><span class="s1">&#39;Walmart&#39;</span><span class="p">,</span><span class="s1">&#39;HaoDe&#39;</span><span class="p">,</span><span class="s1">&#39;NongGongShang&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">fruits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="s1">&#39;banana&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;mango&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2.创建一个 4x4 的二维数组存储不同超市的水果价格，其中价格由 4~10 范围内的随机数生成。 </span>
+</span></span><span class="line"><span class="cl"><span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 3.选择“大润发”的苹果和“好德”的香蕉，并将价格增加 1 元。 </span>
+</span></span><span class="line"><span class="cl"><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;DaRunFa&#39;</span><span class="p">,</span><span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;apple&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the price of apple in DaRunFa now: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;DaRunFa&#39;</span><span class="p">,</span><span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;apple&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;HaoDe&#39;</span><span class="p">,</span><span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;banana&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the price of banana in HaoDe now: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;HaoDe&#39;</span><span class="p">,</span><span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;banana&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.“农工商”水果大减价，所有水果价格减 2 元。 </span>
+</span></span><span class="line"><span class="cl"><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;NongGongShang&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">2</span> 
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the price in NongGongShang now: &#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">prices</span><span class="p">[</span><span class="n">shops</span> <span class="o">==</span> <span class="s1">&#39;NongGongShang&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 5.统计四个超市苹果和芒果的销售均价。 </span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ave of apple is: </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">prices</span><span class="p">[:</span> <span class="p">,</span> <span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;apple&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ave of mango is: </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">prices</span><span class="p">[:</span> <span class="p">,</span> <span class="n">fruits</span> <span class="o">==</span> <span class="s1">&#39;mango&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 6.找出橘子价格最贵的超市名称（不是编号）。</span>
+</span></span><span class="line"><span class="cl"><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">prices</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span> <span class="o">=</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the most expensive orange is in </span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">shops</span><span class="p">[</span><span class="n">t</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">the price of apple in DaRunFa now: 7
+</span></span></span><span class="line"><span class="cl"><span class="s1">the price of banana in HaoDe now: 5
+</span></span></span><span class="line"><span class="cl"><span class="s1">the price in NongGongShang now: [[6 7 4 6]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">ave of apple is: 6.750000
+</span></span></span><span class="line"><span class="cl"><span class="s1">ave of mango is: 6.750000
+</span></span></span><span class="line"><span class="cl"><span class="s1">the most expensive orange is in Walmart
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#二、</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="n">steps</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="n">rndwlk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1）移动距离数组：&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">rndwlk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">position</span> <span class="o">=</span> <span class="n">rndwlk</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">z</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">2）每步走完后在三维的空间位置：&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">position</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#三维直角坐标系的距离公式</span>
+</span></span><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">3）每步走完后到原点的距离：&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">4）Z轴到达的最远距离：</span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="nb">abs</span><span class="p">(</span><span class="n">position</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">5）物体在三维空间距离原点的最近值：</span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">dists</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">1）移动距离数组：
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[ 0.09  0.52 -0.96 -0.96 -1.44  1.27 -0.61 -1.18  2.23  0.45]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [-0.66 -2.22 -0.39 -0.25  0.36 -0.29  0.04  0.12  1.43  0.34]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [ 0.56  0.56  0.96  0.33  2.15  1.56 -1.09 -2.05 -0.1  -0.48]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">2）每步走完后在三维的空间位置：
+</span></span></span><span class="line"><span class="cl"><span class="s1">[[ 0.09  0.62 -0.34 -1.3  -2.74 -1.47 -2.08 -3.26 -1.03 -0.57]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [-0.66 -2.87 -3.26 -3.51 -3.16 -3.44 -3.4  -3.29 -1.86 -1.51]
+</span></span></span><span class="line"><span class="cl"><span class="s1"> [ 0.56  1.11  2.07  2.4   4.55  6.12  5.02  2.97  2.87  2.39]]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">3）每步走完后到原点的距离：
+</span></span></span><span class="line"><span class="cl"><span class="s1">[0.87 3.14 3.88 4.45 6.18 7.17 6.42 5.5  3.57 2.89]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">4）Z轴到达的最远距离：6.116005
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">5）物体在三维空间距离原点的最近值：0.867622
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="数据汇总与统计">数据汇总与统计</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>    <span class="c1">#使用pd.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="series对象">series对象</h2>
+<ol>
+<li>通过下标访问</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#series([data,index,index,...])</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>
+</span></span><span class="line"><span class="cl"><span class="n">height1</span><span class="o">=</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;13&#39;</span> <span class="p">:</span><span class="mi">187</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span> <span class="p">:</span><span class="mi">190</span><span class="p">,</span> <span class="s1">&#39;17&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="mi">178</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height1</span><span class="p">[</span><span class="s1">&#39;13&#39;</span><span class="p">])</span><span class="c1">#检索13号的身高</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="c1">#检索1、2号的身高</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height1</span><span class="o">.</span><span class="n">values</span><span class="o">&gt;=</span><span class="mi">186</span><span class="p">)</span><span class="c1">#检索大于186的球员</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height1</span><span class="p">)</span><span class="c1">#打印所有身高</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>通过append添加成员</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;10&#39;</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">180</span><span class="p">,</span><span class="mi">185</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">height1</span><span class="o">=</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;13&#39;</span> <span class="p">:</span><span class="mi">187</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span> <span class="p">:</span><span class="mi">190</span><span class="p">,</span> <span class="s1">&#39;17&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="mi">178</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">height2</span><span class="o">=</span><span class="n">height1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>删除成员</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span><span class="p">,</span><span class="n">DataFrame</span>
+</span></span><span class="line"><span class="cl"><span class="n">height1</span><span class="o">=</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;13&#39;</span> <span class="p">:</span><span class="mi">187</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span> <span class="p">:</span><span class="mi">190</span><span class="p">,</span> <span class="s1">&#39;17&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span><span class="mi">178</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">:</span><span class="mi">185</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">height1</span><span class="o">.</span><span class="n">dorp</span><span class="p">(</span><span class="s1">&#39;13&#39;</span><span class="p">,</span><span class="s1">&#39;9&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">height1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="data_frame对象">Data_Frame对象</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">19</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span> <span class="mi">68</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span><span class="mi">65</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span> <span class="mi">65</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="n">students</span><span class="o">=</span><span class="n">DataFrame</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span><span class="s1">&#39;weight&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">students</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   19     170      68</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3   18     175      65</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>添加数据</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="p">[</span><span class="s1">&#39;expense&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">1500</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1200</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight  expense</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   19     170      68     1500</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65     1600</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3   18     175      65     1200</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>修改数据</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="p">[</span><span class="s1">&#39;expense&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1000</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">stdents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight  expense</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   19     170      68     1000</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65     1000</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3   18     175      65     1000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">188</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight  expense</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   21      78      70       20</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65     1000</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3   18     175      65     1000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>删除数据</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="c1">#axis=0表示行</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight  expense</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   21      78      70       20</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65     1000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;expense&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 删除expense列，axis=1表示列</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   age  height  weight  </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1   21      78      70 </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2   20     165      65 </span>
+</span></span><span class="line"><span class="cl"><span class="c1">#3   18     175      65</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">students</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># 删除多行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="读写文件">读写文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">csv</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span> <span class="s1">&#39;infer&#39;</span> <span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">None</span> <span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#读取csv文件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exc</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file</span><span class="err">，</span><span class="n">sheetname</span><span class="p">,</span><span class="o">...</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#读取excel文件</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>file</th>
+<th>字符串，文件路径和文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sep</td>
+<td>字符串，每行各数据之间的分隔符，默认为“,”</td>
+</tr>
+<tr>
+<td>header</td>
+<td>header =None,文件中第一行不是列索引</td>
+</tr>
+<tr>
+<td>index_col</td>
+<td>数字，用作行索引的列序号</td>
+</tr>
+<tr>
+<td>names</td>
+<td>列表，定义列索引，默认文件中第- - 行为列索引</td>
+</tr>
+<tr>
+<td>skiprows</td>
+<td>整数或列表，需要忽略的行数或需要跳过的行号列表，skiprows=[2,3,5]，跳过2，3，5行</td>
+</tr>
+</tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/data-analyzation/">Data Analyzation</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
+    >Licensed under CC BY-NC-SA 4.0</a></span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/tinysql-implementation/">
+        
+        
+            <div class="article-image">
+                <img src="/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TinySQL Implementation"
+                        
+                        data-hash="md5-M9w/Cze7g9zZBu/1q&#43;VXAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinySQL Implementation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/amend-hugo-theme-even/">
+        
+        
+            <div class="article-image">
+                <img src="/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Amend Hugo Theme Even"
+                        
+                        data-hash="md5-T2OJEh5E76YCf4utRtmy2A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Amend Hugo Theme Even</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/about-computer-science/">
+        
+        
+            <div class="article-image">
+                <img src="/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post About Computer Science"
+                        
+                        data-hash="md5-tuiBEKC2chin64susIMt9Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">About Computer Science</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/compilers/">
+        
+        
+            <div class="article-image">
+                <img src="/post/compilers/Compilers.721e3e2c562aaf9810a16b67966bddd7_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Compilers"
+                        
+                        data-hash="md5-ch4&#43;LFYqr5gQoWtnlmvd1w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Compilers</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/software-engineering/">
+        
+        
+            <div class="article-image">
+                <img src="/post/software-engineering/software-engineering.d9bfa54db195d8c3d921972d913baf79_huc3bea844a9f5997f5ab40a733b4abf51_95434_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Software Engineering"
+                        
+                        data-hash="md5-2b&#43;lTbGV2MPZIZctkTuveQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Software Engineering</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Chasing1020/Chasing1020.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2023 Chasing&#39;s blog
+    </section>
+    
+    <section class="powerby">
+        
+            I just want a peaceful life without troubles <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CDYPFNXQDZ');
+</script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>

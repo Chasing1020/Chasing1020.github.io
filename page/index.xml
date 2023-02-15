@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Chasing&#39;s blog</title>
+        <link>https://chasing1020.github.io/page/</link>
+        <description>Recent content in Pages on Chasing&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://chasing1020.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Archives</title>
+        <link>https://chasing1020.github.io/archives/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://chasing1020.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://chasing1020.github.io/about/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://chasing1020.github.io/about/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/about/reimu.png" alt="Featured image of post " /&gt;&lt;h1 id=&#34;about-this-blog&#34;&gt;&lt;strong&gt;About this blog&lt;/strong&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;This blog is established by hugo which is a static site engine written in Go.&lt;/li&gt;
+&lt;li&gt;To achieve faster access, I have rebuilt this blog by it in replacing of hexo.&lt;/li&gt;
+&lt;li&gt;The frequency of updating this blog is unknown, depending on the state of my recent studies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;about-me&#34;&gt;&lt;strong&gt;About me&lt;/strong&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;I am a college student majoring in Computer Science.&lt;/li&gt;
+&lt;li&gt;I like freedom and unrestrained, and don&amp;rsquo;t like being bound.&lt;/li&gt;
+&lt;li&gt;My favorite languages in order of preference are: Golang &amp;gt; Java &amp;gt; Python &amp;gt; Rust &amp;gt; JavaScript.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;contact&#34;&gt;&lt;strong&gt;Contact&lt;/strong&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The social links in most of platforms are listed in the bottom of this website.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;And you can contact me via:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;QQ: &lt;a class=&#34;link&#34; href=&#34;tencent://AddContact/?fromId=50&amp;amp;fromSubId=1&amp;amp;subcmd=all&amp;amp;uin=643601464&#34; &gt;643601464&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;WeChat: &lt;a class=&#34;link&#34; href=&#34;weixin://dl/chat?zjc643601464&#34; &gt;zjc643601464&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Lark: &lt;a class=&#34;link&#34; href=&#34;https://www.feishu.cn/invitation/page/add_contact/?token=84fjea0d-a6bf-452a-af18-6f663429af2d&amp;amp;unique_id=RrNxlaALcRoDz4M3fOO9nA==&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Add me as Contact&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Mail: &lt;a class=&#34;link&#34; href=&#34;mailto:chasing1020@gmail.com&#34; &gt;Email me&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Telegram: &lt;a class=&#34;link&#34; href=&#34;https://t.me/Chasing1020&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Add Chasing1020&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;link&#34;&gt;&lt;strong&gt;Link&lt;/strong&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;I would appreciate it if you could add my blog to your links.&lt;/li&gt;
+&lt;li&gt;You can send me your link by any means, an example of the link is below.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Chasing’s Blog&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://chasing1020.github.io&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Avatar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://avatars.githubusercontent.com/chasing1020&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Description&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;if err != nil&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Friends</title>
+        <link>https://chasing1020.github.io/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://chasing1020.github.io/links/</guid>
+        <description>&lt;h2 id=&#34;the-following-links-are-from-my-friends-you-can-also-send-me-your-blog-links-in-any-means-you-like&#34;&gt;The following links are from my friends, you can also send me your blog links in any means you like.&lt;/h2&gt;
+&lt;h2 id=&#34;and-i-would-appreciate-it-if-you-could-add-my-blog-to-your-links&#34;&gt;And I would appreciate it if you could add my blog to your links.&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Chasing&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://chasing1020.github.io&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Avatar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://avatars.githubusercontent.com/chasing1020&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;Description&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;if err != nil&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;for-some-reason-the-blog-is-not-yet-able-to-display-personal-avatars&#34;&gt;For some reason, the blog is not yet able to display personal avatars.&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: tcqi&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://tcqi.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://tcqi.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: sls&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://www.slsblog.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.slsblog.cn/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: Silence&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://shu-silence.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://shu-silence.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: luminolt&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://luminolt.cn/#about&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://luminolt.cn/#about&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: Lemmon412&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://lemon-412.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lemon-412.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: xzablog&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;http://xzalab.top&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://xzalab.top&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: zidea&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://blog.zidea.site/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.zidea.site/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: syyan&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://syyan.site/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://syyan.site/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: cdtong&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://cdtong.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://cdtong.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: Chi xinning&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://www.ererzi.website/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.ererzi.website/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: zhoudian&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://zhoudian64.xn--gmqr38ag3ag6puy9a.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://zhoudian64.xn--gmqr38ag3ag6puy9a.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: cuberCSL&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://cubercsl.site/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://cubercsl.site/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: Picasun&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://picasun.github.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://picasun.github.io&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: rainbow&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://shu-rainbow.space/#indexCard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://shu-rainbow.space/#indexCard&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: zkllab&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://app.zkllab.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://app.zkllab.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: longfangsong&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://longfangsong.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://longfangsong.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: nettee&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://nettee.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://nettee.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: littleping&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_27133869&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/qq_27133869&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: nephrencake&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://nephrencake.gitee.io/page/2/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://nephrencake.gitee.io/page/2/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: henryavery&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://henryavery.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://henryavery.cn/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: 智ℳ&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/weixin_44593461&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/weixin_44593461&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: halfrost&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://halfrost.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://halfrost.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: chenxiao8&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://chenxiao8.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://chenxiao8.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: lemonhx&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://lemonhx.moe/#/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lemonhx.moe/#/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: duan&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://adrianduan.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://adrianduan.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: loney-square&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://lonely-square.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://lonely-square.github.io/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;name: inlighting&lt;/p&gt;
+&lt;p&gt;link: &lt;a class=&#34;link&#34; href=&#34;https://www.inlighting.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.inlighting.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-to-be-continued-&#34;&gt;* To be continued &amp;hellip;&lt;/h2&gt;
+</description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://chasing1020.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://chasing1020.github.io/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

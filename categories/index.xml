@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Categories on Chasing&#39;s blog</title>
+        <link>https://chasing1020.github.io/categories/</link>
+        <description>Recent content in Categories on Chasing&#39;s blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 13 Aug 2022 18:24:56 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Note</title>
+        <link>https://chasing1020.github.io/categories/note/</link>
+        <pubDate>Sat, 13 Aug 2022 18:24:56 +0800</pubDate>
+        
+        <guid>https://chasing1020.github.io/categories/note/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/categories/note/markdown.png" alt="Featured image of post Note" /&gt;</description>
+        </item>
+        <item>
+        <title>Language</title>
+        <link>https://chasing1020.github.io/categories/language/</link>
+        <pubDate>Sat, 19 Feb 2022 23:20:42 +0800</pubDate>
+        
+        <guid>https://chasing1020.github.io/categories/language/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/categories/language/PatchyFumoSICP.jpeg" alt="Featured image of post Language" /&gt;</description>
+        </item>
+        <item>
+        <title>Materials</title>
+        <link>https://chasing1020.github.io/categories/materials/</link>
+        <pubDate>Sat, 27 Nov 2021 14:25:59 +0800</pubDate>
+        
+        <guid>https://chasing1020.github.io/categories/materials/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/categories/materials/zlib.png" alt="Featured image of post Materials" /&gt;</description>
+        </item>
+        <item>
+        <title>Framework</title>
+        <link>https://chasing1020.github.io/categories/framework/</link>
+        <pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate>
+        
+        <guid>https://chasing1020.github.io/categories/framework/</guid>
+        <description>&lt;img src="https://chasing1020.github.io/categories/framework/buildwheel.webp" alt="Featured image of post Framework" /&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

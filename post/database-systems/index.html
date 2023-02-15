@@ -1,0 +1,4244 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
+Definition
+DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.'>
+<title>Database Systems</title>
+
+<link rel='canonical' href='https://chasing1020.github.io/post/database-systems/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3b649326d90b695e08fa0725ec8adf6ad76cb19fcc1b8379c0021a110a9104c.css"><meta property='og:title' content='Database Systems'>
+<meta property='og:description' content='Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
+Definition
+DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.'>
+<meta property='og:url' content='https://chasing1020.github.io/post/database-systems/'>
+<meta property='og:site_name' content='Chasing&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DataBase' /><meta property='article:published_time' content='2021-11-25T14:11:42&#43;08:00'/><meta property='article:modified_time' content='2021-11-25T14:11:42&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/database-systems/mysql.webp' />
+<meta name="twitter:site" content="@Chasing1020">
+    <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="Database Systems">
+<meta name="twitter:description" content="Reference Book: Database System Concepts Seventh Edition
+1. Relational Model Readings: Chapters 1-2, 6
+Definition
+DataBase: Organized collection of inter-related data that models some aspect of the real-world. Databases are the core component of most computer applications.
+A database management system (DBMS) is software that allows applications to store and analyze information in a database. A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://chasing1020.github.io/post/database-systems/mysql.webp' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🖥️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h2 class="site-description">Why there is a universe?</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Chasing1020'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Chasing1020'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/Chasing1020'
+                        target="_blank"
+                        title="Telegram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:chasing1020@gmail.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+      
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-relational-model">1. Relational Model</a></li>
+    <li><a href="#2-advanced-sql">2. Advanced SQL</a></li>
+    <li><a href="#3-database-storage-1">3. DataBase Storage (1)</a></li>
+    <li><a href="#4-database-storage-2">4. DataBase Storage (2)</a></li>
+    <li><a href="#5-buffer-pools">5. Buffer Pools</a></li>
+    <li><a href="#6-hash-tables">6. Hash Tables</a></li>
+    <li><a href="#7-tree-indexes">7. Tree Indexes</a></li>
+    <li><a href="#8-index-concurrency-control">8. Index Concurrency Control</a></li>
+    <li><a href="#9-sorting--aggregations">9. Sorting &amp; Aggregations</a></li>
+    <li><a href="#10-join-algorithms">10. Join Algorithms</a></li>
+    <li><a href="#11-query-execution-1">11. Query Execution (1)</a></li>
+    <li><a href="#12-query-execution-2">12. Query Execution (2)</a></li>
+    <li><a href="#13-optimization-1">13. Optimization (1)</a></li>
+    <li><a href="#14-optimization-2">14. Optimization (2)</a></li>
+    <li><a href="#15-concurrency-control-theory">15. Concurrency Control Theory</a></li>
+    <li><a href="#16-two-phase-locking">16. Two Phase Locking</a></li>
+    <li><a href="#17-timestamp-ordering">17. Timestamp Ordering</a></li>
+    <li><a href="#18-multi-version-concurrency-control">18. Multi-Version Concurrency Control</a></li>
+    <li><a href="#19-logging-protocols--schemes">19. Logging Protocols + Schemes</a></li>
+    <li><a href="#20-crash-recovery">20. Crash Recovery</a></li>
+    <li><a href="#21-distributed-databases">21. Distributed Databases</a></li>
+    <li><a href="#22-distributed-oltp">22. Distributed OLTP</a></li>
+    <li><a href="#23-distributed-olap">23. Distributed OLAP</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/database-systems/">
+                <img src="/post/database-systems/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/post/database-systems/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_800x0_resize_q75_h2_box_2.webp 800w, /post/database-systems/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="520" 
+                        loading="lazy"
+                        alt="Featured image of post Database Systems" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/database-systems/">Database Systems</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 25, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    66 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Reference Book: <a class="link" href="https://www.db-book.com/"  target="_blank" rel="noopener"
+    ><strong>Database System Concepts Seventh Edition</strong></a></p>
+<h1 id="1-relational-model">1. Relational Model</h1>
+<p><strong>Readings:</strong> Chapters 1-2, 6</p>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<p>DataBase: Organized collection of inter-related data that models some aspect of the real-world.
+Databases are the core component of most computer applications.</p>
+<p>A database management system (DBMS) is software that allows applications to store and analyze information in a database.
+A general-purpose DBMS is designed to allow the definition, creation, querying, update, and administration of databases.</p>
+<p>Data Model: is a collection of concepts for describing the data in a database.
+Schema: is a description of a particular collection of data, using a given data model.</p>
+<blockquote>
+<p>Kinds of DataModels</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Relational</td>
+<td>Most DBMSs</td>
+</tr>
+<tr>
+<td>K-V, Graph, Document, Column-family</td>
+<td>NoSQL</td>
+</tr>
+<tr>
+<td>Array / Matrix</td>
+<td>Machine Learning</td>
+</tr>
+<tr>
+<td>Hierarchical, Network, Multi-Value</td>
+<td>Obsolete / Legacy / Rare</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Relational Model</p>
+</blockquote>
+<p><strong>Structure</strong>: The definition of the database&rsquo;s relations and their contents.
+<strong>Integrity</strong>: Ensure the database&rsquo;s contents satisfy constraints.
+<strong>Manipulation</strong>: Programming interface for accessing and modifying a database&rsquo;s contents.</p>
+<p>A relationis an unordered set that contain the relationship of attributes that represent entities.</p>
+<ul>
+<li>
+<p>A relation&rsquo;s primary keyuniquely identifies a single tuple.</p>
+</li>
+<li>
+<p>foreign keyspecifies that an attribute from one relation has to map to a tuple in another relation.</p>
+</li>
+</ul>
+<blockquote>
+<p>Data Manipulation Languages</p>
+</blockquote>
+<p>Methods to store and retrieve information from a database.</p>
+<p><strong>Procedural:</strong> (Relational Algebra)</p>
+<ul>
+<li>The query specifies the (high-level) strategythe DBMS should use to find the desired result.</li>
+</ul>
+<p><strong>Non-Procedural (Declarative):</strong> (Relational Calculus)</p>
+<ul>
+<li>The query specifies only what data is wanted and not how to find it.</li>
+</ul>
+<blockquote>
+<p>Relational Algebra</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>σ</td>
+<td>Select</td>
+<td>Choose a subset of the tuples from a relation that satisfies a selection predicate.</td>
+</tr>
+<tr>
+<td>π</td>
+<td>Projection</td>
+<td>Generate a relation with tuples that contains only the specified attributes.</td>
+</tr>
+<tr>
+<td>⋃</td>
+<td>Union</td>
+<td>Generate a relation that contains all tuples that appear in either only one or both input relations.</td>
+</tr>
+<tr>
+<td>⋂</td>
+<td>Intersection</td>
+<td>Generate a relation that contains only the tuples that appear in both of the inputrelations.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>Difference</td>
+<td>Generate a relation that contains only the tuples that appear in the first and not the second of the input relations.</td>
+</tr>
+<tr>
+<td>×</td>
+<td>Product</td>
+<td>Generate a relation that contains all possible combinations of tuples from the input relations.</td>
+</tr>
+<tr>
+<td>⋈</td>
+<td>Join</td>
+<td>Generate a relation that contains all tuples that are a combination of two tuples (one from each input relation) with a common value(s) for one or more attributes.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Extra Operations:</p>
+<p>Rename (ρ), Assignment (R←S), Duplicate Elimination (δ), Aggregation (γ), Sorting (τ), Division (R÷S).</p>
+<p>The relational model is independent of any query language implementation. <strong>SQL</strong> is the <em>de facto</em> standard (many dialects).</p>
+<h1 id="2-advanced-sql">2. Advanced SQL</h1>
+<p><strong>Readings:</strong> Chapters 3-5</p>
+<blockquote>
+<p>SQL Standard</p>
+</blockquote>
+<p>ANSI Standard in 1986. ISO in 1987. Structured Query Language</p>
+<p><strong>SQL:2016</strong>: JSON, Polymorphic tables</p>
+<p><strong>SQL:2011</strong>: Temporal DBs, Pipelined DML</p>
+<p><strong>SQL:2008</strong>: Truncation, Fancy Sorting</p>
+<p><strong>SQL:2003</strong>: XML, Windows, Sequences, Auto-Gen IDs.</p>
+<p><strong>SQL:1999</strong>: Regex, Triggers, OO</p>
+<p>Data Manipulation Language (DML): SELECT, INSERT, UPDATE, and DELETE statements.</p>
+<p>Data Definition Language (DDL): Schema definitions for tables, indexes, views, and other objects.</p>
+<p>Data Control Language (DCL): Security, access controls.</p>
+<ul>
+<li>Important: SQL is based on <strong>bags</strong>(duplicates) not <strong>sets</strong>(no duplicates).</li>
+</ul>
+<blockquote>
+<p>Aggregates</p>
+</blockquote>
+<p>Functions that return a single value from a bag of tuples. Aggregate functions can (almost) only be used in the <strong>SELECT</strong> output list.</p>
+<p><strong>AVG(col)</strong>: Return the average col value.</p>
+<p><strong>MIN(col)</strong>: Return minimum col value.</p>
+<p><strong>MAX(col)</strong>: Return maximum col value.</p>
+<p><strong>SUM(col)</strong>: Return sum of values in col.</p>
+<p><strong>COUNT(col)</strong>: Return # of values for col.</p>
+<blockquote>
+<p>Group by</p>
+</blockquote>
+<p>Project tuples into subsets and calculate aggregates againsteach subset.</p>
+<p>Non-aggregated values in <strong>SELECT</strong> output clause must appear in <strong>GROUPBY</strong> clause.</p>
+<p>Filters results based on aggregation computation. Like a <strong>WHERE</strong> clause for a <strong>GROUPBY</strong>.</p>
+<blockquote>
+<p>String / Date / Time Operations</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>String Case</th>
+<th>String Quotes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SQL-92</strong></td>
+<td><strong>Sensitive</strong></td>
+<td><strong>SingleOnly</strong></td>
+</tr>
+<tr>
+<td>Postgres</td>
+<td>Sensitive</td>
+<td>SingleOnly</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>Insensitive</td>
+<td>Single/Double</td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>Sensitive</td>
+<td>Single/Double</td>
+</tr>
+<tr>
+<td>DB2</td>
+<td>Sensitive</td>
+<td>SingleOnly</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>Sensitive</td>
+<td>Single Only</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>LIKE</strong> is used for string matching. String-matching operators.</p>
+<p>&lsquo;%&rsquo; Matches any substring (including empty strings). &lsquo;_&rsquo; Match any one character.</p>
+<p>SQL-92 defines string functions, whereas many DBMSs also have their own unique functions.</p>
+<p>SQL standard says to use <strong>||</strong> operator to concatenate two or more strings together.</p>
+<p>Operations to manipulate and modify <strong>DATE</strong>/<strong>TIME</strong> attributes.</p>
+<p>Can be used in both output and predicates.</p>
+<blockquote>
+<p>Output Redirection</p>
+</blockquote>
+<p>Store query results in another table: 1.Table must not already be defined. 2.Table will have the same # of columns with the same types as the input.</p>
+<p>Insert tuples from query into another table:</p>
+<ul>
+<li>
+<p>Inner <strong>SELECT</strong> must generate the same columns as the target table.</p>
+</li>
+<li>
+<p>DBMSs have different options/syntax on what to do with integrity violations (e.g., invalid duplicates).</p>
+</li>
+</ul>
+<blockquote>
+<p>Output Control</p>
+</blockquote>
+<p>Order the output tuples by the values in one or more of their columns.</p>
+<p>Limit the # of tuples returned in output. Can set an offset to return a &ldquo;range&rdquo;</p>
+<blockquote>
+<p>Nested Queries</p>
+</blockquote>
+<p>Queries containing other queries.</p>
+<p>They are often difficult to optimize.</p>
+<p>Inner queries can appear (almost) anywhere in query.</p>
+<p><strong>ALL</strong>: Must satisfy expression for all rows in the sub-query.</p>
+<p><strong>ANY</strong>: Must satisfy expression for at least one row in the sub-query.</p>
+<p><strong>IN</strong>: Equivalent to &lsquo;<strong>=ANY()</strong>&rsquo; .</p>
+<p><strong>EXISTS</strong>: At least one row is returned.</p>
+<blockquote>
+<p>Window functions</p>
+</blockquote>
+<p>Performs a &ldquo;sliding&rdquo; calculation across a set of tuples that are related.</p>
+<p>Like an aggregation but tuples are not grouped into a single output tuples.</p>
+<h1 id="3-database-storage-1">3. DataBase Storage (1)</h1>
+<p><strong>Readings:</strong> Chapter 10.1-10.2, 10.5-10.6</p>
+<blockquote>
+<p>Storage</p>
+</blockquote>
+<p>Volatile Devices: (CPU Registers, CPU Caches, DRAM)</p>
+<ul>
+<li>Volatile means that if you pull the power from the machine, then the data is lost.</li>
+<li>Volatile storage supports fast random access with byte-addressable locations. This means that the program can jump to any byte address and get the data that is there.</li>
+<li>For our purposes, we will always refer to this storage class as &ldquo;memory.&rdquo;</li>
+</ul>
+<p>Non-Volatile Devices: (SSD, HDD, Network Storage)</p>
+<ul>
+<li>Non-volatile means that the storage device does not require continuous power in order for the device to retain the bits that it is storing.</li>
+<li>It is also block/page addressable. This means that in order to read a value at a particular offset, the program first has to load the 4 KB page into memory that holds the value the program wants to read.</li>
+<li>Non-volatile storage is traditionally better at sequential access (reading multiple contiguous chunks of data at the same time).</li>
+<li>We will refer to this as &ldquo;disk&rdquo;. We will not make a (major) distinction between solid-state storage (SSD) and spinning hard drives (HDD).</li>
+</ul>
+<p>The DBMS assumes that the primary storage location of the database is on non-volatile disk.</p>
+<p>The DBMS&rsquo;s components manage the movement of data between non-volatile and volatile storage.</p>
+<p>Random access on non-volatile storage is usually much slower than sequential access. So DBMS will want to maximize sequential access.</p>
+<ul>
+<li>
+<p>Algorithms try to reduce number of writes to random pages so that data is stored in contiguous blocks.</p>
+</li>
+<li>
+<p>Allocating multiple pages at the same time is called an extent.</p>
+</li>
+</ul>
+<blockquote>
+<p>DBMS vs OS</p>
+</blockquote>
+<p>It is possible to use the OS by using mmap. Regarding correctness and performance reasons, mmap hits a page fault, the process will be blocked:</p>
+<ul>
+<li>
+<p>You never want to use mmap in your DBMS if you need to write.</p>
+</li>
+<li>
+<p>The DBMS (almost) always wants to control things itself and can do a better job at it since it knows more about the data being accessed and the queries being processed.</p>
+</li>
+</ul>
+<p>It is possible to use the OS by using:</p>
+<ul>
+<li>madvise: Tells the OS know when you are planning on reading certain pages.</li>
+<li>mlock: Tells the OS to not swap memory ranges out to disk.</li>
+<li>msync: Tells the OS to flush memory ranges out to disk.</li>
+</ul>
+<p>Why not use the OS? DBMS (almost) always wants to control things itself and can do a better job than the OS.</p>
+<ol>
+<li>
+<p>Flushing dirty pages to disk in the correct order.</p>
+</li>
+<li>
+<p>Specialized prefetching.</p>
+</li>
+<li>
+<p>Buffer replacement policy.</p>
+</li>
+<li>
+<p>Thread/process scheduling.</p>
+</li>
+</ol>
+<blockquote>
+<p>Storage Manager</p>
+</blockquote>
+<p>The DBMS’s storage manager is responsible for managing a database’s files. It represents the files as a collection of pages. It also keeps track of what data has been read and written to pages as well how much free space there is in these pages.</p>
+<blockquote>
+<p>DataBase Pages</p>
+</blockquote>
+<p>The DBMS organizes the database across one or more files in fixed-size blocks of data called pages.</p>
+<ol>
+<li>
+<p>Pages can contain different kinds of data (tuples, indexes, etc).</p>
+</li>
+<li>
+<p>Most systems will not mix these types within pages.</p>
+</li>
+<li>
+<p>Some systems will require that pages are self-contained, meaning that all the information needed to read each page is on the page itself.</p>
+</li>
+</ol>
+<p>Each page is given a unique identifier. If the database is a single file, then the page id can just be the file offset. Most DBMSs have an indirection layer that maps a page id to a file path and offset. The upper levels of the system will ask for a specific page number. Then, the storage manager will have to turn that page number into a file and an offset to find the page.</p>
+<p>Most DBMSs uses fixed-size pages to avoid the engineering overhead needed to support variable-sized pages. For example, with variable-size pages, deleting a page could create a hole in files that the DBMS cannot easily fill with new pages. There are three concepts of pages in DBMS:</p>
+<ol>
+<li>Hardware page (usually 4 KB).</li>
+<li>OS page (4 KB).</li>
+<li>Database page (0.5-16 KB). (4KB: SqLite, DB2, Oracle; 8KB: SQL Server, PostgreSQL; 16KB: MySQL)</li>
+</ol>
+<p>The storage device guarantees an atomic write of the size of the hardware page.</p>
+<p>A hardware page is the largest block of data that the storage device can guarantee failsafe writes. So if the hardware page is 4 KB and the system tries to write 4 KB to the disk, either all 4 KB will be written, or none of it will.</p>
+<p>This means that if our database page is larger than our hardware page, the DBMS will have to take extra measures to ensure that the data gets written out safely since the program can get partway through writing a database page to disk when the system crashes.</p>
+<p>Example: MySQL Doublewrite Buffer: The doublewrite buffer is a storage area where <code>InnoDB</code> writes pages flushed from the buffer pool before writing the pages to their proper positions in the <code>InnoDB</code> data files. If there is an operating system, storage subsystem, or unexpected <a class="link" href="https://dev.mysql.com/doc/refman/5.7/en/mysqld.html"  target="_blank" rel="noopener"
+    ><strong>mysqld</strong></a> process exit in the middle of a page write, <code>InnoDB</code> can find a good copy of the page from the doublewrite buffer during crash recovery.</p>
+<p>Although data is written twice, the doublewrite buffer does not require twice as much I/O overhead or twice as many I/O operations. Data is written to the doublewrite buffer in a large sequential chunk, with a single <code>fsync()</code> call to the operating system</p>
+<blockquote>
+<p>DataBase Heap</p>
+</blockquote>
+<p>A heap file is an unordered collection of pages with tuples that are stored in random order.</p>
+<ol>
+<li>
+<p>Create / Get / Write / Delete Page</p>
+</li>
+<li>
+<p>Must also support iterating over all pages.</p>
+</li>
+</ol>
+<p>Maintain a header page at the beginning of the file that stores two pointers: HEAD of the free page list and the data page list.</p>
+<p>Each page keeps track of how many free slots they currently have.</p>
+<p>The DBMS maintains special pages that tracks the location of data pages in the database files. The directory also records the number of free slots per page. Must make sure that the directory pages are in sync with the data pages.</p>
+<blockquote>
+<p>Page Layout</p>
+</blockquote>
+<p>Every page contains a header of meta-data about the page&rsquo;s contents. Page Size, Checksum, DBMS Version, Transaction Visibility, Compression Information.</p>
+<p>The most common layout scheme is called slotted pages. The slot array maps &ldquo;slots&rdquo; to the tuples&rsquo; starting position offsets. The header keeps track of: 1. The # of used slots 2. The offset of the starting location of the last slot used.</p>
+<p>Each tuple is assigned a unique record identifier. Most common: <strong>page_id</strong>+ <strong>offset/slot</strong>, Can also contain file location info.</p>
+<p>Each tuple is prefixed with a header that contains meta-data about it. Visibility info (concurrency control), Bit Map for <strong>NULL</strong> values.</p>
+<p>DBMS can physically <strong>denormalize</strong> (e.g., &ldquo;pre join&rdquo;) related tuples and store them together in the same page.</p>
+<h1 id="4-database-storage-2">4. DataBase Storage (2)</h1>
+<p><strong>Readings:</strong> Chapter 10.5-10.8</p>
+<blockquote>
+<p>Data Represtentation</p>
+</blockquote>
+<p>Instead of storing tuples in pages, the DBMS only stores log records.</p>
+<p>The system appends log records to the file of how the database was modified:</p>
+<ol>
+<li>
+<p>Inserts store the entire tuple.</p>
+</li>
+<li>
+<p>Deletes mark the tuple as deleted.</p>
+</li>
+<li>
+<p>Updates contain the delta of just the attributes that were modified.</p>
+</li>
+</ol>
+<p>To read a record, the DBMS scans the log backwards and &ldquo;recreates&rdquo; the tuple to find what it needs. Build indexes to allow it to jump to locations in the log. And periodically compact the log.</p>
+<p>Compaction coalesces larger log files into smaller files by removing unnecessary records.</p>
+<p>Numeric data types with (potentially) arbitrary precision and scale. Used when rounding errors. Many different implementations. Example: NUMERIC, DECIMAL</p>
+<ul>
+<li>
+<p>Example: Store in an exact, variable-length binary representation with additional meta-data.</p>
+</li>
+<li>
+<p>Can be less expensive if you give up arbitrary precision.</p>
+</li>
+</ul>
+<p>Most DBMSs don&rsquo;t allow a tuple to exceed the size of a single page.</p>
+<p>To store values that are larger than a page, the DBMS uses separate <strong>overflow</strong> storage pages.</p>
+<ul>
+<li>
+<p>Postgres: TOAST (&gt;2KB)</p>
+</li>
+<li>
+<p>MySQL: Overflow (&gt;1/2 size of page)</p>
+</li>
+<li>
+<p>SQL Server: Overflow (&gt;size of page)</p>
+</li>
+</ul>
+<p>Some systems allow you to store a really largevalue in an external file.Treated as a <strong>BLOB</strong> type.</p>
+<ul>
+<li>
+<p>Oracle: <strong>BFILE</strong> data type</p>
+</li>
+<li>
+<p>Microsoft: <strong>FILESTREAM</strong> data type</p>
+</li>
+</ul>
+<p>The DBMS <strong>can not</strong> manipulate the contents of an external file. No durability protections. No transaction protections.</p>
+<blockquote>
+<p>System Catalogs</p>
+</blockquote>
+<p>A DBMS stores meta-data about databases in its internal catalogs.</p>
+<ul>
+<li>Tables, columns, indexes, views; Users, permissions; Internal statistics</li>
+</ul>
+<p>Almost every DBMS stores the database&rsquo;s catalog inside itself (i.e., as tables). You can query the DBMS’s internal <strong>INFORMATION_SCHEMA</strong> catalog to get info about the database.</p>
+<ul>
+<li>ANSI standard set of read-only views that provide info about all the tables, views, columns, and procedures in a database</li>
+</ul>
+<blockquote>
+<p>DataBase WorkLoads</p>
+</blockquote>
+<p><strong>On-Line Transaction Processing (OLTP)</strong>:</p>
+<ul>
+<li>
+<p>Fast operations that only read/update a small amount of data each time.</p>
+</li>
+<li>
+<p>Simple queries that read/update a small amount of data that is related to a single entity in the database.</p>
+</li>
+<li>
+<p>This is usually the kind of application that people build first.</p>
+</li>
+</ul>
+<p><strong>On-Line Analytical Processing (OLAP)</strong>:</p>
+<ul>
+<li>
+<p>Complex queries that read a lot of data to compute aggregates.</p>
+</li>
+<li>
+<p>Complex queries that read large portions of the database spanning multiple entities.</p>
+</li>
+</ul>
+<p><strong>Hybrid Transaction + Analytical Processing</strong>: OLTP + OLAP together on the same database instance</p>
+<p>Ideal for OLTP workloads where queries tend to operate only on an individual entity and insert-heavy workloads.</p>
+<p>The relational model does <strong>not</strong> specify that we have to store all of a tuple&rsquo;s attributes together in a single page.</p>
+<blockquote>
+<p>N-ARY Storage Model</p>
+</blockquote>
+<p>The DBMS can store tuples in different ways that are better for either OLTP or OLAP workloads.</p>
+<p>We have been assuming the <strong>n-ary storage model</strong>(aka &ldquo;row storage&rdquo;) so far this semester.</p>
+<p>Example: MySQL, PostgreSQL</p>
+<p><strong>Advantages</strong></p>
+<ol>
+<li>
+<p>Fast inserts, updates, and deletes.</p>
+</li>
+<li>
+<p>Good for queries that need the entire tuple.</p>
+</li>
+</ol>
+<p><strong>Disadvantages</strong></p>
+<ol>
+<li>Not good for scanning large portions of the table and/or a subset of the attributes.</li>
+</ol>
+<p>Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.</p>
+<blockquote>
+<p>Decomposition Storage Model</p>
+</blockquote>
+<p>The DBMS stores the values of a single attribute for all tuples contiguously in a page(aka &ldquo;column store&rdquo;).</p>
+<p>Ideal for OLAP workloads where read-only queries perform large scans over a subset of the table’s attributes.</p>
+<p><strong>Advantages</strong></p>
+<ol>
+<li>
+<p>Reduces the amount wasted I/O because the DBMS only reads the data that it needs.</p>
+</li>
+<li>
+<p>Better query processing and data compression (more on this later).</p>
+</li>
+</ol>
+<p><strong>Disadvantages</strong></p>
+<ol>
+<li>Slow for point queries, inserts, updates, and deletes because of tuple splitting/stitching.</li>
+</ol>
+<blockquote>
+<p>Conclusion</p>
+</blockquote>
+<p>It is important to choose the right storage model for the target workload:</p>
+<ol>
+<li>
+<p>OLTP = Row Store</p>
+</li>
+<li>
+<p>OLAP = Column Store</p>
+</li>
+</ol>
+<h1 id="5-buffer-pools">5. Buffer Pools</h1>
+<p><strong>Readings:</strong> Chapter 10.5-10.8</p>
+<blockquote>
+<p>Meta Data</p>
+</blockquote>
+<p>Memory region organized as an array of fixed-size pages.An array entry is called a <strong>frame</strong>.</p>
+<p>When the DBMS requests a page, an exact copy is placed into one of these frames.</p>
+<p>The <strong>page table</strong> keeps track of pages that are currently in memory.</p>
+<p>Also maintains additional meta-data per page:</p>
+<ol>
+<li>Dirty Flag, 2. Pin/Reference Counter</li>
+</ol>
+<blockquote>
+<p>Locks and Latches</p>
+</blockquote>
+<p><strong>Locks:</strong></p>
+<ol>
+<li>
+<p>Protects the database&rsquo;s logical contents from other transactions.</p>
+</li>
+<li>
+<p>Held for transaction duration.</p>
+</li>
+<li>
+<p>Need to be able to rollback changes.</p>
+</li>
+</ol>
+<p><strong>Latches:</strong></p>
+<ol>
+<li>
+<p>Protects the critical sections of the DBMS&rsquo;s internal data structure from other threads.</p>
+</li>
+<li>
+<p>Held for operation duration.</p>
+</li>
+<li>
+<p>Do not need to be able to rollback changes.</p>
+</li>
+</ol>
+<blockquote>
+<p>Page directory</p>
+</blockquote>
+<p>The <strong>page directory</strong> is the mapping from page ids to page locations in the database files.</p>
+<ul>
+<li>All changes must be recorded on disk to allow the DBMS to find on restart.</li>
+</ul>
+<p>The <strong>page table</strong> is the mapping from page ids to a copy of the page in buffer pool frames.</p>
+<ul>
+<li>This is an in-memory data structure that does not need to be stored on disk.</li>
+</ul>
+<p><strong>Global Policies:</strong></p>
+<ul>
+<li>Make decisions for all active transactions.</li>
+</ul>
+<p><strong>Local Policies:</strong></p>
+<ul>
+<li>
+<p>Allocate frames to a specific transactions without considering the behavior of concurrent transactions s.</p>
+</li>
+<li>
+<p>Still need to support sharing pages.</p>
+</li>
+</ul>
+<blockquote>
+<p>Buffer Pool Optimizations</p>
+</blockquote>
+<p>The DBMS does not always have a single buffer pool for the entire system.</p>
+<ul>
+<li>
+<p>Multiple buffer pool instances</p>
+</li>
+<li>
+<p>Per-database buffer pool</p>
+</li>
+<li>
+<p>Per-page type buffer pool</p>
+</li>
+</ul>
+<p>Helps reduce latch contention and improve locality.</p>
+<ul>
+<li>
+<p>Embed an object identifier in record ids and then maintain a mapping from objects to specific buffer pools.</p>
+</li>
+<li>
+<p>Hash the page id to select whichbuffer pool to access.</p>
+</li>
+</ul>
+<blockquote>
+<p>Prefetching</p>
+</blockquote>
+<p>The DBMS can also prefetch pages based on a query plan.</p>
+<ol>
+<li>Sequential Scans, 2. Index Scans</li>
+</ol>
+<blockquote>
+<p>Scan Sharing</p>
+</blockquote>
+<p>Queries can reuse data retrieved from storage or operator computations.</p>
+<ul>
+<li>
+<p>Also called synchronized scans.</p>
+</li>
+<li>
+<p>This is different from result caching.</p>
+</li>
+</ul>
+<p>Allow multiple queries to attach to a single cursor that scans a table.</p>
+<ul>
+<li>
+<p>Queries do not have to be the same.</p>
+</li>
+<li>
+<p>Can also share intermediate results.</p>
+</li>
+</ul>
+<p>If a query wants to scan a table and another query is already doing this, then the DBMS will attach the second query&rsquo;s cursor to the existing cursor.</p>
+<p>The sequential scan operator will not store fetched pages in the buffer pool to avoid overhead.</p>
+<ul>
+<li>
+<p>Memory is local to running query.</p>
+</li>
+<li>
+<p>Works well if operator needs to read a large sequence of pages that are contiguous on disk.</p>
+</li>
+<li>
+<p>Can also be used for temporary data (sorting, joins).</p>
+</li>
+</ul>
+<blockquote>
+<p>OS Page Caching</p>
+</blockquote>
+<p>Most disk operations go through the OS API.</p>
+<p>Unless you tell it not to, the OS maintains its own filesystem cache (i.e., the page cache).</p>
+<p>Most DBMSs use direct I/O (<strong>O_DIRECT</strong>) to bypass the OS’s page cache.</p>
+<ul>
+<li>
+<p>Redundant copies of pages.</p>
+</li>
+<li>
+<p>Different eviction policies.</p>
+</li>
+<li>
+<p>Loss of control over file I/O.</p>
+</li>
+</ul>
+<blockquote>
+<p>Buffer Replacement Policies</p>
+</blockquote>
+<p>When the DBMS needs to free up a frame to make room for a new page, it must decide which page to evictfrom the buffer pool.</p>
+<p>Goals: Correctness, Accuracy, Speed, Meta-data overhead</p>
+<p>Maintain a single timestamp of when each page was last accessed.</p>
+<p>When the DBMS needs to evict a page, select the one with the oldest timestamp.</p>
+<ul>
+<li>Keep the pages in sorted order to reduce the search time on eviction.</li>
+</ul>
+<p>Approximation of LRU that does not need a separate timestamp per page.</p>
+<ul>
+<li>
+<p>Each page has a reference bit.</p>
+</li>
+<li>
+<p>When a page is accessed, set to 1.</p>
+</li>
+</ul>
+<p>Organize the pages in a circular buffer with a &ldquo;clock hand&rdquo;:</p>
+<ul>
+<li>
+<p>Upon sweeping, check if a page&rsquo;s bit is set to 1.</p>
+</li>
+<li>
+<p>If yes, set to zero. If no, then evict.</p>
+</li>
+</ul>
+<p><strong>Problems</strong></p>
+<p>LRU and CLOCK replacement policies are susceptible to sequential flooding.</p>
+<ul>
+<li>
+<p>A query performs a sequential scan that reads every page.</p>
+</li>
+<li>
+<p>This pollutes the buffer pool with pages that are read once and then never again.</p>
+</li>
+</ul>
+<p>In some workloads the most recently used page is the most unneeded page.</p>
+<p>Track the history of last <em>K</em>references to each page as timestamps and compute the interval between subsequent accesses.</p>
+<p>The DBMS then uses this history to estimate the next time that page is going to be accessed.</p>
+<blockquote>
+<p>Localization</p>
+</blockquote>
+<p>The DBMS chooses which pages to evict on a per transactions /query basis. This minimizes the pollution of the buffer pool from each query.</p>
+<ul>
+<li>Keep track of the pages that a query has accessed.</li>
+</ul>
+<p>Example: Postgres maintains a small ring buffer that is private to the query.</p>
+<p>The DBMS knows about the context of each page during query execution.</p>
+<p>It can provide hints to the buffer pool on whether a page is important or not.</p>
+<blockquote>
+<p>Diary Pages</p>
+</blockquote>
+<p><strong>FAST:</strong> If a page in the buffer pool is notdirty, then the DBMS can simply &ldquo;drop&rdquo; it.</p>
+<p><strong>SLOW:</strong> If a page is dirty, then the DBMS must write back to disk to ensure that its changes are persisted.</p>
+<p>Trade-off between fast evictions versus dirty writing pages that will not be read again in the future.</p>
+<blockquote>
+<p>Other Memory Pools</p>
+</blockquote>
+<p>The DBMS needs memory for things other than just tuples and indexes.</p>
+<p>These other memory pools may not always backed by disk. Depends on implementation.</p>
+<ul>
+<li>
+<p>Sorting + Join Buffers</p>
+</li>
+<li>
+<p>Query Caches</p>
+</li>
+<li>
+<p>Maintenance Buffers</p>
+</li>
+<li>
+<p>Log Buffers</p>
+</li>
+<li>
+<p>Dictionary Caches</p>
+</li>
+</ul>
+<h1 id="6-hash-tables">6. Hash Tables</h1>
+<p><strong>Readings:</strong> Chapter 11.6-11.7</p>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<p>A <strong>hash table</strong> implements an unordered associative array that maps keys to values.</p>
+<p>It uses a <strong>hash function</strong> to compute an offset into the array for a given key, from which the desired value can be found.</p>
+<p>Space Complexity: <strong>O(n)</strong> Time Complexity:</p>
+<ul>
+<li>
+<p>Average: <strong>O(1)</strong></p>
+</li>
+<li>
+<p>Worst: <strong>O(n)</strong></p>
+</li>
+</ul>
+<p>To find an entry, mod the key by the number of elements to find the offset in the array.</p>
+<blockquote>
+<p>Hash Function</p>
+</blockquote>
+<p>We do not want to use a crypto graphic hash function for DBMS hash tables.</p>
+<p>We want something that is fast and has a low collision rate.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRC-64(1975)</td>
+<td>Used in networking for error detection.</td>
+</tr>
+<tr>
+<td>MurmurHash(2008)</td>
+<td>Designed as a fast, general-purpose hash function.</td>
+</tr>
+<tr>
+<td>Google CityHash(2011)</td>
+<td>Designed to be faster for short keys (&lt;64 bytes).</td>
+</tr>
+<tr>
+<td>Facebook XXHash(2012)</td>
+<td>From the creator of zstdcompression.</td>
+</tr>
+<tr>
+<td>Google FarmHash(2014)</td>
+<td>Newer version of CityHashwith better collision rates.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Static Hash Shemes</p>
+</blockquote>
+<ol>
+<li>Lingering Probing Hashing</li>
+</ol>
+<p>Resolve collisions by linearly searching for the next free slot in the table.</p>
+<ul>
+<li>
+<p>To determine whether an element is present, hash to a location in the index and scan for it.</p>
+</li>
+<li>
+<p>Must store the key in the index to know when to stop scanning.</p>
+</li>
+<li>
+<p>Insertions and deletions are generalizations of lookups.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Robin Hood Hashing</li>
+</ol>
+<p>Variant of linear probe hashing that steals slots from &ldquo;rich&rdquo; keys and give them to &ldquo;poor&rdquo; keys.</p>
+<ul>
+<li>
+<p>Each key tracks the number of positions they are from where its optimal position in the table.</p>
+</li>
+<li>
+<p>On insert, a key takes the slot of another key if the first key is farther away from its optimal position than the second key.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">find</span><span class="p">(</span><span class="k">const</span> <span class="n">FindKey</span><span class="o">&amp;</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">hash_policy</span><span class="p">.</span><span class="n">index_for_hash</span><span class="p">(</span><span class="n">hash_object</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">num_slots_minus_one</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">EntryPointer</span> <span class="n">it</span> <span class="o">=</span> <span class="n">entries</span> <span class="o">+</span> <span class="n">ptrdiff_t</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int8_t</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">distance_from_desired</span> <span class="o">&gt;=</span> <span class="n">distance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">++</span><span class="n">distance</span><span class="p">,</span> <span class="o">++</span><span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">compares_equal</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span><span class="n">it</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">end</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>Cuckoo Hasing</li>
+</ol>
+<p>Use multiple hash tables with different hash function seeds.</p>
+<ul>
+<li>
+<p>On insert, check every table and pick anyone that has a free slot.</p>
+</li>
+<li>
+<p>If no table has a free slot, evict the element from one of them and then re-hash it find a new location.</p>
+</li>
+</ul>
+<p>Look-ups and deletions are always <strong>O(1)</strong> because only one location per hash table is checked.</p>
+<blockquote>
+<p>Dynamic hashing Shemes</p>
+</blockquote>
+<p>The previous hash tables require the DBMS to know the number of elements it wants to store.</p>
+<ul>
+<li>Otherwise, it must rebuild the table if it needs to grow/shrink in size.</li>
+</ul>
+<p>Dynamic hash tables resize themselves on demand.</p>
+<ol>
+<li>Chained Hashing</li>
+</ol>
+<p>Maintain a linked list of buckets for each slot in the hash table.</p>
+<p>Resolve collisions by placing all elements with the same hash key into the same bucket.</p>
+<ul>
+<li>
+<p>To determine whether an element is present, hash to its bucket and scan for it.</p>
+</li>
+<li>
+<p>Insertions and deletions are generalizations of lookups.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Extendible Hashing</li>
+</ol>
+<p>Chained-hashing approach where we split buckets instead of letting the linked list grow forever.</p>
+<p>Multiple slot locations can point to the same bucket chain.</p>
+<p>Reshuffle bucket entries on split and increase the number of bits to examine.</p>
+<ul>
+<li>Data movement is localized to just the split chain.</li>
+</ul>
+<ol start="3">
+<li>Linear Hashing</li>
+</ol>
+<p>The hash table maintains a pointer that tracks the next bucket to split.</p>
+<ul>
+<li>When any bucket overflows, split the bucket at the pointer location.</li>
+</ul>
+<p>Use multiple hashes to find the right bucket for a given key.</p>
+<p>Can use different overflow criterion:</p>
+<ul>
+<li>
+<p>Space Utilization</p>
+</li>
+<li>
+<p>Average Length of Overflow Chains</p>
+</li>
+</ul>
+<h1 id="7-tree-indexes">7. Tree Indexes</h1>
+<p><strong>Readings:</strong> Chapter 11.1-11.4</p>
+<p>A <strong>table index</strong> is a replica of a subset of a table&rsquo;s attributes that are organized and/or sorted for efficient access using those attributes.</p>
+<p>The DBMS ensures that the contents of the table and the index are logically synchronized.</p>
+<p>There is a trade-off regarding the number of indexes to create per database.</p>
+<ul>
+<li>
+<p>Storage Overhead</p>
+</li>
+<li>
+<p>Maintenance Overhead</p>
+</li>
+</ul>
+<p>People also use the term to generally refer to a class of balanced tree data structures:</p>
+<ul>
+<li>B-Tree(1971), B+Tree(1973), B*Tree(1977?), Blink-Tree(1981)</li>
+</ul>
+<p>A <strong>B+Tree</strong> is a self-balancing tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in <strong>O(log n)</strong>.</p>
+<ul>
+<li>
+<p>Generalization of a binary search tree, since a node can have more than two children.</p>
+</li>
+<li>
+<p>Optimized for systems that read and write large blocks of data.</p>
+</li>
+</ul>
+<blockquote>
+<p>B+ Tree Properties</p>
+</blockquote>
+<p>A B+Tree is an M-way search tree with the following properties:</p>
+<ul>
+<li>
+<p>It is perfectly balanced (i.e., every leaf node is at the same depth in the tree)</p>
+</li>
+<li>
+<p>Every node other than the root is at least half-full <strong>M/2-1 ≤ #keys ≤ M-1</strong></p>
+</li>
+<li>
+<p>Every inner node with <strong>k</strong> keys has <strong>k+1</strong> non-null children</p>
+</li>
+</ul>
+<blockquote>
+<p>Nodes</p>
+</blockquote>
+<p>Every B+ Treenode is comprised of an array of key/value pairs.</p>
+<p>It contains level, slots, previous, next, sorted keys and values.</p>
+<ul>
+<li>
+<p>The keys are derived from the attribute(s) that the index is based on.</p>
+</li>
+<li>
+<p>The values will differ based on whether the node is classified as an <strong>inner node</strong> or a <strong>leaf node.</strong></p>
+</li>
+</ul>
+<p>The arrays are (usually) kept in sorted key order.</p>
+<p>Values Approach:</p>
+<ol>
+<li>Record IDs(Used: PostgreSQL, SQLServer, DB2, Oracle): A pointer to the location of the tuple to which the index entry corresponds.</li>
+<li>Tuple Data(Used: SQLite, SQLServer, MySQL, Oracle): The leaf nodes store the actual contents of the tuple. Secondary indexes must store the Record ID as their values.</li>
+</ol>
+<blockquote>
+<p>B Tree vs B+Tree</p>
+</blockquote>
+<p>The original <strong>B-Tree</strong> from 1972 stored keys and values in all nodes in the tree.</p>
+<ul>
+<li>More space-efficient, since each key only appears once in the tree.</li>
+</ul>
+<p>A <strong>B+Tree</strong> only stores values in leaf nodes. Inner nodes only guide the search process.</p>
+<blockquote>
+<p>B+Tree Insert</p>
+</blockquote>
+<p>Find correct leaf node <strong>L</strong>.Put data entry into <strong>L</strong>in sorted order.</p>
+<p>If <strong>L</strong> has enough space, done!</p>
+<p>Otherwise, split <strong>L</strong> keys into <strong>L</strong> and a new node <strong>L2</strong></p>
+<ul>
+<li>
+<p>Redistribute entries evenly, copy up middle key.</p>
+</li>
+<li>
+<p>Insert index entry pointing to <strong>L2</strong> into parent of <strong>L</strong>.</p>
+</li>
+</ul>
+<p>To split inner node, redistribute entries evenly, but push up middle key.</p>
+<p>Duplicate Keys</p>
+<p><strong>Approach #1: Append Record ID</strong></p>
+<ul>
+<li>
+<p>Add the tuple&rsquo;s unique Record ID as part of the key to ensure that all keys are unique.</p>
+</li>
+<li>
+<p>The DBMS can still use partial keys to find tuples.</p>
+</li>
+</ul>
+<p><strong>Approach #2: Overflow Leaf Nodes</strong></p>
+<ul>
+<li>
+<p>Allow leaf nodes to spill into overflow nodes that contain the duplicate keys.</p>
+</li>
+<li>
+<p>This is more complex to maintain and modify.</p>
+</li>
+</ul>
+<blockquote>
+<p>B+Tree Delete</p>
+</blockquote>
+<p>Start at root, find leaf <strong>L</strong> where entry belongs. Remove the entry. If <strong>L</strong>is at least half-full, done! If <strong>L</strong> has only <strong>M/2-1</strong> entries, then:</p>
+<ul>
+<li>
+<p>Try to re-distribute, borrowing from sibling (adjacent node with same parent as <strong>L</strong>).</p>
+</li>
+<li>
+<p>If re-distribution fails, merge <strong>L</strong> and sibling.</p>
+</li>
+</ul>
+<p>If merge occurred, must delete entry (pointing to <strong>L</strong> or sibling) from parent of <strong>L</strong>.</p>
+<p>Some DBMSs do not always merge nodes when they are half full.</p>
+<p>Delaying a merge operation may reduce the amount of reorganization.</p>
+<p>It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.</p>
+<blockquote>
+<p>Clustered Indexs</p>
+</blockquote>
+<p>The table is stored in the sort order specified by the primary key.</p>
+<ul>
+<li>Can be either heap-or index-organized storage.</li>
+</ul>
+<p>Some DBMSs always use a clustered index.</p>
+<ul>
+<li>If a table does not contain a primary key, the DBMS will automatically make a hidden primary key.</li>
+</ul>
+<p>Other DBMSs cannot use them at all.</p>
+<p>Traverse to the left-most leaf page and then retrieve tuples from all leaf pages.</p>
+<p>This will always be better than external sorting.</p>
+<p>Retrieving tuples in the order they appear in a non-clustered index can be very inefficient.</p>
+<p>The DBMS can first figure out all the tuples that it needs and then sort them based on their Page ID.</p>
+<blockquote>
+<p>Node Size</p>
+</blockquote>
+<p>The slower the storage device, the larger the optimal node size for a B+Tree.</p>
+<ul>
+<li>
+<p>HDD: ~1MB</p>
+</li>
+<li>
+<p>SSD: ~10KB</p>
+</li>
+<li>
+<p>In-Memory: ~512B</p>
+</li>
+</ul>
+<p>Optimal sizes can vary depending on the workload</p>
+<ul>
+<li>Leaf Node Scans vs. Root-to-Leaf Traversals.</li>
+</ul>
+<blockquote>
+<p>Merge Threshold</p>
+</blockquote>
+<p>Some DBMSs do not always merge nodes when they are half full.</p>
+<p>Delaying a merge operation may reduce the amount of reorganization.</p>
+<p>It may also be better to just let smaller nodes exist and then periodically rebuild entire tree.</p>
+<blockquote>
+<p>Optimizations</p>
+</blockquote>
+<ol>
+<li>Perfix Compression</li>
+</ol>
+<p>Sorted keys in the same leaf node are likely to have the same prefix.</p>
+<p>Instead of storing the entire key each time, extract common prefix and store only unique suffix for each key.</p>
+<ol start="2">
+<li>Deduplication</li>
+</ol>
+<p>Non-unique indexes can end up storing multiple copies of the same key in leaf nodes.</p>
+<p>The leaf node can store the key once and then maintain a list of tuples with that key (similar to what we discussed for hash tables).</p>
+<ol start="3">
+<li>Bulk insert</li>
+</ol>
+<p>The fastest way to build a new B+Treefor an existing table is to first sort the keys and then build the index from the bottom up.</p>
+<h1 id="8-index-concurrency-control">8. Index Concurrency Control</h1>
+<p><strong>Readings:</strong> Chapter 15.10</p>
+<p>A <strong>concurrency control</strong> protocol is the method that the DBMS uses to ensure &ldquo;correct&rdquo; results for concurrent operations on a shared object.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>Locks</th>
+<th>Latches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate</td>
+<td>User Transactions</td>
+<td>Threads</td>
+</tr>
+<tr>
+<td>Protect</td>
+<td>Database Contents</td>
+<td>In-Memory Data Structures</td>
+</tr>
+<tr>
+<td>During</td>
+<td>Entire Transactions</td>
+<td>Critical Sections</td>
+</tr>
+<tr>
+<td>Modes</td>
+<td>Shared,Exclusive, Update, Intention</td>
+<td>Read, Write</td>
+</tr>
+<tr>
+<td>Deadlock</td>
+<td>Detection &amp; Resolution</td>
+<td>Avoidance</td>
+</tr>
+<tr>
+<td>by</td>
+<td>Waits-for, Timeout, Aborts</td>
+<td>Coding Discipline</td>
+</tr>
+<tr>
+<td>Keptin</td>
+<td>LockManager</td>
+<td>Protected Data Structure</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>Latch Mode</p>
+</blockquote>
+<p><strong>Read Mode</strong></p>
+<ul>
+<li>
+<p>Multiple threads can read the same object at the same time.</p>
+</li>
+<li>
+<p>A thread can acquire the read latch if another thread has it in read mode.</p>
+</li>
+</ul>
+<p><strong>Write Mode</strong></p>
+<ul>
+<li>
+<p>Only one thread can access the object.</p>
+</li>
+<li>
+<p>A thread cannot acquire a write latch if another thread has it in any mode.</p>
+</li>
+</ul>
+<blockquote>
+<p>Approach</p>
+</blockquote>
+<ol>
+<li>Blocking OS Mutex</li>
+</ol>
+<p>Simple to use; Non-scalable (about 25ns per lock/unlock invocation);</p>
+<p>Example: std::mutex.</p>
+<p>Reference: <a class="link" href="https://en.wikipedia.org/wiki/Futex"  target="_blank" rel="noopener"
+    >https://en.wikipedia.org/wiki/Futex</a></p>
+<ol start="2">
+<li>Test-and-Set Spin Latch (TAS)</li>
+</ol>
+<p>Very efficient (single instruction to latch/unlatch); Non-scalable, not cache-friendly, not OS-friendly;</p>
+<p>Example: std::atomic&lt;T&gt;. &ldquo;do not use spinlocks in user space, unless you actually know what you&rsquo;re doing.&rdquo;</p>
+<ol start="3">
+<li>Reader-Writer Latches</li>
+</ol>
+<p>Allows for concurrent readers;
+Must manage read/write queues to avoid starvation;
+Can be implemented on top of spin latches.</p>
+<blockquote>
+<p>Hash Table Latch</p>
+</blockquote>
+<p>Easy to support concurrent access due to the limited ways threads access the data structure.</p>
+<ul>
+<li>
+<p>All threads move in the same direction and only access a single page/slot at a time.</p>
+</li>
+<li>
+<p>Deadlocks are not possible.</p>
+</li>
+</ul>
+<p>To resize the table, take a global write latch on the entire table (e.g., in the header page).</p>
+<ol>
+<li>
+<p>Approach #1: Page Latches:</p>
+<p>Each page has its own reader-writer latch that protects its entire contents.</p>
+<p>Threads acquire either a read or write latch before they access a page.</p>
+</li>
+<li>
+<p>Approach #2: Slot Latches</p>
+<p>Each slot has its own latch.</p>
+<p>Can use a single-mode latch to reduce meta-data and computational overhead.</p>
+</li>
+</ol>
+<p>Atomic instruction that compares contents of a memory location <strong>M</strong> to a given value <strong>V</strong></p>
+<ul>
+<li>
+<p>If values are equal, installs new given value <strong>V’</strong> in <strong>M</strong></p>
+</li>
+<li>
+<p>Otherwise, operation fails</p>
+</li>
+</ul>
+<blockquote>
+<p>B+ Tree Concurrency Control</p>
+</blockquote>
+<p>We want to allow multiple threads to read and update a B+Treeat the same time.</p>
+<p>We need to protect against two types of problems:</p>
+<ul>
+<li>
+<p>Threads trying to modify the contents of a node at the same time.</p>
+</li>
+<li>
+<p>One thread traversing the tree while another thread splits/merges nodes.</p>
+</li>
+</ul>
+<p>Protocol to allow multiple threads to access/modify B+Treeat the same time.</p>
+<p><strong>Basic Idea:</strong></p>
+<ul>
+<li>
+<p>Get latch for parent</p>
+</li>
+<li>
+<p>Get latch for child</p>
+</li>
+<li>
+<p>Release latch for parent if &ldquo;safe&rdquo;</p>
+</li>
+</ul>
+<p>A <strong>safe node</strong> is one that will not split or merge when updated.</p>
+<ul>
+<li>
+<p>Not full (on insertion)</p>
+</li>
+<li>
+<p>More than half-full (on deletion)</p>
+</li>
+</ul>
+<p><strong>Find</strong>: Start at root and go down; repeatedly,</p>
+<ul>
+<li>
+<p>Acquire <strong>R</strong> latch on child</p>
+</li>
+<li>
+<p>Then unlatch parent</p>
+</li>
+</ul>
+<p><strong>Insert/Delete</strong>: Start at root and go down, obtaining <strong>W</strong> latches as needed. Once child is latched, check if it is safe:</p>
+<ul>
+<li>If child is safe, release all latches on ancestors</li>
+</ul>
+<blockquote>
+<p>Better Latching Algorithm</p>
+</blockquote>
+<p>It depends on it that most modifications to a B+ Tree will not require a split or merge.</p>
+<p><strong>Search</strong>: Same as before.</p>
+<p><strong>Insert/Delete</strong>:</p>
+<ul>
+<li>
+<p>Set latches as if for search, get to leaf, and set <strong>W</strong> latch on leaf.</p>
+</li>
+<li>
+<p>If leaf is not safe, release all latches, and restart thread using previous insert/delete protocol with write latches.</p>
+</li>
+</ul>
+<p>This approach optimistically assumes that only leaf node will be modified; if not, <strong>R</strong> latches set on the first pass to leaf are wasteful.</p>
+<blockquote>
+<p>Observation</p>
+</blockquote>
+<p>The threads in all the examples so far have acquired latches in a &ldquo;top-down&rdquo; manner.</p>
+<ul>
+<li>
+<p>A thread can only acquire a latch from a node that is below its current node.</p>
+</li>
+<li>
+<p>If the desired latch is unavailable, the thread must wait until it becomes available.</p>
+</li>
+</ul>
+<blockquote>
+<p>Leaf Node Scans</p>
+</blockquote>
+<p>Latches do not support deadlock detection or avoidance. The only way we can deal with this problem is through coding discipline.</p>
+<p>The leaf node sibling latch acquisition protocol must support a &ldquo;no-wait&rdquo; mode.</p>
+<p>The DBMS&rsquo;s data structures must cope with failed latch acquisitions.</p>
+<h1 id="9-sorting--aggregations">9. Sorting &amp; Aggregations</h1>
+<p><strong>Readings:</strong> Chapter 12.4-12.5</p>
+<p>Just like it cannot assume that a table fits entirely in memory, a disk-oriented DBMS cannot assume that query results fit in memory.</p>
+<p>We are going to rely on the buffer pool to implement algorithms that need to spill to disk.</p>
+<p>We are also going to prefer algorithms that maximize the amount of sequential I/O.</p>
+<blockquote>
+<p>External Merge Sort</p>
+</blockquote>
+<p>Divide-and-conquer algorithm that splits data into separate <strong>runs</strong>, sorts them individually, and then combines them into longer sorted runs.</p>
+<ol>
+<li>Sorting</li>
+</ol>
+<ul>
+<li>Sort chunks of data that fit in memory and then write back the sorted chunks to a file on disk.</li>
+</ul>
+<ol start="2">
+<li>Merging</li>
+</ol>
+<ul>
+<li>Combine sorted runs into larger chunks.</li>
+</ul>
+<p>The DBMS has a finite number of <strong>B</strong> buffer pool pages to hold input and output data.</p>
+<p>Steps:</p>
+<ol>
+<li>
+<p>Read all B pages of the table into memory;</p>
+</li>
+<li>
+<p>Sort pages into runs and write them back to disk;</p>
+</li>
+<li>
+<p>Recursively merge pairs of runs into runs twice as long.</p>
+</li>
+<li>
+<p>Uses three buffer pages (2 for input pages, 1 for output)</p>
+</li>
+</ol>
+<p>In each pass, we read and writeevery page in the file.</p>
+<p>$Number \ of \ passes \ =\  1 + ⌈\log_2N⌉ $</p>
+<p>$Total\ I/O\ cost\ =\ 2N \times (Nums \ of\ passes)$</p>
+<p>This algorithm only requires three buffer pool pages to perform the sorting ($B=3$): Two input pages, one output page.</p>
+<p>But even if we have more buffer space available ($B &gt; 3$), it does not effectively utilize them if the worker must block on disk I/O. Although we can get the equation:</p>
+<p>$Number\ of\ passes\ with\ N\ pages\ and\ B\ buffer\ pools\ =\ 1+⌈\log_B-1⌈N/ B⌉⌉$</p>
+<blockquote>
+<p>Double Buffering Optimization</p>
+</blockquote>
+<p>Prefetch the next run in the background and store it in a second buffer while the system is processing the current run.</p>
+<ul>
+<li>Reduces the wait time for I/O requests at each step by continuously utilizing the disk.</li>
+</ul>
+<blockquote>
+<p>B+ Trees for Sorting</p>
+</blockquote>
+<p>If the table that must be sorted already has a B+Tree index on the sort attribute(s), then we can use that to accelerate sorting.</p>
+<p>Retrieve tuples in desired sort order by simply traversing the leaf pages of the tree.</p>
+<ol>
+<li>Clustered B+ Tree</li>
+</ol>
+<p>Traverse to the left-most leaf page, and then retrieve tuples from all leaf pages.</p>
+<p>This is always better than external sorting because there is no computational cost, and all disk access is sequential.</p>
+<ol start="2">
+<li>Unclustered B+ Tree</li>
+</ol>
+<p>Chase each pointer to the page that contains the data.</p>
+<p>This is almost always a bad idea. In general, one I/O per data record.</p>
+<blockquote>
+<p>Aggregations</p>
+</blockquote>
+<p>Collapse values for a single attribute from multiple tuples into a single scalar value.</p>
+<p>What if we do not need the data to be ordered?</p>
+<ul>
+<li>
+<p>Forming groups in <strong>GROUPBY</strong> (no ordering)</p>
+</li>
+<li>
+<p>Removing duplicates in <strong>DISTINCT</strong> (no ordering)</p>
+</li>
+</ul>
+<p>Hashing is a better alternative in this scenario.</p>
+<ul>
+<li>
+<p>Only need to remove duplicates, no need for ordering.</p>
+</li>
+<li>
+<p>Can be computationally cheaper than sorting.</p>
+</li>
+</ul>
+<p>Populate an ephemeral hash table as the DBMS scans the table. For each record, check whether there is already an entry in the hash table:</p>
+<p>DISTINCT: Discard duplicate</p>
+<p>GROUPBY: Perform aggregate computation</p>
+<blockquote>
+<p>External Hashing Aggregate</p>
+</blockquote>
+<p><strong>Phase #1 Partition</strong></p>
+<ul>
+<li>
+<p>Divide tuples into buckets based on hash key</p>
+</li>
+<li>
+<p>Write them out to disk when they get full</p>
+</li>
+</ul>
+<p><strong>Phase #2 ReHash</strong></p>
+<ul>
+<li>Build in-memory hash table for each partition and compute the aggregation</li>
+</ul>
+<blockquote>
+<p>Partition</p>
+</blockquote>
+<p>Use a hash function $h_1$ to split tuples into <strong>partitions</strong> on disk.</p>
+<ul>
+<li>
+<p>A partition is one or more pages that contain the set of keys with the same hash value.</p>
+</li>
+<li>
+<p>Partitions are “spilled” to disk via output buffers.</p>
+</li>
+</ul>
+<p>Assume that we have B buffers.</p>
+<p>We will use B-1 buffers for the partitions and 1 buffer for the input data.</p>
+<blockquote>
+<p>ReHash</p>
+</blockquote>
+<p>For each partition on disk:</p>
+<ul>
+<li>
+<p>Read it into memory and build an in-memory hash table based on a second hash function $h_2$.</p>
+</li>
+<li>
+<p>Then go through each bucket of this hash table to bring together matching tuples.</p>
+</li>
+</ul>
+<p>This assumes that each partition fits in memory.</p>
+<h1 id="10-join-algorithms">10. Join Algorithms</h1>
+<p><strong>Readings:</strong> Chapter 12.4-12.6</p>
+<p>We will focus on performing binary joins (two tables) using <strong>inner equi join</strong> algorithms.</p>
+<ul>
+<li>
+<p>These algorithms can be tweaked to support other joins.</p>
+</li>
+<li>
+<p>Multi-way joins exist primarily in research literature.</p>
+</li>
+</ul>
+<p>In general, we want the smaller table to always be the left table (&ldquo;outer table&rdquo;) in the query plan.</p>
+<p><strong>Decision #1: Output</strong></p>
+<ul>
+<li>What data does the join operator emit to its parent operator in the query plan tree?</li>
+</ul>
+<p><strong>Decision #2: Cost Analysis Criteria</strong></p>
+<ul>
+<li>How do we determine whether one join algorithm is better than another?</li>
+</ul>
+<p>Subsequent operators in the query plan never need to go back to the base tables to get more data.</p>
+<blockquote>
+<p>Materialization</p>
+</blockquote>
+<p><strong>Early Materialization:</strong></p>
+<ul>
+<li>Copy the values for the attributes in outer and inner tuples into a new output tuple.</li>
+</ul>
+<p>Subsequent operators in the query plan never need to go back to the base tables to get more data.</p>
+<p><strong>Late Materialization:</strong></p>
+<ul>
+<li>Only copy the joins keys along with the Record IDs of the matching tuples.</li>
+</ul>
+<p>Ideal for column stores because the DBMS does not copy data that is not needed for the query.</p>
+<blockquote>
+<p>Analysis Criteria</p>
+</blockquote>
+<p>Assume:</p>
+<ul>
+<li>
+<p><strong>M</strong> pages in table <strong>R</strong>, <strong>m</strong> tuples in <strong>R</strong></p>
+</li>
+<li>
+<p><strong>N</strong> pages in table <strong>S</strong>, <strong>n</strong> tuples in <strong>S</strong></p>
+</li>
+</ul>
+<p><strong>Cost Metric:</strong> <strong># of IOs to compute join</strong></p>
+<p>We will ignore output costs since that depends on the data and we cannot compute that yet.</p>
+<p>$R\ ⨝\ S$ is the most common operation and thus must be carefully optimized.</p>
+<p>$R\ \times\ S$ followed by a selection is inefficient because the cross-product is large.</p>
+<p>There are many algorithms for reducing join cost, but no algorithm works well in all scenarios.</p>
+<blockquote>
+<p>Nested Loop Join</p>
+</blockquote>
+<ol>
+<li>
+<p>Stupid: For every tuple in <strong>R</strong>, it scans <strong>S</strong>once
+Cost: $M + (m\ \times\ N)$</p>
+</li>
+<li>
+<p>Block Nested Loop Join: For every block in <strong>R</strong>, it scans <strong>S</strong> once.
+Cost: $M+(M\ \times\ N)$</p>
+</li>
+</ol>
+<p>If we have B buffers available:</p>
+<ol>
+<li>Use B-2 buffers for scanning the outer table.</li>
+<li>Use one buffer for the inner table, one buffer for storing
+output.</li>
+</ol>
+<p>This algorithm uses B-2 buffers for scanning R.
+Cost: $M+ ( ⌈M / (B-2) ⌉\times N)$, if $B&gt;M+2$, then will be $M+N$</p>
+<ol start="3">
+<li>Index Nested Join: Assume the cost of each index probe is some constant C per tuple.
+Cost: $M + (m \times C)$</li>
+</ol>
+<blockquote>
+<p>Sort Merge Join</p>
+</blockquote>
+<p><strong>Phase #1: Sort</strong></p>
+<ol>
+<li>
+<p>Sort both tables on the join key(s).</p>
+</li>
+<li>
+<p>We can use the external merge sort algorithm that we talked about last class.</p>
+</li>
+</ol>
+<p><strong>Phase #2: Merge</strong></p>
+<ol>
+<li>
+<p>Step through the two sorted tables with cursors and emit matching tuples.</p>
+</li>
+<li>
+<p>May need to backtrack depending on the join type.</p>
+</li>
+</ol>
+<p>Sort Cost (R): $2M \times (1 + ⌈ logB-1 ⌈M/ B⌉ ⌉)$
+Sort Cost (S): $2N \times (1 + ⌈ logB-1 ⌈N / B⌉ ⌉)$
+Merge Cost: $(M+ N)$
+Total Cost: Sort + Merge</p>
+<p>The worst case for the merging phase is when the join attribute of all the tuples in both relations contains the same value.</p>
+<p>The input relations may be sorted either by an explicit sort operator, or by scanning the relation using an index on the join key.</p>
+<blockquote>
+<p>Hash Join</p>
+</blockquote>
+<p><strong>Phase #1: Build</strong></p>
+<ul>
+<li>Scan the outer relation and populate a hash table using the hash function <strong>h1</strong> on the join attributes.</li>
+</ul>
+<p><strong>Phase #2: Probe</strong></p>
+<ul>
+<li>Scan the inner relation and use <strong>h1</strong> on each tuple to jump to a location in the hash table and find a matching tuple.</li>
+</ul>
+<p><strong>Approach #1: Full Tuple</strong></p>
+<ul>
+<li>
+<p>Avoid having to retrieve the outer relation&rsquo;s tuple contents on a match.</p>
+</li>
+<li>
+<p>Takes up more space in memory.</p>
+</li>
+</ul>
+<p><strong>Approach #2: Tuple Identifier</strong></p>
+<ul>
+<li>
+<p>Could be to either the base tables or the intermediate output from child operators in the query plan.</p>
+</li>
+<li>
+<p>Ideal for column stores because the DBMS does not fetch data from disk that it does not need.</p>
+</li>
+<li>
+<p>Also better if join selectivity is low.</p>
+</li>
+</ul>
+<p>Optimization:
+Create a Bloom Filterduring the build phase when the key is likely to not exist in the hash table.</p>
+<ul>
+<li>
+<p>Threads check the filter before probing the hash table. This will be faster since the filter will fit in CPU caches.</p>
+</li>
+<li>
+<p>Sometimes called (sideways information passing.)</p>
+</li>
+</ul>
+<blockquote>
+<p>Grace Hash Join</p>
+</blockquote>
+<p>If the buckets do not fit in memory, then use <strong>recursive partitioning</strong>to split the tables into chunks that will fit.</p>
+<ul>
+<li>Build another hash table for $bucket_{R,i}$, using hash function $h_2$ (with $h_2≠h_1$).</li>
+<li>Then probe it for each tuple of the other table&rsquo;s bucket at that level.</li>
+</ul>
+<p>Cost of hash join?</p>
+<ul>
+<li>Assume that we have enough buffers.</li>
+<li>Cost: $3(M+ N)$</li>
+</ul>
+<p><strong>Partitioning Phase:</strong></p>
+<ul>
+<li>Read+Write both tables</li>
+<li>Cost: $2(M+N)$</li>
+</ul>
+<p><strong>Probing Phase:</strong></p>
+<ul>
+<li>Read both tables</li>
+<li>$M+N$</li>
+</ul>
+<blockquote>
+<p>Summary</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th><strong>Algorithm</strong></th>
+<th><strong>IO Cost</strong></th>
+<th><strong>Example</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple Nested Loop Join</td>
+<td>$M+(m\times N)$</td>
+<td>1.3 hours</td>
+</tr>
+<tr>
+<td>Block Nested Loop Join</td>
+<td>$M+(M\times N)$</td>
+<td>50 seconds</td>
+</tr>
+<tr>
+<td>Index Nested Loop Join</td>
+<td>$M+(M\times C)$</td>
+<td>Variable</td>
+</tr>
+<tr>
+<td>Sort-Merge Join</td>
+<td>$M+N+(sort\ cost)$</td>
+<td>0.75 seconds</td>
+</tr>
+<tr>
+<td>Hash Join</td>
+<td>$3\times(M+N)$</td>
+<td>0.45 seconds</td>
+</tr>
+</tbody>
+</table></div>
+<p>Hashing is almost always better than sorting for operator execution.</p>
+<p>Caveats:</p>
+<ul>
+<li>
+<p>Sorting is better on non-uniform data.</p>
+</li>
+<li>
+<p>Sorting is better when result needs to be sorted.</p>
+</li>
+</ul>
+<h1 id="11-query-execution-1">11. Query Execution (1)</h1>
+<p><strong>Readings:</strong> Chapter 12.1-12.3, 12.7</p>
+<blockquote>
+<p>Iterator Model</p>
+</blockquote>
+<p>Each query plan operator implements a <strong>Next()</strong> function.</p>
+<ul>
+<li>
+<p>On each invocation, the operator returns either a single tuple or a <strong>null</strong> marker if there are no more tuples.</p>
+</li>
+<li>
+<p>The operator implements a loop that calls <strong>Next()</strong> on its children to retrieve their tuples and then process them.</p>
+</li>
+</ul>
+<p>Also called <strong>Volcano</strong> or <strong>Pipeline</strong> Model.</p>
+<p>This is used in almost every DBMS. Allows for tuple pipelining. Some operators must block until their children emit all their tuples.</p>
+<ul>
+<li>Joins, Subqueries, Order By</li>
+</ul>
+<blockquote>
+<p>Materialization Model</p>
+</blockquote>
+<p>Each operator processes its input all at once and then emits its output all at once.</p>
+<ul>
+<li>
+<p>The operator &ldquo;materializes&rdquo; its output as a single result.</p>
+</li>
+<li>
+<p>The DBMS can push down hints (e.g., <strong>LIMIT</strong>) to avoid scanning too many tuples.</p>
+</li>
+<li>
+<p>Can send either a materialized row or a single column.</p>
+</li>
+</ul>
+<p>The output can be either whole tuples (NSM) or subsets of columns (DSM).</p>
+<p>Better for OLTP workloads because queries only access a small number of tuples at a time.</p>
+<ul>
+<li>
+<p>Lower execution / coordination overhead.</p>
+</li>
+<li>
+<p>Fewer function calls.</p>
+</li>
+</ul>
+<p>Not good for OLAP queries with large intermediate results.</p>
+<blockquote>
+<p>Vectorization Model</p>
+</blockquote>
+<p>Like the Iterator Model where each operator implements a <strong>Next()</strong> function, but:</p>
+<p>Each operator emits a <strong>batch</strong> of tuples instead of a single tuple.</p>
+<ul>
+<li>
+<p>The operator&rsquo;s internal loop processes multiple tuples at a time.</p>
+</li>
+<li>
+<p>The size of the batch can vary based on hardware or query properties.</p>
+</li>
+</ul>
+<p>Ideal for OLAP queries because it greatly reduces the number of invocations per operator.</p>
+<p>Allows for operators to more easily use vectorized (SIMD) instructions to process batches of tuples.</p>
+<blockquote>
+<p>Sequential Scan</p>
+</blockquote>
+<p>For each page in the table:</p>
+<ul>
+<li>
+<p>Retrieve it from the buffer pool.</p>
+</li>
+<li>
+<p>Iterate over each tuple and check whether to include it.</p>
+</li>
+</ul>
+<p>The DBMS maintains an internal <strong>cursor</strong> that tracks the last page / slot it examined.</p>
+<p>This is almost always the worst thing that the DBMS can do to execute a query.</p>
+<p>Sequential Scan Optimizations: Prefetching, Buffer Pool Bypass, Parallelization, Heap Clustering, Zone Maps, Late Materialization.</p>
+<ol>
+<li>
+<p>Zone Maps: Pre-computed aggregates for the attribute values in a page. DBMS checks the zone map first to decide whether it wants to access the page.</p>
+</li>
+<li>
+<p>Late Materialization: DSM DBMSs can delay stitching together tuples until the upper parts of the query plan.</p>
+</li>
+</ol>
+<blockquote>
+<p>Index Scan</p>
+</blockquote>
+<p>The DBMS picks an index to find the tuples that the query needs.
+Which index to use depends on:</p>
+<ul>
+<li>What attributes the index contains</li>
+<li>What attributes the query references</li>
+<li>The attribute&rsquo;s value domains</li>
+<li>Predicate composition</li>
+<li>Whether the index has unique or non-unique keys</li>
+</ul>
+<blockquote>
+<p>Multi Index Scan</p>
+</blockquote>
+<p>Set intersection can be done with bitmaps, hash tables, or Bloom filters.</p>
+<p>Operators that modify the database (<strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>DELETE</strong>) are responsible for checking constraints and updating indexes.</p>
+<p><strong>UPDATE</strong>/<strong>DELETE</strong>:</p>
+<ul>
+<li>Child operators pass Record IDs for target tuples.</li>
+<li>Must keep track of previously seen tuples.</li>
+</ul>
+<p><strong>INSERT</strong>:</p>
+<ul>
+<li>
+<p><strong>Choice #1</strong>: Materialize tuples inside of the operator.</p>
+</li>
+<li>
+<p><strong>Choice #2</strong>: Operator inserts any tuple passed in from child operators.</p>
+</li>
+</ul>
+<p>Halloween Problem: Anomaly where an update operation changes the physical location of a tuple, which causes a scan operator to visit the tuple multiple times.</p>
+<ul>
+<li>Can occur on clustered tables or index scans.</li>
+</ul>
+<p>First discoveredby IBM researchers while working on System R on Halloween day in 1976.</p>
+<blockquote>
+<p>Expression Evaluation</p>
+</blockquote>
+<p>The DBMS represents a <strong>WHERE</strong> clause as an <strong>expression tree</strong>.</p>
+<p>The nodes in the tree represent different expression types:</p>
+<p>Comparisons (<strong>=</strong>, <strong>&lt;</strong>, <strong>&gt;</strong>, <strong>!=</strong>); Conjunction (<strong>AND</strong>), Disjunction (<strong>OR</strong>); Arithmetic Operators (<strong>+</strong>, <strong>-</strong>, *****, <strong>/</strong>, <strong>%</strong>); Constant Values; Tuple Attribute References.</p>
+<p>Evaluating predicates in this manner is slow.</p>
+<p>The DBMS traverses the tree and for each node that it visits it must figure out what the operator needs to do.</p>
+<p>A better approach is to just evaluate the expression directly. (Think JIT compilation)</p>
+<h1 id="12-query-execution-2">12. Query Execution (2)</h1>
+<p><strong>Readings:</strong> Chapter 12.1-12.3, 12.7</p>
+<blockquote>
+<p>Parallel DBMSs vs Distributed DBMSs</p>
+</blockquote>
+<p>Database is spread out across multiple <strong>resources</strong> to improve different aspects of the DBMS.</p>
+<p>Appears as a single logical database instance to the application, regardless of physical organization.</p>
+<ul>
+<li>SQL query for a single-resource DBMS should generate same result on a parallel or distributed DBMS.</li>
+</ul>
+<p><strong>Parallel DBMSs</strong></p>
+<ul>
+<li>
+<p>Resources are physically close to each other.</p>
+</li>
+<li>
+<p>Resources communicate over high-speed interconnect.</p>
+</li>
+<li>
+<p>Communication is assumed to be cheap and reliable.</p>
+</li>
+</ul>
+<p><strong>Distributed DBMSs</strong></p>
+<ul>
+<li>
+<p>Resources can be far from each other.</p>
+</li>
+<li>
+<p>Resources communicate using slow(er) interconnect.</p>
+</li>
+<li>
+<p>Communication cost and problems cannot be ignored.</p>
+</li>
+</ul>
+<blockquote>
+<p>Process Model</p>
+</blockquote>
+<p>A DBMS’s <strong>process model</strong> defines how the system is architected to support concurrent requests from a multi-user application.</p>
+<p>A <strong>worker</strong> is the DBMS component that is responsible for executing tasks on behalf of the client and returning the results.</p>
+<ol>
+<li>Process per DBMS Worker</li>
+</ol>
+<p>Each worker is a separate OS process.</p>
+<ul>
+<li>Relies on OS scheduler.</li>
+<li>Use shared-memory for global data structures.</li>
+<li>A process crash doesn’t take down entire system.</li>
+<li>Examples: IBM DB2, Postgres, Oracle</li>
+</ul>
+<ol start="2">
+<li>Process Pool</li>
+</ol>
+<p>A worker uses any free process from the pool.</p>
+<ul>
+<li>Still relies on OS scheduler and shared memory.</li>
+<li>Bad for CPU cache locality.</li>
+<li>Examples: IBM DB2, Postgres (2015).</li>
+</ul>
+<ol start="3">
+<li>Thread per DBMS Worker</li>
+</ol>
+<p>Single process with multiple worker threads.</p>
+<ul>
+<li>DBMS manages its own scheduling.</li>
+<li>May or may not use a dispatcher thread.</li>
+<li>Thread crash (may) kill the entire system.</li>
+<li>Examples: IBM DB2, MSSQL, MySQL, Oracle (2014).</li>
+</ul>
+<p>Advantages of a multi-threaded architecture:</p>
+<ul>
+<li>Less overhead per context switch.</li>
+<li>Do not have to manage shared memory.
+The thread per worker model does not mean that the DBMS supports intra-query parallelism.</li>
+</ul>
+<blockquote>
+<p>Inter- vs Intra- Query Parallelism</p>
+</blockquote>
+<p>Inter-Query: Different queries are executed concurrently.</p>
+<ul>
+<li>Increases throughput &amp; reduces latency.
+Intra-Query: Execute the operations of a single query in parallel.</li>
+<li>Decreases latency for long-running queries.</li>
+</ul>
+<p>Improve overall performance by allowing multiple queries to execute simultaneously.
+If queries are read-only, then this requires little coordination between queries.
+If multiple queries are updating the database at the same time, then this is hard to do correctly.</p>
+<blockquote>
+<p>Inter Query Parallelism</p>
+</blockquote>
+<p>Improve overall performance by allowing multiple queries to execute simultaneously.</p>
+<p>If queries are read-only, then this requires little coordination between queries.</p>
+<p>If multiple queries are updating the database at the same time, then this is hard to do correctly…</p>
+<blockquote>
+<p>Intra Query Parallelism</p>
+</blockquote>
+<p>Improve the performance of a single query by executing its operators in parallel.
+Think of organization of operators in terms of a producer/consumer paradigm.
+There are parallel versions of every operator.</p>
+<ul>
+<li>Can either have multiple threads access centralized data structures or use partitioning to divide work up.</li>
+</ul>
+<p>Parallel Grace Hash Join: Use a separate worker to perform the join for each level of buckets for <strong>R</strong> and <strong>S</strong> after partitioning.</p>
+<blockquote>
+<p>Intra Operator(Horizontal)</p>
+</blockquote>
+<p>Decompose operators into independent <strong>fragments</strong> that perform the same function on different subsets of data.</p>
+<p>The DBMS inserts an <strong>exchange</strong> operator into the query plan to coalesce/split results from multiple children/parent operators.</p>
+<p>Exchange Operator has three types as follows:</p>
+<p><strong>Exchange Type #1 –Gather</strong></p>
+<ul>
+<li>Combine the results from multiple workers into a single output stream.</li>
+</ul>
+<p><strong>Exchange Type #2 –Distribute</strong></p>
+<ul>
+<li>Split a single input stream into multiple output streams.</li>
+</ul>
+<p><strong>Exchange Type #3 –Repartition</strong></p>
+<ul>
+<li>Shuffle multiple input streams across multiple output streams.</li>
+</ul>
+<blockquote>
+<p>Inter Operator(Vertical)</p>
+</blockquote>
+<p>Operations are overlapped in order to pipeline data from one stage to the next without materialization.</p>
+<p>Workers execute operators from different segments of a query plan at the same time.</p>
+<p>Also called <strong>pipeline parallelism</strong>.</p>
+<blockquote>
+<p><strong>Bushy Parallelism</strong></p>
+</blockquote>
+<p>Hybrid of intra-and inter-operator parallelism where workers execute multiple operators from different segments of a query plan at the same time.</p>
+<p>Still need exchange operators to combine intermediate results from segments.</p>
+<blockquote>
+<p>Observation</p>
+</blockquote>
+<p>Using additional processes/threads to execute queries in parallel won&rsquo;t help if the disk is always the main bottleneck.</p>
+<ul>
+<li>In fact, it can make things worse if each worker is working on different segments of the disk.</li>
+</ul>
+<blockquote>
+<p>I/O Parallelism</p>
+</blockquote>
+<p>Configure OS/hardware to store the DBMS&rsquo;s files across multiple storage devices.</p>
+<ul>
+<li>Storage Appliances, RAID Configuration</li>
+</ul>
+<p>This is <strong>transparent</strong> to the DBMS.</p>
+<blockquote>
+<p>DataBase Partition</p>
+</blockquote>
+<p>Some DBMSs allow you to specify the disk location of each individual database.</p>
+<ul>
+<li>The buffer pool manager maps a page to a disk location.</li>
+</ul>
+<p>This is also easy to do at the filesystem level if the DBMS stores each database in a separate directory.</p>
+<ul>
+<li>The DBMS recovery log file might still be shared if transactions can update multiple databases.</li>
+</ul>
+<blockquote>
+<p>Partitioning</p>
+</blockquote>
+<p>Split single logical table into disjoint physical segments that are stored/managed separately.</p>
+<p>Partitioning should (ideally) be transparent to the application.</p>
+<ul>
+<li>The application should only access logical tables and not have to worry about how things are physically stored.</li>
+</ul>
+<ol>
+<li>Vertical Partioning</li>
+</ol>
+<p>Store a table’s attributes in a separate location (e.g., file, disk volume).</p>
+<p>Must store tuple information to reconstruct the original record.</p>
+<ol start="2">
+<li>Horizontal Partioning</li>
+</ol>
+<p>Divide table into disjoint segments based on some partitioning key. Hash Partitioning</p>
+<ul>
+<li>
+<p>Range Partitioning</p>
+</li>
+<li>
+<p>Predicate Partitioning</p>
+</li>
+</ul>
+<h1 id="13-optimization-1">13. Optimization (1)</h1>
+<p><strong>Readings:</strong> Chapter 13</p>
+<p>Remember that SQL is declarative. User tells the DBMS what answer they want, not how to get the answer.</p>
+<p>First implementation of a query optimizer from the 1970s. People argued that the DBMS could never choose a query plan better than what a human could write.</p>
+<p><strong>Heuristics / Rules</strong></p>
+<ul>
+<li>
+<p>Rewrite the query to remove stupid / inefficient things.</p>
+</li>
+<li>
+<p>These techniques may need to examine catalog, but they do notneed to examine data.</p>
+</li>
+</ul>
+<p><strong>Cost-based Search</strong></p>
+<ul>
+<li>
+<p>Use a model to estimate the cost of executing a plan.</p>
+</li>
+<li>
+<p>Evaluate multiple equivalent plans for a query and pick the one with the lowest cost.</p>
+</li>
+</ul>
+<blockquote>
+<p>Logical vs Physical Plans</p>
+</blockquote>
+<p>The optimizer generates a mapping of a logical algebra expression to the optimal equivalent physical algebra expression.</p>
+<p>Physical operators define a specific execution strategy using an access path.</p>
+<ul>
+<li>
+<p>They can depend on the physical format of the data that they process (i.e., sorting, compression).</p>
+</li>
+<li>
+<p>Not always a 1:1 mapping from logical to physical.</p>
+</li>
+</ul>
+<blockquote>
+<p>Relational Algebra Equivalences</p>
+</blockquote>
+<p>Two relational algebra expressions are equivalent if they generate the same set of tuples.</p>
+<p>The DBMS can identify better query plans without a cost model.</p>
+<p>This is often called query rewriting.</p>
+<blockquote>
+<p>Predicate Pushdown</p>
+</blockquote>
+<p>Example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">studnet</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>The algrbra expression is:</p>
+<p>$\pi_{name,cid}(\sigma_{grade=&lsquo;A&rsquo;}(student⋈enrolled))$</p>
+<p>which is equal to the expression:</p>
+<p>$\pi_{name,cid}(student⋈\sigma_{grade={&lsquo;A&rsquo;}}(enrolled))$</p>
+<p><strong>Selections Optimize:</strong></p>
+<p>Perform filters as early as possible. Break a complex predicate, and push down:</p>
+<p>$\sigma_{p1 \wedge p2\wedge &hellip;\wedge pn}(R)=\sigma_{p1}(\sigma_{p2}(&hellip;\sigma_{pn}(R)))$</p>
+<p><strong>Joins Optimize:</strong></p>
+<p>$R⋈S=S⋈R, \ (R⋈S⋈T) =R⋈(S⋈T)$</p>
+<p>The number of different join orderings for an n-way join is a <strong>Catalan Number</strong> ($≈4^n$)</p>
+<p>Exhaustive enumeration will be too slow.</p>
+<p><strong>Projections Optimize</strong> (Not important for a column store) <strong>:</strong></p>
+<ul>
+<li>Perform them early to create smaller tuples and reduce intermediate results (if duplicates are eliminated)</li>
+<li>Project out all attributes except the ones requested or required (e.g., joining keys)</li>
+</ul>
+<p>Let&rsquo;s see the example again:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">cid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">enrolled</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">e</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">grade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;A&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>$\pi_{name,cid}(student⋈\sigma_{grade={&lsquo;A&rsquo;}}(enrolled))$</p>
+<p>$\pi_{name,cid}(\pi_{sid,name}(student)⋈\pi_{cid,sid}(\sigma_{grade={&lsquo;A&rsquo;}}(enrolled)))$</p>
+<blockquote>
+<p>Logical Query Optimization</p>
+</blockquote>
+<p>Transform a logical plan into an equivalent logical plan using pattern matching rules.</p>
+<p>The goal is to increase the likelihood of enumerating the optimal plan in the search.</p>
+<p>Cannot compare plans because there is no cost model but can &ldquo;direct&rdquo; a transformation to a preferred side.</p>
+<p>Split Conjunctive predicates</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">NAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">,</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">,</span><span class="w"> </span><span class="n">ALBUM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">ARTIST</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ARTIST_ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">APPEARS</span><span class="p">.</span><span class="n">ALBUM_ID</span><span class="o">=</span><span class="n">ALBUM</span><span class="p">.</span><span class="n">ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">ALBUM</span><span class="p">.</span><span class="n">NAME</span><span class="o">=</span><span class="s2">&#34;Andy&#39;s OG Remix&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Decompose predicates into their simplest forms to make it easier for the optimizer to move them around.</p>
+<p>$\pi_{name}(\sigma_{id=artist_id \wedge album_id=album.id \wedge name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))$</p>
+<p>Using selections optimization, break a complex predicate, and push down:</p>
+<p>$\pi_{name}(\sigma_{id=artist_id }(\sigma_{album_id=album.id }(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}(artist\times appears\times album))))$</p>
+<p>Move the predicate to the lowest applicable point in the plan:</p>
+<p>$\pi_{name}(\sigma_{album_id=album.id }(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)\times(\sigma_{id=artist_id }(artist\times appears))))$</p>
+<p>Replace all Cartesian Products with inner joins using the join predicates:</p>
+<p>$\pi_{name}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } (artist ⋈_{id=artist_id} appears))$</p>
+<p>Eliminate redundant attributes before pipeline breakers to reduce materialization cost:</p>
+<p>$\pi_{name}(\pi_{id}(\sigma_{name=&ldquo;Andy&rsquo;s OG Remix&rdquo;}album)⋈_{album_id=album.id } $\
+$(\pi_{id}(\pi_{id, name}(artist) ⋈_{id=artist_{id}} \pi_{artist_{id}, album_{id}}(appears))))$</p>
+<blockquote>
+<p>Nested Sub-Queries</p>
+</blockquote>
+<p>The DBMS treats nested sub-queries in the where clause as functions that take parameters and return a single value or set of values.
+Two Approaches:</p>
+<ul>
+<li>Rewrite to de-correlate and/or flatten them</li>
+<li>Decompose nested query and store result to temporary
+table</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">R</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2018-10-15&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Decompose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- For each sailor with the highest rating (over all sailors) and at least 
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- two reservations for red boats, find the sailor id and the earliest date 
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- on which the sailor has a reservation for a red boat.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="p">,</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="k">day</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S</span><span class="p">,</span><span class="w"> </span><span class="n">reserves</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">boats</span><span class="w"> </span><span class="n">B</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">bid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">bid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">AND</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">S2</span><span class="p">.</span><span class="n">rating</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="n">S2</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">sid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>For harder queries, the optimizer breaks up queries into blocks and then concentrates on one block at a time.</p>
+<p>Sub-queries are written to a temporary table that are discarded after the query finishes.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">sailors</span><span class="w"> </span><span class="c1">-- Nested Block
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>An optimizer transforms a query&rsquo;s expressions (e.g., <strong>WHERE</strong> clause predicates) into the optimal/minimal set of expressions.</p>
+<p>Implemented using if/then/else clauses or a pattern-matching rule engine.</p>
+<ul>
+<li>
+<p>Search for expressions that match a pattern.</p>
+</li>
+<li>
+<p>When a match is found, rewrite the expression.</p>
+</li>
+<li>
+<p>Halt if there are no more rules that match.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- Impossible / Unnecessary Predicates
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">-- return empty set
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">-- remove where predicate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Join Elimination
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">A2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">A1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A2</span><span class="p">.</span><span class="n">id</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- Merging Predicates
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">OR</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">50</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- after optimize
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">150</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Cost-based Query Planning</p>
+</blockquote>
+<p>Generate an estimate of the cost of executing a particular query plan for the current state of the database.</p>
+<ul>
+<li>Estimates are only meaningful internally.</li>
+</ul>
+<p>This is independent of the plan enumeration step that we will talk about next class.</p>
+<p><strong>Choice #1: Physical Costs</strong></p>
+<ul>
+<li>
+<p>Predict CPU cycles, I/O, cache misses, RAM consumption, pre-fetching, etc…</p>
+</li>
+<li>
+<p>Depends heavily on hardware.</p>
+</li>
+</ul>
+<p><strong>Choice #2: Logical Costs</strong></p>
+<ul>
+<li>
+<p>Estimate result sizes per operator.</p>
+</li>
+<li>
+<p>Independent of the operator algorithm.</p>
+</li>
+<li>
+<p>Need estimations for operator result sizes.</p>
+</li>
+</ul>
+<p><strong>Choice #3: Algorithmic Costs</strong></p>
+<ul>
+<li>Complexity of the operator algorithm implementation.</li>
+</ul>
+<blockquote>
+<p>Disk based DBMS cost Model</p>
+</blockquote>
+<p>The number of disk accesses will always dominate the execution time of a query.</p>
+<ul>
+<li>
+<p>CPU costs are negligible.</p>
+</li>
+<li>
+<p>Must consider sequential vs. random I/O.</p>
+</li>
+</ul>
+<p>This is easier to model if the DBMS has full control over buffer management.</p>
+<ul>
+<li>We will know the replacement strategy, pinning, and assume exclusive access to disk.</li>
+</ul>
+<blockquote>
+<p>Postages cost Model</p>
+</blockquote>
+<p>Uses a combination of CPU and I/O costs that are weighted by “magic” constant factors.</p>
+<p>Default settings are obviously for a disk-resident database without a lot of memory:</p>
+<ul>
+<li>
+<p>Processing a tuple in memory is <strong>400x</strong> faster than reading a tuple from disk.</p>
+</li>
+<li>
+<p>Sequential I/O is <strong>4x</strong> faster than random I/O.</p>
+</li>
+</ul>
+<blockquote>
+<p>Example (IBM DB2 cost Model)</p>
+</blockquote>
+<p>Database characteristics in system catalogs; Hardware environment (microbenchmarks); Storage device characteristics (microbenchmarks); Communications bandwidth (distributed only); Memory resources (buffer pools, sort heaps); Concurrency Environment(Average number of users, Isolation level / blocking, Number of available locks).</p>
+<h1 id="14-optimization-2">14. Optimization (2)</h1>
+<p><strong>Readings:</strong> Chapter 13</p>
+<blockquote>
+<p>Statistics</p>
+</blockquote>
+<p>The DBMS stores internal statistics about tables, attributes, and indexes in its internal catalog.</p>
+<p>Different systems update them at different times.</p>
+<p>Manual invocations:</p>
+<ul>
+<li>Postgres/SQLite: <strong>ANALYZE</strong></li>
+<li>Oracle/MySQL: <strong>ANALYZETABLE</strong></li>
+<li>SQL Server: <strong>UPDATE STATISTICS</strong></li>
+<li>DB2: <strong>RUNSTATS</strong></li>
+</ul>
+<blockquote>
+<p>Derivable Statistics</p>
+</blockquote>
+<p>For each relation <strong>R</strong>, the DBMS maintains the following information:</p>
+<ul>
+<li>
+<p>$N_R$: Number of tuples in <strong>R</strong>.</p>
+</li>
+<li>
+<p>$V(A,R)$: Number of distinct values for attribute <strong>A</strong>.</p>
+</li>
+</ul>
+<p>The <strong>selection cardinality</strong> $SC(A,R)$ is the average number of records with a value for an attribute <strong>A</strong> given $N_{R}/ V(A,R)$</p>
+<p>Note that this formula assumes <strong>data uniformity</strong> where every value has the same frequency as all other values.</p>
+<p>The <strong>selectivity</strong> (sel) of a predicate <strong>P</strong> is the fraction of tuples that qualify.</p>
+<p>Equality Predicate: $sel (A=constant) = SC(P) / N_R$</p>
+<p>Range Predicate: $sel(A&gt;=a) = (A_{max}– a+1) / (A_{max}– A_{min}+1)$</p>
+<p>Negation Query: $sel(not \ P) = 1 – sel(P)$</p>
+<p><strong>Observation: Selectivity ≈ Probability</strong></p>
+<p>Conjunction: $sel(P1 \wedge P2) = sel(P1) · sel(P2)$</p>
+<p>Disjunction: $sel(P1 \vee P2)= sel(P1) + sel(P2) – sel(P1 \wedge P2)= sel(P1) + sel(P2)–sel(P1)·sel(P2)$</p>
+<p>This assumes that the predicates are <strong>independent</strong>.</p>
+<blockquote>
+<p>Result size estimation</p>
+</blockquote>
+<p>Given a join of <strong>R</strong> and <strong>S</strong>, what is the range of possible result sizes in # of tuples?
+General case: $R_{cols}\cap S_{cols}={A}$ where A is not a primary key for either table.</p>
+<p>Match each R-tuple with S-tuples: $estSize ≈ N_{R} · N_{S} / V(A, S)$</p>
+<p>Symmetrically, for S: $estSize ≈ N_{R} · N_{S} / V(A, R) $</p>
+<p><strong>Overall:</strong> $estSize ≈ N_{R} · N_{S} / max({V(A,S), V(A,R)})$</p>
+<blockquote>
+<p>Selection Cardinality</p>
+</blockquote>
+<p><strong>Assumption #1: Uniform Data</strong></p>
+<ul>
+<li>The distribution of values (except for the heavy hitters) is the same.</li>
+</ul>
+<p><strong>Assumption #2: Independent Predicates</strong></p>
+<ul>
+<li>The predicates on attributes are independent</li>
+</ul>
+<p><strong>Assumption #3: Inclusion Principle</strong></p>
+<ul>
+<li>The domain of join keys overlap such that each key in the inner relation will also exist in the outer table.</li>
+</ul>
+<blockquote>
+<p>Sketches</p>
+</blockquote>
+<p>Probabilistic data structures that generate approximate statistics about a data set.</p>
+<p>Cost-model can replace histograms with sketches to improve its selectivity estimate accuracy.</p>
+<p>Most common examples:</p>
+<ul>
+<li>
+<p>Count-Min Sketch(1988): Approximate frequency count of elements in a set.</p>
+</li>
+<li>
+<p>HyperLogLog(2007): Approximate the number of distinct elements in a set.</p>
+</li>
+</ul>
+<blockquote>
+<p>Sampling</p>
+</blockquote>
+<p>Modern DBMSs also collect samples from tables to estimate selectivities.</p>
+<p>Update samples when the underlying tables changes significantly.</p>
+<blockquote>
+<p>Query Optimization</p>
+</blockquote>
+<p>After performing rule-based rewriting, the DBMS will enumerate different plans for the query and estimate their costs. Like Single relation, Multiple relations, and Nested sub-queries.</p>
+<p>It chooses the best plan it has seen for the query after exhausting all plans or some timeout.</p>
+<p>Simple heuristics are often good enough for this. OLTP queries are especially easy.</p>
+<p>Query planning for OLTP queries is easy because they are <strong>sargable</strong> (<strong>S</strong>earch <strong>Arg</strong>ument <strong>Able</strong>).</p>
+<ul>
+<li>
+<p>It is usually just picking the best index.</p>
+</li>
+<li>
+<p>Joins are almost always on foreign key relationships with a small cardinality.</p>
+</li>
+<li>
+<p>Can be implemented with simple heuristics.</p>
+</li>
+</ul>
+<blockquote>
+<p>Multi-Relation Query Planning</p>
+</blockquote>
+<p>As number of joins increases, number of alternative plans grows rapidly</p>
+<ul>
+<li>We need to restrict search space.</li>
+</ul>
+<p>Fundamental decision in <strong>System R</strong>: only left-deep join trees are considered.</p>
+<ul>
+<li>Modern DBMSs do not always make this assumption anymore.</li>
+</ul>
+<p>Use <strong>dynamic programming</strong> to reduce the number of cost estimations.</p>
+<ol>
+<li>
+<p>Enumerate the orderings. Example: Left-deep tree #1, Left-deep tree #2…</p>
+</li>
+<li>
+<p>Enumerate the plans for each operator. Example: Hash, Sort-Merge, Nested Loop…</p>
+</li>
+<li>
+<p>Enumerate the access paths for each table. Example: Index #1, Index #2, SeqScan…</p>
+</li>
+</ol>
+<h1 id="15-concurrency-control-theory">15. Concurrency Control Theory</h1>
+<p><strong>Readings:</strong> Chapter 14</p>
+<p>A <strong>transaction</strong> is the execution of a sequence of one or more operations (e.g., SQL queries) on a database to perform some higher-level function.</p>
+<p>A transactions may carry out many operations on the data retrieved from the database</p>
+<p>The DBMS is onlyconcerned about what data is read/written from/to the database.</p>
+<blockquote>
+<p>Strawman System</p>
+</blockquote>
+<p>Execute each transactions one-by-one (i.e., serial order) as they arrive at the DBMS.</p>
+<ul>
+<li>One and only one transactions can be running at the same time in the DBMS.</li>
+</ul>
+<p>Before a transactions starts, copy the entire database to a new file and make all changes to that file.</p>
+<ul>
+<li>
+<p>If the transactions completes successfully, overwrite the original file with the new one.</p>
+</li>
+<li>
+<p>If the transactions fails, just remove the dirty copy.</p>
+</li>
+</ul>
+<blockquote>
+<p>Correctness Criteria ACID</p>
+</blockquote>
+<p><strong>Atomicity:</strong> All actions in the transactions happen, or none happen.(“all or nothing”)</p>
+<p><strong>Consistency:</strong> If each transactions is consistent and the DB starts consistent, then it ends up consistent.(“it looks correct to me”)</p>
+<p><strong>Isolation:</strong> Execution of one transactions is isolated from that of other transactions s.(“as if alone”)</p>
+<p><strong>Durability:</strong> If a transactions commits, its effects persist.(“survive failures”)</p>
+<blockquote>
+<p>Atomicity</p>
+</blockquote>
+<p>DBMS guarantees that transactions are <strong>atomic</strong>.</p>
+<ul>
+<li>From user&rsquo;s point of view: transactions always either executes all its actions or executes no actions at all.</li>
+</ul>
+<p>Mechanism For Ensuring Atomicity</p>
+<p><strong>Approach #1: Logging</strong></p>
+<ul>
+<li>
+<p>DBMS logs all actions so that it can undo the actions of aborted transactions.</p>
+</li>
+<li>
+<p>Maintain undo records both in memory and on disk.</p>
+</li>
+<li>
+<p>Think of this like the black box in airplanes…</p>
+</li>
+</ul>
+<p><strong>Approach #2: Shadow Paging</strong></p>
+<ul>
+<li>
+<p>DBMS makes copies of pages and transactions smake changes to those copies. Only when the transactions commits is the page made visible to others.</p>
+</li>
+<li>
+<p>Originally from System R.</p>
+</li>
+</ul>
+<blockquote>
+<p>Database Consistency</p>
+</blockquote>
+<p>The &ldquo;world&rdquo; represented by the database is logicallycorrect. All questions asked about the data are given logicallycorrect answers.</p>
+<p>If the database is consistent before the transaction starts (running alone), it will also be consistent after.</p>
+<p>Transaction consistency is the application&rsquo;s responsibility. DBMS cannot control this.</p>
+<blockquote>
+<p>Isolation</p>
+</blockquote>
+<p>DBMS achieves concurrency by interleaving the actions (reads/writes of DB objects) of transactions s.</p>
+<p>A <strong>concurrency control</strong>protocol is how the DBMS decides the proper interleaving of operations from multiple transactions.</p>
+<p>Two categories of protocols:</p>
+<ul>
+<li>
+<p><strong>Pessimistic:</strong> Don&rsquo;t let problems arise in the first place.</p>
+</li>
+<li>
+<p><strong>Optimistic:</strong> Assume conflicts are rare, deal with them after they happen.</p>
+</li>
+</ul>
+<p><strong>Serial Schedule</strong></p>
+<ul>
+<li>A schedule that does not interleave the actions of different transactions.</li>
+</ul>
+<p><strong>Equivalent Schedules</strong></p>
+<ul>
+<li>
+<p>For any database state, the effect of executing the first schedule is identical to the effect of executing the second schedule.</p>
+</li>
+<li>
+<p>Doesn&rsquo;t matter what the arithmetic operations are!</p>
+</li>
+</ul>
+<p><strong>Serializable Schedule</strong></p>
+<ul>
+<li>A schedule that is equivalent to some serial execution of the transactions.</li>
+</ul>
+<p>If each transaction preserves consistency, every serializable schedule preserves consistency.</p>
+<p>There are different levels of serializability:</p>
+<ul>
+<li>
+<p><strong>Conflict Serializability</strong> (<strong>Most DBMSs try to support this.</strong>)</p>
+</li>
+<li>
+<p><strong>View Serializability</strong> (<strong>No DBMS can do this.</strong>)</p>
+</li>
+</ul>
+<blockquote>
+<p>Depency Graphs</p>
+</blockquote>
+<p>One node per transactions .</p>
+<p>Edge from $T_i$ to $T_j$ if:</p>
+<ul>
+<li>
+<p>An operation $O_i$ of $T_i$ conflicts with an operation $O_j$ of $T_j$ and</p>
+</li>
+<li>
+<p>$O_i$ appears earlier in the schedule than $O_j$.</p>
+</li>
+</ul>
+<p>Alternative (weaker) notion of serializability.
+Schedules $S_1$ and $S_2$ are view equivalent if:</p>
+<ul>
+<li>
+<p>If $T_1$ reads initial value of <strong>A</strong> in $S_1$, then $T_1$ also reads initial value of <strong>A</strong> in $S_2$.</p>
+</li>
+<li>
+<p>If $T_1$ reads value of <strong>A</strong> written by $T_2$ in $S_1$, then $T_1$ also reads value of <strong>A</strong> written by $T_2$ in $S_2$.</p>
+</li>
+<li>
+<p>If $T_1$ writes final value of <strong>A</strong> in $S_1$, then $T_1$ also writes final value of <strong>A</strong> in $S_2$.</p>
+</li>
+</ul>
+<p>Also known as a <strong>precedence graph</strong>. A schedule is conflict serializable if fits dependency graph is acyclic.</p>
+<p><strong>View Serializability</strong> allows for (slightly) more schedules than <strong>Conflict Serializability</strong> does.</p>
+<ul>
+<li>But is difficult to enforce efficiently.</li>
+</ul>
+<p>Neither definition allows all schedules that you would consider &ldquo;serializable&rdquo;.</p>
+<ul>
+<li>This is because they don&rsquo;t understand the meanings of the operations or the data (recall example #3)</li>
+</ul>
+<blockquote>
+<p>Transaction</p>
+</blockquote>
+<p>All the changes of committed transactions should be persistent.</p>
+<ul>
+<li>
+<p>No torn updates.</p>
+</li>
+<li>
+<p>No changes from failed transactions.</p>
+</li>
+</ul>
+<p>The DBMS can use either logging or shadow paging to ensure that all changes are durable.</p>
+<h1 id="16-two-phase-locking">16. Two Phase Locking</h1>
+<p><strong>Readings:</strong> Chapter 15.1-15.3, 15.9</p>
+<p><strong>S-LOCK</strong>: Shared locks for reads.</p>
+<p><strong>X-LOCK</strong>: Exclusive locks for writes.</p>
+<p>Compatibility Matrix</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>Shared</th>
+<th>Exclusive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shared</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Exclusive</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table></div>
+<ol>
+<li>
+<p>Transactions request locks (or upgrades).</p>
+</li>
+<li>
+<p>Lock manager grants or blocks requests.</p>
+</li>
+<li>
+<p>Transactions release locks.</p>
+</li>
+</ol>
+<p>Lock manager updates its internal lock-table.</p>
+<ul>
+<li>It keeps track of what transactions hold what locks and what transactions are waiting to acquire any locks.</li>
+</ul>
+<p>Two-phase locking (2PL) is a concurrency control protocol that determines whether a transactions can access an object in the database on the fly.</p>
+<p>The protocol does not need to know all the queries that a transactions will execute ahead of time.</p>
+<p><strong>Phase #1: Growing</strong></p>
+<ul>
+<li>
+<p>Each transactions requests the locks that it needs from the DBMS’s lock manager.</p>
+</li>
+<li>
+<p>The lock manager grants/denies lock requests.</p>
+</li>
+</ul>
+<p><strong>Phase #2: Shrinking</strong></p>
+<ul>
+<li>The transactions is allowed to only release locks that it previously acquired. It cannot acquire new locks.</li>
+</ul>
+<p>2PL on its own is sufficient to guarantee conflict serializability.</p>
+<ul>
+<li>It generates schedules whose precedence graph is acyclic.</li>
+</ul>
+<p>But it is subject to <strong>cascading aborts</strong></p>
+<blockquote>
+<p>Problems</p>
+</blockquote>
+<p>There are potential schedules that are serializable but would not be allowed by 2PL.</p>
+<ul>
+<li>Locking limits concurrency.</li>
+</ul>
+<p>Dirty reads Solution: <strong>Strong Strict 2PL (aka Rigorous 2PL)</strong></p>
+<p>A schedule is <strong>strict</strong> if a value written by a transactions is not read or overwritten by other transactions suntil that transactions finishes.</p>
+<p>Advantages:</p>
+<ul>
+<li>
+<p>Does not incur cascading aborts.</p>
+</li>
+<li>
+<p>Aborted transactions scan be undone by just restoring original values of modified tuples.</p>
+</li>
+</ul>
+<blockquote>
+<p>Dead Lock Solution</p>
+</blockquote>
+<p>Deadlocks Solution: <strong>Detection</strong> or <strong>Prevention</strong></p>
+<p>The DBMS creates a <strong>waits-for</strong> graph to keep track of what locks each transactions is waiting to acquire:</p>
+<ul>
+<li>
+<p>Nodes are transactions</p>
+</li>
+<li>
+<p>Edge from $T_i$ to $T_j$ if $T_i$ is waiting for $T_j$ to release a lock.</p>
+</li>
+</ul>
+<p>The system periodically checks for cycles in <strong>waits-for</strong> graph and then decides how to break it.</p>
+<p>When the DBMS detects a deadlock, it will select a &ldquo;victim&rdquo; transactions to rollback to break the cycle.</p>
+<p>The victim transactions will either restart or abort(more common) depending on how it was invoked.</p>
+<p>There is a trade-off between the frequency of checking for deadlocks and how long transactions have to wait before deadlocks are broken.</p>
+<p>When a transactions tries to acquire a lock that is held by another transactions , the DBMS kills one of them to prevent a deadlock.</p>
+<p>This approach does not require a waits-for graph or detection algorithm.</p>
+<blockquote>
+<p>Intension Locks</p>
+</blockquote>
+<p>Trade-off between parallelism versus overhead.</p>
+<ul>
+<li>Fewer Locks, Larger Granularity vs. More Locks, Smaller Granularity.</li>
+</ul>
+<p>An <strong>intention lock</strong> allows a higher-level node to be locked in <strong>shared</strong> or <strong>exclusive</strong> mode without having to check all descendent nodes.</p>
+<p>If a node is locked in an intention mode, then some transactions is doing explicit locking at a lower level in the tree.</p>
+<p>Intention-Shared (IS): Indicates explicit locking at lower level with shared locks.</p>
+<p>Intention-Exclusive (IX): Indicates explicit locking at lower level with exclusive locks.</p>
+<p>Shared+Intention-Exclusive (SIX): The subtree rooted by that node is locked explicitly in shared mode and explicit locking is being done at a lower level with exclusive-mode locks.</p>
+<p>Compatibility Matrix</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>IS</strong></th>
+<th><strong>IX</strong></th>
+<th><strong>S</strong></th>
+<th><strong>SIX</strong></th>
+<th><strong>X</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IS</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>IX</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>SIX</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>X</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table></div>
+<p>Hierarchical locks are useful in practice as each transactions only needs a few locks. Intention locks help improve concurrency:</p>
+<ul>
+<li>
+<p>Intention-Shared (IS): Intent to get lock(s) at finer granularity.</p>
+</li>
+<li>
+<p>Intention-Exclusive (IX): Intent to get X lock(s) at finer granularity.</p>
+</li>
+<li>
+<p>Shared+Intention-Exclusive (SIX): Like and IX at the same time.</p>
+</li>
+</ul>
+<p>Lock escalation dynamically asks for coarser-grained locks when too many low-level locks acquired.</p>
+<p>This reduces the number of requests that the lock manager must process.</p>
+<blockquote>
+<p>Lock in Practice</p>
+</blockquote>
+<p>You typically don&rsquo;t set locks manually in transactions s.</p>
+<p>Sometimes you will need to provide the DBMS with hints to help it to improve concurrency. Explicit locks are also useful when doing major changes to the database.</p>
+<ol>
+<li>Explicitly locks a table.</li>
+</ol>
+<p>Not part of the SQL standard.</p>
+<ul>
+<li>
+<p>Postgres/DB2/Oracle Modes: <strong>SHARE</strong>, <strong>EXCLUSIVE</strong></p>
+</li>
+<li>
+<p>MySQL Modes: <strong>READ</strong>, <strong>WRITE</strong></p>
+</li>
+</ul>
+<ol start="2">
+<li>Perform a select and then sets an exclusive lock on the matching tuples.</li>
+</ol>
+<p>Can also set shared locks:</p>
+<ul>
+<li>
+<p>Postgres: <strong>FOR SHARE</strong></p>
+</li>
+<li>
+<p>MySQL: <strong>LOCK IN SHARE MODE</strong></p>
+</li>
+</ul>
+<h1 id="17-timestamp-ordering">17. Timestamp Ordering</h1>
+<p><strong>Readings:</strong> Chapter 15.4-15.5</p>
+<p>Every object Xis tagged with timestamp of the last transactions that successfully did read/write:</p>
+<ul>
+<li>
+<p>W-TS(X)–Write timestamp on X</p>
+</li>
+<li>
+<p>R-TS(X)–Read timestamp on X</p>
+</li>
+</ul>
+<p>Check timestamps for every operation:</p>
+<ul>
+<li>If transactions tries to access an object &ldquo;from the future&rdquo;, it aborts and restarts.</li>
+</ul>
+<blockquote>
+<p>Read</p>
+</blockquote>
+<p>If $TS(T_{i}) &lt; W-TS(X)$, this violates timestamp
+order of $T_{i}$ with regard to the writer of $X$.</p>
+<ul>
+<li>Abort $T_{i}$ and restart it with a new TS.</li>
+</ul>
+<p>Else:</p>
+<ul>
+<li>Allow $T_{i}$ to read $X$.</li>
+<li>Update $R-TS(X)$ to $max(R-TS(X), TS(T_{i}))$</li>
+<li>Make a local copy of $X$ to ensure repeatable reads for $T_{i}$.</li>
+</ul>
+<blockquote>
+<p>write</p>
+</blockquote>
+<p>If $TS(T_{i})&lt; R-TS(X)$ or $TS(T_{i})&lt; W-TS(X)$</p>
+<ul>
+<li>Abort and restart $T_{i}$.</li>
+</ul>
+<p>Else:</p>
+<ul>
+<li>Allow Tito write Xand update $W-TS(X)$</li>
+<li>Thomas Write Rule: Ignore the write to allow the transactions to continue executing without aborting.</li>
+<li>Also make a local copy of Xto ensure repeatable reads.</li>
+</ul>
+<blockquote>
+<p>Thomas Write Rule</p>
+</blockquote>
+<p>Generates a schedule that is conflict serializable
+if you do not use the Thomas Write Rule.</p>
+<ul>
+<li>No deadlocks because no transactions ever waits.</li>
+<li>Possibility of starvation for long transactions if short transactions keep causing conflicts.</li>
+</ul>
+<blockquote>
+<p>Recoverable Schedules</p>
+</blockquote>
+<p>A schedule is <strong>recoverable</strong> if transactions scommit only after all transactions swhose changes they read, commit.</p>
+<p>Otherwise, the DBMS cannot guarantee that transactions read data that will be restored after recovering from a crash.</p>
+<p>High overhead from copying data to transactions&rsquo;s workspace and from updating timestamps.</p>
+<p>Long running transactions can get starved.</p>
+<ul>
+<li>The likelihood that a transactions will read something from a newer transactions increases.</li>
+</ul>
+<blockquote>
+<p>Optimistic Concurrency Control</p>
+</blockquote>
+<p><strong>#1 –Read Phase</strong>:</p>
+<ul>
+<li>Track the read/write sets of transactions and store their writes in a private workspace.</li>
+<li>The DBMS copies every tuple that the transactions accesses from the shared database to its workspace ensure repeatable reads.</li>
+</ul>
+<p><strong>#2 –Validation Phase</strong>:</p>
+<ul>
+<li>
+<p>When a transactions commits, check whether it conflicts with other transactions s.</p>
+</li>
+<li>
+<p>When transactions $T_i$ invokes <strong>COMMIT</strong>, the DBMS checks if it conflicts with other transactions s.</p>
+<ul>
+<li>
+<p>The DBMS needs to guarantee only serializable schedules are permitted.</p>
+</li>
+<li>
+<p>Checks other transactions sfor RW and WW conflicts and ensure that conflicts are in one direction (e.g., older-  younger).</p>
+</li>
+</ul>
+<p>Two methods for this phase:</p>
+<ul>
+<li>
+<p>Backward Validation</p>
+</li>
+<li>
+<p>Forward Validation</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Backword: Check whether the committing transactions intersects its read/write sets with those of any transactions sthat have <strong>already</strong> committed.</p>
+</li>
+<li>
+<p>Forward: Check whether the committing transactions intersects its read/write sets with any active transactions sthat have <strong>not</strong> yet committed.</p>
+</li>
+</ul>
+<p><strong>#3 –Write Phase:</strong></p>
+<ul>
+<li>If validation succeeds, apply private changes to database. Otherwise abort and restart the transactions .</li>
+</ul>
+<h1 id="18-multi-version-concurrency-control">18. Multi-Version Concurrency Control</h1>
+<p><strong>Readings:</strong> Chapter 15.6-15.7</p>
+<p>The DBMS maintains multiple <strong>physical</strong> versions of a single <strong>logical</strong> object in the database:</p>
+<ul>
+<li>
+<p>When a transactions writes to an object, the DBMS creates a new version of that object.</p>
+</li>
+<li>
+<p>When a transactions reads an object, it reads the newest version that existed when the transactions started.</p>
+</li>
+</ul>
+<p><em><strong>Writers do not block readers. Readers do not block writers.</strong></em></p>
+<p>Read-only transactions scan read a consistent snapshotwithout acquiring locks.</p>
+<ul>
+<li>Use timestamps to determine visibility.</li>
+</ul>
+<p>Easily support time-travelqueries.</p>
+<p>MVCC is more than just a concurrency control protocol. It completely affects how the DBMS manages transactions and the database.</p>
+<blockquote>
+<p>Concurrency Control</p>
+</blockquote>
+<p><strong>Approach #1: Timestamp Ordering</strong></p>
+<ul>
+<li>Assign transactions stimestamps that determine serial order.</li>
+</ul>
+<p><strong>Approach #2: Optimistic Concurrency Control</strong></p>
+<ul>
+<li>
+<p>Three-phase protocol from last class.</p>
+</li>
+<li>
+<p>Use private workspace for new versions.</p>
+</li>
+</ul>
+<p><strong>Approach #3: Two-Phase Locking</strong></p>
+<blockquote>
+<p>Version Storage</p>
+</blockquote>
+<ul>
+<li>transactions acquire appropriate lock on physical version before they can read/write a logical tuple.</li>
+</ul>
+<p>The DBMS uses the tuples&rsquo; pointer field to create a <strong>version chain</strong> per logical tuple.</p>
+<ul>
+<li>
+<p>This allows the DBMS to find the version that is visible to a particular transactions at runtime.</p>
+</li>
+<li>
+<p>Indexes always point to the &ldquo;head&rdquo; of the chain.</p>
+</li>
+</ul>
+<p><strong>Approach #1: Append-Only Storage</strong></p>
+<ul>
+<li>New versions are appended to the same table space.</li>
+</ul>
+<p><strong>Approach #2: Time-Travel Storage</strong></p>
+<ul>
+<li>Old versions are copied to separate table space.</li>
+</ul>
+<p><strong>Approach #3: Delta Storage</strong></p>
+<ul>
+<li>The original values of the modified attributes are copied into a separate delta record space.</li>
+</ul>
+<p>Different storage schemes determine where/what to store for each version.</p>
+<blockquote>
+<p>GC</p>
+</blockquote>
+<p>Tuple Level:</p>
+<p><strong>Background Vacuuming:</strong> Separate thread(s) periodically scan the table and look for reclaimable versions. Works with any storage.</p>
+<p><strong>Cooperative Cleaning:</strong> Worker threads identify reclaimable versions as they traverse version chain. Only works with O2N.</p>
+<p>Transaction Level:</p>
+<p>Each transactions keeps track of its read/write set.</p>
+<p>The DBMS determines when all versions created by a finished transactions are no longer visible.</p>
+<p>May still require multiple threads to reclaim the memory fast enough for the workload.</p>
+<blockquote>
+<p>MVCC Indexes</p>
+</blockquote>
+<p>Each index&rsquo;s underlying data structure must support the storage of non-unique keys.</p>
+<p>Use additional execution logic to perform conditional inserts for pkey/ unique indexes.</p>
+<ul>
+<li>Atomically check whether the key exists and then insert.</li>
+</ul>
+<p>Workers may get back multiple entries for a single fetch. They then must follow the pointers to find the proper physical version.</p>
+<blockquote>
+<p>Implementations</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Protocol</strong></th>
+<th><strong>VersionStorage</strong></th>
+<th><strong>GarbageCollection</strong></th>
+<th><strong>Indexes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oracle</td>
+<td><strong>MV2PL</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>Postgres</td>
+<td><strong>MV-2PL/MV-TO</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>MySQL-InnoDB</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>HYRISE</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>–</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>Hekaton</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Cooperative</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>MemSQL</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Physical</strong></td>
+</tr>
+<tr>
+<td>SAP HANA</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Time-travel</strong></td>
+<td><strong>Hybrid</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>NuoDB</td>
+<td><strong>MV-2PL</strong></td>
+<td><strong>Append-Only</strong></td>
+<td><strong>Vacuum</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>HyPer</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>transactions -level</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+<tr>
+<td>NoisePage</td>
+<td><strong>MV-OCC</strong></td>
+<td><strong>Delta</strong></td>
+<td><strong>transactions -level</strong></td>
+<td><strong>Logical</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="19-logging-protocols--schemes">19. Logging Protocols + Schemes</h1>
+<p><strong>Readings:</strong> Chapter 16.1-16.7</p>
+<p>Recovery algorithms are techniques to ensure database consistency, transaction atomicity, and durability despite failures.</p>
+<p>Recovery algorithms have two parts:</p>
+<ul>
+<li>
+<p>Actions during normal transactions processing to ensure that the DBMS can recover from a failure.</p>
+</li>
+<li>
+<p>Actions after a failure to recover the database to a state that ensures atomicity, consistency, and durability.</p>
+</li>
+</ul>
+<blockquote>
+<p>Storage</p>
+</blockquote>
+<p><strong>Volatile Storage:</strong></p>
+<ul>
+<li>
+<p>Data does notpersist after power loss or program exit.</p>
+</li>
+<li>
+<p>Examples: DRAM, SRAM</p>
+</li>
+</ul>
+<p><strong>Non-volatile Storage:</strong></p>
+<ul>
+<li>
+<p>Data persists after power loss and program exit.</p>
+</li>
+<li>
+<p>Examples: HDD, SDD</p>
+</li>
+</ul>
+<p><strong>Stable Storage:</strong></p>
+<ul>
+<li>A non-existentform of non-volatile storage that survives all possible failures scenarios.</li>
+</ul>
+<blockquote>
+<p>Redo vs Undo</p>
+</blockquote>
+<p><strong>Undo</strong>: The process of removing the effects of an incomplete or aborted transactions .</p>
+<p><strong>Redo</strong>: The process of re-instating the effects of a committed transactions for durability.</p>
+<p>How the DBMS supports this functionality depends on how it manages the buffer pool.</p>
+<p>Whether the DBMS allows an uncommitted transactions to overwrite the most recent committed value of an object in non-volatile storage.</p>
+<p><strong>STEAL</strong>: Is allowed.</p>
+<p><strong>NO-STEAL</strong>: Is notallowed.</p>
+<p>Whether the DBMS requires that all updates made by a transactions are reflected on non-volatile storage before the transactions can commit.</p>
+<p><strong>FORCE</strong>: Is required.</p>
+<p><strong>NO-FORCE</strong>: Is notrequired.</p>
+<p>This approach is the easiest to implement:</p>
+<ul>
+<li>
+<p>Never have to undochanges of an aborted transactions because the changes were not written to disk.</p>
+</li>
+<li>
+<p>Never have to redo changes of a committed transactions because all the changes are guaranteed to be written to disk at commit time (assuming atomic hardware writes).</p>
+</li>
+</ul>
+<p>Previous example cannot support <strong>write sets</strong> that exceed the amount of physical memory available.</p>
+<blockquote>
+<p>Shaow pages</p>
+</blockquote>
+<p>To install the updates, overwrite the root so it points to the shadow, thereby swapping the master and shadow:</p>
+<ul>
+<li>
+<p>Before overwriting the root, none of the transactions &lsquo;supdates are part of the disk-resident database</p>
+</li>
+<li>
+<p>After overwriting the root, all the transactions &lsquo;supdates are part of the disk-resident database.</p>
+</li>
+</ul>
+<p>Supporting rollbacks and recovery is easy.</p>
+<p><strong>Undo</strong>: Remove the shadow pages. Leave the master and the DB root pointer alone.</p>
+<p><strong>Redo</strong>: Not needed at all.</p>
+<p>Disadvantages</p>
+<p>Copying the entire page table is expensive:</p>
+<ul>
+<li>
+<p>Use a page table structured like a B+tree.</p>
+</li>
+<li>
+<p>No need to copy entire tree, only need to copy paths in the tree that lead to updated leaf nodes.</p>
+</li>
+</ul>
+<p>Commit overhead is high:</p>
+<ul>
+<li>
+<p>Flush every updated page, page table, and root.</p>
+</li>
+<li>
+<p>Data gets fragmented.</p>
+</li>
+<li>
+<p>Need garbage collection.</p>
+</li>
+<li>
+<p>Only supports one writer transactions at a time or transactions sin a batch.</p>
+</li>
+</ul>
+<blockquote>
+<p>Write Ahead Log</p>
+</blockquote>
+<p>Maintain a log file separate from data files that contains the changes that transactions smake to database.</p>
+<ul>
+<li>
+<p>Assume that the log is on stable storage.</p>
+</li>
+<li>
+<p>Log contains enough information to perform the necessary undo and redo actions to restore the database.</p>
+</li>
+</ul>
+<p>DBMS must write to disk the log file records that correspond to changes made to a database object <strong>before</strong>it can flush that object to disk.</p>
+<p>Buffer Pool Policy: <strong>STEAL</strong>+ <strong>NO-FORCE</strong></p>
+<p>The DBMS stages all a transactions &lsquo;slog records in volatile storage (usually backed by buffer pool).</p>
+<p>All log records pertaining to an updated page are written to non-volatile storage beforethe page itself is over-written in non-volatile storage.</p>
+<p>A transactions is not considered committed until allits log records have been written to stable storage.</p>
+<p><em>When should the DBMS write log entries to disk?</em></p>
+<ul>
+<li>
+<p>When the transaction commits.</p>
+</li>
+<li>
+<p>Can use group committo batch multiple log flushes together to amortize overhead.</p>
+</li>
+</ul>
+<p><em>When should the DBMS write dirty records to disk?</em></p>
+<ul>
+<li>
+<p>Every time the transactions executes an update?</p>
+</li>
+<li>
+<p>Once when the transactions commits?</p>
+</li>
+</ul>
+<blockquote>
+<p>Logging Schemes</p>
+</blockquote>
+<p>Logical logging requires less data written in each log record than physical logging.</p>
+<p>Difficult to implement recovery with logical logging if you have concurrent transactions s.</p>
+<ul>
+<li>
+<p>Hard to determine which parts of the database may have been modified by a query before crash.</p>
+</li>
+<li>
+<p>Also takes longer to recover because you must re-execute every transactions all over again.</p>
+</li>
+</ul>
+<p>Hybrid approach where log records target a single page but do not specify organization of the page.</p>
+<ul>
+<li>
+<p>Identify tuples based on their slot number.</p>
+</li>
+<li>
+<p>Allows DBMS to reorganize pages after a log record has been written to disk.</p>
+</li>
+</ul>
+<p>This is the most popular approach.</p>
+<blockquote>
+<p>Check Points</p>
+</blockquote>
+<p>The WAL will grow forever.</p>
+<p>After a crash, the DBMS must replay the entire log, which will take a long time.</p>
+<p>The DBMS periodically takes a checkpoint where it flushes all buffers out to disk.</p>
+<p>Output onto stable storage all log records currently residing in main memory.</p>
+<p>Output to the disk all modified blocks.</p>
+<p>Write a &lt;CHECKPOINT&gt; entry to the log and flush to stable storage.</p>
+<p>Checkpointing too often causes the runtime performance to degrade.</p>
+<ul>
+<li>System spends too much time flushing buffers.</li>
+</ul>
+<p>But waiting a long time is just as bad:</p>
+<ul>
+<li>
+<p>The checkpoint will be large and slow.</p>
+</li>
+<li>
+<p>Makes recovery time much longer.</p>
+</li>
+</ul>
+<h1 id="20-crash-recovery">20. Crash Recovery</h1>
+<p><strong>Readings:</strong> Chapter 16.1-16.8</p>
+<p><strong>A</strong>lgorithms for <strong>R</strong>ecovery and <strong>I</strong>solation <strong>E</strong>xploiting <strong>S</strong>emantics</p>
+<p><strong>Write-Ahead Logging:</strong></p>
+<ul>
+<li>
+<p>Any change is recorded in log on stable storage before the database change is written to disk.</p>
+</li>
+<li>
+<p>Must use <strong>STEAL</strong>+ <strong>NO-FORCE</strong> buffer pool policies.</p>
+</li>
+</ul>
+<p><strong>Repeating History During Redo:</strong></p>
+<ul>
+<li>On restart, retrace actions and restore database to exact state before crash.</li>
+</ul>
+<p><strong>Logging Changes During Undo:</strong></p>
+<ul>
+<li>Record undo actions to log to ensure action is not repeated in the event of repeated failures.</li>
+</ul>
+<blockquote>
+<p>WAL Records</p>
+</blockquote>
+<p>Every log record now includes a globally unique <strong>log sequence number</strong>(LSN).</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Where</strong></th>
+<th><strong>Definition</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flushedLSN</td>
+<td>Memory</td>
+<td>Last LSN in log on disk</td>
+</tr>
+<tr>
+<td>pageLSN</td>
+<td>$page_x$</td>
+<td>Newest update to $page_x$</td>
+</tr>
+<tr>
+<td>recLSN</td>
+<td>$page_x$</td>
+<td>Oldest update to $page_x$ since it was last flushed</td>
+</tr>
+<tr>
+<td>lastLSN</td>
+<td>$T_i$</td>
+<td>Latest record of transactions $T_i$</td>
+</tr>
+<tr>
+<td>MasterRecord</td>
+<td>Disk</td>
+<td>LSN of latest checkpoint</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each data page contains a pageLSN.</p>
+<ul>
+<li>The <strong>LSN</strong> of the most recent update to that page.</li>
+</ul>
+<p>System keeps track of flushedLSN.</p>
+<ul>
+<li>The max <strong>LSN</strong> flushed so far.</li>
+</ul>
+<p>Before page xcan be written to disk, we must flush log at least to the point where:</p>
+<ul>
+<li>$pageLSN_x ≤ flushedLSN$</li>
+</ul>
+<blockquote>
+<p>Transaction Commit</p>
+</blockquote>
+<p>Write COMMITrecord to log.</p>
+<p>All log records up to transactions&rsquo; COMMIT record are flushed to disk.</p>
+<ul>
+<li>
+<p>Log flushes are sequential, synchronous writes to disk.</p>
+</li>
+<li>
+<p>Many log records per log page.</p>
+</li>
+</ul>
+<p>When the commit succeeds, write a special transactions&rsquo; END record to log.</p>
+<ul>
+<li>This does notneed to be flushed immediately.</li>
+</ul>
+<p>A <strong>CLR</strong> describes the actions taken to undo the actions of a previous update record.</p>
+<p>It has all the fields of an update log record plus the undoNextpointer (the next-to-be-undone LSN).</p>
+<p><strong>CLRs</strong> are added to log records but the DBMS does not wait for them to be flushed before notifying the application that the transactions aborted.</p>
+<blockquote>
+<p>NON-FUZZY CHECKPOINTS</p>
+</blockquote>
+<p>The DBMS halts everything when it takes a checkpoint to ensure a consistent snapshot:</p>
+<ul>
+<li>
+<p>Halt the start of any new transactions s.</p>
+</li>
+<li>
+<p>Wait until all active transactions sfinish executing.</p>
+</li>
+<li>
+<p>Flushes dirty pages on disk.</p>
+</li>
+</ul>
+<p>This is bad for runtime performance but makes recovery easy.</p>
+<p>SLIGHTLY BETTER CHECKPOINTS</p>
+<p>Pause modifying transactions swhile the DBMS takes the checkpoint.</p>
+<ul>
+<li>
+<p>Prevent queries from acquiring write latch on table/index pages.</p>
+</li>
+<li>
+<p>Don&rsquo;t have to wait until all transactions sfinish before taking the checkpoint.</p>
+</li>
+</ul>
+<p>We must record internal state as of the beginning of the checkpoint.</p>
+<ul>
+<li>
+<p><strong>Active Transaction Table (ATT)</strong></p>
+</li>
+<li>
+<p><strong>Dirty Page Table (DPT)</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>ACTIVE TRANSACTION TABLE</p>
+</blockquote>
+<p>One entry per currently active transactions .</p>
+<ul>
+<li>
+<p>transactions Id: Unique transactions identifier.</p>
+</li>
+<li>
+<p>status: The current &ldquo;mode&rdquo; of the transactions .</p>
+</li>
+<li>
+<p>lastLSN: Most recent <strong>LSN</strong> created by transactions .</p>
+</li>
+</ul>
+<p>Entry removed after the transactions -END message.</p>
+<p>transactions Status Codes:</p>
+<p>R: Running</p>
+<p>C: Committing</p>
+<p>U: Candidate for Undo</p>
+<p>A <strong>fuzzy checkpoint</strong> is where the DBMS allows active transactions sto continue the run while the system writes the log records for checkpoint.</p>
+<ul>
+<li>No attempt to force dirty pages to disk.</li>
+</ul>
+<p>New log records to track checkpoint boundaries:</p>
+<ul>
+<li>
+<p>CHECKPOINT-BEGIN: Indicates start of checkpoint</p>
+</li>
+<li>
+<p>CHECKPOINT-END: Contains <strong>ATT</strong>+ <strong>DPT</strong>.</p>
+</li>
+</ul>
+<blockquote>
+<p>ARIES</p>
+</blockquote>
+<p>Start from last BEGIN-CHECKPOINTfound via MasterRecord.</p>
+<p><strong>Analysis:</strong> Figure out which transactions scommitted or failed since checkpoint.</p>
+<p><strong>Redo:</strong> Repeat allactions.</p>
+<p><strong>Undo:</strong> Reverse effects of failed transactions s.</p>
+<h1 id="21-distributed-databases">21. Distributed Databases</h1>
+<p><strong>Approach #1: Homogenous Nodes</strong></p>
+<ul>
+<li>Every node in the cluster can perform the same set of tasks (albeit on potentially different partitions of data).</li>
+<li>Makes provisioning and failover &ldquo;easier&rdquo;.</li>
+</ul>
+<p><strong>Approach #2: Heterogenous Nodes</strong></p>
+<ul>
+<li>
+<p>Nodes are assigned specific tasks.</p>
+</li>
+<li>
+<p>Can allow a single physical node to host multiple &ldquo;virtual&rdquo; node types for dedicated tasks.</p>
+</li>
+</ul>
+<p>For User, it is Transparent. Users should not be required to know where data is physically located, how tables are <strong>partitioned</strong> or <strong>replicated</strong>.</p>
+<p>Split a table&rsquo;s tuples into disjoint subsets.</p>
+<ul>
+<li>
+<p>Choose column(s) that divides the database equally in terms of size, load, or usage.</p>
+</li>
+<li>
+<p>Hash Partitioning, Range Partitioning</p>
+</li>
+</ul>
+<p>The DBMS can partition a database <strong>physically</strong>(shared nothing) or <strong>logically</strong> (shared disk).</p>
+<blockquote>
+<p>TP Monitors</p>
+</blockquote>
+<p>A <strong>TP Monitor</strong> is an example of a centralized coordinator for distributed DBMSs.</p>
+<p>Originally developed in the 1970-80s to provide transactions between terminals and mainframe databases.</p>
+<ul>
+<li>Examples: ATMs, Airline Reservations.</li>
+</ul>
+<p>Many DBMSs now support the same functionality internally.</p>
+<h1 id="22-distributed-oltp">22. Distributed OLTP</h1>
+<p>If you do nottrust the other nodes in a distributed DBMS, then you need to use a Byzantine Fault Tolerantprotocol for transactions(blockchain).</p>
+<p>When a multi-node transaction finishes, the DBMS needs to ask all the nodes involved whether it is safe to commit.</p>
+<blockquote>
+<p>2PC Optimizations</p>
+</blockquote>
+<p><strong>Early Prepare Voting</strong></p>
+<ul>
+<li>If you send a query to a remote node that you know will be the last one you execute there, then that node will also return their vote for the prepare phase with the query result.</li>
+</ul>
+<p><strong>Early Acknowledgement After Prepare</strong></p>
+<ul>
+<li>If all nodes vote to commit a transaction, the coordinator can send the client an acknowledgement that their transaction was successful before the commit phase finishes.</li>
+</ul>
+<p>Blocks if coordinator fails after the prepare message is sent, until coordinator recovers.</p>
+<blockquote>
+<p>PAXOS</p>
+</blockquote>
+<p>If the system elects a single leader that oversees proposing changes for some period, then it can skip the <strong>Propose</strong> phase.</p>
+<ul>
+<li>Fall back to full Paxoswhenever there is a failure.</li>
+</ul>
+<p>The system periodically renews who the leader is using another Paxosround.</p>
+<ul>
+<li>Nodes must exchange log entries during leader election to make sure that everyone is up-to-date.</li>
+</ul>
+<p>Non-blocking if a majority participants are alive, provided there is a sufficiently long period without further failures.</p>
+<h1 id="23-distributed-olap">23. Distributed OLAP</h1>
+<p>Most shared-nothing distributed OLAP DBMSs are designed to assume that nodes do not fail during query execution.</p>
+<ul>
+<li>If one node fails during query execution, then the whole query fails.</li>
+</ul>
+<p>The DBMS could take a snapshot of the intermediate results for a query during execution to allow it to recover if nodes fail.</p>
+<p>All the optimizations that we talked about before are still applicable in a distributed environment.</p>
+<ul>
+<li>
+<p>Predicate Pushdown</p>
+</li>
+<li>
+<p>Early Projections</p>
+</li>
+<li>
+<p>Optimal Join Orderings</p>
+</li>
+</ul>
+<p>Distributed query optimization is even harder because it must consider the physical location of data and network transfer costs.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/database/">DataBase</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
+    >Licensed under CC BY-NC-SA 4.0</a></span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/tinysql-implementation/">
+        
+        
+            <div class="article-image">
+                <img src="/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TinySQL Implementation"
+                        
+                        data-hash="md5-M9w/Cze7g9zZBu/1q&#43;VXAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinySQL Implementation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/distributed-transaction/">
+        
+        
+            <div class="article-image">
+                <img src="/post/distributed-transaction/saga.c832084d988877bcb534ecb4fadd6215_hu6e13a83e426eecead9676ebbb90e90b9_79808_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Distributed Transaction"
+                        
+                        data-hash="md5-yDIITZiId7y1NOy0&#43;t1iFQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Distributed Transaction</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/gorm-source-code/">
+        
+        
+            <div class="article-image">
+                <img src="/post/gorm-source-code/gorm.93f1c81cb7a88c0e1920d1246857dcf7_huf43c23aaba4e097a63ec0037d5296908_43864_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Gorm Source Code"
+                        
+                        data-hash="md5-k/HIHLeojA4ZINEkaFfc9w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Gorm Source Code</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/amend-hugo-theme-even/">
+        
+        
+            <div class="article-image">
+                <img src="/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Amend Hugo Theme Even"
+                        
+                        data-hash="md5-T2OJEh5E76YCf4utRtmy2A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Amend Hugo Theme Even</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/about-computer-science/">
+        
+        
+            <div class="article-image">
+                <img src="/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post About Computer Science"
+                        
+                        data-hash="md5-tuiBEKC2chin64susIMt9Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">About Computer Science</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Chasing1020/Chasing1020.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2023 Chasing&#39;s blog
+    </section>
+    
+    <section class="powerby">
+        
+            I just want a peaceful life without troubles <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CDYPFNXQDZ');
+</script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>

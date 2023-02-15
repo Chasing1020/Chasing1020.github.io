@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写'>
+<title>Concurrency Programming</title>
+
+<link rel='canonical' href='https://chasing1020.github.io/post/concurrency-programming/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3b649326d90b695e08fa0725ec8adf6ad76cb19fcc1b8379c0021a110a9104c.css"><meta property='og:title' content='Concurrency Programming'>
+<meta property='og:description' content='1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写'>
+<meta property='og:url' content='https://chasing1020.github.io/post/concurrency-programming/'>
+<meta property='og:site_name' content='Chasing&#39;s blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2021-12-05T14:16:11&#43;08:00'/><meta property='article:modified_time' content='2021-12-05T14:16:11&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/concurrency-programming/philosophers.webp' />
+<meta name="twitter:site" content="@Chasing1020">
+    <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="Concurrency Programming">
+<meta name="twitter:description" content="1. Implements volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。 保证了1. 保证缓存行的数据写回内存；2. 写"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://chasing1020.github.io/post/concurrency-programming/philosophers.webp' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🖥️</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h2 class="site-description">Why there is a universe?</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Chasing1020'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Chasing1020'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://t.me/Chasing1020'
+                        target="_blank"
+                        title="Telegram"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:chasing1020@gmail.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <rect x="3" y="5" width="18" height="14" rx="2" />
+  <polyline points="3 7 12 13 21 7" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+      
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-implements">1. Implements</a></li>
+    <li><a href="#2-memory-model">2. Memory Model</a></li>
+    <li><a href="#3-basic">3. Basic</a></li>
+    <li><a href="#4-lock">4. Lock</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/concurrency-programming/">
+                <img src="/post/concurrency-programming/philosophers_hu135b0dfdb273b3f01121dcaaaebb65d0_49918_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/post/concurrency-programming/philosophers_hu135b0dfdb273b3f01121dcaaaebb65d0_49918_800x0_resize_q75_h2_box_2.webp 800w, /post/concurrency-programming/philosophers_hu135b0dfdb273b3f01121dcaaaebb65d0_49918_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="452" 
+                        loading="lazy"
+                        alt="Featured image of post Concurrency Programming" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/concurrency-programming/">Concurrency Programming</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 05, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1-implements">1. Implements</h1>
+<p>volatile：声明后所有线程看到的改变量的值是一样的。写操作时，会添加Lock前缀的汇编。</p>
+<p>保证了1. 保证缓存行的数据写回内存；2. 写回的操作会使其他缓存失效。</p>
+<p>synchronized：普通的方法，锁是实例；静态同步方法，锁是Class；同步方法块，锁是括号里的对象。</p>
+<p>锁保存在对象头，如果是数组，则用三个字宽保存对象头，非数组则用两个自宽保存对象头。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>长度</th>
+<th>内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32bit/64bit</td>
+<td>Mark Word</td>
+<td>存储对象的hashCode或者是锁信息</td>
+</tr>
+<tr>
+<td>32bit/64bit</td>
+<td>Class Metadata Address</td>
+<td>存储到对象类型的指针</td>
+</tr>
+<tr>
+<td>32bit/64bit</td>
+<td>Array Length</td>
+<td>数组的长度，（非数组无该字段）</td>
+</tr>
+</tbody>
+</table></div>
+<p>32位下对象头的存储结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|----------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                    Object Header (64 bits)                             |        State       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                  Mark Word (32 bits)                  |      Klass Word (32 bits)      |                    |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| identity_hashcode:25 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Normal       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|  thread:23 | epoch:2 | age:4 | biased_lock:1 | lock:2 |      OOP to metadata object    |       Biased       |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|               ptr_to_lock_record:30          | lock:2 |      OOP to metadata object    | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|               ptr_to_heavyweight_monitor:30  | lock:2 |      OOP to metadata object    | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                              | lock:2 |      OOP to metadata object    |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|-------------------------------------------------------|--------------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit</th>
+<th>4bit</th>
+<th>1bit</th>
+<th>2bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>对象的hashCode</td>
+<td>对象分代年龄</td>
+<td>是否是偏向锁</td>
+<td>锁标志位</td>
+</tr>
+</tbody>
+</table></div>
+<p>64位下对象头的存储结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|------------------------------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                            Object Header (128 bits)                                        |        State       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                  Mark Word (64 bits)                         |    Klass Word (64 bits)     |                    |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| unused:25 | identity_hashcode:31 | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| thread:54 |       epoch:2        | unused:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                       ptr_to_lock_record:62                         | lock:2 |    OOP to metadata object   | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                     ptr_to_heavyweight_monitor:62                   | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                                                     | lock:2 |    OOP to metadata object   |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>锁状态</th>
+<th>25bit</th>
+<th>31bit</th>
+<th>1bit</th>
+<th>4bit</th>
+<th>1bit</th>
+<th>2bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>状态</td>
+<td>unused</td>
+<td>对象的hashCode</td>
+<td>cms_free</td>
+<td>对象分代年龄</td>
+<td>是否偏向锁</td>
+<td>锁标志位</td>
+</tr>
+</tbody>
+</table></div>
+<p>可以设置参数-XX:+UseCompressedOops，来进行压缩，参考32bit的PAE实现，可以使JVM的内存超过4G，但不超过32G（超过32G，可以使用-XX:ObjectAlignmentInBytes，来限制压缩的大小，如当对象对齐为 16 字节时，最多可以使用 64 GB 的堆空间和压缩指针），经过压缩后：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">|--------------------------------------------------------------------------------------------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                            Object Header (96 bits)                                           |        State       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                  Mark Word (64 bits)                           |    Klass Word (32 bits)     |                    |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| unused:25 | identity_hashcode:31 | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Normal       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">| thread:54 |       epoch:2        | cms_free:1 | age:4 | biased_lock:1 | lock:2 |    OOP to metadata object   |       Biased       |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                         ptr_to_lock_record                            | lock:2 |    OOP to metadata object   | Lightweight Locked |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                     ptr_to_heavyweight_monitor                        | lock:2 |    OOP to metadata object   | Heavyweight Locked |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span><span class="line"><span class="cl">|                                                                       | lock:2 |    OOP to metadata object   |    Marked for GC   |
+</span></span><span class="line"><span class="cl">|--------------------------------------------------------------------------------|-----------------------------|--------------------|
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>偏向锁：大多数情况下，没有锁竞争，偏向锁在等到竞争时才会释放锁。有竞争时 ，会在全局安全点撤销偏向锁。</p>
+<p>使用-XX:BiasedeLoackingStartupDelay=0，如果大多数锁处于竞争状态，可以使用-XX:UseBiasedLocking=false关闭，这样程序会默认进入轻量级锁的状态。</p>
+<p>轻量级锁：使用CAS操作Mark Word，如果成功，就获得锁；释放时，CAS如果失败，就升级到重量级锁。</p>
+<p>重量级锁：在这个状态下，所有获取锁的操作都会被阻塞，持有锁的线程释放后会唤醒这些线程。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>锁</th>
+<th>优点</th>
+<th>缺点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>偏向锁</td>
+<td>加锁不用额外消耗，效率接近非同步方法</td>
+<td>如果有锁竞争，会带来撤销消耗</td>
+<td>只有一个线程访问的场景</td>
+</tr>
+<tr>
+<td>轻量级锁</td>
+<td>线程不会阻塞，提高相应速度</td>
+<td>得不到锁竞争的线程会自旋消耗CPU</td>
+<td>追求响应时间，执行速度快</td>
+</tr>
+<tr>
+<td>重量级锁</td>
+<td>线程竞争不用自旋，不会消耗CPU</td>
+<td>线程阻塞，响应时间缓慢</td>
+<td>追求吞吐量，同步块执行速度较长</td>
+</tr>
+</tbody>
+</table></div>
+<p>ABA问题解决：采用AtomicStampedReference来解决，判断是否时等于预期引用和预期标志，两个都成功则设置。</p>
+<h1 id="2-memory-model">2. Memory Model</h1>
+<p>编译器优化重排序：不改变单线程程序语义的情况下，重新安排顺序。</p>
+<p>指令级并行的重排序：指令级并行技术（Instruction-Level Parallelism），如果不存在数据依赖性，可以改变指令执行的顺序。</p>
+<p>内存系统的重排序：读/写缓冲区，使得读写操作可能的乱序。</p>
+<p>屏障类型：LoadLoadBarriers，StoreStoreBarriers，LoadStoreBarriers，StoreLoadBarriers</p>
+<p>其中StoreLoadBarriers拥有其他三个屏障的效果，作为全能型屏障。这个屏障开销昂贵，需要将写缓冲的数据全部刷新到内存中。</p>
+<p>JDK5开始，采用JSR133原则，使用happens-before来解释内存的可见性：</p>
+<ol>
+<li>程序顺序规则：一个线程中的每一个操作，happens-before于后边的操作</li>
+<li>监视器锁规则：解锁操作happens-before于上锁操作</li>
+<li>volatile变量规则：对volatile修饰变量的写操作，happens-before于读操作</li>
+<li>传递性：A happens-before B，B happens-before C，则有A happens-before C</li>
+</ol>
+<p>数据依赖性：对同一个变量的写写，写读，读写操作，存在数据依赖，编译器和处理器会遵守数据依赖性。</p>
+<p>as-if-serial：排序结果不能影响本来的执行结果。编译器，runtime，处理器都会遵守。</p>
+<p>JMM不保证对64位的long和double类型的写操作具有原子性，会把64位的写操作拆成两个32位的操作，虽然这违反了顺序一致性模型。</p>
+<p>volatile的写操作前面加StoreStore屏障，后面加StoreLoad屏障；</p>
+<p>volatile的写操作后面加LoadLoad屏障，后面加LoadStore屏障。编译器能够通过具体情况省略不必要的屏障。</p>
+<p>Java同步器框架AbstractQueuedSynchronizer。</p>
+<p>final域保证构造函数内的final域的写入和引用赋值给另一个引用变量这个操作不可以重排序；第一次读final域对象的引用和读取final域中的操作不能重排序。</p>
+<p>构造函数final域的写操作，在return前，会插入StoreStore屏障，读final域前会加上LoadLoad屏障，禁止final的写操作重排序到构造函数之外。保证了final读取到的值不会发生改变。</p>
+<p>双重锁检查的机制instance = new Instance();实际上会被拆成三行伪代码，在2，3之间会可能发生重排序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">memory</span> <span class="o">=</span> <span class="n">allocate</span><span class="o">();</span>  <span class="c1">// 1. 分配对象的内存空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ctorInstance</span><span class="o">(</span><span class="n">memory</span><span class="o">);</span> <span class="c1">// 2. 初始化对象，完成后instance != null
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">instance</span> <span class="o">=</span> <span class="n">memory</span><span class="o">;</span>    <span class="c1">// 3. 设置instance指向刚分配的内存地址
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>回顾类加载的时机：<strong>加载</strong>（通过全限定名获取二进制字节流，转化为方法区运行时数据结构，生成java.lang.Class对象），<strong>验证</strong>（文件格式，元数据，字节码，符号引用），<strong>准备</strong>（正式分配内存并且初始化值，对应上述代码的1，2步骤），<strong>解析</strong>（将常量池的符号引用替换为直接引用；符号引用就是一组符号来描述目标，可以是任何字面量。<strong>直接引用</strong>就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄。），<strong>初始化</strong>（初始化阶段是执行初始化方法 &lt;clinit&gt; ()方法的过程，对静态变量/代码块进行初始化，会保证多线程安全性），使用，卸载。</p>
+<p>使用volatile后，可以防止2，3之间的重排序。</p>
+<h1 id="3-basic">3. Basic</h1>
+<p>suspend(), resume(), stop()标记为deprecated，调用后不一定会释放占有的资源。</p>
+<p>使用wait(), notify(), notifyAll()之前需要对调用对象加锁。</p>
+<p>管道输入输出流，输出与输入进行绑定</p>
+<h1 id="4-lock">4. Lock</h1>
+<p>AbstractQueuedSynchronizer通过内置的FIFO来实现资源获取线程的排队工作。</p>
+<p>当前线程信息和等待状态构造成一个结点，加入队列，同时阻塞线程。同步状态释放时，首结点中的线程将会被唤醒。在尾部加入时，采用CAS判断插入到“应该插入的位置”。</p>
+<p>acquire(int arg)获取同步状态，对中断不敏感。读acquiredShared获取共享式的同步状态。</p>
+<p>重入锁在获取n次，并释放n次后，其他线程能够获取到该锁，默认非公平，通过组合自定义同步器来实现锁的获取与释放。</p>
+<p>读写锁，写状态位S&amp;0x0000FFFF，读状态为S&raquo;&gt;16，写锁相当于一个支持重进入的排他锁。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/java/">Java</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
+    >Licensed under CC BY-NC-SA 4.0</a></span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/tinysql-implementation/">
+        
+        
+            <div class="article-image">
+                <img src="/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post TinySQL Implementation"
+                        
+                        data-hash="md5-M9w/Cze7g9zZBu/1q&#43;VXAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TinySQL Implementation</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/amend-hugo-theme-even/">
+        
+        
+            <div class="article-image">
+                <img src="/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Amend Hugo Theme Even"
+                        
+                        data-hash="md5-T2OJEh5E76YCf4utRtmy2A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Amend Hugo Theme Even</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/about-computer-science/">
+        
+        
+            <div class="article-image">
+                <img src="/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post About Computer Science"
+                        
+                        data-hash="md5-tuiBEKC2chin64susIMt9Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">About Computer Science</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/compilers/">
+        
+        
+            <div class="article-image">
+                <img src="/post/compilers/Compilers.721e3e2c562aaf9810a16b67966bddd7_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Compilers"
+                        
+                        data-hash="md5-ch4&#43;LFYqr5gQoWtnlmvd1w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Compilers</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/software-engineering/">
+        
+        
+            <div class="article-image">
+                <img src="/post/software-engineering/software-engineering.d9bfa54db195d8c3d921972d913baf79_huc3bea844a9f5997f5ab40a733b4abf51_95434_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Software Engineering"
+                        
+                        data-hash="md5-2b&#43;lTbGV2MPZIZctkTuveQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Software Engineering</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Chasing1020/Chasing1020.github.io"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2019 - 
+        
+        2023 Chasing&#39;s blog
+    </section>
+    
+    <section class="powerby">
+        
+            I just want a peaceful life without troubles <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CDYPFNXQDZ');
+</script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>
