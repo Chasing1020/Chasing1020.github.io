@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://chasing1020.github.io/post/go3-common-keywords/'>
 
-<link rel="stylesheet" href="/scss/style.min.137532ecdb47b4e19cc5bd7eb181a2fac19327074071417b23a61ca467af44c5.css"><meta property='og:title' content='Go(3) Common Keywords'>
+<link rel="stylesheet" href="/scss/style.min.b4708e50bad2a81b8e52d2d03050a3bfa5fee11b93ad4620b52c896f2d864fd3.css"><meta property='og:title' content='Go(3) Common Keywords'>
 <meta property='og:description' content='Part3. Common Keyword 1. For And Range 对于所有的 range 循环，Go 语言都会在编译期将原切片或者数组赋值给一个新变量 ha，在赋值的过程中就发生了拷贝，而我们又通过 len 关键字预'>
 <meta property='og:url' content='https://chasing1020.github.io/post/go3-common-keywords/'>
 <meta property='og:site_name' content='Chasing&#39;s blog'>
@@ -1731,51 +1731,56 @@
      
     
         
-    <script src="https://utteranc.es/client.js" 
-        repo="Chasing1020/Chasing1020.github.io"
-        issue-term="pathname"
-        
-        crossorigin="anonymous"
-        async
-        >
-</script>
-
-<style>
-    .utterances {
-        max-width: unset;
-    }
-</style>
-
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Chasing1020/Chasing1020.github.io"
+    data-repo-id="R_kgDOGR5Ifw"
+    data-category="General"
+    data-category-id="DIC_kwDOGR5If84CURCm"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
 <script>
-    let utterancesLoaded = false;
-
-    function setUtterancesTheme(theme) {
-        let utterances = document.querySelector('.utterances iframe');
-        if (utterances) {
-            utterances.contentWindow.postMessage(
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
                 {
-                    type: 'set-theme',
-                    theme: `github-${theme}`
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
                 },
-                'https://utteranc.es'
+                "https://giscus.app"
             );
         }
     }
 
-    addEventListener('message', event => {
-        if (event.origin !== 'https://utteranc.es') return;
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
 
-        
-        utterancesLoaded = true;
-        setUtterancesTheme(document.documentElement.dataset.scheme)
-    });
-
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (!utterancesLoaded) return;
-        setUtterancesTheme(e.detail)
-    })
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark');
+            }
+        }
+    })();
 </script>
-
 
     
 

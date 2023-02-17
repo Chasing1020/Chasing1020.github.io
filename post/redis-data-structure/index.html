@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://chasing1020.github.io/post/redis-data-structure/'>
 
-<link rel="stylesheet" href="/scss/style.min.137532ecdb47b4e19cc5bd7eb181a2fac19327074071417b23a61ca467af44c5.css"><meta property='og:title' content='Redis Data Structure'>
+<link rel="stylesheet" href="/scss/style.min.b4708e50bad2a81b8e52d2d03050a3bfa5fee11b93ad4620b52c896f2d864fd3.css"><meta property='og:title' content='Redis Data Structure'>
 <meta property='og:description' content='Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样'>
 <meta property='og:url' content='https://chasing1020.github.io/post/redis-data-structure/'>
 <meta property='og:site_name' content='Chasing&#39;s blog'>
@@ -1030,51 +1030,56 @@ C语言传统以NULL，即&rsquo;\0&rsquo;作为字符串结束符，这样使�
      
     
         
-    <script src="https://utteranc.es/client.js" 
-        repo="Chasing1020/Chasing1020.github.io"
-        issue-term="pathname"
-        
-        crossorigin="anonymous"
-        async
-        >
-</script>
-
-<style>
-    .utterances {
-        max-width: unset;
-    }
-</style>
-
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Chasing1020/Chasing1020.github.io"
+    data-repo-id="R_kgDOGR5Ifw"
+    data-category="General"
+    data-category-id="DIC_kwDOGR5If84CURCm"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
 <script>
-    let utterancesLoaded = false;
-
-    function setUtterancesTheme(theme) {
-        let utterances = document.querySelector('.utterances iframe');
-        if (utterances) {
-            utterances.contentWindow.postMessage(
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
                 {
-                    type: 'set-theme',
-                    theme: `github-${theme}`
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
                 },
-                'https://utteranc.es'
+                "https://giscus.app"
             );
         }
     }
 
-    addEventListener('message', event => {
-        if (event.origin !== 'https://utteranc.es') return;
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
 
-        
-        utterancesLoaded = true;
-        setUtterancesTheme(document.documentElement.dataset.scheme)
-    });
-
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (!utterancesLoaded) return;
-        setUtterancesTheme(e.detail)
-    })
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark');
+            }
+        }
+    })();
 </script>
-
 
     
 

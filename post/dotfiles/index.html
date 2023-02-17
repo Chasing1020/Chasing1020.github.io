@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://chasing1020.github.io/post/dotfiles/'>
 
-<link rel="stylesheet" href="/scss/style.min.137532ecdb47b4e19cc5bd7eb181a2fac19327074071417b23a61ca467af44c5.css"><meta property='og:title' content='Dotfiles'>
+<link rel="stylesheet" href="/scss/style.min.b4708e50bad2a81b8e52d2d03050a3bfa5fee11b93ad4620b52c896f2d864fd3.css"><meta property='og:title' content='Dotfiles'>
 <meta property='og:description' content='oh-my-zsh 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 # ~/.'>
 <meta property='og:url' content='https://chasing1020.github.io/post/dotfiles/'>
 <meta property='og:site_name' content='Chasing&#39;s blog'>
@@ -3078,51 +3078,56 @@
      
     
         
-    <script src="https://utteranc.es/client.js" 
-        repo="Chasing1020/Chasing1020.github.io"
-        issue-term="pathname"
-        
-        crossorigin="anonymous"
-        async
-        >
-</script>
-
-<style>
-    .utterances {
-        max-width: unset;
-    }
-</style>
-
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="Chasing1020/Chasing1020.github.io"
+    data-repo-id="R_kgDOGR5Ifw"
+    data-category="General"
+    data-category-id="DIC_kwDOGR5If84CURCm"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+></script>
 <script>
-    let utterancesLoaded = false;
-
-    function setUtterancesTheme(theme) {
-        let utterances = document.querySelector('.utterances iframe');
-        if (utterances) {
-            utterances.contentWindow.postMessage(
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
                 {
-                    type: 'set-theme',
-                    theme: `github-${theme}`
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
                 },
-                'https://utteranc.es'
+                "https://giscus.app"
             );
         }
     }
 
-    addEventListener('message', event => {
-        if (event.origin !== 'https://utteranc.es') return;
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
 
-        
-        utterancesLoaded = true;
-        setUtterancesTheme(document.documentElement.dataset.scheme)
-    });
-
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (!utterancesLoaded) return;
-        setUtterancesTheme(e.detail)
-    })
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark');
+            }
+        }
+    })();
 </script>
-
 
     
 
