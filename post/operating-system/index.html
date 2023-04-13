@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://chasing1020.github.io/post/operating-system/'>
 
-<link rel="stylesheet" href="/scss/style.min.71b2e8ba9ba59cca46e85c7a30a11e2d9830093a9f59f439743d2d8153e5460c.css"><meta property='og:title' content='Operating System'>
+<link rel="stylesheet" href="/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css"><meta property='og:title' content='Operating System'>
 <meta property='og:description' content='1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限'>
 <meta property='og:url' content='https://chasing1020.github.io/post/operating-system/'>
-<meta property='og:site_name' content='Chasing&#39;s blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Operating System' /><meta property='article:published_time' content='2021-11-12T19:33:04&#43;08:00'/><meta property='article:modified_time' content='2021-11-12T19:33:04&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/operating-system/unix.webp' />
+<meta property='og:site_name' content='Chasing1020'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Operating System' /><meta property='article:published_time' content='2021-11-12T19:33:04&#43;08:00'/><meta property='article:modified_time' content='2023-02-27T23:00:35&#43;08:00'/><meta property='og:image' content='https://chasing1020.github.io/post/operating-system/unix.webp' />
 <meta name="twitter:site" content="@Chasing1020">
     <meta name="twitter:creator" content="@Chasing1020"><meta name="twitter:title" content="Operating System">
 <meta name="twitter:description" content="1. Overview 什么是操作系统？ 硬件角度： 管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。 对硬件进行抽象：抽象成不依赖具体硬件特性的资源。 将有限"><meta name="twitter:card" content="summary_large_image">
@@ -73,7 +73,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Chasing&#39;s blog</a></h1>
+            <h1 class="site-name"><a href="/">Chasing1020</a></h1>
             <h2 class="site-description">
                 <a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target="_blank">
                     Why there is a universe?
@@ -245,7 +245,7 @@
         
         
         <li >
-            <a href='/links/' >
+            <a href='/friends/' >
                 
                 
                 
@@ -417,7 +417,7 @@
 
 
                 <time class="article-time--reading">
-                    28 minute read
+                    29 minute read
                 </time>
             </div>
         
@@ -464,8 +464,8 @@
 <h1 id="2-hardware-infrastructure">2. Hardware Infrastructure</h1>
 <p>冯诺依曼架构：中央处理单元，存储器，输入输出。</p>
 <p>缓存结构：CPU缓存是由若干个缓存行决定的，每个缓存行包括一个有效位（valid bit），一个标记地址（tag address）。物理地址在逻辑上分为三段。Tag、Index(Set)、Way。物理地址能表示Index(Set)的最大数目为组，支持Tag最大的数目为路（Way）。</p>
-<p>物理地址结构：Tag（物理地址）+ Set（组号）+ OffSet（组内偏移）</p>
-<p>直接映射：内存与CPU的CacheLine相对位置固定，导致淘汰换出频繁。</p>
+<p>物理地址结构：Tag（物理地址）+ Set（组号）+ Offset（组内偏移）</p>
+<p>直接映射：内存与CPU的Cache Line相对位置固定，导致淘汰换出频繁。</p>
 <p>全相联映射：灵活，电路设计困难，只适合小容量Cache。</p>
 <p>组相联映射：CPU和主存都分组，同组的缓存行数量称为路，组内采用直接映射，组间采用全相联映射。</p>
 <p>CPU访问设备的方式：内存映射输入输出（Memory-Mapped I/O），将IO设备和物理内存放到同一个存储空间。</p>
@@ -542,7 +542,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。</p>
+</div><p>对于Arm64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。</p>
+<p>对于Sv39 RISC-V，其中前25位为空，由27位index映射到$2^{27}$个（Page Table Entries， PTEs），每个PTE对应物理页44bit的PPN和一些flags，包括记录页表是否有效、可读、可写、User权限是否可以访问等。其中27位index实际上会有3级页表，如果其中任意一级页表不存在，则会抛出一个page-fault exception。Sv48, Sv57同理，Page Table添加一级Level。</p>
 <p>32位系统下的2级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项4字节，所以一个页表页可以对应1024页表项(4KB/4B=1024=$2^{10}$)。所以，20+12分别对应二级页表(2*10)，和页表内偏移量。</p>
 <p>对于32bit操作系统，通过物理地址扩展（Physical Address Extension，PAE），CPU执行单元发出的地址将被MMU截获，进行一次地址转换后才传给内存。这样允许32位系统下多个进程的使用内存加起来超过4GB。</p>
 <p>TLB硬件一般采用分层结构，L1部分分为指令TLB与数据TLB，L2不区分指令与数据，作为CPU内部硬件。</p>
@@ -621,7 +622,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">ssize_t</span> <span class="nf">sendfile</span><span class="p">(</span><span class="kt">int</span> <span class="n">out_fd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">in_fd</span><span class="p">,</span> <span class="kt">off_t</span> <span class="o">*</span><span class="n">offset</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">count</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据</p>
+</div><p>方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -836,14 +837,14 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">sleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_cond_wait</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">cond</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                     <span class="kt">pthread_mutex_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                      <span class="kt">pthread_mutex_t</span> <span class="o">*</span><span class="kr">restrict</span> <span class="n">mutex</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>sleep会让线程挂起数秒，或者是使用cond_wait在条件变量为同步方式等待。</p>
 <h1 id="6-operating-system-scheduling">6. Operating System Scheduling</h1>
 <p>Long-term Scheduling：决定当前真正可以被调度的进程数量。</p>
 <p>Short-term Scheduling：负责进程在就绪、运行、阻塞三个状态之间的转换。</p>
-<p>Midium-term Scheduling：负责管理内存，换页机制等</p>
+<p>Midium-term Scheduling：负责管理内存（如将进程挂起并且替换入磁盘），换页机制等。</p>
 <p>经典调度策略：</p>
 <ul>
 <li>
@@ -915,13 +916,109 @@
 </div>
 </div><p>Linux操作系统将vruntime作为红黑树的value，在选择下一个运行进程时，只需要找到最左叶子结点的缓存，即只需要O(1)复杂度，而不是O(logn)。</p>
 <h1 id="7-inter-process-communication">7. Inter-Process Communication</h1>
-<p>管道：以FIFO的形式缓冲数据，有匿名管道（fork后子进程继承文件描述符）和命名管道（mkfifo）两种实现方式。</p>
-<p>消息队列：四个基本操作：msgget：获取已有的消息队列连接或者新创建一个，msgsnd往消息队列上发消息，msgrcv：接收消息（收发过程如果消息队列已满或为空，则阻塞），msgctl。</p>
-<p>信号量：P（Probeer，尝试）计数器减一，操作失败会进入阻塞，V（Verhoog，增加）计数器加一，唤醒P。</p>
+<p>管道：在内存中以FIFO的形式缓冲数据，本质上属于一个文件的两个fd，收发端对fd进行操作，有匿名管道（fork后子进程继承文件描述符）和命名管道（mkfifo）两种实现方式。属于单向IPC，收发端需要对字节流进行解析。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">pipe</span><span class="p">(</span><span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span> <span class="c1">// pipefd[0] -&gt; read; pipefd[1] -&gt; write
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">pipe2</span><span class="p">(</span><span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>消息队列：四个基本操作：msgget：获取已有的消息队列连接或者新创建一个，msgsnd往消息队列上发消息，msgrcv：接收消息（收发过程如果消息队列已满或为空，则阻塞），msgctl。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/msg.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// get System V message queue identifier 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// associated with the value of the key argument.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">msgget</span><span class="p">(</span><span class="kt">key_t</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">msgflg</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">msgbuf</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">mtype</span><span class="p">;</span>       <span class="cm">/* message type, must be &gt; 0 */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">mtext</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>    <span class="cm">/* message data */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// appends a copy of the message pointed to by msgp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// to the message queue whose identifier is specified by msqid.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">msgsnd</span><span class="p">(</span><span class="kt">int</span> <span class="n">msqid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="n">msgp</span><span class="p">[.</span><span class="n">msgsz</span><span class="p">],</span> <span class="kt">size_t</span> <span class="n">msgsz</span><span class="p">,</span> <span class="kt">int</span> <span class="n">msgflg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// removes a message from the queue specified 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// by msqid and places it in the buffer pointed to by msgp.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">ssize_t</span> <span class="nf">msgrcv</span><span class="p">(</span><span class="kt">int</span> <span class="n">msqid</span><span class="p">,</span> <span class="kt">void</span> <span class="n">msgp</span><span class="p">[.</span><span class="n">msgsz</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">               <span class="kt">size_t</span> <span class="n">msgsz</span><span class="p">,</span> <span class="kt">long</span> <span class="n">msgtyp</span><span class="p">,</span> <span class="kt">int</span> <span class="n">msgflg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// performs the control operation specified by cmd 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// on the System V message queue with identifier msqid.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">msgctl</span><span class="p">(</span><span class="kt">int</span> <span class="n">msqid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">msqid_ds</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>信号量：P（Probeer，尝试）计数器减一，操作失败会进入阻塞，V（Verhoog，增加）计数器加一，唤醒P。</p>
 <p>共享内存：为需要通信的进程建立共享区域，一旦建立成功，就不再需要内核参与进程间通信。</p>
-<p>信号：使用kill或者是tgkill向进程或线程发送信号，其中1～31为常规信号，32～64为实时信号。处理时机通常在执行完异常、中断、系统调用返回时。</p>
-<p>套接字：使用特定“地址”来找到要调用的服务端进程。</p>
-<h1 id="8-synchronization-primitives">8. Synchronization Primitives</h1>
+<p>信号：使用kill向进程、进程组或者是tgkill向线程发送信号，其中1～31为常规信号，32～64为实时信号。处理时机通常在执行完异常、中断、系统调用返回时。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// send any signal to any process group or process.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">kill</span><span class="p">(</span><span class="kt">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sig</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// be delivered to an arbitrary thread within that process.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">tgkill</span><span class="p">(</span><span class="kt">pid_t</span> <span class="n">tgid</span><span class="p">,</span> <span class="kt">pid_t</span> <span class="n">tid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sig</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>套接字：使用特定“地址”来找到要调用的服务端进程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// create an endpoint for communication
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">socket</span><span class="p">(</span><span class="kt">int</span> <span class="n">domain</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">int</span> <span class="n">protocol</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="8-synchronization-primitives">8. Synchronization Primitives</h1>
 <p>皮特森算法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -992,7 +1089,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>ARM平台采用Load-Link和/Store-Conditional的指令组合，通过CPU监视器来实现</p>
+</div><p>ARM平台（与RISC-V类似）采用Load-Link和/Store-Conditional的指令组合，通过CPU监视器来实现</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1286,7 +1383,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">sem</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">wakeup</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">       <span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">lock</span> <span class="n">sem_lock</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">cond</span> <span class="n">sem_cond</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1370,9 +1467,10 @@
 </ul>
 <p>银行家算法：假设系统有M个资源，N个线程。</p>
 <p>全局可利用资源Available[M]，每个线程最大需求Max[N][M]，已分配资源Allocation[N][M]，还需要分配的资源Need[N][M]。同时，保证供给关系固定。线程的需求不能超过总量，任意线程分配的资源加上还需要的资源小雨该线程的最大需求。线程获得资源后，有限时间能完成，并且最后会释放这些资源。</p>
+<p>死锁检测与恢复：事后恢复；死锁预防：解决死锁产生的四个必要条件之一；死锁避免：找到安全序列，如银行家算法。</p>
 <p>优先级反转避免：优先级继承协议（Priority Inheritance protocol）：高优先级等待锁时，会使持有者继承其优先级，避免临界区被低优先级打断。</p>
 <h1 id="9-file-system">9. File System</h1>
-<p>Index Node：记录文件索引节点（即存储块，使用ls -i查看，stat），inode保存三块指针，一种直接指向数据块，一种是间接指向一个一级索引块，一种是二级指针指向一级索引。</p>
+<p>Index Node：记录文件索引节点（即存储块），inode保存三块指针，一种直接指向数据块，一种是间接指向一个一级索引块，一种是二级指针指向一级索引。</p>
 <p>inode也保存着文件模式、链接数、拥有者用户组，大小、访问时间等信息。</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -1608,14 +1706,12 @@
 </span><span class="lnt">6
 </span><span class="lnt">7
 </span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// Any of these GNU inline assembler statements forbids the GCC compiler 
 </span></span></span><span class="line"><span class="cl"><span class="c1">// to reorder read and write commands around it:
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">asm</span> <span class="nf">volatile</span> <span class="p">(</span><span class="s">&#34;&#34;</span><span class="o">:::</span><span class="s">&#34;memory&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">__asm__</span> <span class="nf">__volatile__</span> <span class="p">(</span><span class="s">&#34;&#34;</span> <span class="o">:::</span> <span class="s">&#34;memory&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// This C11/C++11 function forbids the compiler  
 </span></span></span><span class="line"><span class="cl"><span class="c1">// to reorder read and write commands around it:
@@ -1652,8 +1748,8 @@
 <p>阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$</p>
 <p>其中 S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而 s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。</p>
 <h1 id="-docker">*. Docker</h1>
-<h2 id="1-namespace">*.1. namespace</h2>
 <p>容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。</p>
+<h2 id="1-namespace">*.1. namespace</h2>
 <p>namespace 隔离机制：</p>
 <div class="table-wrapper"><table>
 <thead>
@@ -1790,7 +1886,19 @@
         <span><a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml"  target="_blank" rel="noopener"
     >Licensed under CC BY-NC-SA 4.0</a></span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Feb 27, 2023 23:00 CST
+        </span>
+    </section></footer>
 
 
     
@@ -1959,9 +2067,9 @@
     src="https://giscus.app/client.js"
     data-repo="Chasing1020/Chasing1020.github.io"
     data-repo-id="R_kgDOGR5Ifw"
-    data-category="Announcements"
+    data-category="General"
     data-category-id="DIC_kwDOGR5If84CURCm"
-    data-mapping="pathname"
+    data-mapping="url"
     data-strict="0"
     data-reactions-enabled="1"
     data-emit-metadata="0"
@@ -1970,8 +2078,9 @@
     data-lang="en"
     data-loading="lazy"
     crossorigin="anonymous"
-    async
-></script>
+    async>
+</script>
+
 <script>
     function setGiscusTheme(theme) {
         let giscus = document.querySelector("iframe.giscus-frame");
@@ -2014,7 +2123,7 @@
         
             2019 - 
         
-        2023 Chasing&#39;s blog
+        2023 Chasing1020
     </section>
     
     <section class="powerby">
@@ -2123,7 +2232,7 @@
 <script>
     (function () {
         const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css?family=JetBrains Mono";
+        customFont.href = "https://fonts.googleapis.com/css?family=JetBrains+Mono";
 
         customFont.type = "text/css";
         customFont.rel = "stylesheet";

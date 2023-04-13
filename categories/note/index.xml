@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Note on Chasing&#39;s blog</title>
+        <title>Note on Chasing1020</title>
         <link>https://chasing1020.github.io/categories/note/</link>
-        <description>Recent content in Note on Chasing&#39;s blog</description>
+        <description>Recent content in Note on Chasing1020</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sat, 13 Aug 2022 18:24:56 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/categories/note/index.xml" rel="self" type="application/rss+xml" /><item>
@@ -980,7 +980,7 @@ it is recommended that students with good mathematics choose, need very good lin
         <description>&lt;img src="https://chasing1020.github.io/post/compilers/Compilers.webp" alt="Featured image of post Compilers" /&gt;&lt;h1 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h1&gt;
 &lt;h1 id=&#34;2-language-grammar&#34;&gt;2. Language Grammar&lt;/h1&gt;
 &lt;p&gt;字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。&lt;/p&gt;
-&lt;p&gt;乘积（product）：字母表$\sum_1$和$\sum_2$的乘积：$\sum_1\sum_2 = {ab|a\in\sum_1, b\in\sum_2}$&lt;/p&gt;
+&lt;p&gt;乘积（product）：字母表$\sum_1$和$\sum_2$的乘积（笛卡儿积）：$\sum_1\sum_2 = {ab|a\in\sum_1, b\in\sum_2}$&lt;/p&gt;
 &lt;p&gt;n次幂（power）：字母表$\sum$的n次幂：1. $\sum^0={\varepsilon}$; 2. $\sum^n =\sum^{n-1}\sum, if\ n &amp;gt; 1$&lt;/p&gt;
 &lt;p&gt;正闭包（positive closure）：$\sum^+ = \sum \cup \sum^2 \cup\sum^3 \cup&amp;hellip;$&lt;/p&gt;
 &lt;p&gt;克林闭包（Kleene closure）：即任意符号串（允许长度0）的集合$\sum^* = \sum^{0} + \sum^+ = \sum^0 \cup \sum \cup \sum^2 \cup \sum^3 \cup &amp;hellip;$&lt;/p&gt;
@@ -1017,7 +1017,7 @@ it is recommended that students with good mathematics choose, need very good lin
 &lt;hr&gt;
 &lt;p&gt;语言定义&lt;/p&gt;
 &lt;p&gt;给定文法$G=(V_T,V_N,P,S)$，如果$\alpha\rightarrow\beta\in P$，那么可以将$\gamma\alpha\delta$中的$\alpha$换成$\beta$。即重写为$\gamma\beta\delta$，记作$\gamma\alpha\delta\Rightarrow\gamma\beta\delta$。此时，称文法中的符号串$\gamma\alpha\delta$直接推导（directly derive）$\gamma\beta\delta$，即用产生式的右部替换产生式的左部。&lt;/p&gt;
-&lt;p&gt;如果有$\alpha_0 \Rightarrow \alpha_1 , \alpha_1\Rightarrow \alpha_2 ,&amp;hellip;,  \alpha_{n-1} \Rightarrow \alpha_n $ ，则有$\alpha_0\Rightarrow\alpha_1\Rightarrow\alpha_2\Rightarrow&amp;hellip;\Rightarrow\alpha_n$，称符号串$\alpha_0$经过n步推导出$\alpha_n$，可以简记为$\alpha_0\Rightarrow^n\alpha_n$。&lt;/p&gt;
+&lt;p&gt;如果有$\alpha_0 \Rightarrow \alpha_{1} , \alpha_{1}\Rightarrow \alpha_{2} ,&amp;hellip;,  \alpha_{n-1} \Rightarrow \alpha_n $ ，则有$\alpha_0\Rightarrow\alpha_1\Rightarrow\alpha_2\Rightarrow&amp;hellip;\Rightarrow\alpha_n$，称符号串$\alpha_0$经过n步推导出$\alpha_n$，可以简记为$\alpha_0\Rightarrow^n\alpha_n$。&lt;/p&gt;
 &lt;p&gt;特别地：$\alpha \Rightarrow^0 \alpha$，$\Rightarrow^+$ 表示经过正数步推导，$\Rightarrow^*$ 表示经过若干步（可以为0）推导。&lt;/p&gt;
 &lt;p&gt;句子的推导：从生成语言的角度，句子的规约：从识别语言的角度。&lt;/p&gt;
 &lt;p&gt;句型（sentential form）：如果$S\Rightarrow^* \alpha,\alpha \in (V_T\cup V_N)^* $，则称$\alpha$是G的一个句型。&lt;/p&gt;
@@ -3508,13 +3508,13 @@ Schema: is a description of a particular collection of data, using a given data 
 &lt;p&gt;&lt;strong&gt;Structure&lt;/strong&gt;: The definition of the database&amp;rsquo;s relations and their contents.
 &lt;strong&gt;Integrity&lt;/strong&gt;: Ensure the database&amp;rsquo;s contents satisfy constraints.
 &lt;strong&gt;Manipulation&lt;/strong&gt;: Programming interface for accessing and modifying a database&amp;rsquo;s contents.&lt;/p&gt;
-&lt;p&gt;A relationis an unordered set that contain the relationship of attributes that represent entities.&lt;/p&gt;
+&lt;p&gt;A relation is an unordered set that contain the relationship of attributes that represent entities.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;A relation&amp;rsquo;s primary keyuniquely identifies a single tuple.&lt;/p&gt;
+&lt;p&gt;A relation&amp;rsquo;s primary key uniquely identifies a single tuple.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;foreign keyspecifies that an attribute from one relation has to map to a tuple in another relation.&lt;/p&gt;
+&lt;p&gt;foreign key specifies that an attribute from one relation has to map to a tuple in another relation.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
@@ -7462,8 +7462,8 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;h1 id=&#34;2-hardware-infrastructure&#34;&gt;2. Hardware Infrastructure&lt;/h1&gt;
 &lt;p&gt;冯诺依曼架构：中央处理单元，存储器，输入输出。&lt;/p&gt;
 &lt;p&gt;缓存结构：CPU缓存是由若干个缓存行决定的，每个缓存行包括一个有效位（valid bit），一个标记地址（tag address）。物理地址在逻辑上分为三段。Tag、Index(Set)、Way。物理地址能表示Index(Set)的最大数目为组，支持Tag最大的数目为路（Way）。&lt;/p&gt;
-&lt;p&gt;物理地址结构：Tag（物理地址）+ Set（组号）+ OffSet（组内偏移）&lt;/p&gt;
-&lt;p&gt;直接映射：内存与CPU的CacheLine相对位置固定，导致淘汰换出频繁。&lt;/p&gt;
+&lt;p&gt;物理地址结构：Tag（物理地址）+ Set（组号）+ Offset（组内偏移）&lt;/p&gt;
+&lt;p&gt;直接映射：内存与CPU的Cache Line相对位置固定，导致淘汰换出频繁。&lt;/p&gt;
 &lt;p&gt;全相联映射：灵活，电路设计困难，只适合小容量Cache。&lt;/p&gt;
 &lt;p&gt;组相联映射：CPU和主存都分组，同组的缓存行数量称为路，组内采用直接映射，组间采用全相联映射。&lt;/p&gt;
 &lt;p&gt;CPU访问设备的方式：内存映射输入输出（Memory-Mapped I/O），将IO设备和物理内存放到同一个存储空间。&lt;/p&gt;
@@ -7540,7 +7540,8 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;对于Arm64位系统下的4级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项8字节，所以一个页表页可以对应512页表项(4KB/8B=512=$2^9$)。所以，48-63位全部置为0或者是1。剩下36+12分别对应四级页表，和页表内偏移量。&lt;/p&gt;
+&lt;p&gt;对于Sv39 RISC-V，其中前25位为空，由27位index映射到$2^{27}$个（Page Table Entries， PTEs），每个PTE对应物理页44bit的PPN和一些flags，包括记录页表是否有效、可读、可写、User权限是否可以访问等。其中27位index实际上会有3级页表，如果其中任意一级页表不存在，则会抛出一个page-fault exception。Sv48, Sv57同理，Page Table添加一级Level。&lt;/p&gt;
 &lt;p&gt;32位系统下的2级页表：每个页4KB，最低12位($2^{12}$=4KB)来表示页内偏移。每个页表页也占用物理内存的一个物理页(4KB)，每个页表项4字节，所以一个页表页可以对应1024页表项(4KB/4B=1024=$2^{10}$)。所以，20+12分别对应二级页表(2*10)，和页表内偏移量。&lt;/p&gt;
 &lt;p&gt;对于32bit操作系统，通过物理地址扩展（Physical Address Extension，PAE），CPU执行单元发出的地址将被MMU截获，进行一次地址转换后才传给内存。这样允许32位系统下多个进程的使用内存加起来超过4GB。&lt;/p&gt;
 &lt;p&gt;TLB硬件一般采用分层结构，L1部分分为指令TLB与数据TLB，L2不区分指令与数据，作为CPU内部硬件。&lt;/p&gt;
@@ -7619,7 +7620,7 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;ssize_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sendfile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;out_fd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;in_fd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;off_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;方法三：采用Linux 内核版本2.6.17引入的splice系统调用，解决了sendfile只在网络协议专用的弊端，在数据传输过程中，仅传递内存页的指针而不是真实的数据。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -7834,14 +7835,14 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt;&lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sleep&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;seconds&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;pthread_cond_wait&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;pthread_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;restrict&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cond&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                     &lt;span class=&#34;kt&#34;&gt;pthread_mutex_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;restrict&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mutex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                      &lt;span class=&#34;kt&#34;&gt;pthread_mutex_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;restrict&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mutex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;sleep会让线程挂起数秒，或者是使用cond_wait在条件变量为同步方式等待。&lt;/p&gt;
 &lt;h1 id=&#34;6-operating-system-scheduling&#34;&gt;6. Operating System Scheduling&lt;/h1&gt;
 &lt;p&gt;Long-term Scheduling：决定当前真正可以被调度的进程数量。&lt;/p&gt;
 &lt;p&gt;Short-term Scheduling：负责进程在就绪、运行、阻塞三个状态之间的转换。&lt;/p&gt;
-&lt;p&gt;Midium-term Scheduling：负责管理内存，换页机制等&lt;/p&gt;
+&lt;p&gt;Midium-term Scheduling：负责管理内存（如将进程挂起并且替换入磁盘），换页机制等。&lt;/p&gt;
 &lt;p&gt;经典调度策略：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -7913,13 +7914,109 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;Linux操作系统将vruntime作为红黑树的value，在选择下一个运行进程时，只需要找到最左叶子结点的缓存，即只需要O(1)复杂度，而不是O(logn)。&lt;/p&gt;
 &lt;h1 id=&#34;7-inter-process-communication&#34;&gt;7. Inter-Process Communication&lt;/h1&gt;
-&lt;p&gt;管道：以FIFO的形式缓冲数据，有匿名管道（fork后子进程继承文件描述符）和命名管道（mkfifo）两种实现方式。&lt;/p&gt;
-&lt;p&gt;消息队列：四个基本操作：msgget：获取已有的消息队列连接或者新创建一个，msgsnd往消息队列上发消息，msgrcv：接收消息（收发过程如果消息队列已满或为空，则阻塞），msgctl。&lt;/p&gt;
-&lt;p&gt;信号量：P（Probeer，尝试）计数器减一，操作失败会进入阻塞，V（Verhoog，增加）计数器加一，唤醒P。&lt;/p&gt;
+&lt;p&gt;管道：在内存中以FIFO的形式缓冲数据，本质上属于一个文件的两个fd，收发端对fd进行操作，有匿名管道（fork后子进程继承文件描述符）和命名管道（mkfifo）两种实现方式。属于单向IPC，收发端需要对字节流进行解析。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;pipe&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pipefd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// pipefd[0] -&amp;gt; read; pipefd[1] -&amp;gt; write
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;pipe2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pipefd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;消息队列：四个基本操作：msgget：获取已有的消息队列连接或者新创建一个，msgsnd往消息队列上发消息，msgrcv：接收消息（收发过程如果消息队列已满或为空，则阻塞），msgctl。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/msg.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// get System V message queue identifier 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// associated with the value of the key argument.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;msgget&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;key_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgflg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgbuf&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mtype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;       &lt;span class=&#34;cm&#34;&gt;/* message type, must be &amp;gt; 0 */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mtext&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;    &lt;span class=&#34;cm&#34;&gt;/* message data */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// appends a copy of the message pointed to by msgp
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// to the message queue whose identifier is specified by msqid.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;msgsnd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msqid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msgsz&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgsz&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgflg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// removes a message from the queue specified 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// by msqid and places it in the buffer pointed to by msgp.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;ssize_t&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;msgrcv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msqid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;msgsz&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;               &lt;span class=&#34;kt&#34;&gt;size_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgsz&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgtyp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msgflg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// performs the control operation specified by cmd 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// on the System V message queue with identifier msqid.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;msgctl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msqid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;msqid_ds&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;buf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;信号量：P（Probeer，尝试）计数器减一，操作失败会进入阻塞，V（Verhoog，增加）计数器加一，唤醒P。&lt;/p&gt;
 &lt;p&gt;共享内存：为需要通信的进程建立共享区域，一旦建立成功，就不再需要内核参与进程间通信。&lt;/p&gt;
-&lt;p&gt;信号：使用kill或者是tgkill向进程或线程发送信号，其中1～31为常规信号，32～64为实时信号。处理时机通常在执行完异常、中断、系统调用返回时。&lt;/p&gt;
-&lt;p&gt;套接字：使用特定“地址”来找到要调用的服务端进程。&lt;/p&gt;
-&lt;h1 id=&#34;8-synchronization-primitives&#34;&gt;8. Synchronization Primitives&lt;/h1&gt;
+&lt;p&gt;信号：使用kill向进程、进程组或者是tgkill向线程发送信号，其中1～31为常规信号，32～64为实时信号。处理时机通常在执行完异常、中断、系统调用返回时。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;signal.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// send any signal to any process group or process.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;kill&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;pid_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sig&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// be delivered to an arbitrary thread within that process.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;tgkill&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;pid_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tgid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;pid_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tid&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sig&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;套接字：使用特定“地址”来找到要调用的服务端进程。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/socket.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// create an endpoint for communication
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;socket&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;protocol&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;8-synchronization-primitives&#34;&gt;8. Synchronization Primitives&lt;/h1&gt;
 &lt;p&gt;皮特森算法&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -7990,7 +8087,7 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;ARM平台采用Load-Link和/Store-Conditional的指令组合，通过CPU监视器来实现&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;ARM平台（与RISC-V类似）采用Load-Link和/Store-Conditional的指令组合，通过CPU监视器来实现&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -8284,7 +8381,7 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sem&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wakeup&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;       &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lock&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sem_lock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lock&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sem_lock&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cond&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sem_cond&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -8368,9 +8465,10 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/ul&gt;
 &lt;p&gt;银行家算法：假设系统有M个资源，N个线程。&lt;/p&gt;
 &lt;p&gt;全局可利用资源Available[M]，每个线程最大需求Max[N][M]，已分配资源Allocation[N][M]，还需要分配的资源Need[N][M]。同时，保证供给关系固定。线程的需求不能超过总量，任意线程分配的资源加上还需要的资源小雨该线程的最大需求。线程获得资源后，有限时间能完成，并且最后会释放这些资源。&lt;/p&gt;
+&lt;p&gt;死锁检测与恢复：事后恢复；死锁预防：解决死锁产生的四个必要条件之一；死锁避免：找到安全序列，如银行家算法。&lt;/p&gt;
 &lt;p&gt;优先级反转避免：优先级继承协议（Priority Inheritance protocol）：高优先级等待锁时，会使持有者继承其优先级，避免临界区被低优先级打断。&lt;/p&gt;
 &lt;h1 id=&#34;9-file-system&#34;&gt;9. File System&lt;/h1&gt;
-&lt;p&gt;Index Node：记录文件索引节点（即存储块，使用ls -i查看，stat），inode保存三块指针，一种直接指向数据块，一种是间接指向一个一级索引块，一种是二级指针指向一级索引。&lt;/p&gt;
+&lt;p&gt;Index Node：记录文件索引节点（即存储块），inode保存三块指针，一种直接指向数据块，一种是间接指向一个一级索引块，一种是二级指针指向一级索引。&lt;/p&gt;
 &lt;p&gt;inode也保存着文件模式、链接数、拥有者用户组，大小、访问时间等信息。&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -8606,14 +8704,12 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Any of these GNU inline assembler statements forbids the GCC compiler 
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// to reorder read and write commands around it:
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;asm&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;volatile&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:::&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;memory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;__asm__&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;__volatile__&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:::&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;memory&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// This C11/C++11 function forbids the compiler  
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// to reorder read and write commands around it:
@@ -8650,8 +8746,8 @@ X &amp;amp;\sim {\sf Norm}(10, 3) \
 &lt;p&gt;阿姆达尔定律（Amdahl’s Law）用以描述并行计算的加速比：$S = \frac{1}{(1 − p) + \frac{p}{s}}$&lt;/p&gt;
 &lt;p&gt;其中 S 描述加速比，p 为程序中可以并行的部分所占比例（$0≤p≤1$），而 s 为可以并行部分的加速比。在理想情况下，如我们如果有N 个核，此时的并行部分加速比为$s = N$。&lt;/p&gt;
 &lt;h1 id=&#34;-docker&#34;&gt;*. Docker&lt;/h1&gt;
-&lt;h2 id=&#34;1-namespace&#34;&gt;*.1. namespace&lt;/h2&gt;
 &lt;p&gt;容器本身作为宿主机上的一个进程，通过namespace实现资源隔离，cgroups实现资源限制，通过copy-on-write实现了高效的文件操作。&lt;/p&gt;
+&lt;h2 id=&#34;1-namespace&#34;&gt;*.1. namespace&lt;/h2&gt;
 &lt;p&gt;namespace 隔离机制：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;

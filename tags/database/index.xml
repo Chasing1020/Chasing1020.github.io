@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>DataBase on Chasing&#39;s blog</title>
+        <title>DataBase on Chasing1020</title>
         <link>https://chasing1020.github.io/tags/database/</link>
-        <description>Recent content in DataBase on Chasing&#39;s blog</description>
+        <description>Recent content in DataBase on Chasing1020</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sat, 13 Aug 2022 18:24:56 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" /><item>
@@ -1393,13 +1393,13 @@ Schema: is a description of a particular collection of data, using a given data 
 &lt;p&gt;&lt;strong&gt;Structure&lt;/strong&gt;: The definition of the database&amp;rsquo;s relations and their contents.
 &lt;strong&gt;Integrity&lt;/strong&gt;: Ensure the database&amp;rsquo;s contents satisfy constraints.
 &lt;strong&gt;Manipulation&lt;/strong&gt;: Programming interface for accessing and modifying a database&amp;rsquo;s contents.&lt;/p&gt;
-&lt;p&gt;A relationis an unordered set that contain the relationship of attributes that represent entities.&lt;/p&gt;
+&lt;p&gt;A relation is an unordered set that contain the relationship of attributes that represent entities.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;A relation&amp;rsquo;s primary keyuniquely identifies a single tuple.&lt;/p&gt;
+&lt;p&gt;A relation&amp;rsquo;s primary key uniquely identifies a single tuple.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;foreign keyspecifies that an attribute from one relation has to map to a tuple in another relation.&lt;/p&gt;
+&lt;p&gt;foreign key specifies that an attribute from one relation has to map to a tuple in another relation.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;

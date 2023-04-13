@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Compilers on Chasing&#39;s blog</title>
+        <title>Compilers on Chasing1020</title>
         <link>https://chasing1020.github.io/tags/compilers/</link>
-        <description>Recent content in Compilers on Chasing&#39;s blog</description>
+        <description>Recent content in Compilers on Chasing1020</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sat, 05 Mar 2022 17:00:35 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/compilers/index.xml" rel="self" type="application/rss+xml" /><item>
@@ -15,7 +15,7 @@
         <description>&lt;img src="https://chasing1020.github.io/post/compilers/Compilers.webp" alt="Featured image of post Compilers" /&gt;&lt;h1 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h1&gt;
 &lt;h1 id=&#34;2-language-grammar&#34;&gt;2. Language Grammar&lt;/h1&gt;
 &lt;p&gt;字母表（Alphabet）：$\sum$是一个有穷符号集合，包括字母、数字、标点等。&lt;/p&gt;
-&lt;p&gt;乘积（product）：字母表$\sum_1$和$\sum_2$的乘积：$\sum_1\sum_2 = {ab|a\in\sum_1, b\in\sum_2}$&lt;/p&gt;
+&lt;p&gt;乘积（product）：字母表$\sum_1$和$\sum_2$的乘积（笛卡儿积）：$\sum_1\sum_2 = {ab|a\in\sum_1, b\in\sum_2}$&lt;/p&gt;
 &lt;p&gt;n次幂（power）：字母表$\sum$的n次幂：1. $\sum^0={\varepsilon}$; 2. $\sum^n =\sum^{n-1}\sum, if\ n &amp;gt; 1$&lt;/p&gt;
 &lt;p&gt;正闭包（positive closure）：$\sum^+ = \sum \cup \sum^2 \cup\sum^3 \cup&amp;hellip;$&lt;/p&gt;
 &lt;p&gt;克林闭包（Kleene closure）：即任意符号串（允许长度0）的集合$\sum^* = \sum^{0} + \sum^+ = \sum^0 \cup \sum \cup \sum^2 \cup \sum^3 \cup &amp;hellip;$&lt;/p&gt;
@@ -52,7 +52,7 @@
 &lt;hr&gt;
 &lt;p&gt;语言定义&lt;/p&gt;
 &lt;p&gt;给定文法$G=(V_T,V_N,P,S)$，如果$\alpha\rightarrow\beta\in P$，那么可以将$\gamma\alpha\delta$中的$\alpha$换成$\beta$。即重写为$\gamma\beta\delta$，记作$\gamma\alpha\delta\Rightarrow\gamma\beta\delta$。此时，称文法中的符号串$\gamma\alpha\delta$直接推导（directly derive）$\gamma\beta\delta$，即用产生式的右部替换产生式的左部。&lt;/p&gt;
-&lt;p&gt;如果有$\alpha_0 \Rightarrow \alpha_1 , \alpha_1\Rightarrow \alpha_2 ,&amp;hellip;,  \alpha_{n-1} \Rightarrow \alpha_n $ ，则有$\alpha_0\Rightarrow\alpha_1\Rightarrow\alpha_2\Rightarrow&amp;hellip;\Rightarrow\alpha_n$，称符号串$\alpha_0$经过n步推导出$\alpha_n$，可以简记为$\alpha_0\Rightarrow^n\alpha_n$。&lt;/p&gt;
+&lt;p&gt;如果有$\alpha_0 \Rightarrow \alpha_{1} , \alpha_{1}\Rightarrow \alpha_{2} ,&amp;hellip;,  \alpha_{n-1} \Rightarrow \alpha_n $ ，则有$\alpha_0\Rightarrow\alpha_1\Rightarrow\alpha_2\Rightarrow&amp;hellip;\Rightarrow\alpha_n$，称符号串$\alpha_0$经过n步推导出$\alpha_n$，可以简记为$\alpha_0\Rightarrow^n\alpha_n$。&lt;/p&gt;
 &lt;p&gt;特别地：$\alpha \Rightarrow^0 \alpha$，$\Rightarrow^+$ 表示经过正数步推导，$\Rightarrow^*$ 表示经过若干步（可以为0）推导。&lt;/p&gt;
 &lt;p&gt;句子的推导：从生成语言的角度，句子的规约：从识别语言的角度。&lt;/p&gt;
 &lt;p&gt;句型（sentential form）：如果$S\Rightarrow^* \alpha,\alpha \in (V_T\cup V_N)^* $，则称$\alpha$是G的一个句型。&lt;/p&gt;
