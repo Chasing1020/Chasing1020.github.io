@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样'>
 <title>Redis Data Structure</title>

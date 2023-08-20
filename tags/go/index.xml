@@ -5,7 +5,7 @@
         <link>https://chasing1020.github.io/tags/go/</link>
         <description>Recent content in Go on Chasing1020</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <lastBuildDate>Tue, 26 Oct 2021 19:35:13 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Go(6) Network</title>
         <link>https://chasing1020.github.io/post/go6-network/</link>

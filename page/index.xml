@@ -5,7 +5,7 @@
         <link>https://chasing1020.github.io/page/</link>
         <description>Recent content in Pages on Chasing1020</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://chasing1020.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
         <link>https://chasing1020.github.io/archives/</link>
@@ -541,6 +541,20 @@ The suffix &amp;ldquo;1020&amp;rdquo; is used only to avoid duplication of names
   &lt;/div&gt;
 &lt;/a&gt;
 
+
+&lt;a class=&#34;friends-list&#34; href=&#34;https://guttatus.github.io/&#34; target=&#34;_blank&#34;&gt;
+  &lt;div class=friend-avatar&gt;
+    &lt;img src=&#34;https://avatars.githubusercontent.com/guttatus&#34; class=&#34;lazyload friend-avatar-img&#34; loading=&#34;lazy&#34; alt=&#34;guttatus&#34;/&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;friend-info&#34;&gt;
+      &lt;div class=&#34;friend-name&#34;&gt;
+          guttatus
+      &lt;/div&gt;
+      &lt;div class=&#34;friend-desc&#34;&gt;
+          虽千万人吾往矣
+      &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/a&gt;
 
 
 
