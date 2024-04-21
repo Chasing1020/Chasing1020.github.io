@@ -1,0 +1,6 @@
+@import "partials/friends.scss";
+
+// Do not use uppercase in article-lastmod
+.main-article .article-footer section.article-lastmod{
+    text-transform: none;
+}

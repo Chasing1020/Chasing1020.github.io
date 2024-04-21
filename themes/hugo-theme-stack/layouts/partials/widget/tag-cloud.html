@@ -1,0 +1,22 @@
+{{- $context := .Context -}}
+{{- $limit := default 10 .Params.limit -}}
+<section class="widget tagCloud">
+    <!-- <h2 class="widget-title section-title">{{ T "widget.tagCloud.title" }}</h2>
+
+    <div class="tagCloud-tags">
+        {{ range first $limit $context.Site.Taxonomies.tags.ByCount }}
+            <a href="{{ .Page.RelPermalink }}" class="font_size_{{ .Count }}">
+                {{ .Page.Title }}
+            </a>
+        {{ end }}
+    </div>  -->
+    <h2 class="widget-title section-title">
+        Global UV
+    </h2>
+
+    <div class="tagCloud-tags">
+        <script type="text/javascript"
+            src="//rf.revolvermaps.com/0/0/6.js?i=5hltxs6uiov&amp;m=0&amp;c=54ff00&amp;cr1=ffffff&amp;f=arial&amp;l=1&amp;s=320&amp;bv=20&amp;rs=10"
+            async="async"></script>
+    </div>
+</section>

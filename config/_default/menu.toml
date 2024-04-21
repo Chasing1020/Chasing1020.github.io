@@ -1,0 +1,45 @@
+# Configure main menu and social menu
+[[social]]
+identifier = "github"
+name = "GitHub"
+weight = 1
+url = "https://github.com/Chasing1020"
+    [social.params]
+    icon = "brand-github"
+    newtab = true
+
+[[social]]
+identifier = "twitter"
+name = "Twitter"
+weight = 2
+url = "https://twitter.com/Chasing1020"
+    [social.params]
+    icon = "brand-twitter"
+    newtab = true
+
+[[social]]
+identifier = "telegram"
+name = "Telegram"
+weight = 3
+url = "https://t.me/Chasing1020"
+    [social.params]
+    icon = "telegram"
+    newtab = true
+
+[[social]]
+identifier = "Email"
+name = "Email"
+weight = 4
+url = "mailto:chasing1020@gmail.com"
+  [social.params]
+  icon = "email"
+  newTab = true
+
+[[social]]
+identifier = "RSS"
+name = "RSS"
+weight = 5
+url = "/index.xml"
+  [social.params]
+  icon = "rss"
+  newTab = true

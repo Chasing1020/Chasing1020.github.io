@@ -1,0 +1,13 @@
+# Uncomment this file to enable multilanguage site support
+
+[en.params]
+languageName = "English"
+title = "Chasing1020"
+description = "Welcome to my blog"
+weight = "1"
+
+# [zh-cn.params]
+# languageName = "中文"
+# title = "Chasing's blog"
+# description = "欢迎来到我的博客"
+# weight = "2"

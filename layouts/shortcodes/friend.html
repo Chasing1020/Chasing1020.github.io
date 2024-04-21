@@ -1,0 +1,13 @@
+<a class="friends-list" href="{{ .Get "url" | safeURL }}" target="_blank">
+  <div class=friend-avatar>
+    <img src="{{ .Get "avatar" | safeURL }}" class="lazyload friend-avatar-img" loading="lazy" alt="{{ .Get "name" }}"/>
+  </div>
+  <div class="friend-info">
+      <div class="friend-name">
+          {{ .Get "name" }}
+      </div>
+      <div class="friend-desc">
+          {{ .Get "desc" }}
+      </div>
+  </div>
+</a>
