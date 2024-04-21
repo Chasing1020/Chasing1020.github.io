@@ -1,0 +1,1907 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Note on Chasing1020</title><link>https://chasing1020.github.io/tags/note/</link><description>Recent content in Note on Chasing1020</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 Jun 2022 22:27:02 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/note/index.xml" rel="self" type="application/rss+xml"/><item><title>About Computer Science</title><link>https://chasing1020.github.io/post/about-computer-science/</link><pubDate>Sun, 19 Jun 2022 22:27:02 +0800</pubDate><guid>https://chasing1020.github.io/post/about-computer-science/</guid><description>&lt;img src="https://chasing1020.github.io/post/about-computer-science/force.webp" alt="Featured image of post About Computer Science" />&lt;p>It is a yearly &amp;ldquo;divide major&amp;rdquo; season, and now I am looking back at the series of computer science &lt;a class="link" href="https://www.zhihu.com/question/326615493/answer/711051528" target="_blank" rel="noopener"
+>questions&lt;/a> and answers I have browsed in Zhihu during my freshman year, and I feel a lot of emotions. I have been thinking about it for a long time, and this is the first time I have seen such numerous questions and discussions about computer science, hence I write about this post. If you find any bugs or grammar issues, please don&amp;rsquo;t hesitate to contact me to fix them. Anyway, thanks again for accepting my poor English.&lt;/p>
+&lt;h1 id="0-preface">0. Preface&lt;/h1>
+&lt;blockquote>
+&lt;p>What is computer science? Why does our country need students majoring in it? What is the future of this major? Will computer science be popular in the future?&lt;/p>
+&lt;/blockquote>
+&lt;p>Two years later, when I introduced this major to my younger brother and sister who study at our university as a &amp;ldquo;past person&amp;rdquo;, it was too difficult for me to write the answer because I was worried about my lack of ability and short-sightedness, which brought all kinds of misguidance to them; secondly, the choice of major at the undergraduate level will probably affect a person&amp;rsquo;s life and mislead others. The third is that the choice of major at the undergraduate level may affect one&amp;rsquo;s life and mislead the future of others.&lt;/p>
+&lt;p>Therefore, in this article, I will try my best to talk about my experience and thoughts in computer science over the past two years, and hope readers can gain something worthwhile. The content I share is only my opinion and does not represent any absolute theory.&lt;/p>
+&lt;h1 id="1-our-environment">1. Our Environment&lt;/h1>
+&lt;blockquote>
+&lt;p>This is an era of prosperity and crisis: Owing to the COVID-19, our world is experiencing changes never seen in a century.&lt;/p>
+&lt;/blockquote>
+&lt;p>The annually spring and autumn recruitment is the barometer of the development of the computer industry, from last year, Tencent paid 40w high salary in the hot search, and then some time ago, due to the epidemic of the re-emergence of the side of layoffs while also locking the head count. Until today President Liu Kiping of Tencent issued an article: &amp;ldquo;Internal manpower investment will be adjusted from the edge of the business to the core business, in the industry to occur fundamental changes in the industry when actively embracing change&amp;rdquo;.&lt;/p>
+&lt;p>In the general environment, today&amp;rsquo;s Internet is far less than what it was 10 years ago, the so-called &amp;ldquo;Although it is a pig, it can wind and waves.&amp;rdquo;, which Howard&amp;rsquo;s comment is: &amp;ldquo;Now the Internet from the era of incremental into the era of stock. Everyone has no way to make the cake bigger, so they can only grab each other&amp;rsquo;s cake&amp;rdquo;.&lt;/p>
+&lt;p>&lt;a class="link" href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month" target="_blank" rel="noopener"
+>The Mythical Man-Month&lt;/a> which is the bible of software engineering points out that more people can not shorten the software development progress, and it is dangerous to use &amp;ldquo;man-month&amp;rdquo; to measure the size of the work. Because &lt;code>the number of people != efficiency&lt;/code>, the way to adjust the organizational structure of the current major manufacturers is also very straightforward - leaving the most valuable programmers. In this environment, with only a small pool of talent to dig, the Internet starting salary also seems very high.&lt;/p>
+&lt;p>If only to high salary or good employment and blindly choose computer science major, it can only be said to have entered the survivorship bias. An objective fact is that the average salary of students graduating from our school is far below the average level of Zhihu or Maimai. The best students can collect offers from all the big companies, but the students who usually waste their time, even though they choose this major, often end up not as good as they expect. The salary distribution of this industry is not normal but power-law distribution, only a small group of the best people can share the most cake, the variance of the future development of the same industry will be very large. If you will choose to enter the industry in the future, please try to become the front group of people.&lt;/p>
+&lt;p>In this regard, I think the reason for choosing this major should be &amp;ldquo;you love computer science enough&amp;rdquo;, not &amp;ldquo;this major is hot&amp;rdquo;. If you like the process of building a whole world of order through a process control (auto-state machine) and have some interest in this major, you may want to read on below.&lt;/p>
+&lt;h1 id="2-about-ces">2. About CES&lt;/h1>
+&lt;blockquote>
+&lt;p>What is the Computer Engineering and Science?&lt;/p>
+&lt;/blockquote>
+&lt;p>The School of Computer Engineering and Science (CES) offers four majors: Computer Science and Technology, Intelligent Science and Technology, Cyberspace Security, and Artificial Intelligence.&lt;/p>
+&lt;p>The gap between these majors, as reflected in the professional courses taken at the undergraduate level, will not be so big, at least most of the basic courses such as data structures, principles of computer composition, operating systems, computer networks (i.e., the 408 in the Master&amp;rsquo;s degree examination) are treated equally. Corresponding professional courses will focus on the study content, specific details refer to Shanghai University undergraduate professional training program in &lt;a class="link" href="https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&amp;amp;wbtreeid=1192&amp;amp;wbnewsid=31263" target="_blank" rel="noopener"
+>2019&lt;/a> and &lt;a class="link" href="https://www.jwc.shu.edu.cn/content.jsp?urltype=news.NewsContentUrl&amp;amp;wbtreeid=1192&amp;amp;wbnewsid=32552" target="_blank" rel="noopener"
+>2020&lt;/a>. And all majors&amp;rsquo; rankings are represented by the following table:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>2021 Plan&lt;/th>
+&lt;th>2021 Rank&lt;/th>
+&lt;th>2020 Plan&lt;/th>
+&lt;th>2020 Rank&lt;/th>
+&lt;th>2019 Plan&lt;/th>
+&lt;th>2019 Rank&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Computer Science and Technology&lt;/td>
+&lt;td>110&lt;/td>
+&lt;td>289/1573&lt;/td>
+&lt;td>135&lt;/td>
+&lt;td>560/2029&lt;/td>
+&lt;td>150&lt;/td>
+&lt;td>582/2090&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Intelligent Science and Technology&lt;/td>
+&lt;td>26&lt;/td>
+&lt;td>375/1573&lt;/td>
+&lt;td>45&lt;/td>
+&lt;td>486/2029&lt;/td>
+&lt;td>60&lt;/td>
+&lt;td>281/2090&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Cyberspace Security&lt;/td>
+&lt;td>20&lt;/td>
+&lt;td>396/1573&lt;/td>
+&lt;td>25&lt;/td>
+&lt;td>495/2029&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Artificial Intelligence&lt;/td>
+&lt;td>21&lt;/td>
+&lt;td>366/1573&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>In most cases, there will not be a significant gap in the daily academic communication of interdisciplinary students, because the skills you will use in your future work may not be as closely related to your current chosen major. What teachers teach you will not determine what you will learn about. For example, if you choose computer science and technology, you can still study artificial intelligence, and if you choose AI, you can study cybersecurity-related content. But in detail:&lt;/p>
+&lt;ul>
+&lt;li>Computer science and technology: can be understood as the computer industry, the Polytechnic University class, belongs to the computer in the basic disciplines, both soft and hard, optional development direction range is very wide, and the specific direction of research depends entirely on your interest.&lt;/li>
+&lt;li>Intelligent science and technology: need to learn some signal processing, matrix algebra, brain cognition, and operations research-related courses, across a wide range.&lt;/li>
+&lt;li>Cyberspace security: a new major in my year, the scope of the study is not limited to the so-called &amp;ldquo;cyber security&amp;rdquo;, but also distinguishes penetration, reverse, cryptography and so on.&lt;/li>
+&lt;li>Artificial intelligence: the research direction and professional course arrangement are also close to the wisdom of science, including mathematical logic, data mining, brain cognition, etc.,
+it is recommended that students with good mathematics choose, need very good linear algebra and probability theory foundation, but also this is the Department of Mathematics &amp;ldquo;to grab a job&amp;rdquo; one of the directions.&lt;/li>
+&lt;/ul>
+&lt;p>There is no absolute answer to the question of whether a specific major is better or worse. From a personal point of view, the teaching program of the new major still needs time to settle down, 10 weeks of short semesters are compressed together, and even if you take grade 4.0 does not mean that you learned the course well.&lt;/p>
+&lt;p>Remember &lt;code>what the school teaches != what I need to learn&lt;/code>, you need to be clear about where your future competitiveness in the industry lies. Nowadays, more than 90% of the interview contents of large Internet companies are not what the teachers can teach you, but the fact that the teacher did not teach is not a reason why you don&amp;rsquo;t know that.&lt;/p>
+&lt;h1 id="3-the-future">3. The future&lt;/h1>
+&lt;blockquote>
+&lt;p>What I will do in the future?&lt;/p>
+&lt;/blockquote>
+&lt;p>In fact, each road is divided and the choice will be different.&lt;/p>
+&lt;p>&lt;code>For work&lt;/code>: If you do not have the intention to study what, it is not recommended to go in the direction of algorithms, the main directions include front-end, client, back-end, testing, operations and maintenance, security, etc. Before the junior year, make sure to finish the professional courses, and do not leave too many courses for the senior year. As early as possible to determine the technology stack used in the interview, looking for online classes (preferably open courses in foreign famous universities, books, blogs, and &lt;a class="link" href="https://github.com/sindresorhus/awesome" target="_blank" rel="noopener"
+>awesome list&lt;/a>; job search in the early efforts to do &lt;a class="link" href="https://leetcode.com/problemset/all/" target="_blank" rel="noopener"
+>leetcode&lt;/a>, the summer of the junior year (or the end of the second year of winter) as early as possible to go to the Internet companies for internship, more accumulated internship experience project experience.&lt;/p>
+&lt;ul>
+&lt;li>Internship: it is best to find the schoolmates or online internal push, more understanding of the department&amp;rsquo;s working environment, overtime status, etc. The primary purpose of the internship is to enrich the resume, it is not recommended to care too much about the salary more or less, the key is you will learn what.&lt;/li>
+&lt;li>When you are looking for a job with your internship experience, the name of your internship company only exists for the interviewer to have heard of/not heard of two situations. If the goal is to work for a big company, it is not particularly recommended to go to outsourcing companies and traditional industry companies (i.e. companies whose old business is not the Internet) or if you want to take &amp;ldquo;private jobs&amp;rdquo; from teachers and make sure to identify the good and bad projects, refer to &lt;a class="link" href="https://survivesjtu.gitbook.io/survivesjtumanual/fang-tan-ji/xiao-xin-xiang-mu-de-xian-jing" target="_blank" rel="noopener"
+>Shanghai Jiao Tong University Survives Guide&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>Taking part in the civil servant exam&lt;/code>: Mainly depends on the province, city, unit, and tier, the specific details are unknown.&lt;/p>
+&lt;p>&lt;code>Push avoid&lt;/code>: The specific policy will change every year, refer to The Implementation plan for the work of recommending fresh outstanding undergraduate graduates to be exempted from studying for a master&amp;rsquo;s degree in &lt;a class="link" href="https://cs.shu.edu.cn/info/1198/20176.htm" target="_blank" rel="noopener"
+>2022&lt;/a> and &lt;a class="link" href="https://cs.shu.edu.cn/info/1198/19884.htm" target="_blank" rel="noopener"
+>2021&lt;/a> School of Computer Science of Shanghai University. The details of the policy will change every year, but it is important to be clear about where you need to get extra points.&lt;/p>
+&lt;ul>
+&lt;li>Note that &amp;ldquo;the scientific research achievements and competition awards of students who cooperate with their immediate family members or those with significantly higher education, titles and positions than themselves are only for reference and are not included in the calculation system of the comprehensive evaluation results.&amp;rdquo;, means that the route of publishing papers in cooperation with supervisors, finding joint competitions for graduate Ph.D. will not work.&lt;/li>
+&lt;li>On the other hand, &lt;code>Shanghai University has a lot of ACM experts == Shanghai University ACM is powerful != you will be powerful definitely when you come to ACM&lt;/code>, same for CTF, ASC, etc. Some competitions will cost a lot of time investment if you find it is not suitable also please give up the sunk cost in time, spend time to do leetcode than waste time in the competition.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>Taking part in the postgraduate entrance exams&lt;/code>: The students with low GPAs who want to fulfill their dreams of a famous domestic school is also the choice of most students who do not want to work for the time being. The preparation time for the exam begins in the second semester of the junior year, choice is greater than effort. The process of preparing for the exam, choosing a school, etc., depends on the individual situation, so I won&amp;rsquo;t go into detail here.&lt;/p>
+&lt;p>&lt;code>Study abroad&lt;/code>: The first thing you need to do is to make sure that you are ready to go to the country you want to go to, whether you need to take IELTS or TOEFL, and whether you want to take GRE. In addition, striving to participate in internationally renowned competitions or publish some academic results but also trying to accumulate some foreign company internship experience, in the application are very plus points. As for whether to stay or return to your home country at the end of your graduate studies abroad, it ultimately depends on your situation.&lt;/p>
+&lt;h1 id="4-daily-life">4. Daily life&lt;/h1>
+&lt;blockquote>
+&lt;p>What is life like in the college?&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Grade 2019 and 2020 dormitories are arranged in the New Century, subsequent accommodation is unknown, depending on the school arrangements.&lt;/li>
+&lt;li>Some classes have been deleted from the seminar, but there are still a lot of reports, and some teachers have a lot of requirements.&lt;/li>
+&lt;li>College study materials, textbooks, etc., in the major group chat, can also be seen, you can also refer to &lt;a class="link" href="https://chasing1020.github.io/post/ces-materials/" target="_blank" rel="noopener"
+>CES Materials&lt;/a> and you may find it helpful to browse the &lt;a class="link" href="https://github.com/shuosc/libshu" target="_blank" rel="noopener"
+>libshu&lt;/a> which includes the material collected by the Open Source Community.&lt;/li>
+&lt;li>Many of the final exams are far less detailed than the freshman year, most of them are less incomplete, and you will need some preparation skills.&lt;/li>
+&lt;li>In class, most of the girls sit in the front row more, and whether or not you can get rid of the single depends on your ability.&lt;/li>
+&lt;li>About class activities, because our courses are self-selected, everyone&amp;rsquo;s daily life trajectory is more scattered or gathered in their small circle, I think the class cohesion is not so strong to some extent.&lt;/li>
+&lt;li>Most of the courses, including laboratory classes, will be on the East Side, or relatively far, winter morning on eight East Side is very painful, so it is recommended to learn a bicycle for convenience.&lt;/li>
+&lt;li>ACM and Cyberspace security labs are located on the 7th and 6th floors of the computer building, which are currently open to specific students. For teamwork competitions, it is important to find like-minded partners who are willing to devote their time and have strong abilities (not reflected in their GPAs).&lt;/li>
+&lt;li>Students who major in AI should try to contact their supervisors as early as possible to try to borrow a GPU server, and those who are strong can also try to contact their supervisors in advance to join their graduate groups.&lt;/li>
+&lt;/ol>
+&lt;h1 id="5-on-the-way">5. On the way&lt;/h1>
+&lt;blockquote>
+&lt;p>If you have decided to major in the Computer Science and Technology, here are some suggestions for studying in advance.&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>English counts! English counts! English counts!&lt;/p>
+&lt;ul>
+&lt;li>Learn to use Google and learn to read English materials. Never use Baidu to find answers. (It is highly recommended to add &lt;code>127.0.0.1 www.baidu.com&lt;/code> in your &lt;a class="link" href="https://man7.org/linux/man-pages/man5/hosts.5.html" target="_blank" rel="noopener"
+>/etc/hosts&lt;/a> file, which will promise that you will not able to use it.)&lt;/li>
+&lt;li>Learn more on &lt;a class="link" href="https://github.com/" target="_blank" rel="noopener"
+>Github&lt;/a>, &lt;a class="link" href="https://stackoverflow.com/" target="_blank" rel="noopener"
+>Stackoverflow&lt;/a> and less on CSDN or Cnblogs.&lt;/li>
+&lt;li>Learn to fix bugs by &lt;a class="link" href="https://en.wikipedia.org/wiki/STFW" target="_blank" rel="noopener"
+>STFW&lt;/a> and &lt;a class="link" href="https://en.wikipedia.org/wiki/RTFM" target="_blank" rel="noopener"
+>RTFM&lt;/a>, which is the most important skill for a programmer.&lt;/li>
+&lt;li>Learn &lt;a class="link" href="http://www.catb.org/~esr/faqs/smart-questions.html" target="_blank" rel="noopener"
+>how to ask questions the smart way&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Create a GitHub account, and build a personal blog on it, you can use &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>hugo&lt;/a>, &lt;a class="link" href="https://hexo.io/" target="_blank" rel="noopener"
+>hexo&lt;/a> and other frameworks, the whole specific process follows Google and official documentation, the process you will learn a lot, including Git, read documents, write configuration files and other operations.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Specific learning direction, learning a new language and related technologies, learning process to take notes.&lt;/p>
+&lt;ul>
+&lt;li>Back-end: Java, Golang, C++, Rust, etc., and Web frameworks such as Springboot, and Gin, capable students can learn about DBMS, Redis, MQ, ES and other technologies in advance.&lt;/li>
+&lt;li>Front-end/client: JavaScript, TypeScript, Dart, Kotlin, Swift and so on, frameworks including Vue, React, Angular, etc., learning Node.js, as well as agents, caches, gateways, tunnels, etc.&lt;/li>
+&lt;li>AI can start to learn Python, Matlab and so on, as well as the common TensorFlow or PyTorch, efforts to improve the level of English and start trying to improve the ability to find literature/reading literature.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Learn Linux including &lt;a class="link" href="https://docs.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener"
+>WSL&lt;/a> and &lt;a class="link" href="https://www.docker.com/" target="_blank" rel="noopener"
+>Docker&lt;/a>, it is highly recommended to learn Docker to save the time to build the environment.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Learn the professional course knowledge in advance, refer to the &lt;a class="link" href="https://csdiy.wiki/" target="_blank" rel="noopener"
+>CS Self-Study Guide&lt;/a>, it is suggested to learn computer science by doing the labs.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>When you finish the above, you should have a general direction of what to study in the future, you can also read &lt;a class="link" href="https://chasing1020.github.io/post/my-cs-learning-route/" target="_blank" rel="noopener"
+>My Computer Study Route&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="6-ending">6. Ending&lt;/h1>
+&lt;p>This article is only expressing my personal opinion, I hope students will not change their opinion towards this major because of the shortcomings of the profession I mentioned, or blindly decide because of the so-called high salary. On the way of choosing a major, often a decision will greatly affect the future trajectory of your life.&lt;/p>
+&lt;p>The fact that you have the grades to get into a computer science college also means that you have the right to choose almost any major, so please choose your major carefully. After all, the final choice of major is still yours, so please make sure to make a decision based on your interests, family environment, future development and all kinds of factors, and remember that at this point, anyone, including your teachers, family and classmates, can only just provide advice at all.&lt;/p>
+&lt;p>Four years of college life is neither too long nor too short. While enjoying the comfortable campus life, you have become a frog in warm water without realizing it.&lt;/p>
+&lt;p>We need to break away from the inertia of student thinking under the score measurement system, &amp;ldquo;Please be sure to remember: four years of college life gives you is just a kind of the undergo of your life, when you graduate, the string of pale scores has been invalidated.&amp;rdquo;.&lt;/p>
+&lt;h1 id="7-remarks">7. Remarks&lt;/h1>
+&lt;p>Here are some links related to this post.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://lemon-412.github.io/2020/07/17/%E4%B8%8A%E5%A4%A7%E8%AE%A1%E9%99%A2%E6%8A%A5%E8%80%83%E6%8C%87%E5%8C%97/" target="_blank" rel="noopener"
+>Guide of Choice SHU CES&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://luminolt.cn/post/a-guide-for-newbies-in-cs/" target="_blank" rel="noopener"
+>A Guide for newbies in Cyberspace Security&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Thank you for reading here, after you have finished your blog, you can comment on this post below to contact me to add your link. Anyway, you are free to ask any questions about this post. If there is anything inappropriate, please comment/contact me and I will change it as soon as possible.&lt;/p></description></item><item><title>My CS Learning Route</title><link>https://chasing1020.github.io/post/my-cs-learning-route/</link><pubDate>Sun, 28 Nov 2021 23:35:55 +0800</pubDate><guid>https://chasing1020.github.io/post/my-cs-learning-route/</guid><description>&lt;img src="https://chasing1020.github.io/post/my-cs-learning-route/Dunning.webp" alt="Featured image of post My CS Learning Route" />&lt;p>As of the time I am writing this post, I have been studying computer science for a year and a half. I have started to organize and share my own computer science related study materials and routes.&lt;/p>
+&lt;p>The courses in this schedule are not a substitute for college courses, but they can help you further your studies in computer science, or build an initial understanding of the field.&lt;/p>
+&lt;p>In some ways, this route can be more of a substitute for college courses outside of class, as a required course to become an industry technician.&lt;/p>
+&lt;p>Our industry is different from other industries in that you may simply need a laptop, a good learning environment, or you may also need a good body, and you need more than anything else a solid and unrelenting state of mind to explore. What you also need is how you can stand out among the many people at the level of thinking, which is the key.&lt;/p>
+&lt;p>So with this article, I hope this article can make you have a clearer learning plan and can take less detours, and this article is also a reminiscence of my undergraduate computer learning journey.&lt;/p>
+&lt;h1 id="1-the-lesson-were-missing">1. The Lesson We&amp;rsquo;re Missing&lt;/h1>
+&lt;p>For me personally, this chapter is almost all from the potholes I have stepped in, and the turns I took when I was lost. From another point of view, this is also to become a computer technology personnel must be a mandatory course or a necessary literacy.&lt;/p>
+&lt;ol>
+&lt;li>&lt;a class="link" href="http://www.catb.org/~esr/faqs/smart-questions.html" target="_blank" rel="noopener"
+>How To Ask Questions The Smart Way&lt;/a>: You don&amp;rsquo;t have to be technically proficient to get our attention, &lt;strong>but you must demonstrate the traits that lead you to become proficient&lt;/strong>: resourceful, thoughtful, observant, and willing to take the initiative to solve problems.&lt;/li>
+&lt;li>&lt;a class="link" href="http://integrity.mit.edu/" target="_blank" rel="noopener"
+>Academic Integrity&lt;/a>: &lt;strong>Honesty is the foundation of good academic work.&lt;/strong> Whether you are working on a problem set, lab report, project or paper, avoid engaging in plagiarism, unauthorized collaboration, cheating, or facilitating academic dishonesty.&lt;/li>
+&lt;li>&lt;a class="link" href="https://missing.csail.mit.edu/" target="_blank" rel="noopener"
+>The Missing Semester of Your CS Education&lt;/a>: Classes teach you all about advanced topics within CS, from operating systems to machine learning, but there’s one critical subject that’s rarely covered, and is instead left to students to figure out on their own: proficiency with their tools.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.bilibili.com/video/BV1EW411u7th?from=search&amp;amp;seid=17600070968462478473&amp;amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener"
+>Crash Course Computer Science&lt;/a>(&lt;a class="link" href="https://www.youtube.com/watch?v=O5nskjZ_GoI&amp;amp;list=PLH2l6uzC4UEW0s7-KewFLBC1D0l6XRfye" target="_blank" rel="noopener"
+>Youtube Link&lt;/a>): This is one of the few videos I&amp;rsquo;ve watched more than twice, and although it&amp;rsquo;s a documentary on computer science, I guarantee it&amp;rsquo;s more effective than any general education class in school. carrie Anne is an excellent teacher, and the curriculum is designed to cover almost all areas of computing, from history to applications to the future, covering a wide range of knowledge.&lt;/li>
+&lt;/ol>
+&lt;h1 id="2-computer-systems">2. Computer Systems&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://www.cs.cmu.edu/afs/cs/academic/class/15213-f21/www/schedule.html" target="_blank" rel="noopener"
+>Course: Intro to Computer Systems&lt;/a>: It is known as a course study site for the must-read book 《CSAPP》.&lt;/li>
+&lt;li>&lt;a class="link" href="https://nju-projectn.github.io/ics-pa-gitbook/ics2021/" target="_blank" rel="noopener"
+>NJU-projectn&lt;/a>: The computer system fundamentals course lab at Nanjing University is very helpful for personal improvement after completion.&lt;/li>
+&lt;li>&lt;a class="link" href="https://jdnotes.net/pdf/coding/writegreatcode_vol1.pdf" target="_blank" rel="noopener"
+>Write Great Code: Volume 1: Understanding the Machine&lt;/a>: This book explains the underlying mechanics of how a computer works.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.akkadia.org/drepper/cpumemory.pdf" target="_blank" rel="noopener"
+>What Every Programmer Should Know About Memory&lt;/a>: A paper by Red Hat, Inc. It explains the structure of memory subsystems in use on modern commodity hardware, illustrating why CPU caches were developed, how they work, and what programs should do to achieve optimal performance by utilizing them.&lt;/li>
+&lt;/ol>
+&lt;h1 id="3-data-structure">3. Data Structure&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://www.cs.bham.ac.uk/~jxb/DSA/dsa.pdf" target="_blank" rel="noopener"
+>《Data Structures and Algorithms》&lt;/a>: As a class note, the books are not very extensive, but they are also all very concise and can be used as a table of contents for study.&lt;/li>
+&lt;li>&lt;a class="link" href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noopener"
+>MIT&amp;rsquo;s Course Introduction To Algorithms 3rd Edition&lt;/a>: This course provides an introduction to mathematical modeling of computational problems. It covers the common algorithms, algorithmic paradigms, and data structures used to solve these problems. The course emphasizes the relationship between algorithms and programming, and introduces basic performance measures and analysis techniques for these problems.&lt;/li>
+&lt;li>&lt;a class="link" href="https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf" target="_blank" rel="noopener"
+>《Introduction To Algorithms 3rd Edition》&lt;/a>: It can be counted as the bible of algorithm books, which covers very comprehensive knowledge points and is relatively difficult, requiring a lot of time and patience. In contrast, I would recommend reading the following book.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/SuperChenSSS/Algorithm-Training/blob/master/Algorithhms%204th%20Edition%20by%20Robert%20Sedgewick%2C%20Kevin%20Wayne.pdf" target="_blank" rel="noopener"
+>《Algorithhms 4th Edition by Robert Sedgewick, Kevin Wayne.pdf》&lt;/a>: A classic book on algorithms written in Java language, with moderate difficulty and rich corresponding illustrations, is more suitable for reading.&lt;/li>
+&lt;li>&lt;a class="link" href="https://inst.eecs.berkeley.edu/~cs61b/sp22/index.html" target="_blank" rel="noopener"
+>CS 61B Data structures&lt;/a>: A course about data structures and programming methods about Java.&lt;/li>
+&lt;/ol>
+&lt;h1 id="4-computer-network">4. Computer Network&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://www.ucg.ac.me/skladiste/blog_44233/objava_64433/fajlovi/Computer%20Networking%20_%20A%20Top%20Down%20Approach,%207th,%20converted.pdf" target="_blank" rel="noopener"
+>《Computer Networking A Top Down Approach 7th》&lt;/a>: A classic computer networking book, but the latest version has been updated with more changes.&lt;/li>
+&lt;li>&lt;a class="link" href="https://gaia.cs.umass.edu/kurose_ross/ppt.php" target="_blank" rel="noopener"
+>UMASS Computer Networking PowerPoint&lt;/a>: Of the book 《Computer Networking A Top Down Approach》 teaching resources courseware, very unfortunately, is the eighth edition, currently the appropriate version on the network is only the seventh edition.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.bilibili.com/video/BV1JV411t7ow?from=search&amp;amp;seid=14417613760371321261&amp;amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener"
+>USTC&amp;rsquo;s Computer Networking Course&lt;/a>: The &amp;ldquo;Computer Networks&amp;rdquo; mooc is the recorded version of the undergraduate course of the Department of Automation of the University of Science and Technology in autumn 2020. On the basis of the introduction of computer network architecture, top-down, the Internet as an example systematically describes the main services, working principles, common technologies and protocols of each level of the network architecture. Mr. Zheng&amp;rsquo;s level is very high and the quality of lecture is excellent.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.isi.edu/~hussain/TEACH/Spring2014/notes/Steven00a.pdf" target="_blank" rel="noopener"
+>《TCP/IP Illustrated, Volume 1 The Protocols》&lt;/a>: As a top-down, advanced version of the book, it is more difficult, but I think parts of it can be skimmed.&lt;/li>
+&lt;/ol>
+&lt;h1 id="5-operating-system">5. Operating System&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener"
+>Operating Systems: Three Easy Pieces&lt;/a>: One of the best OS textbooks in the world, including the most basic OS content teaching. I highly recommend reading the original English version of this book, because the Chinese translation is really bad.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.bilibili.com/video/BV1N741177F5?from=search&amp;amp;seid=15614277637583490556&amp;amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener"
+>NJU&amp;rsquo;s Operating Systems Course&lt;/a>: The companion online course of OSTEP, which was made public by Jiang Yanyan of Nanjing University during the epidemic, is of very high lecture quality and can give a good realistic perspective and a good research direction. Supporting course website
+&lt;a class="link" href="http://jyywiki.cn/OS/2021/" target="_blank" rel="noopener"
+>jyywiki&lt;/a>.&lt;/li>
+&lt;li>&lt;a class="link" href="https://ipads.se.sjtu.edu.cn/mospi/" target="_blank" rel="noopener"
+>《Modern Operating Systems: Principle and Implementation》&lt;/a>: The textbook published by Shanghai Jiao Tong University is a joint effort by a team of teachers from Shanghai Jiao Tong University and one of the few quality textbooks in China. Most of the implementations are based on the Arm platform, and the content is very well developed, with a wide coverage of what is taught, as well as the accompanying &lt;a class="link" href="https://gitee.com/ipads-lab/chcore-lab" target="_blank" rel="noopener"
+>Lab&lt;/a>. I think the quality of this book is going to be due to Modern Operating Systems.&lt;/li>
+&lt;li>&lt;a class="link" href="https://tiramisutes.github.io/images/PDF/vbird-linux-basic-4e.pdf" target="_blank" rel="noopener"
+>《Vbird Linux Basic》&lt;/a> : It can be used as reference material, in fact, the main thing is to really install and practice application in project development, do not memorize commands, use more will naturally remember. The main way to learn is to really install a Linux distribution and then use it.&lt;/li>
+&lt;li>&lt;a class="link" href="https://0xax.gitbooks.io/linux-insides/content/" target="_blank" rel="noopener"
+>《Linux Inslides》&lt;/a>: A book-in-progress about the linux kernel and its insides. It can be done to supplement the above teaching content.&lt;/li>
+&lt;/ol>
+&lt;h1 id="6-data-base-systems">6. Data Base Systems&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://ia803206.us.archive.org/21/items/database-system-concepts-7th-edition/Database-System-Concepts-7th-Edition.pdf" target="_blank" rel="noopener"
+>《Database System Concepts 7th Edition》&lt;/a>: Database system concept, can be said to be a very complete and systematic database books, although some of the content is a bit old, but still can be used as a modern database learning textbook. Because the sixth edition of the textbook has been very old, here is more recommended to use the seventh edition of the textbook. This book website: &lt;a class="link" href="https://www.db-book.com" target="_blank" rel="noopener"
+>Link&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://15445.courses.cs.cmu.edu/fall2021/" target="_blank" rel="noopener"
+>CMU&amp;rsquo;s Course Database Systems&lt;/a>: I think this is the best quality database online course, the teaching materials provided are very well made. However, the more difficult point is the experimental part, which can be learned on demand according to your level.&lt;/li>
+&lt;/ol>
+&lt;h1 id="7-compilers">7. Compilers&lt;/h1>
+&lt;ol>
+&lt;li>&lt;a class="link" href="http://ce.sharif.edu/courses/94-95/1/ce414-2/resources/root/Text%20Books/Compiler%20Design/Alfred%20V.%20Aho,%20Monica%20S.%20Lam,%20Ravi%20Sethi,%20Jeffrey%20D.%20Ullman-Compilers%20-%20Principles,%20Techniques,%20and%20Tools-Pearson_Addison%20Wesley%20%282006%29.pdf" target="_blank" rel="noopener"
+>《compilers principles techniques and tools》&lt;/a>: Known as the &amp;ldquo;Dragon Book&amp;rdquo; of compilation principles books, it is recommended to patiently watch online classes little by little to break through, and this may be the only book I recommend reading the Chinese version, because the difficulty is too great.&lt;/li>
+&lt;li>&lt;a class="link" href="https://book.douban.com/subject/27034273/" target="_blank" rel="noopener"
+>《Writing An Interpreter In Go》&lt;/a>: Interpreter written in Go language, which can be used as a supplementary reading material.&lt;/li>
+&lt;/ol></description></item><item><title>Mathematic Fomulars</title><link>https://chasing1020.github.io/post/mathematic-fomulars/</link><pubDate>Sat, 20 Nov 2021 21:48:46 +0800</pubDate><guid>https://chasing1020.github.io/post/mathematic-fomulars/</guid><description>&lt;img src="https://chasing1020.github.io/post/mathematic-fomulars/math.webp" alt="Featured image of post Mathematic Fomulars" />&lt;h1 id="mathematic-fomulars">Mathematic Fomulars&lt;/h1>
+&lt;p>The mathematical typesetting is based on LaTeX, so if you need to search for the way to make a particular symbol, include &lt;code>latex&lt;/code> in your search. But note: Not all LaTeX macros are available without using additional packages, and those packages likely will only work if you are creating a PDF. On the plus side, if you are working in PDF, you can use additional packages that give much better control and/or easier syntax.&lt;/p>
+&lt;p>This article is about the basics about math symbols in Latex.&lt;/p>
+&lt;h3 id="greek-letters">Greek Letters&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>αA&lt;/th>
+&lt;th>&lt;code>$\alpha A$&lt;/code>&lt;/th>
+&lt;th>νN&lt;/th>
+&lt;th>&lt;code>$\nu N$&lt;/code>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>βB&lt;/td>
+&lt;td>&lt;code>$\beta B$&lt;/code>&lt;/td>
+&lt;td>ξΞ&lt;/td>
+&lt;td>&lt;code>$\xi\Xi$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>γΓ&lt;/td>
+&lt;td>&lt;code>$\gamma \Gamma$&lt;/code>&lt;/td>
+&lt;td>oO&lt;/td>
+&lt;td>&lt;code>$o O$&lt;/code> (omicron)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>δΔ&lt;/td>
+&lt;td>&lt;code>$\delta \Delta$&lt;/code>&lt;/td>
+&lt;td>πΠ&lt;/td>
+&lt;td>&lt;code>$\pi \Pi$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ϵεE&lt;/td>
+&lt;td>&lt;code>$\epsilon \varepsilon E$&lt;/code>&lt;/td>
+&lt;td>ρϱP&lt;/td>
+&lt;td>&lt;code>$\rho\varrho P$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ζZ&lt;/td>
+&lt;td>&lt;code>$\zeta Z \sigma \,\!$&lt;/code>&lt;/td>
+&lt;td>ΣΣ&lt;/td>
+&lt;td>&lt;code>$\sigma \Sigma$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ηH&lt;/td>
+&lt;td>&lt;code>$\eta H$&lt;/code>&lt;/td>
+&lt;td>τT&lt;/td>
+&lt;td>&lt;code>$\tau T$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>θϑ&lt;/td>
+&lt;td>&lt;code>$\theta \vartheta \Theta$&lt;/code>&lt;/td>
+&lt;td>υΥ&lt;/td>
+&lt;td>&lt;code>$\upsilon \Upsilon$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ιI&lt;/td>
+&lt;td>&lt;code>$\iota I$&lt;/code>&lt;/td>
+&lt;td>ϕφΦ&lt;/td>
+&lt;td>&lt;code>$\phi \varphi \Phi$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>κK&lt;/td>
+&lt;td>&lt;code>$\kappa K$&lt;/code>&lt;/td>
+&lt;td>χX&lt;/td>
+&lt;td>&lt;code>$\chi X$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>λΛ&lt;/td>
+&lt;td>&lt;code>$\lambda \Lambda$&lt;/code>&lt;/td>
+&lt;td>ψΨ&lt;/td>
+&lt;td>&lt;code>$\psi \Psi$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>μM&lt;/td>
+&lt;td>&lt;code>$\mu M$&lt;/code>&lt;/td>
+&lt;td>ωΩ&lt;/td>
+&lt;td>&lt;code>$\omega \Omega$&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="operators">Operators&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$\cos$&lt;/td>
+&lt;td style="text-align:left">\cos&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\sin$&lt;/td>
+&lt;td style="text-align:left">\sin&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\lim$&lt;/td>
+&lt;td style="text-align:left">\lim&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\exp$&lt;/td>
+&lt;td style="text-align:left">\exp&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\to$&lt;/td>
+&lt;td style="text-align:left">\to&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\infty$&lt;/td>
+&lt;td style="text-align:left">\infty&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\equiv$&lt;/td>
+&lt;td style="text-align:left">\equiv&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bmod$&lt;/td>
+&lt;td style="text-align:left">\bmod&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\times$&lt;/td>
+&lt;td style="text-align:left">\times&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="power-and-indices">Power and Indices&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$k_{n+1}$&lt;/td>
+&lt;td style="text-align:left">k_{n+1}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$n^2$&lt;/td>
+&lt;td style="text-align:left">n^2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$k_n^2$&lt;/td>
+&lt;td style="text-align:left">k_n^2&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="fractions-and-binomials">Fractions and Binomials&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$\frac{n!}{k!(n-k)!}$&lt;/td>
+&lt;td style="text-align:left">\frac{n!}{k!(n-k)!}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\binom{n}{k}$&lt;/td>
+&lt;td style="text-align:left">\binom{n}{k}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\frac{\frac{x}{1}}{x - y}$&lt;/td>
+&lt;td style="text-align:left">\frac{\frac{x}{1}}{x - y}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$^3/_7$&lt;/td>
+&lt;td style="text-align:left">^3/_7&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="roots">Roots&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$\sqrt{k}$&lt;/td>
+&lt;td style="text-align:left">\sqrt{k}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\sqrt[n]{k}$&lt;/td>
+&lt;td style="text-align:left">\sqrt[n]{k}&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="sums-and-integrals">Sums and Integrals&lt;/h3>
+&lt;p>$\int a^4 tan^2t sec^3t dt$&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$\sum_{i=1}^{10} t_i$&lt;/td>
+&lt;td style="text-align:left">\sum_{i=1}^{10} t_i&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int_0^\infty \mathrm{e}^{-x}\mathrm{d}x$&lt;/td>
+&lt;td style="text-align:left">\int_0^\infty \mathrm{e}^{-x}\mathrm{d}x&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int_{-\infty}^{\infty} f(x) ; dx$&lt;/td>
+&lt;td style="text-align:left">\int_{-\infty}^{\infty} f(x) ; dx&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\left. F(x) \right&lt;/td>
+&lt;td style="text-align:left">_{a}^{b}$&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\sum$&lt;/td>
+&lt;td style="text-align:left">\sum&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\prod$&lt;/td>
+&lt;td style="text-align:left">\prod&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\coprod$&lt;/td>
+&lt;td style="text-align:left">\coprod&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\implies$&lt;/td>
+&lt;td style="text-align:left">\implies&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigoplus$&lt;/td>
+&lt;td style="text-align:left">\bigoplus&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigotimes$&lt;/td>
+&lt;td style="text-align:left">\bigotimes&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigodot$&lt;/td>
+&lt;td style="text-align:left">\bigodot&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigcup$&lt;/td>
+&lt;td style="text-align:left">\bigcup&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigcap$&lt;/td>
+&lt;td style="text-align:left">\bigcap&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\biguplus$&lt;/td>
+&lt;td style="text-align:left">\biguplus&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigsqcup$&lt;/td>
+&lt;td style="text-align:left">\bigsqcup&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigvee$&lt;/td>
+&lt;td style="text-align:left">\bigvee&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\vee$&lt;/td>
+&lt;td style="text-align:left">\vee&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bigwedge$&lt;/td>
+&lt;td style="text-align:left">\bigwedge&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\wedge$&lt;/td>
+&lt;td style="text-align:left">\wedge&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int$&lt;/td>
+&lt;td style="text-align:left">\int&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\oint$&lt;/td>
+&lt;td style="text-align:left">\oint&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\iint$&lt;/td>
+&lt;td style="text-align:left">\iint&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\iiint$&lt;/td>
+&lt;td style="text-align:left">\iiint&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\idotsint$&lt;/td>
+&lt;td style="text-align:left">\idotsint&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\sum_{\substack{0&amp;lt;i&amp;lt;m,0&amp;lt;j&amp;lt;n}} P(i, j)$&lt;/td>
+&lt;td style="text-align:left">\sum_{\substack{0&amp;lt;i&amp;lt;m,0&amp;lt;j&amp;lt;n}} P(i, j)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int\limits_a^b$&lt;/td>
+&lt;td style="text-align:left">\int\limits_a^b&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="marks">Marks&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$a’$ $a^{\prime}$&lt;/td>
+&lt;td style="text-align:left">a` a^{\prime}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$a’’$&lt;/td>
+&lt;td style="text-align:left">a’’&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\hat{a}$&lt;/td>
+&lt;td style="text-align:left">hat{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\bar{a}$&lt;/td>
+&lt;td style="text-align:left">\bar{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\grave{a}$&lt;/td>
+&lt;td style="text-align:left">\grave{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\acute{a}$&lt;/td>
+&lt;td style="text-align:left">\acute{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\stackrel{·}{\sim}$&lt;/td>
+&lt;td style="text-align:left">\dot{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\ddot{a}$&lt;/td>
+&lt;td style="text-align:left">\ddot{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\not{a}$&lt;/td>
+&lt;td style="text-align:left">\not{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\mathring{a}$&lt;/td>
+&lt;td style="text-align:left">\mathring{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\overrightarrow{AB}$&lt;/td>
+&lt;td style="text-align:left">\overrightarrow{AB}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\overleftarrow{AB}$&lt;/td>
+&lt;td style="text-align:left">\overleftarrow{AB}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$a’’’$&lt;/td>
+&lt;td style="text-align:left">a’’’&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\overline{aaa}$&lt;/td>
+&lt;td style="text-align:left">\overline{aaa}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\check{a}$&lt;/td>
+&lt;td style="text-align:left">\check{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\vec{a}$&lt;/td>
+&lt;td style="text-align:left">\vec{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\underline{a}$&lt;/td>
+&lt;td style="text-align:left">\underline{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\color{red}x$&lt;/td>
+&lt;td style="text-align:left">\color{red}x&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\pm$&lt;/td>
+&lt;td style="text-align:left">\pm&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\mp$&lt;/td>
+&lt;td style="text-align:left">\mp&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int y \mathrm{d}x$&lt;/td>
+&lt;td style="text-align:left">\int y \mathrm{d}x&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$,$&lt;/td>
+&lt;td style="text-align:left">,&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$:$&lt;/td>
+&lt;td style="text-align:left">:&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$;$&lt;/td>
+&lt;td style="text-align:left">;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$!$&lt;/td>
+&lt;td style="text-align:left">!&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\int y, \mathrm{d}x$&lt;/td>
+&lt;td style="text-align:left">\int y, \mathrm{d}x&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\dots$&lt;/td>
+&lt;td style="text-align:left">\dots&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\ldots$&lt;/td>
+&lt;td style="text-align:left">\ldots&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\cdots$&lt;/td>
+&lt;td style="text-align:left">\cdots&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\vdots$&lt;/td>
+&lt;td style="text-align:left">\vdots&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\ddots$&lt;/td>
+&lt;td style="text-align:left">\ddots&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>$\stackrel{\bf{}}{\sim}$&lt;/p>
+&lt;h3 id="brackets-etc">Brackets etc&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Symbol&lt;/th>
+&lt;th style="text-align:left">Script&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">$(a)$&lt;/td>
+&lt;td style="text-align:left">(a)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$[a]$&lt;/td>
+&lt;td style="text-align:left">[a]&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">${a}$&lt;/td>
+&lt;td style="text-align:left">{a}&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\langle f \rangle$&lt;/td>
+&lt;td style="text-align:left">\langle f \rangle&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\lfloor f \rfloor$&lt;/td>
+&lt;td style="text-align:left">\lfloor f \rfloor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\lceil f \rceil$&lt;/td>
+&lt;td style="text-align:left">\lceil f \rceil&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">$\ulcorner f \urcorner$&lt;/td>
+&lt;td style="text-align:left">\ulcorner f \urcorner&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="aligning-equations">Aligning equations&lt;/h3>
+&lt;p>use \begin{align*} &amp;hellip; \end{align*}. Separate lines with &lt;code>\\&lt;/code> and use &lt;code>&amp;amp;&lt;/code> to mark where things should line up.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-latex" data-lang="latex">&lt;span class="line">&lt;span class="cl">&lt;span class="s">$&lt;/span>&lt;span class="nv">\begin&lt;/span>&lt;span class="nb">{align&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nb">}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">a &amp;amp; &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb"> b &lt;/span>&lt;span class="nv">\\&lt;/span>&lt;span class="nb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">X &amp;amp;&lt;/span>&lt;span class="nv">\sim&lt;/span>&lt;span class="nb"> {&lt;/span>&lt;span class="nv">\sf&lt;/span>&lt;span class="nb"> Norm}&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="nb">, &lt;/span>&lt;span class="m">3&lt;/span>&lt;span class="o">)&lt;/span>&lt;span class="nb"> &lt;/span>&lt;span class="nv">\\&lt;/span>&lt;span class="nb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">&lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="nb"> &amp;amp; &lt;/span>&lt;span class="nv">\le&lt;/span>&lt;span class="nb"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="nb">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">&lt;/span>&lt;span class="nv">\end&lt;/span>&lt;span class="nb">{align&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nb">}&lt;/span>&lt;span class="s">$&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>$\begin{align*}
+a &amp;amp; = b \
+X &amp;amp;\sim {\sf Norm}(10, 3) \
+5 &amp;amp; \le 10
+\end{align*}$&lt;/p></description></item><item><title>Crawler Note</title><link>https://chasing1020.github.io/post/crawler-note/</link><pubDate>Mon, 12 Oct 2020 20:12:03 +0800</pubDate><guid>https://chasing1020.github.io/post/crawler-note/</guid><description>&lt;img src="https://chasing1020.github.io/post/crawler-note/crawlers.webp" alt="Featured image of post Crawler Note" />&lt;h1 id="网页爬虫项目实战经验">网页爬虫项目实战经验&lt;/h1>
+&lt;p>此篇记录了网页爬虫的基本使用库，以及常用的正则表达式操作等。
+同时给出了豆瓣电影top250的爬取方式（经典爬虫入门项目）。
+以及对于CSDN的博主主页单个以及多个文章的爬取，并利用工具将其转换为pdf格式&lt;/p>
+&lt;h1 id="1bs4">1.Bs4&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">bs4将复杂html文档转换成一个复杂的树形结构&lt;/span>&lt;span class="err">，&lt;/span>&lt;span class="n">每个节点都是python对象&lt;/span>&lt;span class="err">，&lt;/span>&lt;span class="n">所有对象可以分为4种&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">Tag&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">NavigableString&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">BeautifulSoup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">-&lt;/span>&lt;span class="n">Comment&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="11-analyze">1.1 analyze&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#bs4分析文档&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">bs4&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;./baidu.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;rb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;html.parser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#&amp;lt;class &amp;#39;bs4.element.Tag&amp;#39;&amp;gt;标签及其内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#1.tag 标签及内容：拿到它所找到的第一个内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#&amp;lt;class &amp;#39;bs4.element.NavigableString&amp;#39;&amp;gt;标签里的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#2.NavigableString标签里的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">attrs&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#&amp;lt;class &amp;#39;dict&amp;#39;&amp;gt;#&amp;lt;class &amp;#39;dict&amp;#39;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#3.标签内部的字典信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#&amp;lt;class &amp;#39;bs4.BeautifulSoup&amp;#39;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#4.表示整个文档&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">string&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#&amp;lt;class &amp;#39;bs4.element.Comment&amp;#39;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#5.第一个a中的注释里的内容,不包含注释符号&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="12-traversal">1.2 Traversal&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#文档的遍历&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">bs4&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;./baidu.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;rb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;html.parser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">contents&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#列表类型，可以用下标访问&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">contents&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="13-find">1.3 find&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#文档搜索&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">re&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">bs4&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;./baidu.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;rb&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bs&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;html.parser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#1.find_all()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#查找与字符串完全匹配的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#所有&amp;lt;a&amp;gt;标签下面的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#2.search()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#正则表达式来搜索&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="c1">#匹配与正则表达式a有关的全部内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#3.根据函数的要求来搜索&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#自定义函数查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">name_is_exists&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tag&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">tag&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">has_attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name_is_exists&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#4.kwargs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">寻找id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;head&amp;#34;&lt;/span>&lt;span class="n">内的全部内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;head&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#5.文本参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">寻找文本的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;hao123&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;贴吧&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;地图&amp;#34;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;\d&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1">#寻找符合正则表达式的项目，这里是寻找所有整数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#6.limit参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">limit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">#只搜索三个&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#7.css选择器&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;title&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.mnav&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#寻找类名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;#u1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#通过id来查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a[class=&amp;#39;bri&amp;#39;]&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#通过属性来查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;head&amp;gt;title&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#通过子标签来查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">t_list&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">bs&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">select&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.mnav ~ .bri&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#通过子标签来查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">t_list&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_text&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="c1">#获取文本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">t_list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="2-re">2. Re&lt;/h1>
+&lt;hr>
+&lt;p>#正则表达式：字符串模式（判断字符串是否符合一定标准）
+import re
+#创建模式对象&lt;/p>
+&lt;h2 id="21-new-object">2.1 new object&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#search&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pat&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;AA&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#此处的AA属于正则表达式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ans&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pat&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#这里的search内部属于被搜索的内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ans&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#输出None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ans2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">pat&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;AABCAA&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#优先找到第一个结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ans2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#输出&amp;lt;re.Match object; span=(3, 5), match=&amp;#39;AA&amp;#39;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="22-findall">2.2 findall&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#findall&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ans&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a+&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;aaabc&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#前面是正则表达式，后面是待求的结果&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ans&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#输出[&amp;#39;aaa&amp;#39;]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="23-sub">2.3 sub&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#sub(1,2,3)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ans&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;abcdcasd&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#对于最后一个表达式，用a换成A&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ans&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#建议在正则表达式种，被比较的字符前面加上r，不用担心转义字符的问题&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="24-demo">2.4 demo&lt;/h2>
+&lt;p>1、匹配中文:[\u4e00-\u9fa5]&lt;/p>
+&lt;p>2、英文字母:[a-zA-Z]&lt;/p>
+&lt;p>3、数字:[0-9]&lt;/p>
+&lt;p>4、匹配中文，英文字母和数字及下划线：^[\u4e00-\u9fa5_a-zA-Z0-9]+$
+同时判断输入长度：
+[\u4e00-\u9fa5_a-zA-Z0-9_]{4,10}&lt;/p>
+&lt;p>5、
+(?!&lt;em>)　　不能以_开头
+(?!.*?&lt;/em>$)　　不能以_结尾
+[a-zA-Z0-9_\u4e00-\u9fa5]+　　至少一个汉字、数字、字母、下划线
+$　　与字符串结束的地方匹配&lt;/p>
+&lt;p>6、只含有汉字、数字、字母、下划线，下划线位置不限：
+^[a-zA-Z0-9_\u4e00-\u9fa5]+$&lt;/p>
+&lt;p>7、由数字、26个英文字母或者下划线组成的字符串
+^\w+$&lt;/p>
+&lt;p>8、2~4个汉字
+&amp;ldquo;^[\u4E00-\u9FA5]{2,4}$&amp;rdquo;;&lt;/p>
+&lt;p>9、最长不得超过7个汉字，或14个字节(数字，字母和下划线)正则表达式
+^[\u4e00-\u9fa5]{1,7}$|^[\dA-Za-z_]{1,14}$&lt;/p>
+&lt;p>10、匹配双字节字符(包括汉字在内)：[^x00-xff]
+评注：可以用来计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）&lt;/p>
+&lt;p>11、匹配空白行的正则表达式：ns*r
+评注：可以用来删除空白行&lt;/p>
+&lt;p>12、匹配HTML标记的正则表达式：&amp;lt;(S*?)[^&amp;gt;]&lt;em>&amp;gt;.&lt;/em>?|&amp;lt;.*? /&amp;gt;
+评注：网上流传的版本太糟糕，上面这个也仅仅能匹配部分，对于复杂的嵌套标记依旧无能为力&lt;/p>
+&lt;p>13、匹配首尾空白字符的正则表达式：^s*|s*$
+评注：可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式&lt;/p>
+&lt;p>14、匹配Email地址的正则表达式：^[a-zA-Z0-9][\w.-]&lt;em>[a-zA-Z0-9]@[a-zA-Z0-9][\w.-]&lt;/em>[a-zA-Z0-9].[a-zA-Z][a-zA-Z.]*[a-zA-Z]$&lt;/p>
+&lt;p>评注：表单验证时很实用&lt;/p>
+&lt;p>15、手机号：^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$&lt;/p>
+&lt;p>16、身份证：(^\d{15}$)|(^\d{17}([0-9]|X|x)$)&lt;/p>
+&lt;p>17、匹配网址URL的正则表达式：[a-zA-z]+://[^s]*
+评注：网上流传的版本功能很有限，上面这个基本可以满足需求&lt;/p>
+&lt;p>18、匹配帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$
+评注：表单验证时很实用&lt;/p>
+&lt;p>19、匹配国内电话号码：d{3}-d{8}|d{4}-d{7}
+评注：匹配形式如 0511-4405222 或 021-87888822&lt;/p>
+&lt;p>20、匹配腾讯QQ号：[1-9][0-9]{4,}
+评注：腾讯QQ号从10000开始&lt;/p>
+&lt;p>21、匹配中国邮政编码：[1-9]d{5}(?!d)
+评注：中国邮政编码为6位数字&lt;/p>
+&lt;p>22、匹配身份证：d{15}|d{18}
+评注：中国的身份证为15位或18位&lt;/p>
+&lt;p>23、匹配ip地址：d+.d+.d+.d+
+评注：提取ip地址时有用&lt;/p>
+&lt;p>24、匹配特定数字：
+^[1-9]d*$　 　 //匹配正整数
+^-[1-9]d*$ 　 //匹配负整数
+^-?[1-9]d*$　　 //匹配整数
+^[1-9]d*|0$　 //匹配非负整数（正整数 + 0）
+^-[1-9]d*|0$　　 //匹配非正整数（负整数 + 0）
+^[1-9]d*.d*|0.d*[1-9]d*$　　 //匹配正浮点数
+^-([1-9]d*.d*|0.d*[1-9]d*)$　 //匹配负浮点数
+^-?([1-9]d*.d*|0.d*[1-9]d*|0?.0+|0)$　 //匹配浮点数
+^[1-9]d*.d*|0.d*[1-9]d*|0?.0+|0$　　 //匹配非负浮点数（正浮点数 + 0）
+^(-([1-9]d*.d*|0.d*[1-9]d*))|0?.0+|0$　　//匹配非正浮点数（负浮点数 + 0）
+评注：处理大量数据时有用，具体应用时注意修正&lt;/p>
+&lt;p>25、匹配特定字符串：
+^[A-Za-z]+$　　//匹配由26个英文字母组成的字符串
+^[A-Z]+$　　//匹配由26个英文字母的大写组成的字符串
+^[a-z]+$　　//匹配由26个英文字母的小写组成的字符串
+^[A-Za-z0-9]+$　　//匹配由数字和26个英文字母组成的字符串
+^w+$　　//匹配由数字、26个英文字母或者下划线组成的字符串&lt;/p>
+&lt;p>26、
+在使用RegularExpressionValidator验证控件时的验证功能及其验证表达式介绍如下:
+只能输入数字：“^[0-9]&lt;em>$”
+只能输入n位的数字：“^d{n}$”
+只能输入至少n位数字：“^d{n,}$”
+只能输入m-n位的数字：“^d{m,n}$”
+只能输入零和非零开头的数字：“^(0|[1-9][0-9]&lt;/em>)$”
+只能输入有两位小数的正实数：“^[0-9]+(.[0-9]{2})?$”
+只能输入有1-3位小数的正实数：“^[0-9]+(.[0-9]{1,3})?$”
+只能输入非零的正整数：“^+?[1-9][0-9]&lt;em>$”
+只能输入非零的负整数：“^-[1-9][0-9]&lt;/em>$”
+只能输入长度为3的字符：“^.{3}$”
+只能输入由26个英文字母组成的字符串：“^[A-Za-z]+$”
+只能输入由26个大写英文字母组成的字符串：“^[A-Z]+$”
+只能输入由26个小写英文字母组成的字符串：“^[a-z]+$”
+只能输入由数字和26个英文字母组成的字符串：“^[A-Za-z0-9]+$”
+只能输入由数字、26个英文字母或者下划线组成的字符串：“^w+$”
+验证用户密码:“^[a-zA-Z]w{5,17}$”正确格式为：以字母开头，长度在6-18之间，
+只能包含字符、数字和下划线。
+验证是否含有^%&amp;amp;&amp;rsquo;,;=?$&amp;ldquo;等字符：“[^%&amp;amp;&amp;rsquo;,;=?$x22]+”
+只能输入汉字：“^[u4e00-u9fa5],{0,}$”
+验证Email地址：“^w+[-+.]w+)&lt;em>@w+([-.]w+)&lt;/em>.w+([-.]w+)&lt;em>$”
+验证InternetURL：“^http://([w-]+.)+[w-]+(/[w-./?%&amp;amp;=]&lt;/em>)?$”
+验证身份证号（15位或18位数字）：“^d{15}|d{}18$”
+验证一年的12个月：“^(0?[1-9]|1[0-2])$”正确格式为：“01”-“09”和“1”“12”
+验证一个月的31天：“^((0?[1-9])|((1|2)[0-9])|30|31)$”
+正确格式为：“01”“09”和“1”“31”。
+匹配中文字符的正则表达式： [u4e00-u9fa5]
+匹配双字节字符(包括汉字在内)：[^x00-xff]
+匹配空行的正则表达式：n[s| ]&lt;em>r
+匹配HTML标记的正则表达式：/&amp;lt;(.&lt;/em>)&amp;gt;.&lt;em>|&amp;lt;(.&lt;/em>) /&amp;gt;/
+匹配首尾空格的正则表达式：(^s*)|(s*$)
+匹配Email地址的正则表达式：w+([-+.]w+)&lt;em>@w+([-.]w+)&lt;/em>.w+([-.]w+)*
+匹配网址URL的正则表达式：http://([w-]+.)+[w-]+(/[w- ./?%&amp;amp;=]*)?&lt;/p>
+&lt;h1 id="3-urllib">3. Urllib&lt;/h1>
+&lt;hr>
+&lt;h2 id="31-get">3.1 get&lt;/h2>
+&lt;hr>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.request&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#1、获取一个get请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">responce&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/get&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">timeout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.01&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">responce&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1">#对获取到的网页源码进行utf-8解码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">except&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">error&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">URLError&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;time out&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">#超时处理&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="32-post">3.2 post&lt;/h2>
+&lt;hr>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#2、获取一个post请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.parse&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlencode&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;world&amp;#34;&lt;/span>&lt;span class="p">}),&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/post&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">responce&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://www.baidu.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">responce&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">status&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">#获取状态码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">responce&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getheaders&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">#获取全部信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">responce&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getheader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Server&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1">#获取全部信息&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="33-418-error">3.3 418 error&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#3、post请求，反418&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">url&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/post&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;User-Agent&amp;#34;&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.44&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlencode&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;world&amp;#34;&lt;/span>&lt;span class="p">}),&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">req&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">method&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;POST&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">response&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">req&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="34-test">3.4 test&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#4、爬取豆瓣&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">url&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;https://www.douban.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;User-Agent&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 Edg/84.0.522.44&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlencode&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;world&amp;#34;&lt;/span>&lt;span class="p">}),&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">req&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">response&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">req&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="4-xwlt">4. Xwlt&lt;/h1>
+&lt;h2 id="41-new">4.1 new&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">xlwt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">workbook&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">xlwt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Workbook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#创建对象&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">worksheet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">workbook&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_sheet&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;sheet1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#创建工作表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">worksheet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">*&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">=&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># 行,列，内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">workbook&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;student.xls&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="5-release">5. Release&lt;/h1>
+&lt;h2 id="51-top250">5.1 Top250&lt;/h2>
+&lt;p>爬取豆瓣电影Top250，并将其保存在sql数据库中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;span class="lnt">166
+&lt;/span>&lt;span class="lnt">167
+&lt;/span>&lt;span class="lnt">168
+&lt;/span>&lt;span class="lnt">169
+&lt;/span>&lt;span class="lnt">170
+&lt;/span>&lt;span class="lnt">171
+&lt;/span>&lt;span class="lnt">172
+&lt;/span>&lt;span class="lnt">173
+&lt;/span>&lt;span class="lnt">174
+&lt;/span>&lt;span class="lnt">175
+&lt;/span>&lt;span class="lnt">176
+&lt;/span>&lt;span class="lnt">177
+&lt;/span>&lt;span class="lnt">178
+&lt;/span>&lt;span class="lnt">179
+&lt;/span>&lt;span class="lnt">180
+&lt;/span>&lt;span class="lnt">181
+&lt;/span>&lt;span class="lnt">182
+&lt;/span>&lt;span class="lnt">183
+&lt;/span>&lt;span class="lnt">184
+&lt;/span>&lt;span class="lnt">185
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#-*- coding = utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Time : 2020/10/6 21:00&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Author : chasing&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@File : spyder.py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Software: PyCharm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">bs4&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span> &lt;span class="c1"># 网页解析，获取数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">re&lt;/span> &lt;span class="c1"># 正则表达式，进行文字匹配&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.request&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.error&lt;/span> &lt;span class="c1"># 制定URL，获取网页数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">xlwt&lt;/span> &lt;span class="c1"># 进行excel操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sqlite3&lt;/span> &lt;span class="c1"># 进行SQLite数据库操作&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">baseurl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;https://movie.douban.com/top250?start=&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 1.爬取网页&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">datalist&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">baseurl&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#savepath = &amp;#34;豆瓣电影Top250.xls&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">dbpath&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;movie.db&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 3.保存数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># saveData(datalist,savepath)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">saveData2DB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datalist&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dbpath&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># askURL(&amp;#34;https://movie.douban.com/top250?start=&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 影片详情链接的规则&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findLink&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;a href=&amp;#34;(.*?)&amp;#34;&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 创建正则表达式对象，表示规则（字符串的模式）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 影片图片&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findImgSrc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;img.*src=&amp;#34;(.*?)&amp;#34;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># re.S 让换行符包含在字符中&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 影片片名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findTitle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;span class=&amp;#34;title&amp;#34;&amp;gt;(.*)&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 影片评分&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findRating&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;span class=&amp;#34;rating_num&amp;#34; property=&amp;#34;v:average&amp;#34;&amp;gt;(.*)&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 找到评价人数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findJudge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;span&amp;gt;(\d*)人评价&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 找到概况&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findInq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;span class=&amp;#34;inq&amp;#34;&amp;gt;(.*)&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 找到影片的相关内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findBd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;p class=&amp;#34;&amp;#34;&amp;gt;(.*?)&amp;lt;/p&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 爬取网页&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">getData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">baseurl&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">datalist&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1"># 调用获取页面信息的函数，10次&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">baseurl&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">25&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">askURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 保存获取到的网页源码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 2.逐一解析数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">soup&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">BeautifulSoup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;html.parser&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">soup&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;div&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">class_&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span> &lt;span class="c1">#查找符合要求的字符串，形成列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(item) #测试：查看电影item全部信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span> &lt;span class="c1"># 保存一部电影的所有信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">item&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 影片详情的链接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">link&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findLink&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1"># re库用来通过正则表达式查找指定的字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">link&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 添加链接&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">imgSrc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findImgSrc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">imgSrc&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 添加图片&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">titles&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findTitle&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 片名可能只有一个中文名，没有外国名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">titles&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctitle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">titles&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1"># 添加中文名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ctitle&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">otitle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">titles&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 去掉无关的符号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">otitle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 添加外国名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">titles&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 外国名字留空&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">rating&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findRating&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rating&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 添加评分&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">judgeNum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findJudge&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">judgeNum&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 提加评价人数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">inq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findInq&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">inq&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">inq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">inq&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;。&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 去掉句号&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">inq&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 添加概述&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 留空&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findBd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;br(\s+)?/&amp;gt;(\s+)?&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bd&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 去掉&amp;lt;br/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bd&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bd&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 替换/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 去掉前后的空格&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">datalist&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 把处理好的一部电影信息放入datalist&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">datalist&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 得到指定一个URL的网页内容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">askURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">head&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1"># 模拟浏览器头部信息，向豆瓣服务器发送消息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;User-Agent&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 80.0.3987.122 Safari / 537.36&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 用户代理，表示告诉豆瓣服务器，我们是什么类型的机器、浏览器（本质上是告诉浏览器，我们可以接收什么水平的文件内容）&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">request&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">head&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">urlopen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">html&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(html)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">error&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">URLError&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">hasattr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;code&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">code&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">hasattr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;reason&amp;#34;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reason&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 保存数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">saveData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datalist&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">savepath&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;save....&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">book&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">xlwt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Workbook&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">style_compression&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 创建workbook对象&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sheet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">book&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_sheet&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;豆瓣电影Top250&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cell_overwrite_ok&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 创建工作表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">col&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;电影详情链接&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;图片链接&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;影片中文名&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;影片外国名&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;评分&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;评价数&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;概况&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;相关信息&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sheet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">col&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1"># 列名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">250&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;第&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2">条&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">datalist&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sheet&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1"># 数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">book&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">savepath&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 保存&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">saveData2DB&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datalist&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dbpath&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">init_db&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dbpath&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sqlite3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dbpath&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cur&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cursor&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">datalist&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">index&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">index&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">index&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">index&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#34;&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">index&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;&amp;#34;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sql&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> insert into movie250 (
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> info_link,pic_link,cname,ename,score,rated,instroduction,info)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> values(&lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">)&amp;#39;&amp;#39;&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="s2">&amp;#34;,&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sql&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cur&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sql&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">commit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cur&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">init_db&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dbpath&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sql&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> create table movie250
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> (
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> id integer primary key autoincrement,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> info_link text,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> pic_link text,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> cname varchar,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> ename varchar,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> score numeric ,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> rated numeric ,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> instroduction text,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> info text
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> )
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1"> &amp;#39;&amp;#39;&amp;#39;&lt;/span> &lt;span class="c1"># 创建数据表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sqlite3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dbpath&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cursor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cursor&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cursor&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sql&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">commit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">conn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 当程序执行时&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 调用函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># init_db(&amp;#34;movietest.db&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;爬取完毕！&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="6-csdn">6. CSDN&lt;/h1>
+&lt;h2 id="61-for-a-certain-passage">6.1 for a certain passage&lt;/h2>
+&lt;p>对于一个博主的确切的文章链接，可以使用以下代码爬取其中的文章内容，并保存为pdf格式&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#-*- coding = utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Time : 2020-10-12 18:08&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Author : chasing&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@File : csdn.py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Software: PyCharm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">re&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">parsel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">pdfkit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">BaseUrl&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;https://blog.csdn.net/justidle/article/details/106850487&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmp&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;meta name=&amp;#34;keywords&amp;#34; content=&amp;#34;(.*?)&amp;#34;&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">headers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;User-Agent&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s1">&amp;#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36 Edg/86.0.622.38&amp;#39;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BaseUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;响应体：&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Title&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmp&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">FileUrl&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;D:&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">desktop&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Title&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;.pdf&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;期望保存位置：&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">FileUrl&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Html1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;!doctype html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt;&amp;lt;title&amp;gt;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Html2&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&lt;/span>&lt;span class="si">{content}&lt;/span>&lt;span class="s1">&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">html&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">Html1&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Title&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">Html2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">selector&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">parsel&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Selector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">article&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">selector&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;article&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;文章本体：&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">article&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;1.html&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">html&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">article&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pdfkit&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">configuration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">wkhtmltopdf&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;E:&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">wkhtmltopdf&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">bin&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">wkhtmltopdf.exe&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pdfkit&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;1.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">FileUrl&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">configuration&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;文件保存成功，保存文件的路径为：&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">FileUrl&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello World!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="62-all-passages">6.2 All passages&lt;/h2>
+&lt;p>对于博主的全部文章，可以使用以下方法，获取其所有文章的链接&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#-*- coding = utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Time : 2020-10-12 20:09&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Author : chasing&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@File : Release.py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#@Software: PyCharm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#导入相应的模块&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">re&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">parsel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">pdfkit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Pages=askPages(BaseUrl)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(Pages)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">askUrl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">baseUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tempUrl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">baseUrl&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">askUrl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tempUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Response&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findChinese&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;[\u4e00-\u9fa5]+&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#pdfkit不能能保存含有特殊符号名称的文件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findBranch&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;a href=&amp;#34;(.*?)&amp;#34; target=&amp;#34;_blank&amp;#34;&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">findFile&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;meta name=&amp;#34;keywords&amp;#34; content=&amp;#34;(.*?)&amp;#34;&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># findPages=re.compile(r&amp;#39;&amp;lt;li data-page=&amp;#34;(\d+)&amp;#34; class=&amp;#34;ui-pager&amp;#34;&amp;gt;.*?&amp;lt;/li&amp;gt;&amp;#39;,re.S)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">headers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;user-agent&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36 Edg/86.0.622.38&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">baseUrl&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;https://blog.csdn.net/qq_27133869&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 页面数量为动态&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># def askPages(BaseUrl):#js&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># response = requests.get(BaseUrl, headers=headers)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># print(response.text)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Pages = re.findall(FindPages, response.text)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># return Pages&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">askUrl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">baseUrl&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">baseResponse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">baseUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(baseResponse.text)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">branchUrls&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findBranch&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">baseResponse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">assert&lt;/span> &lt;span class="n">branchUrls&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">branchUrls&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="c1">#删除帮助文档&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">assert&lt;/span> &lt;span class="n">branchUrls&lt;/span>&lt;span class="c1">#为空直接跳出，节省资源&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># print(branchUrls)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">times&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">BranchUrl&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">branchUrls&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">branchResponse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BranchUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#保存的文件名&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">tempTitle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findFile&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">branchResponse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tempTitle&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findChinese&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tempTitle&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">finalTitle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">findall&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">findChinese&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tempTitle&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;第 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 面的 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 篇文章名为:&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">times&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">finalTitle&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#最终网页源代码&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">finalHtml&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;!doctype html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt;&amp;lt;title&amp;gt;&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">finalTitle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&lt;/span>&lt;span class="si">{content}&lt;/span>&lt;span class="s1">&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#pdf文件的保存位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">fileUrl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;D:&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">desktop&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">CSDN&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">littlePING&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">finalTitle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;.pdf&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;第 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 面的 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 篇文章保存路径为:&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">times&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fileUrl&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">selector&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">parsel&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Selector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">branchResponse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">article&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">selector&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">css&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;article&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#文件保存的位置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;temp.html&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">finalHtml&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">article&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pdfkit&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">configuration&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">wkhtmltopdf&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;E:&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">wkhtmltopdf&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">bin&lt;/span>&lt;span class="se">\\&lt;/span>&lt;span class="s1">wkhtmltopdf.exe&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># config = pdfkit.configuration(wkhtmltopdf=path_wk)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;temp.html&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;r&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pdfkit&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">fileUrl&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">configuration&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;第 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 面的 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 篇文章pdf文件保存成功！&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">times&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;第 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 面的 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 篇文章pdf文件保存失败！&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">times&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># continue&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">times&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;页面 &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> 中的所有文件保存成功&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">Response&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="c1"># 当程序执行时&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 调用函数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

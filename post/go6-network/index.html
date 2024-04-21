@@ -1,0 +1,339 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='Part6. Network 1. IO/Polling select 操作的不足之处： 监听能力有限 — 最多只能监听 1024 个文件描述符； 内存拷贝开销大 — 需要维护一个较大的数据结构存储文件描述符，该结构需要拷贝'><meta name=keywords content="Network"><title>Go(6) Network</title>
+<link rel=canonical href=https://chasing1020.github.io/post/go6-network/><link rel=stylesheet href=/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css><meta property='og:title' content='Go(6) Network'><meta property='og:description' content='Part6. Network 1. IO/Polling select 操作的不足之处： 监听能力有限 — 最多只能监听 1024 个文件描述符； 内存拷贝开销大 — 需要维护一个较大的数据结构存储文件描述符，该结构需要拷贝'><meta property='og:url' content='https://chasing1020.github.io/post/go6-network/'><meta property='og:site_name' content='Chasing1020'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Go'><meta property='article:published_time' content='2021-10-26T19:35:13+08:00'><meta property='article:modified_time' content='2021-10-26T19:35:13+08:00'><meta property='og:image' content='https://chasing1020.github.io/post/go6-network/go-model-sheet.webp'><meta name=twitter:site content="@Chasing1020"><meta name=twitter:creator content="@Chasing1020"><meta name=twitter:title content="Go(6) Network"><meta name=twitter:description content="Part6. Network 1. IO/Polling select 操作的不足之处： 监听能力有限 — 最多只能监听 1024 个文件描述符； 内存拷贝开销大 — 需要维护一个较大的数据结构存储文件描述符，该结构需要拷贝"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://chasing1020.github.io/post/go6-network/go-model-sheet.webp'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg width=300 height=299 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🖥️</span></figure><div class=site-meta><h1 class=site-name><a href=/>Chasing1020</a></h1><h2 class=site-description><a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target=_blank>Why there is a universe?</a></h2></div></header><ol class=social-menu><li><a href=https://github.com/Chasing1020 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Chasing1020 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://t.me/Chasing1020 target=_blank title=Telegram rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a></li><li><a href=mailto:chasing1020@gmail.com target=_blank title=Email rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/friends/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Friends</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><div class=menu-bottom-section><li id=i18n-switch style=display:none><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://chasing1020.github.io/ selected></option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#part6-network>Part6. Network</a><ul><li><a href=#1-iopolling>1. IO/Polling</a></li><li><a href=#2-json-marshaler>2. Json Marshaler</a></li><li><a href=#3-database>3. DataBase</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/post/go6-network/><img src=/post/go6-network/go-model-sheet_hu639b7f51186e99c0b2036c3dd41de527_43318_800x0_resize_q75_h2_box_2.webp srcset="/post/go6-network/go-model-sheet_hu639b7f51186e99c0b2036c3dd41de527_43318_800x0_resize_q75_h2_box_2.webp 800w, /post/go6-network/go-model-sheet_hu639b7f51186e99c0b2036c3dd41de527_43318_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=449 loading=lazy alt="Featured image of post Go(6) Network"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/go6-network/>Go(6) Network</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Oct 26, 2021</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>6 minute read</time></div></footer></div></header><section class=article-content><h1 id=part6-network>Part6. Network</h1><h2 id=1-iopolling>1. IO/Polling</h2><p>select 操作的不足之处：</p><ul><li>监听能力有限 — 最多只能监听 1024 个文件描述符；</li><li>内存拷贝开销大 — 需要维护一个较大的数据结构存储文件描述符，该结构需要拷贝到内核中；</li><li>时间复杂度 O(n)O(n) — 返回准备就绪的事件个数后，需要遍历所有的文件描述符；</li></ul><p>为了提高 I/O 多路复用的性能，不同的操作系统也都实现了自己的 I/O 多路复用函数，例如：<code>epoll</code>、<code>kqueue</code> 和 <code>evport</code> 等。Go 语言为了提高在不同操作系统上的 I/O 操作性能，使用平台的特定的函数实现了多个版本的网络轮询模块：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>netpollinit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>netpollopen</span><span class=p>(</span><span class=nx>fd</span> <span class=kt>uintptr</span><span class=p>,</span> <span class=nx>pd</span> <span class=o>*</span><span class=nx>pollDesc</span><span class=p>)</span> <span class=kt>int32</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>netpoll</span><span class=p>(</span><span class=nx>delta</span> <span class=kt>int64</span><span class=p>)</span> <span class=nx>gList</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>netpollBreak</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>netpollIsPollDescriptor</span><span class=p>(</span><span class=nx>fd</span> <span class=kt>uintptr</span><span class=p>)</span> <span class=kt>bool</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><a class=link href=https://draveness.me/golang/tree/runtime.netpollinit target=_blank rel=noopener><code>runtime.netpollinit</code></a> — 初始化网络轮询器，通过 <a class=link href=https://draveness.me/golang/tree/sync.Once target=_blank rel=noopener><code>sync.Once</code></a> 和 <code>netpollInited</code> 变量保证函数只会调用一次；</li><li><a class=link href=https://draveness.me/golang/tree/runtime.netpollopen target=_blank rel=noopener><code>runtime.netpollopen</code></a> — 监听文件描述符上的边缘触发事件，创建事件并加入监听；</li><li><code>runtime.netpoll</code>— 轮询网络并返回一组已经准备就绪的 Goroutine，传入的参数会决定它的行为<ul><li>如果参数小于 0，无限期等待文件描述符就绪；</li><li>如果参数等于 0，非阻塞地轮询网络；</li><li>如果参数大于 0，阻塞特定时间轮询网络；</li></ul></li><li><a class=link href=https://draveness.me/golang/tree/runtime.netpollBreak target=_blank rel=noopener><code>runtime.netpollBreak</code></a> — 唤醒网络轮询器，例如：计时器向前修改时间时会通过该函数中断网络轮询器<a class=link href=https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-netpoller/#fn:4 target=_blank rel=noopener>4</a>；</li><li><a class=link href=https://draveness.me/golang/tree/runtime.netpollIsPollDescriptor target=_blank rel=noopener><code>runtime.netpollIsPollDescriptor</code></a> — 判断文件描述符是否被轮询器使用；</li></ul><p>当前</p><h2 id=2-json-marshaler>2. Json Marshaler</h2><p>序列化和反序列化的开销完全不同，JSON 反序列化的开销是序列化开销的好几倍，相信这背后的原因也非常好理解。Go 语言中的 JSON 序列化过程不需要被序列化的对象预先实现任何接口，它会通过反射获取结构体或者数组中的值并以树形的结构递归地进行编码，标准库也会根据 <a class=link href=https://draveness.me/golang/tree/encoding/json.Unmarshal target=_blank rel=noopener><code>encoding/json.Unmarshal</code></a> 中传入的值对 JSON 进行解码。</p><p>在创建结构体时，可以添加tag来实现基本的解码方式，其中omitempty表示不存在时就丢弃，加入-代表永远丢弃该字段</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Author</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span> <span class=kt>string</span> <span class=s>`json:&#34;name,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Age</span>  <span class=kt>int32</span>  <span class=s>`json:&#34;age,string,omitempty&#34;`</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中最重要的两个方法分别是</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Marshal returns the JSON encoding of v.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>Marshal</span><span class=p>(</span><span class=nx>v</span> <span class=kd>interface</span><span class=p>{})</span> <span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=nx>e</span> <span class=o>:=</span> <span class=nf>newEncodeState</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   <span class=nx>err</span> <span class=o>:=</span> <span class=nx>e</span><span class=p>.</span><span class=nf>marshal</span><span class=p>(</span><span class=nx>v</span><span class=p>,</span> <span class=nx>encOpts</span><span class=p>{</span><span class=nx>escapeHTML</span><span class=p>:</span> <span class=kc>true</span><span class=p>})</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl>   <span class=nx>buf</span> <span class=o>:=</span> <span class=nb>append</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=kc>nil</span><span class=p>),</span> <span class=nx>e</span><span class=p>.</span><span class=nf>Bytes</span><span class=p>()</span><span class=o>...</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   <span class=nx>encodeStatePool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>e</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   <span class=k>return</span> <span class=nx>buf</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>与反序列化</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Unmarshal parses the JSON-encoded data and stores the result
+</span></span></span><span class=line><span class=cl><span class=c1>// in the value pointed to by v. If v is nil or not a pointer,
+</span></span></span><span class=line><span class=cl><span class=c1>// Unmarshal returns an InvalidUnmarshalError.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>data</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>v</span> <span class=kd>interface</span><span class=p>{})</span> <span class=kt>error</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=c1>// Check for well-formedness.
+</span></span></span><span class=line><span class=cl><span class=c1></span>   <span class=c1>// Avoids filling out half a data structure
+</span></span></span><span class=line><span class=cl><span class=c1></span>   <span class=c1>// before discovering a JSON syntax error.
+</span></span></span><span class=line><span class=cl><span class=c1></span>   <span class=kd>var</span> <span class=nx>d</span> <span class=nx>decodeState</span>
+</span></span><span class=line><span class=cl>   <span class=nx>err</span> <span class=o>:=</span> <span class=nf>checkValid</span><span class=p>(</span><span class=nx>data</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>d</span><span class=p>.</span><span class=nx>scan</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>   <span class=nx>d</span><span class=p>.</span><span class=nf>init</span><span class=p>(</span><span class=nx>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>   <span class=k>return</span> <span class=nx>d</span><span class=p>.</span><span class=nf>unmarshal</span><span class=p>(</span><span class=nx>v</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>首先校验是否为Valid数据</p><h2 id=3-database>3. DataBase</h2><p>结构化查询语言（Structured Query Language、SQL）是在关系型数据库系统中使用的领域特定语言（Domain-Specific Language、DSL），它主要用于处理结构化的数据<a class=link href=https://draveness.me/golang/docs/part4-advanced/ch09-stdlib/golang-database-sql/#fn:1 target=_blank rel=noopener>1</a>。作为一门领域特定语言，它有更加强大的表达能力，与传统的命令式 API 相比，它能够提供两个优点：</p><ol><li>可以使用单个命令在数据库中访问多条数据；</li><li>不需要在查询中指定获取数据的方法；</li></ol><p>Go 语言的<code>database/sql</code> 就建立在上述前提下，我们可以使用相同的 SQL 语言查询关系型数据库，所有关系型数据库的客户端都需要实现如下所示的驱动接口：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Driver</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nf>Open</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=nx>Conn</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Conn</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nf>Prepare</span><span class=p>(</span><span class=nx>query</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=nx>Stmt</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nf>Close</span><span class=p>()</span> <span class=kt>error</span>
+</span></span><span class=line><span class=cl>	<span class=nf>Begin</span><span class=p>()</span> <span class=p>(</span><span class=nx>Tx</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>database/sql/driver.Driver</code>接口中只包含一个 <code>Open</code> 方法，该方法接收一个数据库连接串作为输入参数并返回一个特定数据库的连接，作为参数的数据库连接串是数据库特定的格式，这个返回的连接仍然是一个接口。
+<code>database/sql</code>中提供的 <code>database/sql.Register</code> 方法可以注册自定义的数据库驱动，这个 package 的内部包含两个变量，分别是 <code>drivers</code> 哈希以及 <code>driversMu</code> 互斥锁，所有的数据库驱动都会存储在这个哈希中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>Register</span><span class=p>(</span><span class=nx>name</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>driver</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>Driver</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>driversMu</span><span class=p>.</span><span class=nf>Lock</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=k>defer</span> <span class=nx>driversMu</span><span class=p>.</span><span class=nf>Unlock</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>driver</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=s>&#34;sql: Register driver is nil&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>dup</span> <span class=o>:=</span> <span class=nx>drivers</span><span class=p>[</span><span class=nx>name</span><span class=p>];</span> <span class=nx>dup</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=s>&#34;sql: Register called twice for driver &#34;</span> <span class=o>+</span> <span class=nx>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>drivers</span><span class=p>[</span><span class=nx>name</span><span class=p>]</span> <span class=p>=</span> <span class=nx>driver</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>MySQL 驱动会在 <code>go-sql-driver/mysql/mysql.init</code>中调用上述方法将实现 <code>database/sql/driver.Driver</code>接口的结构体注册到全局的驱动列表中：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>sql</span><span class=p>.</span><span class=nf>Register</span><span class=p>(</span><span class=s>&#34;mysql&#34;</span><span class=p>,</span> <span class=o>&amp;</span><span class=nx>MySQLDriver</span><span class=p>{})</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>当我们在全局变量中注册了驱动之后，就可以使用 <code>database/sql.Open</code>方法获取特定数据库的连接。在如下所示的方法中，我们通过传入的驱动名获取 <code>database/sql/driver.Driver</code>组成 <code>database/sql.dsnConnector</code>结构体后调用 <code>database/sql.OpenDB</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>Open</span><span class=p>(</span><span class=nx>driverName</span><span class=p>,</span> <span class=nx>dataSourceName</span> <span class=kt>string</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>DB</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>driversMu</span><span class=p>.</span><span class=nf>RLock</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>driveri</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>drivers</span><span class=p>[</span><span class=nx>driverName</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=nx>driversMu</span><span class=p>.</span><span class=nf>RUnlock</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;sql: unknown driver %q (forgotten import?)&#34;</span><span class=p>,</span> <span class=nx>driverName</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=o>...</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nf>OpenDB</span><span class=p>(</span><span class=nx>dsnConnector</span><span class=p>{</span><span class=nx>dsn</span><span class=p>:</span> <span class=nx>dataSourceName</span><span class=p>,</span> <span class=nx>driver</span><span class=p>:</span> <span class=nx>driveri</span><span class=p>}),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>database/sql.OpenDB</code> 会返回一个 <code>database/sql.DB</code> 结构，这是标准库包为我们提供的关键结构体，无论是我们直接使用标准库查询数据库，还是使用 GORM 等 ORM 框架都会用到它：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>OpenDB</span><span class=p>(</span><span class=nx>c</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>Connector</span><span class=p>)</span> <span class=o>*</span><span class=nx>DB</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ctx</span><span class=p>,</span> <span class=nx>cancel</span> <span class=o>:=</span> <span class=nx>context</span><span class=p>.</span><span class=nf>WithCancel</span><span class=p>(</span><span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>	<span class=nx>db</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>DB</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>connector</span><span class=p>:</span>    <span class=nx>c</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>openerCh</span><span class=p>:</span>     <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=kd>struct</span><span class=p>{},</span> <span class=nx>connectionRequestQueueSize</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=nx>lastPut</span><span class=p>:</span>      <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=o>*</span><span class=nx>driverConn</span><span class=p>]</span><span class=kt>string</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=nx>connRequests</span><span class=p>:</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>uint64</span><span class=p>]</span><span class=kd>chan</span> <span class=nx>connRequest</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>		<span class=nx>stop</span><span class=p>:</span>         <span class=nx>cancel</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>go</span> <span class=nx>db</span><span class=p>.</span><span class=nf>connectionOpener</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>db</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>结构体 <code>database/sql.DB</code> 在刚刚初始化时不会包含任何的数据库连接，它持有的数据库连接池会在真正应用程序申请连接时在单独的 Goroutine 中获取。<code>database/sql.DB.connectionOpener</code>方法中包含一个不会退出的循环，每当该 Goroutine 收到了请求时都会调用 <code>database/sql.DB.openNewConnection</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>DB</span><span class=p>)</span> <span class=nf>openNewConnection</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ci</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nx>connector</span><span class=p>.</span><span class=nf>Connect</span><span class=p>(</span><span class=nx>ctx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=o>...</span>
+</span></span><span class=line><span class=cl>	<span class=nx>dc</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>driverConn</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>db</span><span class=p>:</span>         <span class=nx>db</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>createdAt</span><span class=p>:</span>  <span class=nf>nowFunc</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>		<span class=nx>returnedAt</span><span class=p>:</span> <span class=nf>nowFunc</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>		<span class=nx>ci</span><span class=p>:</span>         <span class=nx>ci</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>db</span><span class=p>.</span><span class=nf>putConnDBLocked</span><span class=p>(</span><span class=nx>dc</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>db</span><span class=p>.</span><span class=nf>addDepLocked</span><span class=p>(</span><span class=nx>dc</span><span class=p>,</span> <span class=nx>dc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>db</span><span class=p>.</span><span class=nx>numOpen</span><span class=o>--</span>
+</span></span><span class=line><span class=cl>		<span class=nx>ci</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>数据库结构体 <a class=link href=https://draveness.me/golang/tree/database/sql.DB target=_blank rel=noopener><code>database/sql.DB</code></a> 中的链接器是实现了 <code>database/sql/driver.Connector</code>](<a class=link href=https://draveness.me/golang/tree/database/sql/driver.Connector target=_blank rel=noopener>https://draveness.me/golang/tree/database/sql/driver.Connector</a>) 类型的接口，我们可以使用该接口创建任意数量完全等价的连接，创建的所有连接都会被加入连接池中，MySQL 的驱动在 <code>go-sql-driver/mysql/mysql.connector.Connect</code>方法实现了连接数据库的逻辑。</p><p>无论是使用 ORM 框架还是直接使用标准库，当我们在查询数据库时都会调用 <code>database/sql.DB.Query</code>方法，该方法的入参就是 SQL 语句和 SQL 语句中的参数，它会初始化新的上下文并调用 <code>database/sql.DB.QueryContext</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>DB</span><span class=p>)</span> <span class=nf>QueryContext</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span> <span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>args</span> <span class=o>...</span><span class=kd>interface</span><span class=p>{})</span> <span class=p>(</span><span class=o>*</span><span class=nx>Rows</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>rows</span> <span class=o>*</span><span class=nx>Rows</span>
+</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>err</span> <span class=kt>error</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=nx>maxBadConnRetries</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>rows</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>query</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>query</span><span class=p>,</span> <span class=nx>args</span><span class=p>,</span> <span class=nx>cachedOrNewConn</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>ErrBadConn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>break</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>==</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>ErrBadConn</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>db</span><span class=p>.</span><span class=nf>query</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>query</span><span class=p>,</span> <span class=nx>args</span><span class=p>,</span> <span class=nx>alwaysNewConn</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>rows</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>database/sql.DB.query</code> 的执行过程可以分成两个部分，首先调用私有方法 <code>database/sql.DB.conn</code> 获取底层数据库的连接，数据库连接既可能是刚刚通过连接器创建的，也可能是之前缓存的连接；获取连接之后调用 <code>database/sql.DB.queryDC</code>在特定的数据库连接上执行查询：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>DB</span><span class=p>)</span> <span class=nf>queryDC</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>txctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span> <span class=nx>dc</span> <span class=o>*</span><span class=nx>driverConn</span><span class=p>,</span> <span class=nx>releaseConn</span> <span class=kd>func</span><span class=p>(</span><span class=kt>error</span><span class=p>),</span> <span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>args</span> <span class=p>[]</span><span class=kd>interface</span><span class=p>{})</span> <span class=p>(</span><span class=o>*</span><span class=nx>Rows</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>queryerCtx</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>dc</span><span class=p>.</span><span class=nx>ci</span><span class=p>.(</span><span class=nx>driver</span><span class=p>.</span><span class=nx>QueryerContext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=kd>var</span> <span class=nx>queryer</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>Queryer</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>queryer</span><span class=p>,</span> <span class=nx>ok</span> <span class=p>=</span> <span class=nx>dc</span><span class=p>.</span><span class=nx>ci</span><span class=p>.(</span><span class=nx>driver</span><span class=p>.</span><span class=nx>Queryer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>nvdargs</span> <span class=p>[]</span><span class=nx>driver</span><span class=p>.</span><span class=nx>NamedValue</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>rowsi</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>Rows</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>err</span> <span class=kt>error</span>
+</span></span><span class=line><span class=cl>		<span class=nf>withLock</span><span class=p>(</span><span class=nx>dc</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>nvdargs</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nf>driverArgsConnLocked</span><span class=p>(</span><span class=nx>dc</span><span class=p>.</span><span class=nx>ci</span><span class=p>,</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>args</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=nx>rowsi</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nf>ctxDriverQuery</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>queryerCtx</span><span class=p>,</span> <span class=nx>queryer</span><span class=p>,</span> <span class=nx>query</span><span class=p>,</span> <span class=nx>nvdargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>})</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>ErrSkip</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nf>releaseConn</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=nx>rows</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>Rows</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nx>dc</span><span class=p>:</span>          <span class=nx>dc</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>				<span class=nx>releaseConn</span><span class=p>:</span> <span class=nx>releaseConn</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>				<span class=nx>rowsi</span><span class=p>:</span>       <span class=nx>rowsi</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=nx>rows</span><span class=p>.</span><span class=nf>initContextClose</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>txctx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>rows</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=o>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>上述方法在准备了 SQL 查询所需的参数之后，会调用 <code>database/sql.ctxDriverQuery</code>完成 SQL 查询，我们会判断当前的查询上下文究竟实现了哪个接口，然后调用对应接口的 <code>Query</code> 或者 <code>QueryContext</code>：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>ctxDriverQuery</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span> <span class=nx>queryerCtx</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>QueryerContext</span><span class=p>,</span> <span class=nx>queryer</span> <span class=nx>driver</span><span class=p>.</span><span class=nx>Queryer</span><span class=p>,</span> <span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>nvdargs</span> <span class=p>[]</span><span class=nx>driver</span><span class=p>.</span><span class=nx>NamedValue</span><span class=p>)</span> <span class=p>(</span><span class=nx>driver</span><span class=p>.</span><span class=nx>Rows</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>queryerCtx</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>queryerCtx</span><span class=p>.</span><span class=nf>QueryContext</span><span class=p>(</span><span class=nx>ctx</span><span class=p>,</span> <span class=nx>query</span><span class=p>,</span> <span class=nx>nvdargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>dargs</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nf>namedValueToValue</span><span class=p>(</span><span class=nx>nvdargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=o>...</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>queryer</span><span class=p>.</span><span class=nf>Query</span><span class=p>(</span><span class=nx>query</span><span class=p>,</span> <span class=nx>dargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>对应的数据库驱动会真正负责执行调用方输入的 SQL 查询，作为中间层的标准库可以不在乎具体的实现，抹平不同关系型数据库的差异，为用户程序提供统一的接口。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/go/>Go</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span><a class=link href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml target=_blank rel=noopener>Licensed under CC BY-NC-SA 4.0</a></span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/post/go5-concurrency/><div class=article-image><img src=/post/go5-concurrency/go-model-sheet.812604dc332b963cd105cd1d8b0d254f_hu639b7f51186e99c0b2036c3dd41de527_43318_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Go(5) Concurrency" data-hash="md5-gSYE3DMrljzRBc0diw0lTw=="></div><div class=article-details><h2 class=article-title>Go(5) Concurrency</h2></div></a></article><article class=has-image><a href=/post/go4-runtime/><div class=article-image><img src=/post/go4-runtime/go-model-sheet.812604dc332b963cd105cd1d8b0d254f_hu639b7f51186e99c0b2036c3dd41de527_43318_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Go(4) Runtime" data-hash="md5-gSYE3DMrljzRBc0diw0lTw=="></div><div class=article-details><h2 class=article-title>Go(4) Runtime</h2></div></a></article><article class=has-image><a href=/post/go3-common-keywords/><div class=article-image><img src=/post/go3-common-keywords/go-model-sheet.812604dc332b963cd105cd1d8b0d254f_hu639b7f51186e99c0b2036c3dd41de527_43318_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Go(3) Common Keywords" data-hash="md5-gSYE3DMrljzRBc0diw0lTw=="></div><div class=article-details><h2 class=article-title>Go(3) Common Keywords</h2></div></a></article><article class=has-image><a href=/post/go2-language-basic/><div class=article-image><img src=/post/go2-language-basic/go-model-sheet.812604dc332b963cd105cd1d8b0d254f_hu639b7f51186e99c0b2036c3dd41de527_43318_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Go(2) Language Basic" data-hash="md5-gSYE3DMrljzRBc0diw0lTw=="></div><div class=article-details><h2 class=article-title>Go(2) Language Basic</h2></div></a></article><article class=has-image><a href=/post/go1-builtin-data-structure/><div class=article-image><img src=/post/go1-builtin-data-structure/go-model-sheet.812604dc332b963cd105cd1d8b0d254f_hu639b7f51186e99c0b2036c3dd41de527_43318_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Go(1) Builtin Data Structure" data-hash="md5-gSYE3DMrljzRBc0diw0lTw=="></div><div class=article-details><h2 class=article-title>Go(1) Builtin Data Structure</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=Chasing1020/Chasing1020.github.io data-repo-id=R_kgDOGR5Ifw data-category=General data-category-id=DIC_kwDOGR5If84CURCm data-mapping=url data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2024 Chasing1020</section><section class=powerby>I just want a peaceful life without troubles<br>Built with <b><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a></b><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-CDYPFNXQDZ")</script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css?family=JetBrains+Mono",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

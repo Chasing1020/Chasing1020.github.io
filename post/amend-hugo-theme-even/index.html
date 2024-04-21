@@ -1,0 +1,420 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='By default, the theme even doesn&amp;rsquo;t support the search and copy to the clipboard button which is proposed in issues#289 and issues#399. So I have finished implementing the features.
+1. Search Initially, you should add the output of JSON in your ./config.toml file.
+1 2 [outputs] home = [&amp;#34;HTML&amp;#34;, &amp;#34;RSS&amp;#34;, &amp;#34;JSON&amp;#34;] Then create the file ./themes/even/layouts/_default/index.json and add these lines. Then make sure you can see the output in the localhost:1313/index.'><title>Amend Hugo Theme Even</title>
+<link rel=canonical href=https://chasing1020.github.io/post/amend-hugo-theme-even/><link rel=stylesheet href=/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css><meta property='og:title' content='Amend Hugo Theme Even'><meta property='og:description' content='By default, the theme even doesn&amp;rsquo;t support the search and copy to the clipboard button which is proposed in issues#289 and issues#399. So I have finished implementing the features.
+1. Search Initially, you should add the output of JSON in your ./config.toml file.
+1 2 [outputs] home = [&amp;#34;HTML&amp;#34;, &amp;#34;RSS&amp;#34;, &amp;#34;JSON&amp;#34;] Then create the file ./themes/even/layouts/_default/index.json and add these lines. Then make sure you can see the output in the localhost:1313/index.'><meta property='og:url' content='https://chasing1020.github.io/post/amend-hugo-theme-even/'><meta property='og:site_name' content='Chasing1020'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Theme'><meta property='article:published_time' content='2022-07-04T10:50:10+08:00'><meta property='article:modified_time' content='2022-07-04T10:50:10+08:00'><meta property='og:image' content='https://chasing1020.github.io/post/amend-hugo-theme-even/even.webp'><meta name=twitter:site content="@Chasing1020"><meta name=twitter:creator content="@Chasing1020"><meta name=twitter:title content="Amend Hugo Theme Even"><meta name=twitter:description content="By default, the theme even doesn&amp;rsquo;t support the search and copy to the clipboard button which is proposed in issues#289 and issues#399. So I have finished implementing the features.
+1. Search Initially, you should add the output of JSON in your ./config.toml file.
+1 2 [outputs] home = [&amp;#34;HTML&amp;#34;, &amp;#34;RSS&amp;#34;, &amp;#34;JSON&amp;#34;] Then create the file ./themes/even/layouts/_default/index.json and add these lines. Then make sure you can see the output in the localhost:1313/index."><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://chasing1020.github.io/post/amend-hugo-theme-even/even.webp'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg width=300 height=299 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🖥️</span></figure><div class=site-meta><h1 class=site-name><a href=/>Chasing1020</a></h1><h2 class=site-description><a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target=_blank>Why there is a universe?</a></h2></div></header><ol class=social-menu><li><a href=https://github.com/Chasing1020 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Chasing1020 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://t.me/Chasing1020 target=_blank title=Telegram rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a></li><li><a href=mailto:chasing1020@gmail.com target=_blank title=Email rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/friends/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Friends</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><div class=menu-bottom-section><li id=i18n-switch style=display:none><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://chasing1020.github.io/ selected></option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#1-search>1. Search</a></li><li><a href=#2-copy-to-clipboard>2. Copy to clipboard</a></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/post/amend-hugo-theme-even/><img src=/post/amend-hugo-theme-even/even_hu7239b18983faa84c364ba0614e368fc1_33946_800x0_resize_q75_h2_box_2.webp srcset="/post/amend-hugo-theme-even/even_hu7239b18983faa84c364ba0614e368fc1_33946_800x0_resize_q75_h2_box_2.webp 800w, /post/amend-hugo-theme-even/even_hu7239b18983faa84c364ba0614e368fc1_33946_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=529 loading=lazy alt="Featured image of post Amend Hugo Theme Even"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/amend-hugo-theme-even/>Amend Hugo Theme Even</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jul 04, 2022</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 minute read</time></div></footer></div></header><section class=article-content><p>By default, the theme even doesn&rsquo;t support the search and copy to the clipboard button which is proposed in <a class=link href=https://github.com/olOwOlo/hugo-theme-even/issues/289 target=_blank rel=noopener>issues#289</a> and <a class=link href=https://github.com/olOwOlo/hugo-theme-even/issues/339 target=_blank rel=noopener>issues#399</a>. So I have finished implementing the features.</p><h1 id=1-search>1. Search</h1><p>Initially, you should add the output of JSON in your <code>./config.toml</code> file.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=line><span class=cl><span class=p>[</span><span class=nx>outputs</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=nx>home</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;HTML&#34;</span><span class=p>,</span> <span class=s2>&#34;RSS&#34;</span><span class=p>,</span> <span class=s2>&#34;JSON&#34;</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>Then create the file <code>./themes/even/layouts/_default/index.json</code> and add these lines. Then make sure you can see the output in the <code>localhost:1313/index.json</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span><span class=err>{-</span> <span class=err>$.Scratch.Add</span> <span class=nt>&#34;index&#34;</span> <span class=err>slice</span> <span class=err>-</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl><span class=p>{</span><span class=err>{-</span> <span class=err>range</span> <span class=err>$index,</span> <span class=err>$element</span> <span class=err>:=</span> <span class=err>.Site.RegularPages.ByTitle</span> <span class=err>-</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span><span class=err>{if</span> <span class=err>ne</span> <span class=err>.Params.tags</span> <span class=err>nil</span><span class=p>}</span><span class=err>}</span><span class=p>{</span><span class=err>{if</span> <span class=err>ne</span> <span class=err>.Plain</span> <span class=err>nil</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span><span class=err>{-</span> <span class=err>$.Scratch.Add</span> <span class=nt>&#34;index&#34;</span> <span class=err>(dict</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;id&#34;</span> <span class=err>$index</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;date&#34;</span> <span class=err>.Date</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;tags&#34;</span> <span class=err>.Params.tags</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;categories&#34;</span> <span class=err>.Params.categories</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;title&#34;</span> <span class=err>.Title</span>
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;permalink&#34;</span> <span class=err>.Permalink</span> 
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;contents&#34;</span> <span class=err>.Plain</span> <span class=err>)</span> <span class=err>-</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span><span class=err>{end</span><span class=p>}</span><span class=err>}</span><span class=p>{</span><span class=err>{end</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl><span class=p>{</span><span class=err>{-</span> <span class=err>end</span> <span class=err>-</span><span class=p>}</span><span class=err>}</span>
+</span></span><span class=line><span class=cl><span class=p>{</span><span class=err>{-</span> <span class=err>$.Scratch.Get</span> <span class=nt>&#34;index&#34;</span> <span class=err>|</span> <span class=err>jsonify</span> <span class=err>-</span><span class=p>}</span><span class=err>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>And add file <code>./themes/even/static/js/search.js</code>. I have stored the search object so just need to load the file one time once you enter the search page.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span><span class=lnt>92
+</span><span class=lnt>93
+</span><span class=lnt>94
+</span><span class=lnt>95
+</span><span class=lnt>96
+</span><span class=lnt>97
+</span><span class=lnt>98
+</span><span class=lnt>99
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>summaryInclude</span> <span class=o>=</span> <span class=mi>100</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>fuseOptions</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>includeMatches</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>threshold</span><span class=o>:</span> <span class=mf>0.1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>tokenize</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>location</span><span class=o>:</span> <span class=mi>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>distance</span><span class=o>:</span> <span class=mi>100000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>maxPatternLength</span><span class=o>:</span> <span class=mi>32</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>minMatchCharLength</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>keys</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;title&#34;</span><span class=p>,</span> <span class=nx>weight</span><span class=o>:</span> <span class=mf>0.9</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;contents&#34;</span><span class=p>,</span> <span class=nx>weight</span><span class=o>:</span> <span class=mf>0.8</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;tags&#34;</span><span class=p>,</span> <span class=nx>weight</span><span class=o>:</span> <span class=mf>0.3</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span><span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;categories&#34;</span><span class=p>,</span> <span class=nx>weight</span><span class=o>:</span> <span class=mf>0.3</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>fuse</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=nx>fetch</span><span class=p>(</span><span class=s2>&#34;../index.json&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>resp</span> <span class=p>=&gt;</span> <span class=nx>resp</span><span class=p>.</span><span class=nx>json</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>then</span><span class=p>(</span><span class=nx>data</span> <span class=p>=&gt;</span> <span class=nx>fuse</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Fuse</span><span class=p>(</span><span class=nx>data</span><span class=p>,</span> <span class=nx>fuseOptions</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>let</span> <span class=nx>searchContent</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>executeSearch</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>searchContent</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#search-content&#39;</span><span class=p>)[</span><span class=mi>0</span><span class=p>].</span><span class=nx>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kd>let</span> <span class=nx>results</span> <span class=o>=</span> <span class=nx>fuse</span><span class=p>.</span><span class=nx>search</span><span class=p>(</span><span class=nx>searchContent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>await</span> <span class=nx>populateResults</span><span class=p>(</span><span class=nx>results</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>highlight</span><span class=p>(</span><span class=nx>str</span><span class=p>)</span> <span class=p>{</span> 
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nx>str</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=nx>searchContent</span><span class=p>,</span> <span class=s1>&#39;gi&#39;</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>      <span class=nx>searchContent</span> <span class=p>=&gt;</span> <span class=sb>`&lt;strong&gt;&lt;span style=&#34;background-color:yellow;&#34;&gt;</span><span class=si>${</span><span class=nx>searchContent</span><span class=si>}</span><span class=sb>&lt;/span&gt;&lt;/strong&gt;`</span>
+</span></span><span class=line><span class=cl>    <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>populateResults</span><span class=p>(</span><span class=nx>result</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>  <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#search-results&#39;</span><span class=p>).</span><span class=nx>html</span><span class=p>(</span><span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>$</span><span class=p>.</span><span class=nx>each</span><span class=p>(</span><span class=nx>result</span><span class=p>,</span> <span class=kd>function</span><span class=p>(</span><span class=nx>key</span><span class=p>,</span> <span class=nx>value</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>contents</span> <span class=o>=</span> <span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>contents</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>snippet</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span><span class=p>,</span> <span class=nx>start</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=nx>end</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>pos</span> <span class=o>=</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>toLocaleLowerCase</span><span class=p>().</span><span class=nx>indexOf</span><span class=p>(</span><span class=nx>searchContent</span><span class=p>.</span><span class=nx>toLocaleLowerCase</span><span class=p>());</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>pos</span> <span class=o>!=</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>start</span> <span class=o>=</span> <span class=nx>pos</span> <span class=o>-</span> <span class=nx>summaryInclude</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>end</span> <span class=o>=</span> <span class=nx>pos</span> <span class=o>+</span> <span class=nx>summaryInclude</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>start</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> <span class=nx>start</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>end</span> <span class=o>&gt;</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=nx>end</span> <span class=o>=</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>snippet</span> <span class=o>=</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>substring</span><span class=p>(</span><span class=nx>start</span><span class=p>,</span> <span class=nx>end</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>$</span><span class=p>.</span><span class=nx>each</span><span class=p>(</span><span class=nx>value</span><span class=p>.</span><span class=nx>matches</span><span class=p>,</span><span class=kd>function</span><span class=p>(</span><span class=nx>k</span><span class=p>,</span> <span class=nx>v</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>start</span> <span class=o>=</span> <span class=nx>v</span><span class=p>.</span><span class=nx>indices</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span> <span class=o>-</span> <span class=nx>summaryInclude</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=nx>end</span> <span class=o>=</span> <span class=nx>v</span><span class=p>.</span><span class=nx>indices</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>1</span><span class=p>]</span> <span class=o>+</span> <span class=nx>summaryInclude</span> <span class=o>+</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>start</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>)</span> <span class=nx>start</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>end</span> <span class=o>&gt;</span> <span class=nx>v</span><span class=p>.</span><span class=nx>value</span><span class=p>.</span><span class=nx>length</span><span class=p>)</span> <span class=nx>end</span> <span class=o>=</span> <span class=nx>v</span><span class=p>.</span><span class=nx>value</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span><span class=nx>pos</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span> <span class=o>&amp;&amp;</span> <span class=nx>v</span><span class=p>.</span><span class=nx>key</span> <span class=o>==</span> <span class=s2>&#34;contents&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>snippet</span> <span class=o>+=</span> <span class=nx>v</span><span class=p>.</span><span class=nx>value</span><span class=p>.</span><span class=nx>substring</span><span class=p>(</span><span class=nx>start</span><span class=p>,</span> <span class=nx>end</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=nx>snippet</span><span class=p>.</span><span class=nx>length</span> <span class=o>&lt;</span> <span class=mi>1</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>      <span class=nx>snippet</span> <span class=o>+=</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>substring</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=nx>summaryInclude</span> <span class=o>*</span> <span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>tags</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl>    <span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>tags</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>t</span> <span class=p>=&gt;</span> <span class=nx>tags</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>highlight</span><span class=p>(</span><span class=nx>t</span><span class=p>)));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>categories</span> <span class=o>=</span> <span class=p>[];</span>
+</span></span><span class=line><span class=cl>    <span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>forEach</span><span class=p>(</span><span class=nx>c</span> <span class=p>=&gt;</span> <span class=nx>categories</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>highlight</span><span class=p>(</span><span class=nx>c</span><span class=p>)));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>let</span> <span class=nx>template</span> <span class=o>=</span> <span class=sb>`
+</span></span></span><span class=line><span class=cl><span class=sb>    &lt;div id=&#34;summary-</span><span class=si>${</span><span class=nx>key</span><span class=si>}</span><span class=sb>&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>      &lt;article style=&#34;padding: 0px&#34; class=&#34;post&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>        &lt;header class=&#34;post-header&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;h1 class=&#34;post-title&#34;&gt;&lt;a style=&#34;color:black&#34; class=&#34;post-link&#34; href=&#34;</span><span class=si>${</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>permalink</span><span class=si>}</span><span class=sb>&#34;&gt;</span><span class=si>${</span><span class=nx>highlight</span><span class=p>(</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>title</span><span class=p>)</span><span class=si>}</span><span class=sb>&lt;/a&gt;&lt;/h1&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;div class=&#34;post-meta&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>            &lt;span class=&#34;post-time&#34;&gt;</span><span class=si>${</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>date</span><span class=si>}</span><span class=sb>&lt;/span&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>            &lt;div class=&#34;post-category&#34;&gt;&lt;a href=&#34;/categories/</span><span class=si>${</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>categories</span><span class=si>}</span><span class=sb>/&#34;&gt; </span><span class=si>${</span><span class=nx>categories</span><span class=si>}</span><span class=sb> &lt;/a&gt;&lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>        &lt;/header&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>        
+</span></span></span><span class=line><span class=cl><span class=sb>        &lt;div class=&#34;post-content&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;div class=&#34;post-summary&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>            </span><span class=si>${</span><span class=nx>highlight</span><span class=p>(</span><span class=nx>snippet</span><span class=p>)</span><span class=si>}</span><span class=sb>
+</span></span></span><span class=line><span class=cl><span class=sb>            &lt;a href=&#34;</span><span class=si>${</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>permalink</span><span class=si>}</span><span class=sb>&#34; class=&#34;read-more-link&#34;&gt;Read more...&lt;/a&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;footer class=&#34;post-footer&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>            &lt;div class=&#34;post-tags&#34;&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>              &lt;a href=&#34;/tags/</span><span class=si>${</span><span class=nx>value</span><span class=p>.</span><span class=nx>item</span><span class=p>.</span><span class=nx>tags</span><span class=si>}</span><span class=sb>&#34;&gt;</span><span class=si>${</span><span class=nx>tags</span><span class=si>}</span><span class=sb>&lt;/a&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>            &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>          &lt;/footer&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>        &lt;/div&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>      &lt;/article&gt;
+</span></span></span><span class=line><span class=cl><span class=sb>    &lt;/div&gt;`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;#search-results&#39;</span><span class=p>).</span><span class=nx>append</span><span class=p>(</span><span class=nx>template</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>And then just add the search page in your <code>./content/post/search.md</code>. Although it&rsquo;s not recommended to add the script tag in the middle of your markdown file, it is easy to implement the style that we expected.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>title: &#34;Search&#34;
+</span></span><span class=line><span class=cl>layout: &#34;search&#34;
+</span></span><span class=line><span class=cl>priority : 1
+</span></span><span class=line><span class=cl>menu: &#34;main&#34;
+</span></span><span class=line><span class=cl>weight: 5
+</span></span><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://cdn.jsdelivr.net/npm/fuse.js@6.6.2&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;/js/search.js&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>section</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;search-input&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>input</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;display: center&#34;</span> 
+</span></span><span class=line><span class=cl>         <span class=na>id</span><span class=o>=</span><span class=s>&#34;search-content&#34;</span> 
+</span></span><span class=line><span class=cl>         <span class=na>placeholder</span><span class=o>=</span><span class=s>&#34;Search text&#34;</span> 
+</span></span><span class=line><span class=cl>         <span class=na>type</span><span class=o>=</span><span class=s>&#34;search&#34;</span> 
+</span></span><span class=line><span class=cl>         <span class=na>oninput</span><span class=o>=</span><span class=s>&#34;executeSearch()&#34;</span><span class=p>&gt;</span> 🔍 
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>section</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>hr</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>section</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;search-results&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>h3</span><span class=p>&gt;</span>Please input some keywords to search<span class=p>&lt;/</span><span class=nt>h3</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>section</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-copy-to-clipboard>2. Copy to clipboard</h1><p>I just add these lines to the end of <code>./themes/even/layouts/partials/scripts.html</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>createCopyButton</span><span class=p>(</span><span class=nx>highlightDiv</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>div</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s2>&#34;div&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>div</span><span class=p>.</span><span class=nx>className</span> <span class=o>=</span> <span class=s2>&#34;copy-code&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>div</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=s2>&#34;Copy&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>div</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s2>&#34;click&#34;</span><span class=p>,</span> <span class=p>()</span> <span class=p>=&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>copyCodeToClipboard</span><span class=p>(</span><span class=nx>div</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>addCopyButtonToDom</span><span class=p>(</span><span class=nx>div</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>copyCodeToClipboard</span><span class=p>(</span><span class=nx>button</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>codeToCopy</span> <span class=o>=</span> <span class=nx>highlightDiv</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s2>&#34;:last-child &gt; .chroma &gt; code&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>.</span><span class=nx>innerText</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>try</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>result</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>navigator</span><span class=p>.</span><span class=nx>permissions</span><span class=p>.</span><span class=nx>query</span><span class=p>({</span> <span class=nx>name</span><span class=o>:</span> <span class=s2>&#34;clipboard-write&#34;</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>result</span><span class=p>.</span><span class=nx>state</span> <span class=o>==</span> <span class=s2>&#34;granted&#34;</span> <span class=o>||</span> <span class=nx>result</span><span class=p>.</span><span class=nx>state</span> <span class=o>==</span> <span class=s2>&#34;prompt&#34;</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=kr>await</span> <span class=nx>navigator</span><span class=p>.</span><span class=nx>clipboard</span><span class=p>.</span><span class=nx>writeText</span><span class=p>(</span><span class=nx>codeToCopy</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>copyCodeBlockExecCommand</span><span class=p>(</span><span class=nx>codeToCopy</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>_</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>copyCodeBlockExecCommand</span><span class=p>(</span><span class=nx>codeToCopy</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span> <span class=k>finally</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>codeWasCopied</span><span class=p>(</span><span class=nx>button</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>codeWasCopied</span><span class=p>(</span><span class=nx>div</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>div</span><span class=p>.</span><span class=nx>blur</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>  <span class=nx>div</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=s2>&#34;Copied!&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>setTimeout</span><span class=p>(</span><span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>div</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=s2>&#34;Copy&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span> <span class=mi>2000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>addCopyButtonToDom</span><span class=p>(</span><span class=nx>button</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>highlightDiv</span><span class=p>.</span><span class=nx>insertBefore</span><span class=p>(</span><span class=nx>button</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>.</span><span class=nx>firstChild</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>wrapper</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s2>&#34;div&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>wrapper</span><span class=p>.</span><span class=nx>className</span> <span class=o>=</span> <span class=s2>&#34;highlight-wrapper&#34;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nx>highlightDiv</span><span class=p>.</span><span class=nx>parentNode</span><span class=p>.</span><span class=nx>insertBefore</span><span class=p>(</span><span class=nx>wrapper</span><span class=p>,</span> <span class=nx>highlightDiv</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>wrapper</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>highlightDiv</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s2>&#34;.highlight&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>.</span><span class=nx>forEach</span><span class=p>((</span><span class=nx>highlightDiv</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=nx>createCopyButton</span><span class=p>(</span><span class=nx>highlightDiv</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>And modify the <code>./themes/even/assets/sass/_partial/_post/_code.sass</code> file, add these lines. I think it is a good idea to make the theme style the same as the type on the left of the code block.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nc>.copy-code</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=na>position</span><span class=o>:</span> <span class=ni>absolute</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>right</span><span class=o>:</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>z-index</span><span class=o>:</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-size</span><span class=o>:</span> <span class=mf>.9</span><span class=kt>em</span> <span class=k>!important</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>padding</span><span class=o>:</span> <span class=mi>0</span><span class=kt>px</span> <span class=mi>1</span><span class=mf>.5</span><span class=kt>rem</span> <span class=k>!important</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>color</span><span class=o>:</span> <span class=mh>#b1b1b1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-family</span><span class=o>:</span> <span class=n>Arial</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-weight</span><span class=o>:</span> <span class=ni>bold</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>cursor</span><span class=o>:</span> <span class=ni>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>user-select</span><span class=o>:</span> <span class=ni>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/theme/>Theme</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span><a class=link href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml target=_blank rel=noopener>Licensed under CC BY-NC-SA 4.0</a></span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/post/tinysql-implementation/><div class=article-image><img src=/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post TinySQL Implementation" data-hash="md5-M9w/Cze7g9zZBu/1q+VXAw=="></div><div class=article-details><h2 class=article-title>TinySQL Implementation</h2></div></a></article><article class=has-image><a href=/post/about-computer-science/><div class=article-image><img src=/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post About Computer Science" data-hash="md5-tuiBEKC2chin64susIMt9Q=="></div><div class=article-details><h2 class=article-title>About Computer Science</h2></div></a></article><article class=has-image><a href=/post/compilers/><div class=article-image><img src=/post/compilers/Compilers.721e3e2c562aaf9810a16b67966bddd7_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Compilers" data-hash="md5-ch4+LFYqr5gQoWtnlmvd1w=="></div><div class=article-details><h2 class=article-title>Compilers</h2></div></a></article><article class=has-image><a href=/post/software-engineering/><div class=article-image><img src=/post/software-engineering/code.451576849004ae7fa7528a5d97c8edbd_hu8931b1e4159b9bd74cb80acff6dca036_21936_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Software Engineering" data-hash="md5-RRV2hJAErn+nUopdl8jtvQ=="></div><div class=article-details><h2 class=article-title>Software Engineering</h2></div></a></article><article class=has-image><a href=/post/advanced-mysql/><div class=article-image><img src=/post/advanced-mysql/mysql.5b2ee8739542e7c01ef5b96a80ff2bae_hubf29412fdbd9303c575ba06f7ee7c6af_94146_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Advanced MySQL" data-hash="md5-Wy7oc5VC58Ae9blqgP8rrg=="></div><div class=article-details><h2 class=article-title>Advanced MySQL</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=Chasing1020/Chasing1020.github.io data-repo-id=R_kgDOGR5Ifw data-category=General data-category-id=DIC_kwDOGR5If84CURCm data-mapping=url data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2024 Chasing1020</section><section class=powerby>I just want a peaceful life without troubles<br>Built with <b><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a></b><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-CDYPFNXQDZ")</script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css?family=JetBrains+Mono",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,323 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样'><title>Redis Data Structure</title>
+<link rel=canonical href=https://chasing1020.github.io/post/redis-data-structure/><link rel=stylesheet href=/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css><meta property='og:title' content='Redis Data Structure'><meta property='og:description' content='Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样'><meta property='og:url' content='https://chasing1020.github.io/post/redis-data-structure/'><meta property='og:site_name' content='Chasing1020'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Redis'><meta property='article:published_time' content='2021-10-28T13:44:47+08:00'><meta property='article:modified_time' content='2021-10-28T13:44:47+08:00'><meta property='og:image' content='https://chasing1020.github.io/post/redis-data-structure/redis.webp'><meta name=twitter:site content="@Chasing1020"><meta name=twitter:creator content="@Chasing1020"><meta name=twitter:title content="Redis Data Structure"><meta name=twitter:description content="Redis Data Structure 0. Redis Object 1 2 3 4 5 6 7 struct RedisObject { int4 type; // 4bits \ int4 enconding; // 4bits = 4bytes int24 lru; // 24bits / int32 refcount; // 4bytes void* ptr; // 8bytes (64bit-system) } robj; RedisObject对于不通对象都是相同的，对于这样"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://chasing1020.github.io/post/redis-data-structure/redis.webp'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg width=300 height=299 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🖥️</span></figure><div class=site-meta><h1 class=site-name><a href=/>Chasing1020</a></h1><h2 class=site-description><a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target=_blank>Why there is a universe?</a></h2></div></header><ol class=social-menu><li><a href=https://github.com/Chasing1020 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Chasing1020 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://t.me/Chasing1020 target=_blank title=Telegram rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a></li><li><a href=mailto:chasing1020@gmail.com target=_blank title=Email rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/friends/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Friends</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><div class=menu-bottom-section><li id=i18n-switch style=display:none><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://chasing1020.github.io/ selected></option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#redis-data-structure>Redis Data Structure</a><ul><li><a href=#0-redis-object>0. Redis Object</a></li><li><a href=#1-sds>1. SDS</a></li><li><a href=#2-dict>2. Dict</a></li><li><a href=#3-zip-list>3. Zip List</a></li><li><a href=#4-quick-list>4. Quick List</a></li><li><a href=#5-skip-list>5. Skip List</a></li><li><a href=#6-list-pack>6. List Pack</a></li><li><a href=#7-rax>7. Rax</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/post/redis-data-structure/><img src=/post/redis-data-structure/redis_hu4c98b34389b2bed692880162a2db21b3_22204_800x0_resize_q75_h2_box_2.webp srcset="/post/redis-data-structure/redis_hu4c98b34389b2bed692880162a2db21b3_22204_800x0_resize_q75_h2_box_2.webp 800w, /post/redis-data-structure/redis_hu4c98b34389b2bed692880162a2db21b3_22204_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=259 loading=lazy alt="Featured image of post Redis Data Structure"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/redis-data-structure/>Redis Data Structure</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Oct 28, 2021</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 minute read</time></div></footer></div></header><section class=article-content><h1 id=redis-data-structure>Redis Data Structure</h1><h2 id=0-redis-object>0. Redis Object</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>RedisObject</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int4</span> <span class=n>type</span><span class=p>;</span>      <span class=c1>// 4bits   \ 
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>int4</span> <span class=n>enconding</span><span class=p>;</span> <span class=c1>// 4bits   = 4bytes
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>int24</span> <span class=n>lru</span><span class=p>;</span>      <span class=c1>// 24bits /
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>int32</span> <span class=n>refcount</span><span class=p>;</span> <span class=c1>// 4bytes
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>void</span><span class=o>*</span> <span class=n>ptr</span><span class=p>;</span>      <span class=c1>// 8bytes (64bit-system)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span> <span class=n>robj</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>RedisObject对于不通对象都是相同的，对于这样的结构，每个都需要16byte的空间。</p><p>Redis可以说是当代内存抠门学的设计典范之一。</p><ul><li><p>下文的int4，int8代表位域，即type [member_name] : width ;来限制数据类型的宽度；</p></li><li><p>特定的结构体采用了__attribute__ ((__packed__))来取消优化对齐；</p></li><li><p>其中Generic (即&lt;T>) 借由TYPE_MASK的&运算来实现（当然对于C而言可以用宏，与C11中的_Generic），这里当作伪代码使用。</p></li></ul><h2 id=1-sds>1. SDS</h2><p>Redis字符串简称SDS（Simple Dynamic String）。
+C语言传统以NULL，即&rsquo;\0&rsquo;作为字符串结束符，这样使用strlen获取长度的复杂度是O(n)，所以Redis没有使用C的传统结束符，而是使用了SDS这样的数据结构。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>SDS</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span> <span class=n>capacity</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span> <span class=n>len</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>byte</span> <span class=n>flags</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>byte</span><span class=p>[]</span> <span class=n>content</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里的len和capacity类比于Go的[]byte切片，为了支持append内容，必然会涉及到分配新数组与复制的过程，将会带来不少的开销。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=n>sds</span> <span class=nf>sdscatlen</span><span class=p>(</span><span class=n>sds</span> <span class=n>s</span><span class=p>,</span> <span class=k>const</span> <span class=kt>void</span> <span class=o>*</span><span class=n>t</span><span class=p>,</span> <span class=n>size_len</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>size_t</span> <span class=n>curlen</span> <span class=o>=</span> <span class=nf>sdslen</span><span class=p>(</span><span class=n>s</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>s</span> <span class=o>=</span> <span class=nf>sdsMakeRoomFor</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>len</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=n>s</span> <span class=o>==</span> <span class=nb>NULL</span><span class=p>)</span> <span class=k>return</span> <span class=nb>NULL</span><span class=p>;</span> <span class=c1>// OOM
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nf>mencpy</span><span class=p>(</span><span class=n>s</span><span class=o>+</span><span class=n>curlen</span><span class=p>,</span> <span class=n>t</span><span class=p>,</span> <span class=n>len</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nf>sdssetlen</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>curlen</span><span class=o>+</span><span class=n>len</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>s</span><span class=p>[</span><span class=n>curlen</span><span class=o>+</span><span class=n>len</span><span class=p>]</span> <span class=o>=</span> <span class=sc>&#39;\0&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>s</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>选择使用范型为了追求极限的性能优化，可以在较短时使用byte和short。</p><p>Redis设定String不能超过512MB，创建时的len和capacity一样长，不会分配多余空间。</p><h2 id=2-dict>2. Dict</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>RedisDB</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>dict</span><span class=o>*</span> <span class=n>dict</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>dict</span><span class=o>*</span> <span class=n>expires</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>除了hash结构以外，Redis也有全局字典记录键值对。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>dictEntry</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span><span class=o>*</span> <span class=n>key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>void</span><span class=o>*</span> <span class=n>val</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictEntry</span><span class=o>*</span> <span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>dictht</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictEntry</span><span class=o>**</span> <span class=n>table</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>used</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>dict</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>dicht</span> <span class=n>ht</span><span class=p>[</span><span class=mi>2</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Redis的字典与Java的HashMap接近，采用分桶解决哈希冲突，即一维数组+二维链表的方式。</p><p>当hash表中元素等于一维数组的长度时，开始扩容，如果Redis在做bgsave，为了减少内存页的过多分离(COW)，就不会扩容，但是如果元素个数达到了5倍，还是会发生强制扩容。</p><p>扩容时，如果全部重新申请数组，并将链表元素挂在新的数组下，耗时O(n)，对于单线程而言很难接受，所以Redis采用渐进式扩容策略</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=n>dictEntry</span> <span class=o>*</span><span class=nf>dictAddRaw</span><span class=p>(</span><span class=n>dict</span> <span class=o>*</span><span class=n>d</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>key</span><span class=p>,</span> <span class=n>dictEntry</span> <span class=o>**</span><span class=n>existing</span><span class=p>){</span> 
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>index</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictEntry</span> <span class=o>*</span><span class=n>entry</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>dictht</span> <span class=o>*</span><span class=n>ht</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nf>dictisRehashing</span><span class=p>(</span><span class=n>d</span><span class=p>))</span> <span class=nf>_dictRehashing</span><span class=p>(</span><span class=n>d</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>((</span><span class=n>index</span> <span class=o>=</span> <span class=nf>_dictKeyIndex</span><span class=p>(</span><span class=n>d</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=nf>dictHashKey</span><span class=p>(</span><span class=n>d</span><span class=p>,</span><span class=n>key</span><span class=p>),</span> <span class=n>existing</span><span class=p>))</span> <span class=o>==</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nb>NULL</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>ht</span> <span class=o>=</span> <span class=nf>dictIsRehashing</span><span class=p>(</span><span class=n>d</span><span class=p>)</span> <span class=o>?</span> <span class=o>&amp;</span><span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>:</span> <span class=o>&amp;</span><span class=n>d</span><span class=o>-&gt;</span><span class=n>ht</span><span class=p>[</span><span class=mi>0</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=n>entry</span> <span class=o>=</span> <span class=nf>zmalloc</span><span class=p>(</span><span class=k>sizeof</span><span class=p>(</span><span class=o>*</span><span class=n>entry</span><span class=p>))</span><span class=err>；</span>
+</span></span><span class=line><span class=cl>    <span class=n>entry</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>=</span> <span class=n>ht</span><span class=o>-&gt;</span><span class=n>table</span><span class=p>[</span><span class=n>index</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=n>ht</span><span class=o>-&gt;</span><span class=n>table</span><span class=p>[</span><span class=n>index</span><span class=p>]</span> <span class=o>=</span> <span class=n>entry</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>ht</span><span class=o>-&gt;</span><span class=n>used</span><span class=o>++</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nf>dictSetKey</span><span class=p>(</span><span class=n>d</span><span class=p>,</span> <span class=n>entry</span><span class=p>,</span> <span class=n>key</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>entry</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>此外，在客户端空闲时，Redis也设计了定时任务(databaseCron)，对字典进行主动搬迁。</p><p>Redis的Set采用的与字典相同的数据结构，不过是Value都为NULL(和Go一样)。</p><h2 id=3-zip-list>3. Zip List</h2><p>当zset和hash对象在元素个数较少时，都在用压缩列表存储，能保证数据没有冗余。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>ziplist</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>zlbytes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>zltail_offset</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int16</span> <span class=n>zllength</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span><span class=p>[]</span> <span class=n>entries</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int8</span> <span class=n>zlend</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>entry</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span><span class=o>&lt;</span><span class=n>var</span><span class=o>&gt;</span> <span class=n>prevlen</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span><span class=o>&lt;</span><span class=n>var</span><span class=o>&gt;</span> <span class=n>encoding</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>optional</span> <span class=n>byte</span><span class=p>[]</span> <span class=n>content</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>zltial_offset用于记录最后一个元素的偏移量，prevlen用于记录前一个entry的长度，倒序遍历时可以快速定位到下一个元素位置。</p><p>encoding字段为记录编码信息，做了相当复杂的设计，类似于UTF8编码，采用了前缀位类区分内容。</p><p>optional代表该字段是可选的，对于很小的整数而言，可能内容已经inline到encoding的尾部了。</p><p>每次插入ziplist都需要使用realloc拓展内存，将先前的内容进行拷贝，或者在原地址拓展。这种操作对于大内存的效率不高，所以ziplist并不适合存储大元素。</p><h2 id=4-quick-list>4. Quick List</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>listNode</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNode</span> <span class=o>*</span><span class=n>prev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNode</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span> <span class=n>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>list</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNode</span> <span class=o>*</span><span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>listNoed</span> <span class=o>*</span><span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>早期的Redis在元素少时使用ziplist，元素多时使用linkedlist，这样前后指针就需要16字节，浪费内存空间。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>ziplist</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>zlbytes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>zltail_offset</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int16</span> <span class=n>zllength</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span><span class=p>[]</span> <span class=n>entries</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int8</span> <span class=n>zlend</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>ziplist_compressed</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>byte</span><span class=p>[]</span> <span class=n>compressed_data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>quicklistNode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span><span class=o>*</span> <span class=n>prev</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span><span class=o>*</span> <span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>ziplist</span><span class=o>*</span> <span class=n>zl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int16</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int2</span> <span class=n>encoding</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>quicklist</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span><span class=o>*</span> <span class=n>head</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>quicklistNode</span><span class=o>*</span> <span class=n>tail</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>long</span> <span class=n>count</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>nodes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>compressDepth</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>每个ziplist长度为8kb，超过这个值会新建一个ziplist。一般而言，Redis默认的压缩深度为0，可以采用LZF算法对内存进行压缩，可以选择压缩深度。</p><h2 id=5-skip-list>5. Skip List</h2><p>对于zset这样的复合结构，需要hash存储kv，也需要对score排序，即需要SkipList数据结构</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>zslnode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>string</span> <span class=n>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>double</span> <span class=n>score</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>zslnode</span><span class=o>*</span><span class=p>[]</span> <span class=n>forwards</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>zslnode</span><span class=o>*</span> <span class=n>backward</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>zsl</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>zslnode</span><span class=o>*</span> <span class=n>header</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>maxLevel</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>map</span><span class=o>&lt;</span><span class=n>string</span><span class=p>,</span> <span class=n>zslnode</span><span class=o>*&gt;</span> <span class=n>ht</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>每次查询时，从header最高层开始，遍历找到最后一个比当前层要小的元素，之后发生降层。</p><p>插入时，设置分到第n层的概率为$(1/2)^n$，即每一层晋升率为50%，(官方的源码中晋升率为25%，相对扁平)。</p><p>更新时，Redis采用的策略是：先删除再插入，能够较好调整位置。</p><p>如果score相同，Redis会将排序指标设计为Value(strcmp)，来防止性能退化至O(n)。</p><h2 id=6-list-pack>6. List Pack</h2><p>Redis5.0更新了listpack来对ziplist进行优化</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>listpack</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int32</span> <span class=n>total_bytes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int16</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>T</span><span class=p>[]</span>   <span class=n>entries</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int8</span> <span class=n>end</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>lpentry</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span><span class=o>&lt;</span><span class=n>var</span><span class=o>&gt;</span> <span class=n>encoding</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>optional</span> <span class=n>byte</span><span class=p>[]</span> <span class=n>content</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span><span class=o>&lt;</span><span class=n>var</span><span class=o>&gt;</span> <span class=n>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>listpack采用varint进行编码，不同的长度编码可以是1-5中任意一个。解决了ziplist级联更新的行为，元素间独立，不会对后续有影响。不过由于ziplist使用过广泛，现在只有Stream采用了listpack。</p><h2 id=7-rax>7. Rax</h2><p>Radix Tree类比HttpRouter中的TireTree，被用于存储消息队列，其中消息前缀即是时间戳+序号。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>raxNode</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>int1</span> <span class=n>isKey</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int1</span> <span class=n>isNull</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int1</span> <span class=n>isCompressed</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>int29</span> <span class=n>size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>byte</span><span class=p>[]</span> <span class=n>data</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>rax在结构上并不是严格的RadixTree，如果中间节点有多个子节点，路由就是一个字符。如果只有一个叶子节点，那么路由键就是字符串。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=line><span class=cl><span class=k>struct</span> <span class=n>data</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>optional</span> <span class=k>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>byte</span><span class=p>[]</span> <span class=n>childKey</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=n>raxNode</span><span class=o>*</span> <span class=n>childNode</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=n>child</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>optional</span> <span class=n>string</span> <span class=n>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>struct</span> <span class=n>data</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>byte</span><span class=p>[]</span> <span class=n>childKeys</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>raxNode</span><span class=o>*</span><span class=p>[]</span> <span class=n>childNodes</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>optional</span> <span class=n>string</span> <span class=n>value</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果叶子节点只有一个，就是压缩结构。反之则是存在多个路由键，一个键对应一个字符。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/redis/>Redis</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span><a class=link href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml target=_blank rel=noopener>Licensed under CC BY-NC-SA 4.0</a></span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/post/tinysql-implementation/><div class=article-image><img src=/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post TinySQL Implementation" data-hash="md5-M9w/Cze7g9zZBu/1q+VXAw=="></div><div class=article-details><h2 class=article-title>TinySQL Implementation</h2></div></a></article><article class=has-image><a href=/post/amend-hugo-theme-even/><div class=article-image><img src=/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Amend Hugo Theme Even" data-hash="md5-T2OJEh5E76YCf4utRtmy2A=="></div><div class=article-details><h2 class=article-title>Amend Hugo Theme Even</h2></div></a></article><article class=has-image><a href=/post/about-computer-science/><div class=article-image><img src=/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post About Computer Science" data-hash="md5-tuiBEKC2chin64susIMt9Q=="></div><div class=article-details><h2 class=article-title>About Computer Science</h2></div></a></article><article class=has-image><a href=/post/compilers/><div class=article-image><img src=/post/compilers/Compilers.721e3e2c562aaf9810a16b67966bddd7_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Compilers" data-hash="md5-ch4+LFYqr5gQoWtnlmvd1w=="></div><div class=article-details><h2 class=article-title>Compilers</h2></div></a></article><article class=has-image><a href=/post/software-engineering/><div class=article-image><img src=/post/software-engineering/code.451576849004ae7fa7528a5d97c8edbd_hu8931b1e4159b9bd74cb80acff6dca036_21936_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Software Engineering" data-hash="md5-RRV2hJAErn+nUopdl8jtvQ=="></div><div class=article-details><h2 class=article-title>Software Engineering</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=Chasing1020/Chasing1020.github.io data-repo-id=R_kgDOGR5Ifw data-category=General data-category-id=DIC_kwDOGR5If84CURCm data-mapping=url data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2024 Chasing1020</section><section class=powerby>I just want a peaceful life without troubles<br>Built with <b><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a></b><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-CDYPFNXQDZ")</script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css?family=JetBrains+Mono",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

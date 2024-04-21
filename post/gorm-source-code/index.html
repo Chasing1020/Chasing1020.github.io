@@ -1,0 +1,758 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt'><title>Gorm Source Code</title>
+<link rel=canonical href=https://chasing1020.github.io/post/gorm-source-code/><link rel=stylesheet href=/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css><meta property='og:title' content='Gorm Source Code'><meta property='og:description' content='Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt'><meta property='og:url' content='https://chasing1020.github.io/post/gorm-source-code/'><meta property='og:site_name' content='Chasing1020'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='DataBase'><meta property='article:published_time' content='2021-12-22T18:24:56+08:00'><meta property='article:modified_time' content='2021-12-22T18:24:56+08:00'><meta property='og:image' content='https://chasing1020.github.io/post/gorm-source-code/gorm.webp'><meta name=twitter:site content="@Chasing1020"><meta name=twitter:creator content="@Chasing1020"><meta name=twitter:title content="Gorm Source Code"><meta name=twitter:description content="Gorm Source Code 1. sql.DB 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 // driverConn wraps a driver.Conn with a mutex, to // be held during all calls into the Conn. (including any calls onto // interfaces returned via that Conn, such as calls on Tx, Stmt, // Result, Rows) type driverConn struct { db *DB createdAt"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://chasing1020.github.io/post/gorm-source-code/gorm.webp'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg width=300 height=299 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🖥️</span></figure><div class=site-meta><h1 class=site-name><a href=/>Chasing1020</a></h1><h2 class=site-description><a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target=_blank>Why there is a universe?</a></h2></div></header><ol class=social-menu><li><a href=https://github.com/Chasing1020 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Chasing1020 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://t.me/Chasing1020 target=_blank title=Telegram rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a></li><li><a href=mailto:chasing1020@gmail.com target=_blank title=Email rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/friends/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Friends</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><div class=menu-bottom-section><li id=i18n-switch style=display:none><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://chasing1020.github.io/ selected></option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#gorm-source-code>Gorm Source Code</a></li><li><a href=#1-sqldb>1. sql.DB</a></li><li><a href=#2-parse>2. Parse</a></li><li><a href=#3-cause>3. Cause</a><ul><li><a href=#31-select>3.1. Select</a></li><li><a href=#32-from>3.2. From</a></li><li><a href=#33-where>3.3. Where</a></li></ul></li><li><a href=#4-hooks>4. Hooks</a></li><li><a href=#5-transaction>5. Transaction</a></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/post/gorm-source-code/><img src=/post/gorm-source-code/gorm_huf43c23aaba4e097a63ec0037d5296908_43864_800x0_resize_q75_h2_box_2.webp srcset="/post/gorm-source-code/gorm_huf43c23aaba4e097a63ec0037d5296908_43864_800x0_resize_q75_h2_box_2.webp 800w, /post/gorm-source-code/gorm_huf43c23aaba4e097a63ec0037d5296908_43864_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=400 loading=lazy alt="Featured image of post Gorm Source Code"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/gorm-source-code/>Gorm Source Code</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Dec 22, 2021</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>5 minute read</time></div></footer></div></header><section class=article-content><h1 id=gorm-source-code>Gorm Source Code</h1><h1 id=1-sqldb>1. sql.DB</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// driverConn wraps a driver.Conn with a mutex, to
+</span></span></span><span class=line><span class=cl><span class=c1>// be held during all calls into the Conn. (including any calls onto
+</span></span></span><span class=line><span class=cl><span class=c1>// interfaces returned via that Conn, such as calls on Tx, Stmt,
+</span></span></span><span class=line><span class=cl><span class=c1>// Result, Rows)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>driverConn</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>db</span>        <span class=o>*</span><span class=nx>DB</span>
+</span></span><span class=line><span class=cl>    <span class=nx>createdAt</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nx>sync</span><span class=p>.</span><span class=nx>Mutex</span>  <span class=c1>// guards following
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>ci</span>          <span class=nx>driver</span><span class=p>.</span><span class=nx>Conn</span>
+</span></span><span class=line><span class=cl>    <span class=nx>needReset</span>   <span class=kt>bool</span> <span class=c1>// The connection session should be reset before use if true.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>closed</span>      <span class=kt>bool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>finalClosed</span> <span class=kt>bool</span> <span class=c1>// ci.Close has been called
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>openStmt</span>    <span class=kd>map</span><span class=p>[</span><span class=o>*</span><span class=nx>driverStmt</span><span class=p>]</span><span class=kt>bool</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// guarded by db.mu
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>inUse</span>      <span class=kt>bool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>returnedAt</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Time</span> <span class=c1>// Time the connection was created or returned.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>onPut</span>      <span class=p>[]</span><span class=kd>func</span><span class=p>()</span>  <span class=c1>// code (with db.mu held) run when conn is next returned
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>dbmuClosed</span> <span class=kt>bool</span>      <span class=c1>// same as closed, but guarded by db.mu, for removeClosedStmtLocked
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>sql.DB数据结构对数据库做了一层简单的抽象，但是需要明确的是：<code>sql.DB不是一个连接，也不是映射到任何DataBase或者是Schema的概念</code>。</p><p>sql.DB可以执行一系列重要的任务：包括使用驱动打开和关闭实际底层数据库的连接；通过管理连接池，涉及相关的事务。</p><p>这个数据结构设计为长期存在的，不应该经常性地新建或者是删除。</p><p>在Gorm中，将DB类型和Session类型进行了封装。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// DB GORM DB definition
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>DB</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=o>*</span><span class=nx>Config</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Error</span>        <span class=kt>error</span>
+</span></span><span class=line><span class=cl>    <span class=nx>RowsAffected</span> <span class=kt>int64</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Statement</span>    <span class=o>*</span><span class=nx>Statement</span>
+</span></span><span class=line><span class=cl>    <span class=nx>clone</span>        <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Session session config when create session with Session() method
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Session</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>Context</span>                  <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Logger</span>                   <span class=nx>logger</span><span class=p>.</span><span class=nx>Interface</span>
+</span></span><span class=line><span class=cl>    <span class=nx>NowFunc</span>                  <span class=kd>func</span><span class=p>()</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Time</span>
+</span></span><span class=line><span class=cl>    <span class=nx>CreateBatchSize</span>          <span class=kt>int</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中数据库对象放置在Statement中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Statement statement
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Statement</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=o>*</span><span class=nx>DB</span>
+</span></span><span class=line><span class=cl>    <span class=nx>TableExpr</span>            <span class=o>*</span><span class=nx>clause</span><span class=p>.</span><span class=nx>Expr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Table</span>                <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Model</span>                <span class=kd>interface</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Unscoped</span>             <span class=kt>bool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Dest</span>                 <span class=kd>interface</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ReflectValue</span>         <span class=nx>reflect</span><span class=p>.</span><span class=nx>Value</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Clauses</span>              <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>clause</span><span class=p>.</span><span class=nx>Clause</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>ConnPool</span>             <span class=nx>ConnPool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Schema</span>               <span class=o>*</span><span class=nx>schema</span><span class=p>.</span><span class=nx>Schema</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Context</span>              <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=2-parse>2. Parse</h1><p>对于一般数据对象，涉及对表的转换，一般需要这个对象提供信息：</p><p>包括表名到结构体名、字段名和字段类型、额外的约束条件（非空，自增等等）</p><p>在schema/field.go下面，设计了Field结构体，主要部分如下</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>Field</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span>                   <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>DBName</span>                 <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>BindNames</span>              <span class=p>[]</span><span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nx>DataType</span>               <span class=nx>DataType</span>
+</span></span><span class=line><span class=cl>    <span class=nx>GORMDataType</span>           <span class=nx>DataType</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ... 
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>FieldType</span>              <span class=nx>reflect</span><span class=p>.</span><span class=nx>Type</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Tag</span>                    <span class=nx>reflect</span><span class=p>.</span><span class=nx>StructTag</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>对应reflect包下的Tag操作</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// A StructTag is the tag string in a struct field.
+</span></span></span><span class=line><span class=cl><span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1>// By convention, tag strings are a concatenation of
+</span></span></span><span class=line><span class=cl><span class=c1>// optionally space-separated key:&#34;value&#34; pairs.
+</span></span></span><span class=line><span class=cl><span class=c1>// Each key is a non-empty string consisting of non-control
+</span></span></span><span class=line><span class=cl><span class=c1>// characters other than space (U+0020 &#39; &#39;), quote (U+0022 &#39;&#34;&#39;),
+</span></span></span><span class=line><span class=cl><span class=c1>// and colon (U+003A &#39;:&#39;).  Each value is quoted using U+0022 &#39;&#34;&#39;
+</span></span></span><span class=line><span class=cl><span class=c1>// characters and Go string literal syntax.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>StructTag</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Get returns the value associated with key in the tag string.
+</span></span></span><span class=line><span class=cl><span class=c1>// If there is no such key in the tag, Get returns the empty string.
+</span></span></span><span class=line><span class=cl><span class=c1>// If the tag does not have the conventional format, the value
+</span></span></span><span class=line><span class=cl><span class=c1>// returned by Get is unspecified. To determine whether a tag is
+</span></span></span><span class=line><span class=cl><span class=c1>// explicitly set to the empty string, use Lookup.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>tag</span> <span class=nx>StructTag</span><span class=p>)</span> <span class=nf>Get</span><span class=p>(</span><span class=nx>key</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>v</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>tag</span><span class=p>.</span><span class=nf>Lookup</span><span class=p>(</span><span class=nx>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>v</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>在对数据类型进行解析时，会执行如下的操作</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>schema</span> <span class=o>*</span><span class=nx>Schema</span><span class=p>)</span> <span class=nf>ParseField</span><span class=p>(</span><span class=nx>fieldStruct</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>StructField</span><span class=p>)</span> <span class=o>*</span><span class=nx>Field</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>// default value is function or null or blank (primary keys)
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>TrimSpace</span><span class=p>(</span><span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nx>skipParseDefaultValue</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Contains</span><span class=p>(</span><span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>,</span> <span class=s>&#34;(&#34;</span><span class=p>)</span> <span class=o>&amp;&amp;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>strings</span><span class=p>.</span><span class=nf>Contains</span><span class=p>(</span><span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>,</span> <span class=s>&#34;)&#34;</span><span class=p>)</span> <span class=o>||</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>)</span> <span class=o>==</span> <span class=s>&#34;null&#34;</span> <span class=o>||</span> <span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span> <span class=o>==</span> <span class=s>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>switch</span> <span class=nx>reflect</span><span class=p>.</span><span class=nf>Indirect</span><span class=p>(</span><span class=nx>fieldValue</span><span class=p>).</span><span class=nf>Kind</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Bool</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nx>field</span><span class=p>.</span><span class=nx>DataType</span> <span class=p>=</span> <span class=nx>Bool</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>field</span><span class=p>.</span><span class=nx>HasDefaultValue</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>skipParseDefaultValue</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValueInterface</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>ParseBool</span><span class=p>(</span><span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>schema</span><span class=p>.</span><span class=nx>err</span> <span class=p>=</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;failed to parse %s as default value for bool, got error: %v&#34;</span><span class=p>,</span> <span class=nx>field</span><span class=p>.</span><span class=nx>DefaultValue</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Int</span><span class=p>,</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Int8</span><span class=p>,</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Int16</span><span class=p>,</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Int32</span><span class=p>,</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Int64</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// case ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=3-cause>3. Cause</h1><p>对于复杂的SQL语句，一般是由多个子句组合而成，对于每一个子句，Gorm做了简单的抽象，并把子句生成的过程简化为Build方法。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Interface clause interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Interface</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Name</span><span class=p>()</span> <span class=kt>string</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Build</span><span class=p>(</span><span class=nx>Builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>MergeClause</span><span class=p>(</span><span class=o>*</span><span class=nx>Clause</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Expression expression interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Expression</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span> <span class=nx>Builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Builder builder interface
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Builder</span> <span class=kd>interface</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Writer</span>
+</span></span><span class=line><span class=cl>    <span class=nf>WriteQuoted</span><span class=p>(</span><span class=nx>field</span> <span class=kd>interface</span><span class=p>{})</span>
+</span></span><span class=line><span class=cl>    <span class=nf>AddVar</span><span class=p>(</span><span class=nx>Writer</span><span class=p>,</span> <span class=o>...</span><span class=kd>interface</span><span class=p>{})</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Clause
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Clause</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Name</span>                <span class=kt>string</span> <span class=c1>// WHERE
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>BeforeExpression</span>    <span class=nx>Expression</span>
+</span></span><span class=line><span class=cl>    <span class=nx>AfterNameExpression</span> <span class=nx>Expression</span>
+</span></span><span class=line><span class=cl>    <span class=nx>AfterExpression</span>     <span class=nx>Expression</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Expression</span>          <span class=nx>Expression</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Builder</span>             <span class=nx>ClauseBuilder</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>其中，Builder函数返回是Gorm链式操作的核心。</p><h2 id=31-select>3.1. Select</h2><p>对于查询部分，首先定义了查询的部分内容，将默认的查询内容用逗号分隔、去重</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>clause</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Select select attrs when querying, updating, creating
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Select</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Distinct</span>   <span class=kt>bool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Columns</span>    <span class=p>[]</span><span class=nx>Column</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Expression</span> <span class=nx>Expression</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Select</span><span class=p>)</span> <span class=nf>Name</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s>&#34;SELECT&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Select</span><span class=p>)</span> <span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span> <span class=nx>Builder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>.</span><span class=nx>Columns</span><span class=p>)</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Distinct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteString</span><span class=p>(</span><span class=s>&#34;DISTINCT &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>column</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Columns</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>idx</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;,&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteQuoted</span><span class=p>(</span><span class=nx>column</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;*&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Select</span><span class=p>)</span> <span class=nf>MergeClause</span><span class=p>(</span><span class=nx>clause</span> <span class=o>*</span><span class=nx>Clause</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Expression</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Distinct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>expr</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Expression</span><span class=p>.(</span><span class=nx>Expr</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>expr</span><span class=p>.</span><span class=nx>SQL</span> <span class=p>=</span> <span class=s>&#34;DISTINCT &#34;</span> <span class=o>+</span> <span class=nx>expr</span><span class=p>.</span><span class=nx>SQL</span>
+</span></span><span class=line><span class=cl>                <span class=nx>clause</span><span class=p>.</span><span class=nx>Expression</span> <span class=p>=</span> <span class=nx>expr</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=nx>clause</span><span class=p>.</span><span class=nx>Expression</span> <span class=p>=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>Expression</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>clause</span><span class=p>.</span><span class=nx>Expression</span> <span class=p>=</span> <span class=nx>s</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// CommaExpression represents a group of expressions separated by commas.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>CommaExpression</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Exprs</span> <span class=p>[]</span><span class=nx>Expression</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>comma</span> <span class=nx>CommaExpression</span><span class=p>)</span> <span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span> <span class=nx>Builder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>expr</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>comma</span><span class=p>.</span><span class=nx>Exprs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>idx</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>_</span><span class=p>,</span> <span class=nx>_</span> <span class=p>=</span> <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteString</span><span class=p>(</span><span class=s>&#34;, &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>expr</span><span class=p>.</span><span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=32-from>3.2. From</h2><p>采用分类方式，考虑SQL92和SQL99语法上的差异</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>clause</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// From from clause
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>From</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Tables</span> <span class=p>[]</span><span class=nx>Table</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Joins</span>  <span class=p>[]</span><span class=nx>Join</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Name from clause name
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>from</span> <span class=nx>From</span><span class=p>)</span> <span class=nf>Name</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s>&#34;FROM&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Build build from clause
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>from</span> <span class=nx>From</span><span class=p>)</span> <span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span> <span class=nx>Builder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>from</span><span class=p>.</span><span class=nx>Tables</span><span class=p>)</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>table</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>from</span><span class=p>.</span><span class=nx>Tables</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>idx</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;,&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteQuoted</span><span class=p>(</span><span class=nx>table</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteQuoted</span><span class=p>(</span><span class=nx>currentTable</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>join</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>from</span><span class=p>.</span><span class=nx>Joins</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39; &#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nx>join</span><span class=p>.</span><span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// MergeClause merge from clause
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>from</span> <span class=nx>From</span><span class=p>)</span> <span class=nf>MergeClause</span><span class=p>(</span><span class=nx>clause</span> <span class=o>*</span><span class=nx>Clause</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>clause</span><span class=p>.</span><span class=nx>Expression</span> <span class=p>=</span> <span class=nx>from</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=33-where>3.3. Where</h2><p>判定多种数据的结构进行合并操作。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>not</span> <span class=nx>NotConditions</span><span class=p>)</span> <span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span> <span class=nx>Builder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>not</span><span class=p>.</span><span class=nx>Exprs</span><span class=p>)</span> <span class=p>&gt;</span> <span class=mi>1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;(&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>c</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>not</span><span class=p>.</span><span class=nx>Exprs</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>idx</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteString</span><span class=p>(</span><span class=s>&#34; AND &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>negationBuilder</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>c</span><span class=p>.(</span><span class=nx>NegationExpressionBuilder</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>negationBuilder</span><span class=p>.</span><span class=nf>NegationBuild</span><span class=p>(</span><span class=nx>builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteString</span><span class=p>(</span><span class=s>&#34;NOT &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nx>e</span><span class=p>,</span> <span class=nx>wrapInParentheses</span> <span class=o>:=</span> <span class=nx>c</span><span class=p>.(</span><span class=nx>Expr</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>wrapInParentheses</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>sql</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>e</span><span class=p>.</span><span class=nx>SQL</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=nx>wrapInParentheses</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Contains</span><span class=p>(</span><span class=nx>sql</span><span class=p>,</span> <span class=s>&#34;and&#34;</span><span class=p>)</span> <span class=o>||</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Contains</span><span class=p>(</span><span class=nx>sql</span><span class=p>,</span> <span class=s>&#34;or&#34;</span><span class=p>);</span> <span class=nx>wrapInParentheses</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                    <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;(&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=nx>c</span><span class=p>.</span><span class=nf>Build</span><span class=p>(</span><span class=nx>builder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>wrapInParentheses</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;)&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>not</span><span class=p>.</span><span class=nx>Exprs</span><span class=p>)</span> <span class=p>&gt;</span> <span class=mi>1</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>builder</span><span class=p>.</span><span class=nf>WriteByte</span><span class=p>(</span><span class=sc>&#39;)&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>后续一系列操作与此类似，在此不再一一列出。</p><h1 id=4-hooks>4. Hooks</h1><p>利用接口实现，在执行对应操作时，会先进行相关的检查操作，实现较为简单。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>BeforeCreate</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>gorm</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Error</span> <span class=o>==</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>Schema</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=o>&amp;&amp;</span> <span class=p>!</span><span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>SkipHooks</span> <span class=o>&amp;&amp;</span> <span class=p>(</span><span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>Schema</span><span class=p>.</span><span class=nx>BeforeSave</span> <span class=o>||</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>Schema</span><span class=p>.</span><span class=nx>BeforeCreate</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nf>callMethod</span><span class=p>(</span><span class=nx>db</span><span class=p>,</span> <span class=kd>func</span><span class=p>(</span><span class=nx>value</span> <span class=kd>interface</span><span class=p>{},</span> <span class=nx>tx</span> <span class=o>*</span><span class=nx>gorm</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>(</span><span class=nx>called</span> <span class=kt>bool</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=k>if</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>Schema</span><span class=p>.</span><span class=nx>BeforeSave</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>value</span><span class=p>.(</span><span class=nx>BeforeSaveInterface</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>               <span class=nx>called</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>               <span class=nx>db</span><span class=p>.</span><span class=nf>AddError</span><span class=p>(</span><span class=nx>i</span><span class=p>.</span><span class=nf>BeforeSave</span><span class=p>(</span><span class=nx>tx</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>         <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>         <span class=k>if</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>Schema</span><span class=p>.</span><span class=nx>BeforeCreate</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>value</span><span class=p>.(</span><span class=nx>BeforeCreateInterface</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>               <span class=nx>called</span> <span class=p>=</span> <span class=kc>true</span>
+</span></span><span class=line><span class=cl>               <span class=nx>db</span><span class=p>.</span><span class=nf>AddError</span><span class=p>(</span><span class=nx>i</span><span class=p>.</span><span class=nf>BeforeCreate</span><span class=p>(</span><span class=nx>tx</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>         <span class=p>}</span>
+</span></span><span class=line><span class=cl>         <span class=k>return</span> <span class=nx>called</span>
+</span></span><span class=line><span class=cl>      <span class=p>})</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=5-transaction>5. Transaction</h1><p>Gorm采用的策略是，在事务执行过程中，判断DB对象的err信息，不为空则返回</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>BeginTransaction</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>gorm</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=p>!</span><span class=nx>db</span><span class=p>.</span><span class=nx>Config</span><span class=p>.</span><span class=nx>SkipDefaultTransaction</span> <span class=o>&amp;&amp;</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Error</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=nx>tx</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Begin</span><span class=p>();</span> <span class=nx>tx</span><span class=p>.</span><span class=nx>Error</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>ConnPool</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>ConnPool</span>
+</span></span><span class=line><span class=cl>         <span class=nx>db</span><span class=p>.</span><span class=nf>InstanceSet</span><span class=p>(</span><span class=s>&#34;gorm:started_transaction&#34;</span><span class=p>,</span> <span class=kc>true</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=nx>tx</span><span class=p>.</span><span class=nx>Error</span> <span class=o>==</span> <span class=nx>gorm</span><span class=p>.</span><span class=nx>ErrInvalidTransaction</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=nx>tx</span><span class=p>.</span><span class=nx>Error</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=nx>db</span><span class=p>.</span><span class=nx>Error</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nx>Error</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>CommitOrRollbackTransaction</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>gorm</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>   <span class=k>if</span> <span class=p>!</span><span class=nx>db</span><span class=p>.</span><span class=nx>Config</span><span class=p>.</span><span class=nx>SkipDefaultTransaction</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>InstanceGet</span><span class=p>(</span><span class=s>&#34;gorm:started_transaction&#34;</span><span class=p>);</span> <span class=nx>ok</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>         <span class=k>if</span> <span class=nx>db</span><span class=p>.</span><span class=nx>Error</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>db</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>         <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>db</span><span class=p>.</span><span class=nf>Commit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>         <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>         <span class=nx>db</span><span class=p>.</span><span class=nx>Statement</span><span class=p>.</span><span class=nx>ConnPool</span> <span class=p>=</span> <span class=nx>db</span><span class=p>.</span><span class=nx>ConnPool</span>
+</span></span><span class=line><span class=cl>      <span class=p>}</span>
+</span></span><span class=line><span class=cl>   <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>实际上还可以采用一种比较优雅的设计实现。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=nx>Service</span><span class=p>)</span> <span class=nf>DoSomething</span><span class=p>()</span> <span class=p>(</span><span class=nx>err</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>tx</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>s</span><span class=p>.</span><span class=nx>db</span><span class=p>.</span><span class=nf>Begin</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>defer</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nx>r</span> <span class=o>:=</span> <span class=nb>recover</span><span class=p>();</span> <span class=nx>r</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>tx</span><span class=p>.</span><span class=nf>Rollback</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Commit</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>tx</span><span class=p>.</span><span class=nf>Exec</span><span class=p>(</span><span class=o>...</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里可以对比Java的JDBC操作，采用trycatch实现回滚。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=nd>@Test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>testUpdateWithTx</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Connection</span><span class=w> </span><span class=n>conn</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//1.获取连接的操作（</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//① 手写的连接：JDBCUtils.getConnection();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//② 使用数据库连接池：C3P0;DBCP;Druid</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//2.对数据表进行一系列CRUD操作</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//① 使用PreparedStatement实现通用的增删改、查询操作（version 1.0 \ version 2.0)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>//version2.0的增删改public void update(Connection conn,String sql,Object ... args){}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1>//version2.0的查询 public &lt;T&gt; T getInstance(Connection conn,Class&lt;T&gt; clazz,String sql,Object ... args){}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//② 使用dbutils提供的jar包中提供的QueryRunner类</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//提交数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>conn</span><span class=p>.</span><span class=na>commit</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>Exception</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>e</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=c1>//回滚数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>conn</span><span class=p>.</span><span class=na>rollback</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>SQLException</span><span class=w> </span><span class=n>e1</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>e1</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=k>finally</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//3.关闭连接等操作</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//① JDBCUtils.closeResource();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//② 使用dbutils提供的jar包中提供的DbUtils类提供了关闭的相关操作</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/database/>DataBase</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span><a class=link href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml target=_blank rel=noopener>Licensed under CC BY-NC-SA 4.0</a></span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/post/tinysql-implementation/><div class=article-image><img src=/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post TinySQL Implementation" data-hash="md5-M9w/Cze7g9zZBu/1q+VXAw=="></div><div class=article-details><h2 class=article-title>TinySQL Implementation</h2></div></a></article><article class=has-image><a href=/post/distributed-transaction/><div class=article-image><img src=/post/distributed-transaction/saga.c832084d988877bcb534ecb4fadd6215_hu6e13a83e426eecead9676ebbb90e90b9_79808_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Distributed Transaction" data-hash="md5-yDIITZiId7y1NOy0+t1iFQ=="></div><div class=article-details><h2 class=article-title>Distributed Transaction</h2></div></a></article><article class=has-image><a href=/post/database-systems/><div class=article-image><img src=/post/database-systems/mysql.5b2ee8739542e7c01ef5b96a80ff2bae_hubf29412fdbd9303c575ba06f7ee7c6af_94146_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Database Systems" data-hash="md5-Wy7oc5VC58Ae9blqgP8rrg=="></div><div class=article-details><h2 class=article-title>Database Systems</h2></div></a></article><article class=has-image><a href=/post/amend-hugo-theme-even/><div class=article-image><img src=/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Amend Hugo Theme Even" data-hash="md5-T2OJEh5E76YCf4utRtmy2A=="></div><div class=article-details><h2 class=article-title>Amend Hugo Theme Even</h2></div></a></article><article class=has-image><a href=/post/about-computer-science/><div class=article-image><img src=/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post About Computer Science" data-hash="md5-tuiBEKC2chin64susIMt9Q=="></div><div class=article-details><h2 class=article-title>About Computer Science</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=Chasing1020/Chasing1020.github.io data-repo-id=R_kgDOGR5Ifw data-category=General data-category-id=DIC_kwDOGR5If84CURCm data-mapping=url data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2024 Chasing1020</section><section class=powerby>I just want a peaceful life without troubles<br>Built with <b><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a></b><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-CDYPFNXQDZ")</script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css?family=JetBrains+Mono",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

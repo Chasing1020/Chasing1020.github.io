@@ -1,0 +1,820 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='MySQL基础笔记 1. 数据库简介 1.1.数据库的优势 使用数据库的优点 实现数据持久化 使用完整的管理系统，易于查询 成本低，开源，性能高，使用简单 移'><title>MySQL Basic Note</title>
+<link rel=canonical href=https://chasing1020.github.io/post/mysql-basic-note/><link rel=stylesheet href=/scss/style.min.4103f793779d705fbe87a822f76011a76b5b1b9090509fd3b17a3ca449768b2a.css><meta property='og:title' content='MySQL Basic Note'><meta property='og:description' content='MySQL基础笔记 1. 数据库简介 1.1.数据库的优势 使用数据库的优点 实现数据持久化 使用完整的管理系统，易于查询 成本低，开源，性能高，使用简单 移'><meta property='og:url' content='https://chasing1020.github.io/post/mysql-basic-note/'><meta property='og:site_name' content='Chasing1020'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='MySQl'><meta property='article:published_time' content='2021-03-20T10:15:30+08:00'><meta property='article:modified_time' content='2021-03-20T10:15:30+08:00'><meta property='og:image' content='https://chasing1020.github.io/post/mysql-basic-note/mysql.webp'><meta name=twitter:site content="@Chasing1020"><meta name=twitter:creator content="@Chasing1020"><meta name=twitter:title content="MySQL Basic Note"><meta name=twitter:description content="MySQL基础笔记 1. 数据库简介 1.1.数据库的优势 使用数据库的优点 实现数据持久化 使用完整的管理系统，易于查询 成本低，开源，性能高，使用简单 移"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://chasing1020.github.io/post/mysql-basic-note/mysql.webp'><link rel="shortcut icon" href=/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu95eb581bc5d2486d92921983fc6c7583_36979_300x0_resize_q75_box.jpg width=300 height=299 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🖥️</span></figure><div class=site-meta><h1 class=site-name><a href=/>Chasing1020</a></h1><h2 class=site-description><a href="https://www.youtube.com/watch?v=_ILsdcs__ME" target=_blank>Why there is a universe?</a></h2></div></header><ol class=social-menu><li><a href=https://github.com/Chasing1020 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Chasing1020 target=_blank title=Twitter rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://t.me/Chasing1020 target=_blank title=Telegram rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-telegram" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4 6 6 4-16-18 7 4 2 2 6 3-4"/></svg></a></li><li><a href=mailto:chasing1020@gmail.com target=_blank title=Email rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></a></li><li><a href=/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/friends/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Friends</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><div class=menu-bottom-section><li id=i18n-switch style=display:none><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://chasing1020.github.io/ selected></option></select></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ul><li><a href=#mysql基础笔记>MySQL基础笔记</a><ul><li><a href=#1-数据库简介>1. 数据库简介</a><ul><li><a href=#11数据库的优势>1.1.数据库的优势</a></li><li><a href=#12数据库的相关概念>1.2.数据库的相关概念</a></li><li><a href=#13存放数据>1.3.存放数据</a></li><li><a href=#14dbms补充>1.4.DBMS补充</a></li></ul></li><li><a href=#2-数据库入门>2. 数据库入门</a><ul><li><a href=#21-基础语法>2.1. 基础语法</a></li><li><a href=#22-dql语言>2.2. DQL语言</a></li><li><a href=#23dml语言>2.3.DML语言</a></li><li><a href=#24ddl语言>2.4.DDL语言</a></li><li><a href=#25tcl语言>2.5.TCL语言</a></li><li><a href=#26-变量>2.6. 变量</a></li><li><a href=#27-流程控制函数>2.7. 流程控制函数</a></li></ul></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/post/mysql-basic-note/><img src=/post/mysql-basic-note/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_800x0_resize_q75_h2_box_2.webp srcset="/post/mysql-basic-note/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_800x0_resize_q75_h2_box_2.webp 800w, /post/mysql-basic-note/mysql_hubf29412fdbd9303c575ba06f7ee7c6af_94146_1600x0_resize_q75_h2_box_2.webp 1600w" width=800 height=520 loading=lazy alt="Featured image of post MySQL Basic Note"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/mysql-basic-note/>MySQL Basic Note</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Mar 20, 2021</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>20 minute read</time></div></footer></div></header><section class=article-content><h1 id=mysql基础笔记>MySQL基础笔记</h1><h2 id=1-数据库简介>1. 数据库简介</h2><h3 id=11数据库的优势>1.1.数据库的优势</h3><p>使用数据库的优点</p><pre><code>实现数据持久化
+使用完整的管理系统，易于查询
+成本低，开源，性能高，使用简单
+移植性好
+</code></pre><h3 id=12数据库的相关概念>1.2.数据库的相关概念</h3><pre><code>DB：（Database）即数据库本身，保存有组织数据的容器
+DBMS：（Database Manage System）数据库管理系统，即创建、使用数据库的系统
+SQL：（Structured Quey Language）结构化查询语言
+常用的数据库类型：MySQL，Oracle，DB2，SqlServer（只限win）
+</code></pre><p>注意：SQL不是某个特定版本才有的，而是泛指一种结构化查询用的语言</p><h3 id=13存放数据>1.3.存放数据</h3><pre><code>先放到表中，再放到库中
+一个数据库可以有多个表，每个表有唯一标识
+表有一定特性，类似于java的类
+表中的列类似于java的对象的属性
+表中的行类似于java的对象本身
+</code></pre><h3 id=14dbms补充>1.4.DBMS补充</h3><p>一般有两类数据库：</p><ul><li>基于文件共享管理系统的Access</li><li>基于C/S架构的MySQL</li></ul><h2 id=2-数据库入门>2. 数据库入门</h2><h3 id=21-基础语法>2.1. 基础语法</h3><h4 id=211-启动关闭数据库>2.1.1. 启动/关闭数据库</h4><pre><code>net start mysql
+net stop mysql
+</code></pre><h4 id=212-数据库的登录与退出>2.1.2. 数据库的登录与退出</h4><pre><code>在cmd命令行
+mysql -h localhost -P 3306 -u root -p123456 
+h代表host，P代表端口号，如果连接本机可以直接省略这个步骤
+退出：使用自带命令行，exit或者ctrl+c
+</code></pre><h4 id=213-常见语句举例>2.1.3. 常见语句举例</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=c1># 1.查看当前数据库
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>show</span><span class=w> </span><span class=k>databases</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 2.打开指定的数据库
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>use</span><span class=w> </span><span class=n>test</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 3.查看当前库的所有表
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>show</span><span class=w> </span><span class=kp>tables</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 4.查看其他库的所有表
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>show</span><span class=w> </span><span class=kp>tables</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=n>DB_</span><span class=p>;</span><span class=w> </span><span class=c1># 显示某表中的表，不切换数据库
+</span></span></span><span class=line><span class=cl><span class=c1># 5.创建表
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>create</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=err>表名</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=err>列名</span><span class=w> </span><span class=err>列类型</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=err>列名</span><span class=w> </span><span class=err>列类型</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 6.查看表的结构
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>desc</span><span class=w> </span><span class=err>表名</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 7.查看MySQL版本(dos命令)
+</span></span></span><span class=line><span class=cl><span class=c1># mysql -V或者mysql --version
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=214-语法规范>2.1.4. 语法规范</h4><pre><code>mysql 不区分大小写，但建议关键字大小写，表名和列名用小写
+每条命令最好用分号结尾，不然同时执行语句会出现语法错误
+可以根据需要换行或者使用缩进
+</code></pre><p>注释：
+1. 使用 <code># 注释内容</code>
+2. 使用 <code>-- 注释内容</code> 这里&ndash; 后面有一个空格
+3. 使用 <code>/*注释内容*/</code></p><h3 id=22-dql语言>2.2. DQL语言</h3><p>Data Query Language</p><h4 id=221-基础查询>2.2.1. 基础查询</h4><p>关键词select</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=err>查询列表</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=err>表名</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>类似于System.out.println()
+查询的表可以是表中的字段，常量值，表达式，函数
+查询以后的结果是一个虚拟的表格</p><p>举例</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>`</span><span class=n>last_name</span><span class=o>`</span><span class=p>,</span><span class=w> </span><span class=o>`</span><span class=n>salary</span><span class=o>`</span><span class=p>,</span><span class=w> </span><span class=o>`</span><span class=n>email</span><span class=o>`</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>如果是关键字字段重合，如name，可以使用反斜点来标识一下变量名。</p><p>单引号和双引号都可以表示字符串。</p><p>字段名、表名通常不需要加任何引号，要加也是反引号。</p><p>查询常量值</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=mi>123456</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=s1>&#39;chasing&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>查询表达式</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=mi>100</span><span class=o>%</span><span class=mi>99</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>查询函数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=nf>VERSION</span><span class=p>();</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>起别名</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=mi>100</span><span class=o>%</span><span class=mi>99</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=err>结果</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=err>姓</span><span class=p>,</span><span class=w> </span><span class=n>first_name</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=err>名</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>SELECT</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=err>姓</span><span class=p>,</span><span class=w> </span><span class=n>first_name</span><span class=w> </span><span class=err>名</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>起别名的AS可以省略，如果别名是关键字类型，则需要使用双引号标注</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=s2>&#34;OUT PUT&#34;</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>去重</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=k>DISTINCT</span><span class=w> </span><span class=n>department_id</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>+作用，仅仅只有运算符</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=mi>1</span><span class=o>+</span><span class=s1>&#39;2&#39;</span><span class=w> </span><span class=c1># 尝试转换为数值类型，即3
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=mi>1</span><span class=o>+</span><span class=s1>&#39;a&#39;</span><span class=w> </span><span class=c1># 如果是非数值类型，则将数值转换为0
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>SELECT</span><span class=w> </span><span class=no>null</span><span class=o>+</span><span class=mi>10</span><span class=w> </span><span class=c1># 如果有null，则直接变为null
+</span></span></span><span class=line><span class=cl><span class=c1>-- 以下方法是错误的
+</span></span></span><span class=line><span class=cl><span class=c1>-- SELECT last_name+first_name AS 姓名 FROM employee; 
+</span></span></span></code></pre></td></tr></table></div></div><p>mysql里1+&ldquo;2&rdquo;：转为数值即3</p><p>java里1+&ldquo;2&rdquo;：转为字符型即"12"</p><p>python里1+&ldquo;2&rdquo;：Type Error</p><p>CONCAT连接</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>SELECT</span><span class=w> </span><span class=nf>CONCAT</span><span class=p>(</span><span class=n>last_name</span><span class=p>,</span><span class=w> </span><span class=n>first_name</span><span class=p>)</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=err>姓名</span><span class=w> </span><span class=k>FROM</span><span class=w> </span><span class=n>employee</span><span class=p>;</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># CONCAT 拼接含有null则拼接结果都是null
+</span></span></span></code></pre></td></tr></table></div></div><p>IFNULL判断非空</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=nf>IFNULL</span><span class=p>(</span><span class=n>commission_pct</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=222-条件查询>2.2.2. 条件查询</h4><p>查询的列表可能有多种情况
+基础语法</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=err>查询列表</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=err>表名</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=err>筛选条件</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>1.按照条件表达式筛选：
+条件运算符> &lt; = != &lt;> &lt;= >= &lt;=></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=o>&gt;</span><span class=mi>10000</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>2.逻辑表达式
+&& || !
+and or not</p><p>以上方法都可以，但是更推荐使用下面的</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>salary</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=o>&gt;=</span><span class=mi>10000</span><span class=w> </span><span class=k>and</span><span class=w> </span><span class=n>salary</span><span class=o>&lt;=</span><span class=mi>20000</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>3.模糊查询</p><p>主要有以下四种</p><ul><li>like</li><li>between and</li><li>in</li><li>is null</li></ul><p>like 一般和通配符搭配</p><p>% 任意多个匹配，0或者多个</p><p>_ 单个通配符，必须占位一个</p><p>\ 转义字符</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=k>like</span><span class=w> </span><span class=s1>&#39;%a%&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>使用_</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 查询第二个为_的名字，这里\ 被用作转义字符
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>where</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=k>like</span><span class=w> </span><span class=s1>&#39;_\_%&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>对于转义字符，除了使用 \ 也可以自定义</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 查询第二个为_的名字，这里a被用作自定义的转义字符
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>where</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=k>like</span><span class=w> </span><span class=s1>&#39;_a_%&#39;</span><span class=w> </span><span class=n>escape</span><span class=w> </span><span class=s1>&#39;a&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>between and使用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>employee_id</span><span class=w> </span><span class=o>&gt;=</span><span class=w> </span><span class=mi>100</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=k>and</span><span class=w> </span><span class=n>employee_id</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=mi>120</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>可以改成</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>employee_id</span><span class=w> </span><span class=k>between</span><span class=w> </span><span class=mi>100</span><span class=w> </span><span class=k>and</span><span class=w> </span><span class=mi>120</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>使用between and是包含临界值的，即闭区间，两个临界值不能颠倒</p><p>使用in</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>first_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;IT_PROG&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>or</span><span class=w> </span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;AD_VP&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>or</span><span class=w> </span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;AD_PRES&#39;</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>以上查询可以简写成in的形式
+使用in可以提升简洁度，效率上没有提升（❌），in()会使用二分法查找，效率是O(logn)比or要好
+在in的列表中不支持通配符</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>first_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>job_id</span><span class=w> </span><span class=k>in</span><span class=w> </span><span class=p>(</span><span class=s1>&#39;IT_PROG&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;AD_VP&#39;</span><span class=p>,</span><span class=w> </span><span class=s1>&#39;AD_PRES&#39;</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>is null
+is 只能和null成对出现，即只有is null和is not null</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=n>commission_pct</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>	
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>commission_pct</span><span class=w> </span><span class=k>is</span><span class=w> </span><span class=k>not</span><span class=w> </span><span class=no>null</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>安全等于
+&lt;=>
+既可以判断null值，也可以判断普通的数值
+但是使用较少，不便于区分，可读性较低</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=n>salary</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=o>&lt;=&gt;</span><span class=w> </span><span class=mi>12000</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>简单查询测试</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=n>department_id</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=n>salary</span><span class=o>*</span><span class=mi>12</span><span class=o>*</span><span class=p>(</span><span class=mi>1</span><span class=o>+</span><span class=nf>ifnull</span><span class=p>(</span><span class=n>commission_pct</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=p>))</span><span class=w> </span><span class=k>AS</span><span class=w> </span><span class=err>年薪</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=223-排序查询>2.2.3. 排序查询</h4><p>在查询的内容之后添加order by
+asc 和 desc</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=k>asc</span><span class=p>;</span><span class=c1># 升序，从小到大，为默认值
+</span></span></span></code></pre></td></tr></table></div></div><p>以及</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=k>desc</span><span class=p>;</span><span class=w> </span><span class=c1>#降序，从大到小
+</span></span></span></code></pre></td></tr></table></div></div><p>排序查询可以添加表达式</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>first_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nf>ifnull</span><span class=p>(</span><span class=mi>1</span><span class=o>+</span><span class=n>commission_pct</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=o>*</span><span class=mi>12</span><span class=o>*</span><span class=n>salary</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=nf>ifnull</span><span class=p>(</span><span class=mi>1</span><span class=o>+</span><span class=n>commission_pct</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=o>*</span><span class=mi>12</span><span class=o>*</span><span class=n>salary</span><span class=w> </span><span class=k>desc</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>也可以使用别名</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>first_name</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=nf>ifnull</span><span class=p>(</span><span class=mi>1</span><span class=o>+</span><span class=n>commission_pct</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=o>*</span><span class=mi>12</span><span class=o>*</span><span class=n>salary</span><span class=w> </span><span class=n>total</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>total</span><span class=w> </span><span class=k>desc</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>按照多个字段排序，则整体以第一个字段为主要，后面的字段在前面的字段相同时再排序。</p><h4 id=224-常用函数>2.2.4. 常用函数</h4><p>隐藏实现细节，提高代码重用性</p><p>select 函数名() from 表名</p><p>分类</p><ol><li><p>单行函数
+例如concat、length、ifnull</p></li><li><p>分组函数
+常用作统计处理</p></li></ol><p>1、字符函数</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>函数名</th><th>作用</th></tr></thead><tbody><tr><td style=text-align:left>length()</td><td>获取字符串长度</td></tr><tr><td style=text-align:left>concat()</td><td>拼接字符串</td></tr><tr><td style=text-align:left>upper()</td><td>全部改大写</td></tr><tr><td style=text-align:left>lower()</td><td>小写</td></tr><tr><td style=text-align:left>substr()</td><td>字符串截取</td></tr><tr><td style=text-align:left>instr()</td><td>返回字串的在主串的第一次位置索引，找不到返回0</td></tr><tr><td style=text-align:left>trim()</td><td>去除首和尾字符串空格或者是特定的字符</td></tr><tr><td style=text-align:left>lpad()</td><td>使用指定的字符填充左长度</td></tr><tr><td style=text-align:left>rpad()</td><td>使用指定的字符填充右长度</td></tr><tr><td style=text-align:left>replace()</td><td>替换</td></tr></tbody></table></div><p>对于中文字节长度，这里取决于编码，gbk是2个字节，utf-8是3个字节。</p><p>mysql字符串从1开始，这点需要特别注意。</p><p>二、数学函数
+后加参数数字，一般都表示小数点后位数</p><div class=table-wrapper><table><thead><tr><th>函数名</th><th>作用</th></tr></thead><tbody><tr><td>round()</td><td>四舍五入</td></tr><tr><td>ceil()</td><td>向上取整</td></tr><tr><td>floor()</td><td>向下取整</td></tr><tr><td>truncate()</td><td>截断</td></tr><tr><td>mod()</td><td>取模，跟%一致（对于负数取余，计算a-a/b*b）</td></tr><tr><td>rand()</td><td>返回0-1之间的随机数</td></tr></tbody></table></div><p>三 、日期函数</p><div class=table-wrapper><table><thead><tr><th>函数名</th><th>作用</th></tr></thead><tbody><tr><td>now()</td><td>返回当前日期+时间</td></tr><tr><td>curdate()</td><td>返回当前日期，不包含时间</td></tr><tr><td>curtime()</td><td>返回当前时间，不包含日期</td></tr><tr><td>str_to_date()</td><td>将字符转换成日期</td></tr><tr><td>date_format()</td><td>将日期转换成字符</td></tr><tr><td>datediff()</td><td>返回两个日期之间相差的天数</td></tr></tbody></table></div><p>四、其他函数</p><div class=table-wrapper><table><thead><tr><th>函数名</th><th>作用</th></tr></thead><tbody><tr><td>version()</td><td>返回版本号</td></tr><tr><td>database()</td><td>当前打开的数据库</td></tr><tr><td>user()</td><td>返回当前的用户</td></tr><tr><td>password()</td><td>对输入的字符加密</td></tr><tr><td>MD5()</td><td>采用md5加密后的结果</td></tr></tbody></table></div><p>五、流程控制函数</p><p>if()三元运算符</p><p>case 条件表达式
+when 常量1 语句1
+when 常量2 语句2
+else 语句n
+end</p><p>或者
+case
+when 条件 then 语句
+when 条件 then 语句
+else 语句n</p><p>六、分组函数</p><p><code>所有分组函数都会忽略null值。</code></p><p>sum()、avg()、max()、count()
+可以在参数中添加distinct
+count(*)在任何行只要有非空元素，在这行就+1
+count(1)统计原始表中所有的行数</p><h4 id=225-分组查询>2.2.5. 分组查询</h4><pre><code>select column, group_function(column)
+from table
+[where condition]
+[group by group_by_expression]
+[having after grouped]
+[order by column]
+</code></pre><p>where 一定放在from后面</p><p>order by 一定放最后</p><p>分组后的条件，在最后查询到的结果后加having
+例如</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=nf>max</span><span class=p>(</span><span class=n>salary</span><span class=p>),</span><span class=w> </span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>commission_pct</span><span class=w> </span><span class=k>is</span><span class=w> </span><span class=k>not</span><span class=w> </span><span class=no>null</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>group</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>having</span><span class=w> </span><span class=nf>max</span><span class=p>(</span><span class=n>salary</span><span class=p>)</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>12000</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=table-wrapper><table><thead><tr><th>where</th><th>having</th></tr></thead><tbody><tr><td>分组前筛选</td><td>分组后筛选</td></tr><tr><td>原始表</td><td>分组后的结果</td></tr><tr><td>group by前面</td><td>group by后面</td></tr></tbody></table></div><p>分组函数做条件，那一定是用having
+能用分组前筛选的就优先使用分组前筛选（提高性能）</p><p>多组查询</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=nf>avg</span><span class=p>(</span><span class=n>salary</span><span class=p>),</span><span class=n>department_id</span><span class=p>,</span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>group</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>job_id</span><span class=p>,</span><span class=w> </span><span class=n>department_id</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=226-连接查询>2.2.6. 连接查询</h4><p>为了查询的限定，可以通过<code>表名.键名</code>来加以标识。
+与sql92标准不同的是，sql99标准的数据库连接的条件放在on后面，where单独来放筛选的条件
+而sql92的数据库连接条件和筛选条件都是放在where后面，用and连接
+不管是92还是99，两者的效果是一样的，使用99更利于提升代码可读性。</p><p>@以下为sql92标准
+一、等值连接</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=n>department_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>,</span><span class=n>departments</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>employees</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>departments</span><span class=p>.</span><span class=n>department_id</span><span class=p>;</span><span class=w> </span><span class=c1>#连接条件
+</span></span></span></code></pre></td></tr></table></div></div><p>如果有n个表，则需要n-1个连接条件，中间使用and连接
+对于多表的顺序没有要求
+在以上查询过程种，from处的内容不能颠倒
+为了简化查询的语句，可以使用别名，即可以在查询过程中使用别名。
+但是使用了别名以后就不能再出现原名了。</p><p>二、非等值连接</p><p>跟以上都一样，只是where后面的条件变成不等式</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>salary</span><span class=p>,</span><span class=w> </span><span class=n>grade_level</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>job_grades</span><span class=w> </span><span class=n>g</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=n>employees</span><span class=w> </span><span class=n>e</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=k>between</span><span class=w> </span><span class=n>g</span><span class=p>.</span><span class=n>lowest_sal</span><span class=w> </span><span class=k>and</span><span class=w> </span><span class=n>g</span><span class=p>.</span><span class=n>highest_sal</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>三、自连接
+即表中的字段与自身存在匹配关系
+方法：连接时建立两个别名</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>e1</span><span class=p>.</span><span class=n>last_name</span><span class=p>,</span><span class=n>e2</span><span class=p>.</span><span class=n>employee_id</span><span class=p>,</span><span class=n>e2</span><span class=p>.</span><span class=n>last_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=n>e1</span><span class=p>,</span><span class=n>employees</span><span class=w> </span><span class=n>e2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>e1</span><span class=p>.</span><span class=n>manager_id</span><span class=o>=</span><span class=n>e2</span><span class=p>.</span><span class=n>employee_id</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>@以下语法为sql99标准
+语法</p><pre><code>select 查询列表
+from 表1 别名 
+[连接类型][inner] join 表2 别名
+on 连接条件
+where 筛选条件
+[group by 分组]
+[having 筛选条件]
+[order by 排序列表]
+</code></pre><p>以上inner可以省略，但是不建议省略</p><p>等值查询
+@sql99
+一、内连接（集合的交集）</p><p>n个集合内连接需要n-1个条件。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=w> </span><span class=n>department_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=n>departments</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>employees</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>departments</span><span class=p>.</span><span class=n>department_id</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>多表之间等值查询必须要有顺序，即join on 的内容有相关</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=w> </span><span class=n>department_name</span><span class=p>,</span><span class=n>job_title</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=n>e</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>inner</span><span class=w> </span><span class=k>join</span><span class=w> </span><span class=n>departments</span><span class=w> </span><span class=n>d</span><span class=w> </span><span class=k>on</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>d</span><span class=p>.</span><span class=n>department_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>inner</span><span class=w> </span><span class=k>join</span><span class=w> </span><span class=n>jobs</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=k>on</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>j</span><span class=p>.</span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>department_name</span><span class=w> </span><span class=k>desc</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>以上不能写为这种形式：（虽然没有报错，但是不符合规范）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=p>,</span><span class=w> </span><span class=n>department_name</span><span class=p>,</span><span class=n>job_title</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=n>e</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>inner</span><span class=w> </span><span class=k>join</span><span class=w> </span><span class=n>jobs</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=k>on</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>j</span><span class=p>.</span><span class=n>job_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>inner</span><span class=w> </span><span class=k>join</span><span class=w> </span><span class=n>departments</span><span class=w> </span><span class=n>d</span><span class=w> </span><span class=k>on</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>d</span><span class=p>.</span><span class=n>department_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>order</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>department_name</span><span class=w> </span><span class=k>desc</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>二、外连接（集合的差集）
+外连接查询到的结果为主表和附表都有的字段，以及主表中有而在从表中没有的字段（这部分显示为null）
+即：主有从有，主有从无
+主表和从表分辨：</p><ul><li>左外连接：left outer join左边是主表</li><li>右外连接：right outer join右边是主表</li></ul><p>或者理解为：A left join B，就是A主表，集合为A-B
+可以通过切换左右的顺序达到同样的效果</p><p>三、全外连接（集合的交集）
+查询到两个表之间的交集
+全外连接查询到的结果为主表和附表都有的字段，以及主表中有而在从表中没有的字段（这部分显示为null），以及从表中有而在主表中没有的字段
+即：主有从有，主有从无，从无主有
+full outer join 全外连接</p><p>四、交叉连接（集合的笛卡尔积）
+cross join 即代表笛卡尔乘积。这里跟sql92相同，所以使用较少。</p><h4 id=227-子查询>2.2.7. 子查询</h4><p>子查询可以写在<code>其他语句</code>中的select语句，这里的<code>其他语句</code>也即表示可以用于增删改语句中。
+在其他语句中的查询称为子查询
+外部的查询称之为主查询（外查询）
+位置可能出现的情况
+子查询的位置可以放在select后面，where后面，having后面，或者是exists后面（相关子查询）。
+按结果集的行列数不同。
+查询结果：</p><ul><li>标量子查询（一行一列，在select后面）</li><li>列子查询（一列多行，在where或者having后面）</li><li>行子查询（多行多列，在where或者having后面）</li><li>表子查询（以上都有，exists后面）</li></ul><p>一、where及having后面
+子查询一般放在小括号内，条件的右侧
+1.标量子查询</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=p>(</span><span class=k>select</span><span class=w> </span><span class=n>salary</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=k>where</span><span class=w> </span><span class=n>last_name</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;Abel&#39;</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>2.列子查询（多行子查询）
+使用多行比较操作符，主要有以下几种</p><ul><li>in | not in</li><li>any|some</li><li>all</li></ul><p>使用类比np库</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>select</span><span class=w> </span><span class=nf>MIN</span><span class=p>(</span><span class=n>salary</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>where</span><span class=w> </span><span class=n>job_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;IT_PROG&#39;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>3.行子查询
+由于很少有数据表满足这种情况，所以使用较少</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=o>=</span><span class=p>(</span><span class=k>select</span><span class=w> </span><span class=nf>max</span><span class=p>(</span><span class=n>salary</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>)</span><span class=w> </span><span class=k>and</span><span class=w> </span><span class=n>employee_id</span><span class=o>=</span><span class=p>(</span><span class=k>select</span><span class=w> </span><span class=nf>min</span><span class=p>(</span><span class=n>employee_id</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>以上可以替换为</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=p>(</span><span class=n>employee_id</span><span class=p>,</span><span class=w> </span><span class=n>salary</span><span class=p>)</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=k>select</span><span class=w> </span><span class=nf>min</span><span class=p>(</span><span class=n>employee_id</span><span class=p>),</span><span class=w> </span><span class=nf>max</span><span class=p>(</span><span class=n>salary</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                               </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>二、select 后面</p><p>里面仅仅支持标量子查询（即只有一列）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>d</span><span class=p>.</span><span class=o>*</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>           </span><span class=k>select</span><span class=w> </span><span class=nf>count</span><span class=p>(</span><span class=o>*</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>           </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=n>e</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>           </span><span class=k>where</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>d</span><span class=p>.</span><span class=n>department_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>       </span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>departments</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>d</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>三、from后面</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>select</span><span class=w> </span><span class=nf>avg</span><span class=p>(</span><span class=n>salary</span><span class=p>)</span><span class=w> </span><span class=n>ag</span><span class=p>,</span><span class=w> </span><span class=n>department_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>group</span><span class=w> </span><span class=k>by</span><span class=w> </span><span class=n>department_id</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>     </span><span class=p>)</span><span class=w> </span><span class=n>ag_dep</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>         </span><span class=k>inner</span><span class=w> </span><span class=k>join</span><span class=w> </span><span class=n>job_grades</span><span class=w> </span><span class=n>g</span><span class=w> </span><span class=k>on</span><span class=w> </span><span class=n>ag_dep</span><span class=p>.</span><span class=n>ag</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>between</span><span class=w> </span><span class=n>lowest_sal</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>and</span><span class=w> </span><span class=n>highest_sal</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>四、exist 后面（相关子查询）</p><p>由于能用exist的情况下一定能用in，所以使用较少
+先使用外查询，再涉及子查询
+exists后接完整查询语句，结果为1或者0
+查询有员工的部门名</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>department_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>departments</span><span class=w> </span><span class=n>d</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=k>exists</span><span class=p>(</span><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=n>e</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>             </span><span class=k>where</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=n>department_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>d</span><span class=p>.</span><span class=n>department_id</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=228-分页查询>2.2.8. 分页查询</h4><p>当要显示的数据再一页显示不全，需要提交多次sql请求
+7 select 查询列表
+1 from 表
+2 [连接类型] join 表2
+3 on 连接条件
+4 where 筛选条件
+5 group by 分组字段
+6 having 分组以后的筛选
+8 order by 排序的字段
+9 limit offset, size
+前面的数字代表语句的执行顺序
+这里offset是条目的起始索引，默认起始索引从1开始，如果是第一条，0可以省略
+size是个数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w> </span><span class=k>limit</span><span class=w> </span><span class=mi>10</span><span class=p>,</span><span class=mi>15</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 查询第11到25条
+</span></span></span></code></pre></td></tr></table></div></div><p>假设需要显示的页数为page ，每一页的条目数是size
+limit 语句都是在执行顺序的最后</p><p>使用特定数字进行查询</p><h4 id=229-联合查询>2.2.9. 联合查询</h4><p>union 联合查询</p><p>将多条查询语句合并成一个结果
+查询某某条件或者某某条件的集合</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=o>&gt;</span><span class=mi>10000</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>or</span><span class=w> </span><span class=n>employee_id</span><span class=w> </span><span class=o>&gt;</span><span class=mi>50</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>通过联合查询可以得到如下结果</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>salary</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>10000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>union</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>select</span><span class=w> </span><span class=n>last_name</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=n>employees</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>where</span><span class=w> </span><span class=n>employee_id</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>50</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>作用，即同类型的数据存储在多个表中，如中国学生表和外国学生表，查询年龄大于18的。</p><p>适用于：搜索结果返回多个类型的表，但是查询的信息相同的情况，即列数要对应。
+如果同样的字段出现在多个表中
+union自带去重的效果，如果需要保存所有信息，需要增加union all</p><p>总结</p><p>7 select 查询列表
+1 from 表
+2 [连接类型] join 表2
+3 on 连接条件
+4 where 筛选条件
+5 group by 分组字段
+6 having 分组以后的筛选
+8 order by 排序的字段
+9 limit offset, size</p><h3 id=23dml语言>2.3.DML语言</h3><p>Dara Manipulation Language
+数据操作语言
+分为插入，修改，删除三大类</p><h4 id=231-插入操作>2.3.1. 插入操作</h4><p>方法一</p><pre><code>insert into 表名(列名1, ...) values(值1, ...)
+insert into 表名(列名1, ...) values(值1, ...), (值2, ...), ...
+</code></pre><p>在插入的过程中，插入的值的类型要和列类型相一致或者兼容（能够隐式转换），列数的个数和值的个数一定要相匹配。
+可以省略列名，默认所有的列，并且值的顺序需要和位置相一致</p><p>方法二</p><pre><code>insert into 表名
+set 元素1 = 值1, 元素2 = 值2, ...
+</code></pre><p>方式一支持插入多行，方式二不支持插入多行，同时方式一支持子查询，方式二不支持</p><p>即方法一支持</p><p>insert into 表名
+select 查询列表
+from 表名</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>insert</span><span class=w> </span><span class=k>into</span><span class=w> </span><span class=nf>boys</span><span class=w> </span><span class=p>(</span><span class=n>boyName</span><span class=p>,</span><span class=w> </span><span class=n>userCP</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>values</span><span class=w> </span><span class=p>(</span><span class=s1>&#39;zxa&#39;</span><span class=p>,</span><span class=mi>10</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>所以方法一使用教多</p><h4 id=232-修改操作>2.3.2. 修改操作</h4><p>一、修改单个表</p><p>1 update 表名
+3 set 列1 = 新值1, 列2 = 新值2, &mldr;
+2 where 筛选条件;</p><p>语句的逻辑顺序132</p><p>二、 修改多个条件</p><p>同样分为92语法和99语法</p><p>@sql92语法中
+update 表1 别名, 表2 别名
+set 列 = 值
+where 连接条件
+and 筛选条件</p><p>@sql99语法中
+update 表1 别名
+[inner|left|full] update 表2 别名
+set 列 = 值
+where 筛选条件</p><h4 id=233-删除操作>2.3.3. 删除操作</h4><p>方式一：</p><pre><code>delete from 表名 where 筛选条件
+</code></pre><p>删除的后面还可以添加limit作为补充，使用效果同查询部分</p><p>@sql92
+delete 表1的别名, 表2的别名
+from 表1 别名, 表2 别名
+where 筛选条件
+and 筛选条件;</p><p>@sql99语法
+delete 表1的别名, 表2的别名
+from 表1 别名
+inner | left |right join 表2 别名 on 连接条件
+where 筛选条件</p><p>方式二：truncate table 表名</p><p>[面试题]</p><ol><li>truncate 一步实现删除整个表 不能添加where 不能实现多表删除</li><li>truncate 效率比delete效率高</li><li>表中如果有自增长列，在使用delete删除以后，自增长的值会从断点开始</li><li>如果使用truncate删除，则再插入数据，自增长列从1开始</li><li>truncate没有返回值，delete有返回值</li><li>truncate删除不能回滚，delete可以回滚事务</li></ol><h3 id=24ddl语言>2.4.DDL语言</h3><p>Data Define Language
+数据定义语言</p><p>create，alter，drop等</p><h4 id=241-库的管理>2.4.1. 库的管理</h4><p>一、创建数据库
+<code>create database 库名;</code>
+为了提高容错性，可以将创建语句写为
+<code>crate database if not exists 库名;</code></p><p>二、库的修改
+修改名称
+<del>rename database 原名 to 新名;</del>
+这种方法现在已经被废弃，出于安全原因</p><p>一般不会轻易修改表名</p><p>修改字符集
+<code>alter database 库名 character set 字符集名称;</code></p><p>三、库名删除</p><p><code>drop database if exists 库名</code></p><h4 id=242-表的管理>2.4.2. 表的管理</h4><p>一、创建
+create table 表名(
+列名1 列的类型1 [(长度)约束],
+列名2 列的类型2 [(长度)约束],
+列名3 列的类型3 [(长度)约束]，
+。。。
+);</p><p>添加稳定性
+create table if not exists 表名(
+列名1 列的类型1 [(长度)约束],
+列名2 列的类型2 [(长度)约束],
+列名3 列的类型3 [(长度)约束]，
+。。。
+);</p><p>数据类型</p><pre><code>整型:
+	typeint, 1字节
+	smallint, 2字节
+	mediumint, 3字节
+	int(integer), 4字节
+	bigint, 8字节
+</code></pre><p>整型之间的区别只在于可以表示的范围，如果需要设置无符号，则需要在后面添加unsigned
+如果超过了整型可以表示的范围，会报out of range 异常，并添加临界值
+如果设置长度如int(7) zreo fill，同时该int类型会自动变为无符号类型，同时7代表长度不够7的情况下会用0填充
+长度代表显示的最大宽度，无其他含义。</p><pre><code>小数
+	浮点数类型：
+		float，4字节
+		double, 8字节
+	定点数类型：
+		dec(M, D), M+2字节 最大范围和double相同，有效位有M,D决定
+		decimal(M, D), 
+</code></pre><p>定义
+float(M, D)
+double(M, D)
+dec(M, D)</p><p>M表示整数部分和小数部分合计的位数
+后面的D表示小数点保留位数
+如果插入超过临界值，则插入999.99（这里以5,2为例）</p><p>一般而言M, D都可以省略
+如果师float和double 则会随着插入的数值而改变
+如果是dec，则默认M为10, D为0</p><p>对于定点型，精度很高，对于插入数值的精度较高如货币运算可以考虑使用</p><p>对于使用的原则：所选择类型越简单越好，能保存数值的类型越小越好</p><pre><code>字符串
+	较短的文本：
+		char(M), 最多字符数是M，不是字节数，开辟空间时的长度固定，效率较高
+		varchar(M),可变长度的字符，效率低于char
+		binary,
+		varbinarty,与上类似，存二进制类型
+		enum(字段),如设置enum('男','女')那么在添加的时候只能添加这两种类型
+		set(多个成员), 与enum类似，不过可以一次选取多个成员
+	较长的文本：
+		text
+		blob
+</code></pre><p>如果是存储季节如春夏秋冬，则使用char效率会高于varchar
+char的长度M可以省略，默认为1，而varchar的长度M不可以省略</p><pre><code>日期类型：
+	date,4字节，范围1000-9999
+	datetime,8字节，范围1970-2038
+	timestamp,4字节
+	time,3字节
+	year,1字节
+</code></pre><p>timestamp插入的内容实际的时区有关，更能反应当前的时期，受mysql版本影响
+datetime只能反映出插入时的当地时区
+查询修改数据库的时区
+show variables like &rsquo;time_zone'
+set time_zone = &lsquo;+9:00&rsquo;</p><p>二、表的修改</p><p>修改列名
+alter table 表名 change column 原表名 新表名;</p><p>修改列的类型以及约束
+alter table 表名 modify column 列名 约束类型;</p><p>添加新列
+alter table 表名 add column 列名 约束类型;</p><p>删除列
+alter table 表名 drop column 列名;
+alter table 表名 drop column if exists 列名;</p><p>修改表名
+alter table 表名 rename to 新表名</p><p>三、表的删除</p><p>drop table 表名;
+drop table id exists 表名</p><p>查看所有表
+show tables;</p><p>四、 表的复制</p><p>仅仅复制表的结构：
+create table 表名 like 原表名;</p><p>复制表的数据+结构：
+create table 表名
+select * from 原表名</p><p>只复制部分列或者部分行
+create table 表名
+select 查询的内容</p><p>只复制部分的内容作为表的结构
+create table 表名
+select 列名
+from 原表名
+where 1=2; # 或者直接写0</p><h4 id=223-表的约束>2.2.3. 表的约束</h4><p>约束用于限制表中的数据
+为了保证添加到表中的数据可靠</p><p>一、not null
+该字段的值不能为空
+常用作学号，姓名</p><p>二、default
+用于保证该字段有默认值比如性别</p><p>三、primary key
+保证该字段具有唯一性，并且非空
+比如学号</p><p>四、unique
+保证该字段具有唯一性
+比如座位号</p><p>五、check
+在MySQL中不支持，但是不会报错
+限制性别只有男和女
+参数校验一般由后端来做</p><p>六、foreign key references
+用于限制两个表之间的关系
+保证该从表的字段值必须来自主表关联列的值
+从表引用主表的值
+show index from 表名</p><hr><p>在创建表时，修改表时都可以添加约束</p><pre><code>约束的类型：
+	列级约束：六大约束都有效果，但是外键约束没有效果
+	表级约束：除了非空和默认值，其余都支持
+</code></pre><p>一般来说添加表级约束用constraint
+语法
+[constraint 约束名] 约束类型(字段名)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>create</span><span class=w> </span><span class=k>table</span><span class=w> </span><span class=nf>student</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>id</span><span class=w> </span><span class=kt>int</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>stuname</span><span class=w> </span><span class=kt>varchar</span><span class=p>(</span><span class=mi>20</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>gender</span><span class=w> </span><span class=kt>char</span><span class=p>(</span><span class=mi>1</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>seat</span><span class=w> </span><span class=kt>int</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>age</span><span class=w> </span><span class=kt>int</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>majorid</span><span class=w> </span><span class=kt>int</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>constraint</span><span class=w> </span><span class=n>pk</span><span class=w> </span><span class=k>primary</span><span class=w> </span><span class=k>key</span><span class=w> </span><span class=p>(</span><span class=n>id</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>constraint</span><span class=w> </span><span class=n>uq</span><span class=w> </span><span class=k>unique</span><span class=p>(</span><span class=n>seat</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>constraint</span><span class=w> </span><span class=n>ck</span><span class=w> </span><span class=k>check</span><span class=p>(</span><span class=n>gender</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;男&#39;</span><span class=w> </span><span class=k>or</span><span class=w> </span><span class=n>gender</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s1>&#39;女&#39;</span><span class=p>),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>constraint</span><span class=w> </span><span class=n>fk_sudent_major</span><span class=w> </span><span class=k>foreign</span><span class=w> </span><span class=k>key</span><span class=p>(</span><span class=n>majorid</span><span class=p>)</span><span class=w> </span><span class=k>references</span><span class=w> </span><span class=nf>major</span><span class=p>(</span><span class=n>id</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>面试题
+主键和唯一区别：
+主键必定唯一，不允许为空。
+可以设置联合主键：即只有多个列都完全相同才会报错，但是不推荐使用。</p><pre><code>外键要求
+	在从表上设置外键关系：
+	从表外键的列类型要和主表相一致或者兼容，对名称无要求
+	要求主表的关联列必须是一个key，一般是主键或者唯一
+</code></pre><p>修改约束类型
+列级约束：
+alter table 表名 modify column 列名 类型名 限定
+表级约束：
+alter table 表名 add primary key(列名)
+删除约束：
+alter table 表名modify column 列名 类型名 [null];
+一般这个null可以省略不写</p><p>标识列：又称为自增长列
+一个表只能有一个自增长列，且必须是数值类型
+show variables like &lsquo;%auto_increment%&rsquo;
+set auto_increment = 3 #修改步长
+初始值直接插入一个特殊的值就行</p><h3 id=25tcl语言>2.5.TCL语言</h3><p>Transaction Control Language
+事务控制语言</p><h4 id=251-事务>2.5.1. 事务</h4><p>一个或者一组sql语句组成一个执行单元，这个执行单元要么全部执行，要么全部不执行。</p><p>存储类型</p><p>[面试题]
+事务ACID的特性：</p><ol><li>原子性(Atomicity)：事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</li><li>一致性(Consistency)：事务必须使数据库从一个一致性状态切换到另一个一致性状态。</li><li>隔离性(Isolation)：事物的隔离性是指一个事务的执行不能被其他事务干扰，即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的事务之间不能互相干扰。</li><li>持久性(Durability)：持久性是指一个事务一旦被提交，它对数据库的改变就是永久性的，接下来的其他操作和数据库故障不应该对其有任何影响。</li></ol><p>一、事务的创建
+隐式：事务没有明显的开始和结束语句
+比如update insert insert语句</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=c1>#前提必须先设置明显的开启和结束的标记
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>set</span><span class=w> </span><span class=n>autocommit</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 开启事务的语句
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>start</span><span class=w> </span><span class=n>transaction</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 提交事务
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>commit</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c1># 回滚事务
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>rollback</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h4 id=252-数据库的隔离级别>2.5.2. 数据库的隔离级别</h4><p>同时运行多个事务，对于两个事务，一个事务读取了另一个事务更新但是未提交的字段，如果这个事务回滚，那么原事务是无效的。</p><p>[面试题]
+脏读：T1读取了T2已更新但是未提交的时段，如果T2回滚，则T1的数据无效。
+不可重复读：T1读取了一个字段，但是T2把这个字段更新了，T1再读取该字段时数据发生了改变。
+幻读：T1从表中读取了一个字段，然后T2在该表中插入了一些新的行，T1再读取的表就会多出几行</p><p>数据库的隔离问题
+数据库有四种隔离级别：</p><pre><code>READ UNCOMMITED
+	允许事务读取未被其他事务提交的变更，三种问题都会出现
+READ COMMITED
+	只允许读取已经被提交的变更，可以避免脏读，但是不可避免不可重复读和幻读
+REPEATABLE READ（默认）
+	确保事务可以多次从一个字段中读取相同的值，可以避免脏读和不可重复读，但是不可避免幻读
+SERIALIZABLE
+	确保事务可以从一个表中读取相同的行，事务持续时间禁止其他事务对该表执行插入，避免所有情况，效率极低
+</code></pre><p>查看当前的数据库隔离级别
+select @@tx_isolation;</p><p>savepoint 节点名;
+设置事务的保存点</p><p>rollback 节点名;
+将事务回滚到保存点处</p><h4 id=253视图>2.5.3.视图</h4><p>虚拟表和普通表一样使用</p><p>一种虚拟存在的表，行列的数据来自定义视图查询中所使用的表，是动态生成的，只保留sql逻辑，不保留查询的结果</p><p>语法
+<code>create view 视图名 as 查询语句</code></p><p>好处：</p><ol><li>重用复杂的sql语句</li><li>简化了sql的操作，不必知道查询的细节</li><li>保护数据，提高安全性</li></ol><p>视图的修改
+<code>create or replace view 视图名 as 查询语句</code></p><p>或者使用
+<code>alter view 视图名 as 查询语句</code></p><p>删除视图
+<code>drop view 视图名，视图名，……</code></p><p>查看视图
+<code>desc 视图名;</code></p><p>[美团2019秋招笔试]
+具有以下关键字的视图不允许更新：
+聚合函数（SUM(), MIN(), MAX(), COUNT()等）。
+DISTINCT
+GROUP BY
+HAVING
+UNION或UNION ALL
+位于选择列表中的子查询
+Join
+FROM子句中的不可更新视图
+WHERE子句中的子查询，引用FROM子句中的表。
+仅引用文字值（在该情况下，没有要更新的基本表）。
+ALGORITHM = TEMPTABLE（使用临时表总会使视图成为不可更新的）。</p><p>视图虽然可以更新，但是最好不要更新，如果没有全面考虑在视图中更新数据的限制，就可能会造成数据更新失败</p><h3 id=26-变量>2.6. 变量</h3><pre><code>系统变量
+	全局变量
+	会话变量
+自定义变量
+	用户变量
+	局部变量
+</code></pre><p>系统变量：由系统提供，属于服务器层面</p><p>show global|session variables</p><p>查看满足条件的部分系统变量</p><p>show global variables like &lsquo;%char%&rsquo;</p><p>查看指定的某个系统变量的值
+select @@global|session.系统变量名</p><p>为某个系统变量赋值
+set @@global|session.系统变量名 = 赋的值</p><p>二、会话变量
+仅仅针对当前会话有效
+使用方法与上相同，把global换成session</p><p>三、自定义变量
+作用域也仅仅针对于当前的会话，同于会话变量的作用域，针对当前变量有效
+声明或者是赋值：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=kt>set</span><span class=w> </span><span class=o>@</span><span class=err>用户变量名</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=err>值</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=kt>set</span><span class=w> </span><span class=o>@</span><span class=err>用户变量名</span><span class=w> </span><span class=p>:</span><span class=o>=</span><span class=w> </span><span class=err>值</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>select</span><span class=w> </span><span class=o>@</span><span class=err>用户变量名</span><span class=w> </span><span class=p>:</span><span class=o>=</span><span class=w> </span><span class=err>值</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>用户的自定义变量名为弱类型
+赋值也可以使用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>select</span><span class=w> </span><span class=err>字段</span><span class=w> </span><span class=k>into</span><span class=w> </span><span class=o>@</span><span class=err>变量名</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=k>from</span><span class=w> </span><span class=err>表</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>四、局部变量
+只能放在begin，end中</p><p>声明和赋值
+declare 变量名 数据类型 [default 值];</p><p>declare 变量名 数据类型(值);</p><div class=table-wrapper><table><thead><tr><th>用户变量</th><th>局部变量</th></tr></thead><tbody><tr><td>当前会话</td><td>begin end中间</td></tr><tr><td>会话中任何地方都可以用</td><td>只能在begin end中且为第一句</td></tr><tr><td>一般加@，弱类型</td><td>不需要加@，强类型</td></tr></tbody></table></div><h3 id=27-流程控制函数>2.7. 流程控制函数</h3><p>存储过程：一组预先编译好的sql语句集合。</p><p>提高代码的重用性，简化操作，减少连接服务器的次数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-mysql data-lang=mysql><span class=line><span class=cl><span class=k>create</span><span class=w> </span><span class=k>procedure</span><span class=w> </span><span class=nf>pro_name</span><span class=p>(</span><span class=err>参数列表</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>begin</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=err>一组</span><span class=n>sql语句</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=n>end</span><span class=w> </span><span class=err>$</span><span class=p>;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>在参数列表种，in作为输入，out作为输出，inout既可以输入也可以输出
+存储过程的结尾可以使用
+delimiter 结束标记</p><p>调用call pro_name()</p><p>删除 drop procedure pro_name</p><p>函数创建
+create function 函数名(参数列表) return 返回类型
+begin</p><p>end</p><p>函数体种肯定会有return语句</p><p>流程控制结构</p><pre><code>顺序结构
+分支结构
+循环结构
+</code></pre><p>if(表达式1，表达式2，表达式3)</p><p>case 变量|表达式|字段
+when 判断值 then 返回的值;
+when 判断值 then 返回的值;
+。。。
+else
+end case;</p><p>case
+when 判断条件 then 返回的值;
+when 判断条件 then 返回的值;
+。。。
+else
+end case;</p><p>if 条件1 then 语句1;
+elseif 条件2 then 语句2;
+。。。
+[else 语句n;]
+end if;</p><p>循环结构
+iterate 类似于 continue</p><p>[标签] loop
+循环体
+end loop [标签]</p></section><footer class=article-footer><section class=article-tags><a href=/tags/mysql/>MySQl</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span><a class=link href=https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ml target=_blank rel=noopener>Licensed under CC BY-NC-SA 4.0</a></span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css integrity="sha256-J+iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s=" crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.js integrity="sha256-InsNdER1b2xUewP+pKCUJpkhiqwHgqiPXDlIk7GzBu4=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/contrib/auto-render.min.js integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI=" crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.querySelector(`.article-content`),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/post/tinysql-implementation/><div class=article-image><img src=/post/tinysql-implementation/talent-plan.33dc3f0b37bb83dcd906eff5abe55703_hub37bed894517c8c0c46efedb5ba1232d_43996_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post TinySQL Implementation" data-hash="md5-M9w/Cze7g9zZBu/1q+VXAw=="></div><div class=article-details><h2 class=article-title>TinySQL Implementation</h2></div></a></article><article class=has-image><a href=/post/amend-hugo-theme-even/><div class=article-image><img src=/post/amend-hugo-theme-even/even.4f6389121e44efa6027f8bad46d9b2d8_hu7239b18983faa84c364ba0614e368fc1_33946_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Amend Hugo Theme Even" data-hash="md5-T2OJEh5E76YCf4utRtmy2A=="></div><div class=article-details><h2 class=article-title>Amend Hugo Theme Even</h2></div></a></article><article class=has-image><a href=/post/about-computer-science/><div class=article-image><img src=/post/about-computer-science/force.b6e88110a0b67218a7eb8b2eb0832df5_hu2f7a4f0d3aab2fb44bd6811e98148674_312962_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post About Computer Science" data-hash="md5-tuiBEKC2chin64susIMt9Q=="></div><div class=article-details><h2 class=article-title>About Computer Science</h2></div></a></article><article class=has-image><a href=/post/compilers/><div class=article-image><img src=/post/compilers/Compilers.721e3e2c562aaf9810a16b67966bddd7_hu8c64e4fc292413cef039e3f7a5ec8a84_74016_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Compilers" data-hash="md5-ch4+LFYqr5gQoWtnlmvd1w=="></div><div class=article-details><h2 class=article-title>Compilers</h2></div></a></article><article class=has-image><a href=/post/software-engineering/><div class=article-image><img src=/post/software-engineering/code.451576849004ae7fa7528a5d97c8edbd_hu8931b1e4159b9bd74cb80acff6dca036_21936_250x150_fill_q75_h2_box_smart1_2.webp width=250 height=150 loading=lazy alt="Featured image of post Software Engineering" data-hash="md5-RRV2hJAErn+nUopdl8jtvQ=="></div><div class=article-details><h2 class=article-title>Software Engineering</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=Chasing1020/Chasing1020.github.io data-repo-id=R_kgDOGR5Ifw data-category=General data-category-id=DIC_kwDOGR5If84CURCm data-mapping=url data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en data-loading=lazy crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2019 -
+2024 Chasing1020</section><section class=powerby>I just want a peaceful life without troubles<br>Built with <b><a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a></b><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-CDYPFNXQDZ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-CDYPFNXQDZ")</script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css?family=JetBrains+Mono",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on Chasing1020</title><link>https://chasing1020.github.io/tags/network/</link><description>Recent content in Network on Chasing1020</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 18 Jan 2022 22:37:50 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>TCP Congestion Control</title><link>https://chasing1020.github.io/post/tcp-congestion-control/</link><pubDate>Tue, 18 Jan 2022 22:37:50 +0800</pubDate><guid>https://chasing1020.github.io/post/tcp-congestion-control/</guid><description>&lt;img src="https://chasing1020.github.io/post/tcp-congestion-control/tcp.webp" alt="Featured image of post TCP Congestion Control" />&lt;h1 id="1-overview">1. Overview&lt;/h1>
+&lt;p>最初的TCP因为不支持拥塞控制而频繁被丢弃数据包，协议栈被投入使用8年后，Van Jacobson在1988年将 &lt;a class="link" href="http://www.cs.binghamton.edu/~nael/cs428-528/deeper/jacobson-congestion.pdf" target="_blank" rel="noopener"
+>TCP 拥塞控制&lt;/a>引入网络。&lt;/p>
+&lt;p>IP层并没有提供拥塞控制功能，各个主机不知道什么是合理的速度。理想场景利用负反馈控制窗口，每一个TCP连接，引入变量&lt;code>CongestionWindow&lt;/code>与&lt;code>SlowStartThreshold&lt;/code>。&lt;/p>
+&lt;h1 id="2-tahoe">2. Tahoe&lt;/h1>
+&lt;p>定义拥塞发生事件：超时或者是3个冗余ACK。MSS：Maximum Segment Size&lt;/p>
+&lt;p>SlowStart（SS）状态：&lt;/p>
+&lt;ul>
+&lt;li>每一次RTT，cwnd&amp;gt;&amp;gt;=1，保持SS。&lt;/li>
+&lt;li>超时或者是3-ACK：重发，cwnd=1MSS，ssthresh=cwnd&amp;gt;&amp;gt;1，保持SS。&lt;/li>
+&lt;li>如果达到警戒阈值，进入CA。&lt;/li>
+&lt;/ul>
+&lt;p>CongestionAvoidance（CA）状态：&lt;/p>
+&lt;ul>
+&lt;li>每一次RTT，cwnd倍增，保持CA。&lt;/li>
+&lt;li>超时或者是3-ACK：重发，cwnd=1MSS，进入SS。&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-reno">3. Reno&lt;/h1>
+&lt;p>定义新的状态：FastRecovery，考虑到2-ACK必定乱序造成的，丢包肯定会造成2-ACK。但是超时的情况下必定会进入SS。&lt;/p>
+&lt;p>SlowStart（SS）状态：&lt;/p>
+&lt;ul>
+&lt;li>每一次RTT，cwnd倍增。&lt;/li>
+&lt;li>超时：重发，cwnd=1MSS，ssthresh=cwnd&amp;gt;&amp;gt;1，保持SS。&lt;/li>
+&lt;li>3-ACK：&lt;code>快速重传&lt;/code>，ssthresh=cwnd&amp;gt;&amp;gt;1，cwnd=ssthresh+3，进入FR。&lt;/li>
+&lt;li>如果达到警戒阈值，进入CA。&lt;/li>
+&lt;/ul>
+&lt;p>CongestionAvoidance（CA）状态：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>每一次RTT，cwnd倍增。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>超时：重发，cwnd=1MSS，进入SS。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>3-ACK：ssthresh=cwnd&amp;gt;&amp;gt;1，cwnd=ssthresh+3，重传，进入FR。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>FastRecovery（FR）状态：&lt;/p>
+&lt;ul>
+&lt;li>dupACK: cwnd=cwnd+1MSS，保持FR。&lt;/li>
+&lt;li>newACK：cwnd=ssthresth，进入CA。&lt;/li>
+&lt;li>超时：ssthtresh=cwnd&amp;gt;&amp;gt;1，cwnd=1，重传，进入SS。&lt;/li>
+&lt;/ul>
+&lt;h1 id="4-new-reno">4. New Reno&lt;/h1>
+&lt;p>Reno存在的问题：从FR恢复过快，但是实际上在拥塞时分组是成串被丢弃的，后面段的丢失，超时后还是会进入进入SS，使得cwnd又回到1。&lt;/p>
+&lt;p>改进：由发送方记住缺少确认的段，当这些缺少的段都被确认后，再走出FR状态。&lt;/p>
+&lt;p>FastRecovery（FR）状态：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>dupACK：同上，cwnd=cwnd+1，保持FR&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>部分确认（PACK）：收到部分新确认，保持FR&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>发送确认后面的段，冗余ACK数量=0， 定时器复位不要超时了， cwnd=cwnd+1&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>有新段可以发送，发送新的段&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>恢复确认（RACK）：收到所有拥塞时未确认的段确认，cwnd = ssthresh ，定时器复位，进入CA阶段&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>存在问题：只能恢复一个段的丢失。&lt;/p>
+&lt;p>考虑&lt;a class="link" href="https://datatracker.ietf.org/doc/html/rfc793" target="_blank" rel="noopener"
+>RFC793&lt;/a>，在TCP头部保留有Options&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Source Port | Destination Port |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 16 bit | 16 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Sequence Number |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 32 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Acknowledgment Number |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 32 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Data | |U|A|P|R|S|F| |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">|Offset | Reserved |R|C|S|S|Y|I| Window |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| | |G|K|H|T|N|N| |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">|4 bits | 6 bits | 6 bits | 16 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Checksum | Urgent Pointer |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 16 bits | 16 bits |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Options | Padding |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| variable length | |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| data |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>通过SACK，如接收方给出哪些段收到了，哪些段乱序到达了等信息给发送方。发送端一次发送多个丢失段，每RTT可以重传多个丢失段，提升效率。修改TCP首部的Options如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-txt" data-lang="txt">&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| nop | nop | SACK(5) | L = 10 |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 8 bits | 8 bits | 8 bits | 8 bits |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Left Edge |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 32 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| Right Edge |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">| 32 bit |
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>SACK（Several ACK）：在NewReno的基础上，使用pipe=待确认的段数量（ 在管道中已发送出去的段数） th=cwnd&amp;gt;&amp;gt;1，cwnd=th+3。pipe不能够太满，也不能够太少。&lt;/p>
+&lt;h1 id="5-cubic">5. Cubic&lt;/h1>
+&lt;p>WIP&lt;/p></description></item><item><title>Network Security</title><link>https://chasing1020.github.io/post/network-security/</link><pubDate>Thu, 06 Jan 2022 22:39:42 +0800</pubDate><guid>https://chasing1020.github.io/post/network-security/</guid><description>&lt;img src="https://chasing1020.github.io/post/network-security/rsa.webp" alt="Featured image of post Network Security" />&lt;h1 id="1-definition-of-security">1. Definition of security&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>confidentiality: only sender, intended receiver should “understand” message contents&lt;/p>
+&lt;ul>
+&lt;li>sender encrypts message&lt;/li>
+&lt;li>receiver decrypts message&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>authentication: sender, receiver want to confirm identity of each other&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>message integrity: sender, receiver want to ensure message not altered (in transit, or afterwards) without detection&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>access and availability: services must be accessible and available to users. Access is the basis of availability.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Without network security, the intruder can eavesdrop, insert messages, impersonation, hijacking(taking over ongoing connection), denial of service and so on.&lt;/p>
+&lt;h1 id="2-principles-of-cryptography">2. Principles of cryptography&lt;/h1>
+&lt;p>we can define that:&lt;/p>
+&lt;p>m: plaintext message&lt;/p>
+&lt;p>$K_A(m)$: ciphertext, encrypted with key $K_A$&lt;/p>
+&lt;p>$m = K_B(K_A(m))$&lt;/p>
+&lt;p>There are two kinds of scheme about attacking: 1. cipher-text only attack; 2. known-plaintext attack and chosen-plaintext attack.&lt;/p>
+&lt;blockquote>
+&lt;p>DES: Data Encryption Standard&lt;/p>
+&lt;/blockquote>
+&lt;p>56-bit symmetric key, 64-bit plaintext input. Block cipher with cipher block chaining.&lt;/p>
+&lt;p>3DES: encrypt 3 times with 3 different keys.&lt;/p>
+&lt;blockquote>
+&lt;p>AES: Advanced Encryption Standard&lt;/p>
+&lt;/blockquote>
+&lt;p>processes data in 128 bit blocks.&lt;/p>
+&lt;p>Using block chiper, the ith input as $m(i)$, let $c(i) = m(i)\ xor\ c(i-1)$.&lt;/p>
+&lt;blockquote>
+&lt;p>RSA: Rivest, Shamir, Adelson algorithm&lt;/p>
+&lt;/blockquote>
+&lt;p>Creating public/private key pair: Let m be the plain text message that the originator will encrypt and send to the intended recipient. Let e be the public encryption key, d the private decryption key, c the ciphertext.&lt;/p>
+&lt;p>proof: Let $n = pq \implies \varphi(n) = (p − 1)(q − 1)$&lt;/p>
+&lt;p>Euler&amp;rsquo;s theorem: $m^{\varphi(n)}\equiv1\ (mod\ n)$&lt;/p>
+&lt;p>$\implies m^{(p-1)(q-1)}\equiv1 \mod(pq)$&lt;/p>
+&lt;p>$\implies m^{k\varphi(n)+1}\equiv m \mod(pq)$&lt;/p>
+&lt;p>Based on the RSA basic principle, $ed = k\varphi(n)+1$.&lt;/p>
+&lt;p>This is equivalent to say we need to satisfy: $ed\equiv1(mod \varphi(n))$&lt;/p>
+&lt;p>If e is determined, $dmod\varphi(n)$ could be determined, using the &lt;a class="link" href="https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm" target="_blank" rel="noopener"
+>Extend Euclidean algorithm&lt;/a> which takes $O(log^2\varphi(n))$ to run.&lt;/p>
+&lt;h1 id="3-message-integrity">3. Message integrity&lt;/h1>
+&lt;p>Cryptographic technique analogous to hand-written signatures.&lt;/p>
+&lt;blockquote>
+&lt;p>Digital signatures: signed message digest&lt;/p>
+&lt;/blockquote>
+&lt;p>Suppose Alice receives msg m, with signature: m, $K_B^-(m)$&lt;/p>
+&lt;p>Alice verifies $m$ signed by Bob by applying Bob’s public key $K_B^+$ to $K_B^-(m)$ then checks whether $K_B^+(K_B^-(m)) = m$&lt;/p>
+&lt;p>If $K_B^+(K_B^-(m)) = m$, whoever signed m must have used Bob’s private key&lt;/p>
+&lt;blockquote>
+&lt;p>Hash function algorithms&lt;/p>
+&lt;/blockquote>
+&lt;p>MD5 hash function widely used (RFC 1321) :&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>computes 128-bit message digest in 4-step process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>arbitrary 128-bit string x, appears difficult to construct msg m whose MD5 hash is equal to x&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>SHA-1 is also used:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>US standard [NIST, FIPS PUB 180-1]&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>160-bit message digest&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Public key Certification Authorities (CA)&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>certification authority (CA): binds public key to particular entity, &lt;strong>E&lt;/strong>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>entity (person, website, router) registers its public key with CE provides “proof of identity” to CA (bind by OS).&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>CA creates certificate binding identity &lt;strong>E&lt;/strong> to &lt;strong>E&lt;/strong>’s public key.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>certificate containing E’s public key digitally signed by CA: CA says “this is &lt;strong>E&lt;/strong>’s public key”.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="4-securing-tcp-connections-tls">4. Securing TCP connections: TLS&lt;/h1>
+&lt;p>TLS is a widely deployed security protocol above the transport layer; supported by almost all browsers, web servers: https (port 443)&lt;/p>
+&lt;p>TLS provides: 1.confidentiality: via &lt;em>symmetric encryption&lt;/em>; 2. integrity: via &lt;em>cryptographic hashing&lt;/em>; 3. authentication: via &lt;em>public key cryptography&lt;/em>.&lt;/p>
+&lt;p>TLS needed:&lt;/p>
+&lt;p>handshake: Alice, Bob use their certificates, private keys to authenticate each other, exchange or create shared secret.&lt;/p>
+&lt;p>key derivation: Alice, Bob use shared secret to derive set of keys&lt;/p>
+&lt;p>data transfer: stream data transfer: data as a series of records not just one-time transactions&lt;/p>
+&lt;p>connection closure: special messages to securely close connection&lt;/p>
+&lt;p>Which need four keys:&lt;/p>
+&lt;p>$K_c$: encryption key for data sent from client to server&lt;/p>
+&lt;p>$M_c$: MAC key for data sent from client to server&lt;/p>
+&lt;p>$K_s$: encryption key for data sent from server to client&lt;/p>
+&lt;p>$M_s$: MAC key for data sent from server to client&lt;/p>
+&lt;blockquote>
+&lt;p>Diffie Hellman Algorithm&lt;/p>
+&lt;/blockquote>
+&lt;p>DH algorithm is based on a famous problem called Discrete Logarithm Problem (DLP).&lt;/p>
+&lt;p>It based on a theory that if I define a prime p, and &lt;em>g&lt;/em> is a &lt;a class="link" href="https://en.wikipedia.org/wiki/Primitive_root_modulo_n" target="_blank" rel="noopener"
+>primitive root modulo&lt;/a> p. If gives you a random number $a$, it is esay to calculate $g^amodp$. But it is difficult to get the inverse solution $a$ if you only have $p$, $g$, and $g^amodp$.&lt;/p>
+&lt;p>They first agree between them a large prime number p, and a generator (or base) g (where 0 &amp;lt; g &amp;lt; p).&lt;/p>
+&lt;p>Alice chooses a secret integer a (her private key) and then calculates $g^a mod p$ (which is her public key). Bob chooses his private key b, and calculates his public key in the same way.&lt;/p>
+&lt;p>Bob knows $b$ and $g^a$, so he can calculate $(g^a)^b mod p = g^{ab} mod p$. Therefore both Alice and Bob know a shared secret $g^{ab} mod p$. An eavesdropper Eve who was listening in on the communication knows p, g, Alice’s public key $(g^a mod p)$ and Bob’s public key $(g^b mod p)$. She is unable to calculate the shared secret from these values.&lt;/p>
+&lt;p>$(g^a mod p)^b mod p = g^{ab} mod p$&lt;/p>
+&lt;p>$(g^b mod p)^a mod p = g^{ba} mod p$&lt;/p>
+&lt;blockquote>
+&lt;p>TLS: 1.3 cipher suite&lt;/p>
+&lt;/blockquote>
+&lt;p>“cipher suite”: algorithms that can be used for key generation, encryption, MAC, digital signature.&lt;/p>
+&lt;ol>
+&lt;li>client TLS hello message:&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>guesses key agreement protocol (DH key agreement protocol), parameters&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>indicates cipher suites it supports&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>server TLS hello msg chooses&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>
+&lt;p>key agreement protocol (DH key agreement protocol), parameters&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>selected cipher suite&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>server-signed certificate&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>then client will: 1. checks server certificate; 2. generates key; 3.can now make application request (e.g.., HTTPS GET)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Recover connection:&lt;/p>
+&lt;p>initial hello message contains encrypted application data!&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>“resuming” earlier connection between client and server&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>application data encrypted using “resumption master secret” from earlier connection&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>vulnerable to replay attacks!&lt;/p>
+&lt;ul>
+&lt;li>maybe OK for get HTTP GET or client requests not modifying server state&lt;/li>
+&lt;/ul>
+&lt;h1 id="5-ipsec">5. IPSec&lt;/h1>
+&lt;p>IPSec provides datagram-level encryption, authentication, integrity, and it has two types:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>transport mode: only datagram payload is encrypted, authenticated.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tunnel mode: entire datagram is encrypted, authenticated. Encrypted datagram encapsulated in new datagram with new IP header, tunneled to destination.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h1 id="6-firewall">6. Firewall&lt;/h1>
+&lt;p>Firewall isolates organization’s internal network from larger Internet, allowing some packets to pass, blocking others.&lt;/p>
+&lt;p>Stateless packet filtering examples:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Policy&lt;/th>
+&lt;th>Firewall Setting&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>no outside Web access&lt;/td>
+&lt;td>drop all outgoing packets to any IP address, port 80&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>no incoming TCP connections, except those for institution’s public Web server only&lt;/td>
+&lt;td>drop all incoming TCP SYN packets to any IP except 130.207.244.203, port 80&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>prevent Web-radios from eating up the available bandwidth.&lt;/td>
+&lt;td>drop all incoming UDP packets - except DNS and router broadcasts&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>prevent your network from being used for a smurf DoS attack&lt;/td>
+&lt;td>drop all ICMP packets going to a “broadcast” address (e.g. 130.207.255.255)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>prevent your network from being tracerouted&lt;/td>
+&lt;td>drop all outgoing ICMP TTL expired traffic&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

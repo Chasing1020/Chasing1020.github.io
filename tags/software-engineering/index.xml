@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Chasing1020</title><link>https://chasing1020.github.io/tags/software-engineering/</link><description>Recent content in Software Engineering on Chasing1020</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 03 Mar 2022 13:47:04 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>Software Engineering</title><link>https://chasing1020.github.io/post/software-engineering/</link><pubDate>Thu, 03 Mar 2022 13:47:04 +0800</pubDate><guid>https://chasing1020.github.io/post/software-engineering/</guid><description>&lt;img src="https://chasing1020.github.io/post/software-engineering/code.webp" alt="Featured image of post Software Engineering" />&lt;h1 id="overview">Overview&lt;/h1>
+&lt;p>&lt;strong>Software&lt;/strong> is more than just a program code. It is considered to be collection of executable programming code, associated libraries and documentations.&lt;/p>
+&lt;p>&lt;strong>Engineering&lt;/strong> on the other hand, is all about developing products, using well-defined, scientific principles and methods.&lt;/p>
+&lt;blockquote>
+&lt;p>IEEE Definition&lt;/p>
+&lt;/blockquote>
+&lt;p>(1) The application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software.&lt;/p>
+&lt;p>(2) The study of approaches as in the above statement.&lt;/p>
+&lt;p>Evolution: Change Request &amp;gt; Impact Analysis &amp;gt; Release Planning &amp;gt; System update &amp;gt; System Release.&lt;/p>
+&lt;blockquote>
+&lt;p>Three categories&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>Static-type (S-type): This is a software, which works strictly according to defined specifications and solutions. For example, calculator program for mathematical computation .&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Practical-type (P-type) : This is a software with a collection of procedures which specifications can be described but the solution is not obviously instant. For example, gaming software.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Embedded-type (E-type): This software works closely as the requirement of real-world environment. For example, Online trading software.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Needs of Software Engineering: Large, Scalability, Cost, Dynamic Nature, Quality Management.&lt;/p>
+&lt;h1 id="development-life-cycle">Development Life Cycle&lt;/h1>
+&lt;p>Software Life Cycle Activities: Communication, Requirement Gathering, Feasibility Study, System Analysis, Software Design, Coding, Testing, Integration, Implementation, Operations &amp;amp; Maintenance, Disposition.&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Communication: This is the first step where the user initiates the request for a desired software product.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Requirement Gathering: This step onwards the software development team works to carry on the project.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Feasibility Study: After requirement gathering, the team comes up with a rough plan of software process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>System Analysis: At this step the developers decide a roadmap of their plan and try to bring up the best software model suitable for the project.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Software Design: Next step is to bring down whole knowledge of requirements and analysis on the desk and design the software product.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Coding: This step is also known as programming phase.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Testing: An estimate says that 50% of whole software development process should be tested.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Integration: Software may need to be integrated with the libraries, databases, and other program(s).&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implementation: This means installing the software on user machines.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Operation and Maintenance: This phase confirms the software operation in terms of more efficiency and less errors.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Waterfall Model&lt;/p>
+&lt;/blockquote>
+&lt;p>Waterfall model is the simplest model of software development paradigm. This model assumes that everything is carried out and taken place perfectly as planned in the previous stage and there is no need to think about the past issues that may arise in the next phase. This model does not work smoothly if there are some issues left at the previous step. The sequential nature of model does not allow us to go back and undo or redo our actions.&lt;/p>
+&lt;p>This model is best suited when developers already have designed and developed similar software in the past and are aware of all its domains.&lt;/p>
+&lt;blockquote>
+&lt;p>Interactive Model&lt;/p>
+&lt;/blockquote>
+&lt;p>This model leads the software development process in iterations. The software is first developed on very small scale and all the steps are followed which are taken into consideration. Then, on every next iteration, more features and modules are designed, coded, tested, and added to the software. Every cycle produces a software, which is complete in itself and has more features and capabilities than that of the previous one. After each iteration, the management team can do work on risk management and prepare for the next iteration. Because a cycle includes small portion of whole software process, it is easier to manage the development process but it consumes more resources.&lt;/p>
+&lt;blockquote>
+&lt;p>Spiral Model&lt;/p>
+&lt;/blockquote>
+&lt;p>Spiral model is a combination of both, iterative model and one of the SDLC model.&lt;/p>
+&lt;p>This model considers risk, which often goes un-noticed by most other models. The model starts with determining objectives and constraints of the software at the start of one iteration. Next phase is of prototyping the software. This includes risk analysis. Then one standard SDLC model is used to build the software. In the fourth phase of the plan of next iteration is prepared.&lt;/p>
+&lt;blockquote>
+&lt;p>V Model&lt;/p>
+&lt;/blockquote>
+&lt;p>The major drawback of waterfall model is we move to the next stage only when the previous one is finished and there was no chance to go back if something is found wrong in later stages. V-Model provides means of testing of software at each stage in reverse manner.&lt;/p>
+&lt;p>At every stage, test plans and test cases are created to verify and validate the product according to the requirement of that stage. For example, in requirement gathering stage the test team prepares all the test cases in correspondence to the requirements. Later, when the product is developed and is ready for testing, test cases of this stage verify the software against its validity towards requirements at this stage.&lt;/p>
+&lt;blockquote>
+&lt;p>Big Bang Model&lt;/p>
+&lt;/blockquote>
+&lt;p>This model is the simplest model in its form. It requires little planning, lots of programming and lots of funds. This model is conceptualized around the big bang of universe. As scientists say that after big bang lots of galaxies, planets, and stars evolved just as an event. Likewise, if we put together lots of programming and funds, you may achieve the best software product.&lt;/p>
+&lt;blockquote>
+&lt;p>Big Bang Model&lt;/p>
+&lt;/blockquote>
+&lt;p>This model is the simplest model in its form. It requires little planning, lots of programming and lots of funds. This model is conceptualized around the big bang of universe. As scientists say that after big bang lots of galaxies, planets, and stars evolved just as an event. Likewise, if we put together lots of programming and funds, you may achieve the best software product.&lt;/p>
+&lt;h1 id="project-management">Project Management&lt;/h1>
+&lt;p>A Software Project is the complete procedure of software development from requirement gathering to testing and maintenance, carried out according to the execution methodologies, in a specified period of time to achieve intended software product.&lt;/p>
+&lt;p>It is an essential part of software organization to deliver quality product, keeping the cost within client’s budget constrain and deliver the project as per scheduled.&lt;/p>
+&lt;blockquote>
+&lt;p>Software Management Activities&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>Project Planning: Software project planning is task, which is performed before the production of software actually starts. It is there for the software production but involves no concrete activity that has any direct connection with the software production; rather it is a set of multiple processes, which facilitates software production. Project planning may include the following:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Scope Management: It defines scope of the project; this includes all the activities, process need to be done in order to make a deliverable software product. Scope management is essential because it creates boundaries of the project by clearly defining what would be done in the project and what would not be done. This makes project to contain limited and quantifiable tasks, which can easily be documented and in turn avoids cost and time overrun. During Project Scope management, it is necessary to: 1. Define the scope; 2. Decide its verification and control; 3. Divide the project into various smaller parts for ease of management.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Project Estimation: For an effective management, accurate estimation of various measures is a must. With the correct estimation, managers can manage and control the project more efficiently and effectively. Project estimation may involve the following: 1. Software size estimation; 2. Effort estimation; 3. Time estimation; 4. Cost estimation&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>Decomposition Technique: 1. Line of Code: Here the estimation is done on behalf of number of line of codes in the software product. 2. Function Points: Here the estimation is done on behalf of number of function points in the software product.&lt;/p>
+&lt;p>Gantt Chart&lt;/p>
+&lt;p>It is a horizontal bar chart with bars representing activities and time scheduled for the project activities.&lt;/p>
+&lt;p>&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/GanttChartAnatomy.svg/440px-GanttChartAnatomy.svg.png"
+loading="lazy"
+alt="Gantt Chart"
+>&lt;/p>
+&lt;p>PERT(Program Evaluation &amp;amp; Review Technique) Chart&lt;/p>
+&lt;p>Events are shown as numbered nodes. They are connected by labeled arrows depicting the sequence of tasks in the project.&lt;/p>
+&lt;p>&lt;img src="https://www.productplan.com/uploads/Pert-Chart-Branded.png"
+loading="lazy"
+>&lt;/p>
+&lt;h1 id="software-requirements">Software Requirements&lt;/h1>
+&lt;p>Requirements Engineering Process takes four steps: Feasibility Study; Requirement Gathering; Software Requirement Specification; Software Requirement Validation.&lt;/p>
+&lt;blockquote>
+&lt;p>Requirement Elicitation Process&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>Requirements gathering -&lt;/strong> The developers discuss with the client and end users and know their expectations from the software.&lt;/p>
+&lt;p>&lt;strong>Organizing Requirements -&lt;/strong> The developers prioritize and arrange the requirements in order of importance, urgency and convenience.&lt;/p>
+&lt;p>&lt;strong>Negotiation &amp;amp; discussion -&lt;/strong> If requirements are ambiguous or there are some conflicts in requirements of various stakeholders, it is then negotiated and discussed with the stakeholders. Requirements may then be prioritized and reasonably compromised.&lt;/p>
+&lt;p>The requirements come from various stakeholders. To remove the ambiguity and conflicts, they are discussed for clarity and correctness. Unrealistic requirements are compromised reasonably.&lt;/p>
+&lt;p>&lt;strong>Documentation -&lt;/strong> All formal and informal, functional and non-functional requirements are documented and made available for next phase processing.&lt;/p>
+&lt;h1 id="design-basics">Design Basics&lt;/h1></description></item></channel></rss>
