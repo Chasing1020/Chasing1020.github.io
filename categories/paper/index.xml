@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on Chasing1020</title><link>https://chasing1020.github.io/categories/paper/</link><description>Recent content in Paper on Chasing1020</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 23 Apr 2024 13:06:48 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/categories/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>[SIGCOMM22] SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing</title><link>https://chasing1020.github.io/post/sigcomm/</link><pubDate>Tue, 23 Apr 2024 13:06:48 +0800</pubDate><guid>https://chasing1020.github.io/post/sigcomm/</guid><description>&lt;h1 id="简介">简介&lt;/h1>
+&lt;p>现阶段的无服务框架如 KNative 等，并没有实现良好的数据平面优化，同时需要面临严重的冷启动问题。&lt;/p>
+&lt;p>本文提出 SPRIGHT，一个轻量级、高性能、响应迅速的无服务器框架。SPRIGHT 利用共享内存处理，通过避免不必要的协议处理和序列化反序列化开销，显著提高了数据平面的可伸缩性。SPRIGHT 通过扩展的 Berkeley 数据包过滤器 （eBPF） 广泛利用事件驱动处理。我们创造性地使用 eBPF 的套接字消息机制来支持共享内存处理，并能够消除冷启动问题。&lt;/p>
+&lt;h1 id="背景介绍">背景介绍&lt;/h1>
+&lt;p>本文提出了目前 Serverless 主要问题在于以下两点：&lt;/p>
+&lt;ol>
+&lt;li>使用大量的重量级 Serverless 的组件，如每个 pod 的 sidecar，而且一个 container 就对应一个 pod&lt;/li>
+&lt;li>目前函数调用链与数据平面的耦合程度不够高，经常需要使用额外的中间件如 Kafka、Istio 等&lt;/li>
+&lt;/ol>
+&lt;p>本文完成了 gateway，以及零拷贝 message，事件驱动 proxy，function-chain on shared memory 等功能。&lt;/p>
+&lt;p>函数链的数据管道使用消息路由，如下所示：&lt;/p>
+&lt;ol>
+&lt;li>客户端通过集群的入口网关向消息代理/前端代理发送消息（请求）。&lt;/li>
+&lt;li>消息在消息代理/前端代理中排队并注册为事件。&lt;/li>
+&lt;li>消息代理/前端代理将消息发送到链中头部（第一个）函数的活动 pod，由用户定义。&lt;/li>
+&lt;li>调用函数 pod 来处理传入的请求。在第一个函数处理请求后，将返回一个响应并在消息代理/前端代理中排队，并注册为链中下一个函数的新事件。&lt;/li>
+&lt;li>消息代理/前端代理将此新事件发送到活动 pod，用于链中的下一个函数。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/23/htlL8Cpz1fTF4Yj.png"
+loading="lazy"
+alt="SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing-2024-04-23-20-00-52"
+>&lt;/p>
+&lt;p>传统流程存在的弊端&lt;/p>
+&lt;ol>
+&lt;li>这一个流程有过多的数据拷贝，上下文切换以及中断，每个请求都有 15 次数据拷贝，15 次上下文切换，25 次中断。&lt;/li>
+&lt;li>过多的协议处理，网络处理。&lt;/li>
+&lt;li>不必要的序列化/反序列化流程。&lt;/li>
+&lt;li>Function 的过于复杂的组件，如 Istio 的 Envoy，Knative 的 Queue Proxy，OpenFaaS 的 OF-watchdog。&lt;/li>
+&lt;/ol>
+&lt;h1 id="系统设计">系统设计&lt;/h1>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/23/GB2gvpoAckZlPEt.png"
+loading="lazy"
+alt="SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing-2024-04-23-20-21-58"
+>&lt;/p>
+&lt;p>其中 SPRIGHT 的 controller 运行在 k8s 的 master 节点，与 kubelet 协作管理所有 pod 的生命周期。同时也利用 k8s 的 autoscaler and placement engine。&lt;/p>
+&lt;p>SPRIGHT 会将请求的 payload 分配到一个通用的 shared memory 中，并且保证函数链上的所有函数都分配在同一个节点中，这样可以很好地利用共享内存。&lt;/p>
+&lt;p>同时 SPRIGHT gateway 也是事件驱动的，不存在过高的 CPU 占用。&lt;/p>
+&lt;h2 id="optimizing-communication-within-serverless-function-chains">Optimizing communication within serverless function chains&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/23/Z4J6tKm2PebxdU7.png"
+loading="lazy"
+alt="SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing-2024-04-23-21-06-30"
+>&lt;/p>
+&lt;p>SPRIGHT 为每个请求都分配一个 Linux 大页，在每个 packet descriptor 上都会标注好 HugePage 的位置。&lt;/p>
+&lt;p>SPROXY 的数据报头只有 16B，一个是下一个函数的实例 ID，一个是共享内存的指针。函数实例 ID 用于在 BPF Map 中查询 socket（当函数实例启动的时候，会在 socket map 中进行注册）。&lt;/p>
+&lt;p>由于所有函数都是 Direct Function Routing（DFR）的，相较于 Load balancing 场景下有更好的新能更小的通信开销，这个 DFR 调用步骤需要在 SPRIGHT controller 中进行注册。&lt;/p>
+&lt;h2 id="security-domains-in-spright">Security domains in SPRIGHT&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/23/DImsPetN7Ehvz8d.png"
+loading="lazy"
+alt="SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing-2024-04-23-21-34-27"
+>&lt;/p>
+&lt;p>在安全层面考虑，采用了 DPDK 的 API，让每个 shared memory 都有一个特定的文件前缀。利用 SPROXY 的可扩展性来执行函数间消息过滤，即仔细检查哪个函数可以写入和读取每个描述符。接收到描述符后，SPROXY 会在过滤映射（基于 eBPF 映射构建）中执行规则查询，检查该数据包描述符的目的地是否允许。&lt;/p>
+&lt;p>图 6 显示了 SPRIGHT 中 Function Chain 的启动流程：&lt;/p>
+&lt;ol>
+&lt;li>在收到创建 Function Chain 的请求时，SPRIGHT 控制器会启动专用于该链的共享内存管理器。&lt;/li>
+&lt;li>共享内存管理器初始化链的私有内存池。&lt;/li>
+&lt;li>SPRIGHT 控制器为链创建专用的 SPRIGHT 网关。&lt;/li>
+&lt;li>SPRIGHT 控制器启动链中的功能，并为每个函数附加一个 SPROXY，同时在 eBPF 映射中配置过滤规则。&lt;/li>
+&lt;/ol>
+&lt;h2 id="ebpf-based-dataplane-acceleration-for-external-communication">eBPF-based dataplane acceleration for external communication&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/23/1462abFug7DkpBf.png"
+loading="lazy"
+alt="SPRIGHT: Extracting the Server from Serverless Computing! High-performance eBPF-based Event-driven, Shared-memory Processing-2024-04-23-21-42-03"
+>&lt;/p>
+&lt;p>物理网卡上的 XDP 程序处理网卡接收的所有入站数据包。在路由表查找后，它将数据包重定向到目标函数 pod 的 veth-host（图 7 中的 （1））。veth-host 的 TC 程序处理来自函数 pod 的出站数据包。根据数据包的目的地，TC 程序可能采用不同的路由。如果数据包的目的地是同一节点上的另一个功能 pod（例如，入口网关 pod 和 SPRIGHT 网关 pod 之间的流量），则 TC 程序通过“TC_ACT_REDIRECT”直接将数据包传递到目标功能 pod 的 veth-host（图 7 中的 （2））。如果目标函数 pod 位于另一个节点上，则 TC 程序会将数据包重定向到 NIC（图 7 中的 （3））。&lt;/p>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>基于本文这种方式实现 Function Chain 没有数据拷贝，没有协议处理，也没有序列化/反序列化开销。&lt;/p>
+&lt;p>缺点：&lt;/p>
+&lt;ol>
+&lt;li>整个 Function Chain 都必须部署在同一个节点上，这样对于异构场景非常难以实现，同时扩缩容也成为问题。&lt;/li>
+&lt;li>SPRIGHT 现有的编程模型假设函数的代码在调用后运行到完成，是纯事件驱动的，并且本质上支持函数之间的异步调用。&lt;/li>
+&lt;li>总共代码量约 3500LoC，而且目前只支持 C 语言实现的函数，实用性不高。&lt;/li>
+&lt;/ol></description></item><item><title>[VLDB23] Tigger: A Database Proxy That Bounces With User-Bypass</title><link>https://chasing1020.github.io/post/vldb/</link><pubDate>Sun, 21 Apr 2024 20:06:48 +0800</pubDate><guid>https://chasing1020.github.io/post/vldb/</guid><description>&lt;p>文章链接：https://www.vldb.org/pvldb/vol16/p3335-butrovich.pdf&lt;/p>
+&lt;h1 id="简介">简介&lt;/h1>
+&lt;p>本文主要魔改了Postgresql的代理工具pgbouncer。传统代理工具产生了不必要的user-kernel之间的通信，同时使用客户端连接池需要使DBMS创建更多的线程/进程。本文通过user-bypass的方法来实现一个高效率的连接代理工具Tigger，实现了最低的事务延迟（最多降低 29%）和最低的 CPU 利用率（最多降低 42%）。&lt;/p>
+&lt;h1 id="背景介绍">背景介绍&lt;/h1>
+&lt;h2 id="连接放大">连接放大&lt;/h2>
+&lt;p>传统的连接方式如使用L3/L4的代理工具如Nginx或者HAProxy会产生更多的复杂性和开销，可行的方案是采用事务池化的技术(transation pooling)，用户连接到Proxy，这个Proxy再和多个Client进行连接，以此实现连接复用&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/ev2QwEoKV9HkWts.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass"
+>&lt;/p>
+&lt;h2 id="连接建立与内核数据拷贝">连接建立与内核数据拷贝&lt;/h2>
+&lt;p>大多数HTTP框架的服务场景都没有使用持久化连接。短时间的连接会显著增加DBMS创建连接的CPU开销，一个经典的流程是：1.任务创建 2.创建Socket 3.TCP握手 4. TLS 5.client验证 6.查询。&lt;/p>
+&lt;p>这些流程产生了毫秒级的延迟&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/4tPyTj9gpkO2fD5.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-21-16-13"
+>&lt;/p>
+&lt;p>现有的proxy采用的均为图4(a)的架构，采用事件驱动的用户空间应用程序，在身份验证步骤之后，（1） 从网络套接字读取客户端消息，（2） 检查字节流，（3） 将客户端与后端服务器匹配，以及 （4） 在匹配的套接字上发送数据。&lt;/p>
+&lt;p>改进以后的Tigger可以通过eBPF的方式实现消除send/recv的user与kernel之间的冗余数据拷贝的开销。&lt;/p>
+&lt;h1 id="具体实现">具体实现&lt;/h1>
+&lt;h2 id="架构设计">架构设计&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/dAXkNlH4Qq1ULIp.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-21-30-11"
+>&lt;/p>
+&lt;p>主要步骤流程如下&lt;/p>
+&lt;ol>
+&lt;li>客户端认证&lt;/li>
+&lt;li>将server的socket加入到ServerSocketsMap&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">add_socket_to_sockmap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">PgSocket&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">enum&lt;/span> &lt;span class="n">socket_type&lt;/span> &lt;span class="n">type&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ..
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">sport&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">CLIENT&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">remote_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">local_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">CLIENT&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">reset_client_link&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sockmap&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/client_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">SERVER&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sockmap&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/server_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_map_update_elem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">sbuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sock&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">BPF_NOEXIST&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ret&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Failed to add socket %u to sockmap.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_noise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Added socket %u to sockmap.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ..
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>tigger再将其加入IdleSocket&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">add_server_to_queue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">PgSocket&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">idle_server_sockets&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/idle_server_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">sport&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">local_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_map_update_elem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BPF_ANY&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ret&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Failed to add socket %u to idle_server_sockets.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_noise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Added socket %u to idle_server_sockets.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;We didn&amp;#39;t get the BPF maps.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>Tigger会清除当前的socket的metadata&lt;/li>
+&lt;li>直到有新的连接请求到来的时候，会再次经过Userspace的验证&lt;/li>
+&lt;li>再将client的socket加入到ClientSocketsMap，此时Client端的Handler会开始对应Client的buffer执行对应操作&lt;/li>
+&lt;/ol>
+&lt;h2 id="dbms协议逻辑">DBMS协议逻辑&lt;/h2>
+&lt;p>当socket的buffer到达的时候，Tigger的Server和Client都会处理Handler的逻辑&lt;/p>
+&lt;!-- ![Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-23-30-06](https://s2.loli.net/2024/04/21/jKUsO1fiEFla8k3.png) -->
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/22/ks5yup1RPVnhf4M.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-22-10-39-33"
+>&lt;/p>
+&lt;ol>
+&lt;li>当Client提交查询的时候Tigger开始处理&lt;/li>
+&lt;li>先查询SocketStatesMap是否已经存在（存在即表示这个Socket已经被DBMS绑定），如果不存在，则进入slow path&lt;/li>
+&lt;li>在典型情况下，套接字缓冲区包含查询，因此客户端将缓冲区重定向到链接的用户旁路套接字，并更新 SocketStatesMap 中的元数据。&lt;/li>
+&lt;li>后端 DBMS 执行查询并将结果发送回 Tigger。服务器处理程序在缓冲区到达时运行，为后端查找链接的前端套接字。&lt;/li>
+&lt;li>服务器处理缓冲区，将任何中间状态存储在 SocketStatesMap 中，并将缓冲区重定向到链接的 DBMS 套接字。&lt;/li>
+&lt;li>的发生取决于代理的池化模式：在事务完成时进行事务池化或客户端断开连接以进行会话池化。在此步骤中，服务器将取消客户端与 DBMS 的链接，并将后端套接字插入到 IdleSocketsMap 中。&lt;/li>
+&lt;/ol>
+&lt;h2 id="workload-mirroring">Workload mirroring&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/22/38LzjISlZhGdRbo.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-22-11-08-07"
+>&lt;/p>
+&lt;p>Tigger也支持主从架构，当1.Client发起连接之后，2.Mirror从MirrorSocketMap检查到Destination，并且发送给3.Replica。4.过程会把TCP修改成UDP包。&lt;/p>
+&lt;h1 id="性能评估">性能评估&lt;/h1>
+&lt;p>主要对比了No proxy，PgBouncer，Odyssey三个场景。总的来说，包括Serverless、Workload Mirroring、Protocol Efficiency几个角度均有较好的性能提升。&lt;/p>
+&lt;h1 id="未来工作">未来工作&lt;/h1>
+&lt;p>考虑兼容更多的数据库协议，使用Linux异步IO库如io_uring，以及SmartNIC的优化工作。&lt;/p>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>文章的思路idea还是不错的，利用eBPF来实现Proxy在数据库连接池场景下的优化目前工作较少，但是在云计算场景下使用较多。本文代码工作量不算很多，约2000LoC的C程序，主要工作难点在PgBouncer代码的魔改上。&lt;/p></description></item></channel></rss>

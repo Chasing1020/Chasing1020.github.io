@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VLDB on Chasing1020</title><link>https://chasing1020.github.io/categories/vldb/</link><description>Recent content in VLDB on Chasing1020</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 21 Apr 2024 20:06:48 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/categories/vldb/index.xml" rel="self" type="application/rss+xml"/><item><title>[VLDB23] Tigger: A Database Proxy That Bounces With User-Bypass</title><link>https://chasing1020.github.io/post/vldb/</link><pubDate>Sun, 21 Apr 2024 20:06:48 +0800</pubDate><guid>https://chasing1020.github.io/post/vldb/</guid><description>&lt;p>文章链接：https://www.vldb.org/pvldb/vol16/p3335-butrovich.pdf&lt;/p>
+&lt;h1 id="简介">简介&lt;/h1>
+&lt;p>本文主要魔改了Postgresql的代理工具pgbouncer。传统代理工具产生了不必要的user-kernel之间的通信，同时使用客户端连接池需要使DBMS创建更多的线程/进程。本文通过user-bypass的方法来实现一个高效率的连接代理工具Tigger，实现了最低的事务延迟（最多降低 29%）和最低的 CPU 利用率（最多降低 42%）。&lt;/p>
+&lt;h1 id="背景介绍">背景介绍&lt;/h1>
+&lt;h2 id="连接放大">连接放大&lt;/h2>
+&lt;p>传统的连接方式如使用L3/L4的代理工具如Nginx或者HAProxy会产生更多的复杂性和开销，可行的方案是采用事务池化的技术(transation pooling)，用户连接到Proxy，这个Proxy再和多个Client进行连接，以此实现连接复用&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/ev2QwEoKV9HkWts.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass"
+>&lt;/p>
+&lt;h2 id="连接建立与内核数据拷贝">连接建立与内核数据拷贝&lt;/h2>
+&lt;p>大多数HTTP框架的服务场景都没有使用持久化连接。短时间的连接会显著增加DBMS创建连接的CPU开销，一个经典的流程是：1.任务创建 2.创建Socket 3.TCP握手 4. TLS 5.client验证 6.查询。&lt;/p>
+&lt;p>这些流程产生了毫秒级的延迟&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/4tPyTj9gpkO2fD5.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-21-16-13"
+>&lt;/p>
+&lt;p>现有的proxy采用的均为图4(a)的架构，采用事件驱动的用户空间应用程序，在身份验证步骤之后，（1） 从网络套接字读取客户端消息，（2） 检查字节流，（3） 将客户端与后端服务器匹配，以及 （4） 在匹配的套接字上发送数据。&lt;/p>
+&lt;p>改进以后的Tigger可以通过eBPF的方式实现消除send/recv的user与kernel之间的冗余数据拷贝的开销。&lt;/p>
+&lt;h1 id="具体实现">具体实现&lt;/h1>
+&lt;h2 id="架构设计">架构设计&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/21/dAXkNlH4Qq1ULIp.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-21-30-11"
+>&lt;/p>
+&lt;p>主要步骤流程如下&lt;/p>
+&lt;ol>
+&lt;li>客户端认证&lt;/li>
+&lt;li>将server的socket加入到ServerSocketsMap&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">add_socket_to_sockmap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">PgSocket&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">enum&lt;/span> &lt;span class="n">socket_type&lt;/span> &lt;span class="n">type&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ..
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">sport&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">CLIENT&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">remote_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">local_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">CLIENT&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">reset_client_link&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sockmap&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/client_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">SERVER&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sockmap&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/server_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_map_update_elem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">sbuf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sock&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">BPF_NOEXIST&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ret&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Failed to add socket %u to sockmap.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_noise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Added socket %u to sockmap.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sockmap&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ..
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>tigger再将其加入IdleSocket&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">add_server_to_queue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">PgSocket&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">idle_server_sockets&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_obj_get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/sys/fs/bpf/idle_server_sockets&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">const&lt;/span> &lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">sport&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">ntohs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">local_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">ret&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nf">bpf_map_update_elem&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">sport&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">BPF_ANY&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">ret&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Failed to add socket %u to idle_server_sockets.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_noise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Added socket %u to idle_server_sockets.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sport&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">idle_server_sockets&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">log_warning&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;We didn&amp;#39;t get the BPF maps.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>Tigger会清除当前的socket的metadata&lt;/li>
+&lt;li>直到有新的连接请求到来的时候，会再次经过Userspace的验证&lt;/li>
+&lt;li>再将client的socket加入到ClientSocketsMap，此时Client端的Handler会开始对应Client的buffer执行对应操作&lt;/li>
+&lt;/ol>
+&lt;h2 id="dbms协议逻辑">DBMS协议逻辑&lt;/h2>
+&lt;p>当socket的buffer到达的时候，Tigger的Server和Client都会处理Handler的逻辑&lt;/p>
+&lt;!-- ![Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-21-23-30-06](https://s2.loli.net/2024/04/21/jKUsO1fiEFla8k3.png) -->
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/22/ks5yup1RPVnhf4M.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-22-10-39-33"
+>&lt;/p>
+&lt;ol>
+&lt;li>当Client提交查询的时候Tigger开始处理&lt;/li>
+&lt;li>先查询SocketStatesMap是否已经存在（存在即表示这个Socket已经被DBMS绑定），如果不存在，则进入slow path&lt;/li>
+&lt;li>在典型情况下，套接字缓冲区包含查询，因此客户端将缓冲区重定向到链接的用户旁路套接字，并更新 SocketStatesMap 中的元数据。&lt;/li>
+&lt;li>后端 DBMS 执行查询并将结果发送回 Tigger。服务器处理程序在缓冲区到达时运行，为后端查找链接的前端套接字。&lt;/li>
+&lt;li>服务器处理缓冲区，将任何中间状态存储在 SocketStatesMap 中，并将缓冲区重定向到链接的 DBMS 套接字。&lt;/li>
+&lt;li>的发生取决于代理的池化模式：在事务完成时进行事务池化或客户端断开连接以进行会话池化。在此步骤中，服务器将取消客户端与 DBMS 的链接，并将后端套接字插入到 IdleSocketsMap 中。&lt;/li>
+&lt;/ol>
+&lt;h2 id="workload-mirroring">Workload mirroring&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/22/38LzjISlZhGdRbo.png"
+loading="lazy"
+alt="Tigger: A Database Proxy That Bounces With User-Bypass-2024-04-22-11-08-07"
+>&lt;/p>
+&lt;p>Tigger也支持主从架构，当1.Client发起连接之后，2.Mirror从MirrorSocketMap检查到Destination，并且发送给3.Replica。4.过程会把TCP修改成UDP包。&lt;/p>
+&lt;h1 id="性能评估">性能评估&lt;/h1>
+&lt;p>主要对比了No proxy，PgBouncer，Odyssey三个场景。总的来说，包括Serverless、Workload Mirroring、Protocol Efficiency几个角度均有较好的性能提升。&lt;/p>
+&lt;h1 id="未来工作">未来工作&lt;/h1>
+&lt;p>考虑兼容更多的数据库协议，使用Linux异步IO库如io_uring，以及SmartNIC的优化工作。&lt;/p>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>文章的思路idea还是不错的，利用eBPF来实现Proxy在数据库连接池场景下的优化目前工作较少，但是在云计算场景下使用较多。本文代码工作量不算很多，约2000LoC的C程序，主要工作难点在PgBouncer代码的魔改上。&lt;/p></description></item></channel></rss>

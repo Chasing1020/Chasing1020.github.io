@@ -378,7 +378,7 @@
 &lt;p>规范LR(0)项目集族（Canonical LR(0) Collection）：&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;!-- raw HTML omitted -->
+&lt;div>$C=\{ I_0 \}\cup \{I |\exists J\in C, X\in V_N \cup V_T, I=GOTO(J, X) \}$&lt;/div>
 &lt;/li>
 &lt;/ul>
 &lt;p>LR(0)自动机：文法$G=(V_N, V_T, P, S)$，则LR(0)自动机定义如下&lt;/p>

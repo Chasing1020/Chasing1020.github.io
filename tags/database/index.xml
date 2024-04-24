@@ -353,7 +353,9 @@
 &lt;h1 id="2-saga">2. Saga&lt;/h1>
 &lt;p>Saga理论基础来源于Hector &amp;amp; Kenneth 在1987年&lt;a class="link" href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="noopener"
 >发表的论⽂《SAGAS》&lt;/a>。它把分布式事务看作一组本地分支事务构成的事务链，业务流程中每个参与者都提交本地事务。在执行链中任何一个失败，则反方向进行补偿操作。&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p align="center">
+&lt;img src="https://img.alicdn.com/tfs/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png" alt="saga"/>
+&lt;/p>
 &lt;pre>&lt;code>补偿是子事务的提交，对线上其他事务可见，即：已经产生了影响，只能尽可能补偿。
 &lt;/code>&lt;/pre>
 &lt;p>Saga是满足了BASE，并不支持隔离性，可能会发生脏读脏写。吞吐量较高，一阶段提交本地事务，无锁，高性能。事件驱动架构，参与者可异步执行，而且子事务并不一定都需要是DB相关操作。&lt;/p>
@@ -361,7 +363,9 @@
 &lt;p>TCC（Try-Confirm-Cancel）理论源于 Pat Helland 在2007年&lt;a class="link" href="https://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf" target="_blank" rel="noopener"
 >发表的论文《Life beyond Distributed Transactions:an Apostate’s Opinion》&lt;/a>。其将支持把自定义的分支事务纳入到全局事务的管理中&lt;/p>
 &lt;p>全局事务是由若干分支事务组成的，分支事务要满足2PC模型的要求。&lt;/p>
-&lt;!-- raw HTML omitted -->
+&lt;p align="center">
+&lt;img src="https://img.alicdn.com/tfs/TB14Kguw1H2gK0jSZJnXXaT1FXa-853-482.png" alt="saga"/>
+&lt;/p>
 &lt;p>将TM变成多节点，引入超时补偿的概念，并不会锁住所有资源。&lt;/p>
 &lt;ul>
 &lt;li>Try 阶段：完成所有业务检查，预留必须业务资源。&lt;/li>
