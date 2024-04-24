@@ -1,8 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+title: "[OSDI22 Best Paper] XRP: In Kernel Storage Functions With EBPF"
+date: 2024-04-24T18:12:36+08:00
 math: true
-# slug: "{{ replace .Name " " "_" | title }}"
+slug: "OSDI22"
 # weight: 1
 # aliases: ["", ""]
 # tags: ["Tag1", "Tag2"]
@@ -15,3 +15,4 @@ math: true
 # comments: false
 # description: "Desc Text."
 ---
+
