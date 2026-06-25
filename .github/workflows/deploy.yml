@@ -1,0 +1,40 @@
+name: Deploy to GitHub Pages
+
+# This repo (Chasing1020.github.io) only holds the prebuilt static site that
+# the Chasing1020/blog source repo pushes to master via a PAT. GitHub's
+# automatic pages-build-deployment refuses to run for pushes authored by a
+# PAT, so we re-trigger Pages from a real workflow with the default
+# GITHUB_TOKEN — which is allowed to deploy.
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
