@@ -1,0 +1,1213 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Python Note | Jiancong Zhu</title><meta name=keywords content="Python"><meta name=description content="第一章——基础知识
+1、模块的引入
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+
+
+#demo：
+# 随机数
+
+#导入import 模块
+
+import random 
+
+a=random.randint(1,5)
+
+#a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭
+
+#这里包括1和5！
+
+
+2、数据类型
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+
+
+#type() 获取信息
+
+#例如
+a='520.0'
+b=float(a)
+type(a)#输出<class 'str'>
+type(b)#输出<class 'float'>
+
+#函数isinstance(var,class)
+#对比前后类型
+isinstance(10,int)#输出True
+
+
+
+强制类型转换"><meta name=author content="Chasing1020"><link rel=canonical href=https://chasing1020.github.io/post/python-note/><link crossorigin=anonymous href=/assets/css/stylesheet.4e03a23cbe8028bd106f213ea4790c43bc23f784d42c4c1ea9427f7a52ce941e.css integrity="sha256-TgOiPL6AKL0QbyE+pHkMQ7wj94TULEweqUJ/elLOlB4=" rel="preload stylesheet" as=style><link rel=icon href=https://chasing1020.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://chasing1020.github.io/favicon.ico><link rel=icon type=image/png sizes=32x32 href=https://chasing1020.github.io/favicon.ico><link rel=apple-touch-icon href=https://chasing1020.github.io/favicon.ico><link rel=mask-icon href=https://chasing1020.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://chasing1020.github.io/post/python-note/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><script>window.MathJax={tex:{inlineMath:[["$","$"],["\\(","\\)"]],displayMath:[["$$","$$"],["\\[","\\]"]],processEscapes:!0},options:{skipHtmlTags:["script","noscript","style","textarea","pre","code"]}}</script><script defer src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js></script><script>(function(){function e(){var e=document.documentElement.dataset.theme==="dark"?"noborder_dark":"light";document.querySelectorAll("iframe.giscus-frame").forEach(function(t){t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")})}new MutationObserver(function(t){for(var n=0;n<t.length;n++)if(t[n].attributeName==="data-theme"){e();break}}).observe(document.documentElement,{attributes:!0})})()</script><meta property="og:url" content="https://chasing1020.github.io/post/python-note/"><meta property="og:site_name" content="Jiancong Zhu"><meta property="og:title" content="Python Note"><meta property="og:description" content="第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭 #这里包括1和5！ 2、数据类型 1 2 3 4 5 6 7 8 9 10 11 #type() 获取信息 #例如 a='520.0' b=float(a) type(a)#输出<class 'str'> type(b)#输出<class 'float'> #函数isinstance(var,class) #对比前后类型 isinstance(10,int)#输出True 强制类型转换"><meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2020-10-06T15:53:09+08:00"><meta property="article:modified_time" content="2020-10-06T15:53:09+08:00"><meta property="article:tag" content="Python"><meta property="og:image" content="https://chasing1020.github.io/python.webp"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://chasing1020.github.io/python.webp"><meta name=twitter:title content="Python Note"><meta name=twitter:description content="第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭 #这里包括1和5！ 2、数据类型 1 2 3 4 5 6 7 8 9 10 11 #type() 获取信息 #例如 a='520.0' b=float(a) type(a)#输出<class 'str'> type(b)#输出<class 'float'> #函数isinstance(var,class) #对比前后类型 isinstance(10,int)#输出True 强制类型转换"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://chasing1020.github.io/post/"},{"@type":"ListItem","position":2,"name":"Python Note","item":"https://chasing1020.github.io/post/python-note/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Python Note","name":"Python Note","description":"第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭 #这里包括1和5！ 2、数据类型 1 2 3 4 5 6 7 8 9 10 11 #type() 获取信息 #例如 a=\u0026#39;520.0\u0026#39; b=float(a) type(a)#输出\u0026lt;class \u0026#39;str\u0026#39;\u0026gt; type(b)#输出\u0026lt;class \u0026#39;float\u0026#39;\u0026gt; #函数isinstance(var,class) #对比前后类型 isinstance(10,int)#输出True 强制类型转换\n","keywords":["Python"],"articleBody":"第一章——基础知识 1、模块的引入 1 2 3 4 5 6 7 8 9 10 11 12 #demo： # 随机数 #导入import 模块 import random a=random.randint(1,5) #a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭 #这里包括1和5！ 2、数据类型 1 2 3 4 5 6 7 8 9 10 11 #type() 获取信息 #例如 a='520.0' b=float(a) type(a)#输出","wordCount":"6942","inLanguage":"en","image":"https://chasing1020.github.io/python.webp","datePublished":"2020-10-06T15:53:09+08:00","dateModified":"2020-10-06T15:53:09+08:00","author":{"@type":"Person","name":"Chasing1020"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://chasing1020.github.io/post/python-note/"},"publisher":{"@type":"Organization","name":"Jiancong Zhu","logo":{"@type":"ImageObject","url":"https://chasing1020.github.io/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://chasing1020.github.io/ accesskey=h title="Jiancong Zhu (Alt + H)"><img src=https://chasing1020.github.io/img/avatar_hu_f0451b0fc2fbc7c3.jpg alt aria-label=logo height=28>Jiancong Zhu</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://chasing1020.github.io/ title=Home><span>Home</span></a></li><li><a href=https://chasing1020.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://chasing1020.github.io/archives/ title=Archives><span>Archives</span></a></li><li><a href=https://chasing1020.github.io/friends/ title=Friends><span>Friends</span></a></li><li><a href=https://chasing1020.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><nav class=breadcrumbs role=navigation aria-label=Breadcrumb><a href=/>Home</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg>
+<a href=/post/>Posts</a>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"/></svg></nav><h1 class="post-title entry-hint-parent">Python Note</h1><div class=post-meta><span title='2020-10-06 15:53:09 +0800 +0800'>Oct 06, 2020</span>&nbsp;·&nbsp;<span>14 min</span>&nbsp;·&nbsp;<span>Chasing1020</span></div></header><figure class=entry-cover><img loading=eager srcset='https://chasing1020.github.io/post/python-note/python_hu_6427652b0a0d669b.webp 360w,https://chasing1020.github.io/post/python-note/python_hu_5ea55922637bef1a.webp 480w,https://chasing1020.github.io/post/python-note/python_hu_bbd216ce45efceac.webp 720w,https://chasing1020.github.io/post/python-note/python_hu_64b06cdf1a1238bd.webp 1080w,https://chasing1020.github.io/post/python-note/python_hu_a9fc8091648f6904.webp 1500w,https://chasing1020.github.io/post/python-note/python.webp 2048w' src=https://chasing1020.github.io/post/python-note/python.webp sizes="(min-width: 768px) 720px, 100vw" width=2048 height=1152 alt></figure><details class=toc open><summary accesskey=c title="(Alt + C)"><span class=title>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e7%ac%ac%e4%b8%80%e7%ab%a0%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86 aria-label=第一章——基础知识>第一章——基础知识</a><ul><li><a href=#1%e6%a8%a1%e5%9d%97%e7%9a%84%e5%bc%95%e5%85%a5 aria-label=1、模块的引入>1、模块的引入</a></li><li><a href=#2%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b aria-label=2、数据类型>2、数据类型</a></li><li><a href=#3%e7%ac%a6%e5%8f%b7%e8%bf%90%e7%ae%97 aria-label=3、符号运算>3、符号运算</a></li><li><a href=#4%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97 aria-label=4、逻辑运算>4、逻辑运算</a></li><li><a href=#5%e5%85%b6%e4%bd%99%e5%87%bd%e6%95%b0 aria-label=5、其余函数>5、其余函数</a></li></ul></li><li><a href=#%e7%ac%ac%e4%ba%8c%e7%ab%a0%e5%be%aa%e7%8e%af aria-label=第二章——循环>第二章——循环</a><ul><li><a href=#1for%e5%be%aa%e7%8e%af aria-label=1、for循环>1、for循环</a></li><li><a href=#2while%e5%be%aa%e7%8e%af aria-label=2、while循环>2、while循环</a></li><li><a href=#3break%e5%92%8ccontinue aria-label=3、break和continue>3、break和continue</a></li></ul></li><li><a href=#%e7%ac%ac%e4%b8%89%e7%ab%a0%e5%ad%97%e7%ac%a6%e4%b8%b2 aria-label=第三章——字符串>第三章——字符串</a><ul><li><a href=#1%e6%88%aa%e5%8f%96%e5%88%87%e7%89%87 aria-label=1、截取、切片>1、截取、切片</a></li><li><a href=#2%e8%bd%ac%e4%b9%89%e5%ad%97%e7%ac%a6 aria-label=2、转义字符>2、转义字符</a></li><li><a href=#3%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0 aria-label=3、字符串常用函数>3、字符串常用函数</a><ul><li><a href=#1%e5%a4%a7%e5%86%99%e8%bd%ac%e5%b0%8f%e5%86%99casefold aria-label=1.大写转小写casefold>1.大写转小写casefold</a></li><li><a href=#2%e7%ac%ac%e4%b8%80%e4%b8%aa%e8%bd%ac%e5%a4%a7%e5%86%99capitalize aria-label=2.第一个转大写capitalize>2.第一个转大写capitalize</a></li><li><a href=#3%e6%9f%a5%e6%89%befind aria-label=3.查找find>3.查找find</a></li><li><a href=#4%e7%bb%9f%e8%ae%a1%e6%95%b0%e7%9b%aecount aria-label=4.统计数目count>4.统计数目count</a></li><li><a href=#5%e6%9b%bf%e6%8d%a2replace aria-label=5.替换replace>5.替换replace</a></li><li><a href=#6%e6%8b%86%e5%88%86split aria-label=6.拆分split>6.拆分split</a></li><li><a href=#7%e6%8b%bc%e6%8e%a5join aria-label=7.拼接join>7.拼接join</a></li></ul></li></ul></li><li><a href=#%e7%ac%ac%e5%9b%9b%e7%ab%a0%e5%88%97%e8%a1%a8list- aria-label="第四章——列表list[ ]">第四章——列表list[ ]</a><ul><li><a href=#1%e9%81%8d%e5%8e%86%e5%88%97%e8%a1%a8 aria-label=1、遍历列表>1、遍历列表</a></li><li><a href=#2%e6%95%b0%e6%8d%ae%e6%93%8d%e4%bd%9c aria-label=2、数据操作>2、数据操作</a><ul><li><a href=#1-append%e5%a2%9e%e5%8a%a0 aria-label="1. append增加">1. append增加</a></li><li><a href=#2-append%e5%92%8cextend%e5%8c%ba%e5%88%ab aria-label="2. append和extend区别">2. append和extend区别</a></li><li><a href=#3-insert%e7%94%a8%e6%b3%95 aria-label="3. insert用法">3. insert用法</a></li><li><a href=#4-del%e5%88%a0%e9%99%a4 aria-label="4. del删除">4. del删除</a></li><li><a href=#5-index%e6%9f%a5%e6%89%be%e4%b8%8ecount%e8%ae%a1%e6%95%b0 aria-label="5. index查找与count计数">5. index查找与count计数</a></li><li><a href=#6reverse%e5%8f%8d%e8%bd%ac%e5%92%8csort%e6%8e%92%e5%ba%8f aria-label=6.reverse反转和sort排序>6.reverse反转和sort排序</a></li></ul></li><li><a href=#3%e5%88%97%e8%a1%a8%e7%9a%84%e5%b5%8c%e5%a5%97 aria-label=3、列表的嵌套>3、列表的嵌套</a></li></ul></li><li><a href=#%e7%ac%ac%e4%ba%94%e7%ab%a0%e5%85%83%e7%bb%84tuple- aria-label="第五章——元组tuple( )">第五章——元组tuple( )</a><ul><li><a href=#1%e5%88%9b%e5%bb%ba aria-label=1、创建>1、创建</a></li><li><a href=#2%e9%81%8d%e5%8e%86%e4%b8%8e%e5%88%87%e7%89%87 aria-label=2、遍历与切片>2、遍历与切片</a></li><li><a href=#3%e5%a2%9e%e5%8a%a0 aria-label=3、增加>3、增加</a></li><li><a href=#4%e5%88%a0%e9%99%a4 aria-label=4、删除>4、删除</a></li><li><a href=#5%e5%9f%ba%e6%9c%ac%e6%93%8d%e4%bd%9c aria-label=5、基本操作>5、基本操作</a></li><li><a href=#6%e5%9f%ba%e6%9c%ac%e5%87%bd%e6%95%b0 aria-label=6、基本函数>6、基本函数</a></li><li><a href=#7%e5%ad%97%e7%ac%a6%e4%b8%b2%e6%93%8d%e4%bd%9c aria-label=7、字符串操作>7、字符串操作</a></li></ul></li><li><a href=#%e7%ac%ac%e5%85%ad%e7%ab%a0%e5%ba%8f%e5%88%97 aria-label=第六章——序列>第六章——序列</a><ul><li><a href=#1%e6%80%bb%e7%bb%93 aria-label=1、总结>1、总结</a></li><li><a href=#2%e6%93%8d%e4%bd%9c%e5%87%bd%e6%95%b0 aria-label=2、操作函数>2、操作函数</a></li></ul></li><li><a href=#%e7%ac%ac%e4%b8%83%e7%ab%a0%e5%ad%97%e5%85%b8-- aria-label="第七章——字典 { }">第七章——字典 { }</a><ul><li><a href=#1%e5%ad%97%e5%85%b8dict%e5%ae%9a%e4%b9%89 aria-label=1、字典dict定义>1、字典dict定义</a></li><li><a href=#2%e6%b7%bb%e5%8a%a0 aria-label=2、添加>2、添加</a></li><li><a href=#3%e5%88%a0%e9%99%a4 aria-label=3、删除>3、删除</a></li><li><a href=#4%e6%b8%85%e9%99%a4 aria-label=4、清除>4、清除</a></li><li><a href=#5%e4%bf%ae%e6%94%b9 aria-label=5、修改>5、修改</a></li><li><a href=#6%e6%9f%a5%e6%89%be aria-label=6、查找>6、查找</a></li><li><a href=#7%e9%81%8d%e5%8e%86%e6%89%80%e6%9c%89%e7%9a%84%e9%94%ae%e5%80%bc%e9%a1%b9 aria-label=7、遍历所有的键、值、项>7、遍历所有的键、值、项</a></li></ul></li><li><a href=#%e7%ac%ac%e5%85%ab%e7%ab%a0%e9%9b%86%e5%90%88-- aria-label="第八章——集合 { }">第八章——集合 { }</a><ul><li><a href=#1%e5%ae%9a%e4%b9%89 aria-label=1、定义>1、定义</a></li><li><a href=#2%e5%b0%8f%e7%bb%93 aria-label=2、小结>2、小结</a></li></ul></li><li><a href=#%e7%ac%ac%e4%b9%9d%e7%ab%a0%e5%87%bd%e6%95%b0 aria-label=第九章——函数>第九章——函数</a><ul><li><a href=#1%e5%ae%9a%e4%b9%89-1 aria-label=1、定义>1、定义</a></li><li><a href=#2%e5%b8%a6%e5%8f%82%e6%95%b0%e5%87%bd%e6%95%b0 aria-label=2、带参数函数>2、带参数函数</a></li><li><a href=#3%e5%b8%a6%e8%bf%94%e5%9b%9e%e5%80%bc%e5%87%bd%e6%95%b0 aria-label=3、带返回值函数>3、带返回值函数</a></li></ul></li><li><a href=#%e7%ac%ac%e5%8d%81%e7%ab%a0%e6%8b%b7%e8%b4%9d aria-label=第十章——拷贝>第十章——拷贝</a><ul><li><a href=#1%e5%85%83%e7%bb%84%e9%bb%98%e8%ae%a4%e6%b7%b1%e6%8b%b7%e8%b4%9d aria-label=1、元组默认深拷贝>1、元组默认深拷贝</a></li><li><a href=#2%e5%9c%b0%e5%9d%80%e7%b1%bb%e5%9e%8b%e7%9a%84%e4%bc%a0%e9%80%92 aria-label=2、地址类型的传递>2、地址类型的传递</a></li></ul></li></ul></div></details><div class="post-content md-content"><h1 id=第一章基础知识>第一章——基础知识<a hidden class=anchor aria-hidden=true href=#第一章基础知识>#</a></h1><h2 id=1模块的引入>1、模块的引入<a hidden class=anchor aria-hidden=true href=#1模块的引入>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#demo：</span>
+</span></span><span class=line><span class=cl><span class=c1># 随机数</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#导入import 模块</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>5</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#a最终被赋值为1，2，3，4，5之间的随机一个数，左闭右闭</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#这里包括1和5！</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2数据类型>2、数据类型<a hidden class=anchor aria-hidden=true href=#2数据类型>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#type() 获取信息</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#例如</span>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=s1>&#39;520.0&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>b</span><span class=o>=</span><span class=nb>float</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#输出&lt;class &#39;str&#39;&gt;</span>
+</span></span><span class=line><span class=cl><span class=nb>type</span><span class=p>(</span><span class=n>b</span><span class=p>)</span><span class=c1>#输出&lt;class &#39;float&#39;&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#函数isinstance(var,class)</span>
+</span></span><span class=line><span class=cl><span class=c1>#对比前后类型</span>
+</span></span><span class=line><span class=cl><span class=nb>isinstance</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span><span class=nb>int</span><span class=p>)</span><span class=c1>#输出True</span>
+</span></span></code></pre></td></tr></table></div></div><hr><p><em>强制类型转换</em></p><ul><li><p>不同于C/C++的(int)a和(double)b</p></li><li><p>py中的强制类型转换的括号框住表达式</p></li><li><p>改为 int(a)和float(b)</p></li></ul><h2 id=3符号运算>3、符号运算<a hidden class=anchor aria-hidden=true href=#3符号运算>#</a></h2><table><thead><tr><th style=text-align:center>+</th><th style=text-align:left>加</th></tr></thead><tbody><tr><td style=text-align:center>-</td><td style=text-align:left>减</td></tr><tr><td style=text-align:center>*</td><td style=text-align:left>乘</td></tr><tr><td style=text-align:center>/</td><td style=text-align:left>除，会自动转换为浮点类型，与C/C++不同</td></tr><tr><td style=text-align:center>%</td><td style=text-align:left>取余</td></tr><tr><td style=text-align:center>**</td><td style=text-align:left>幂运算，等同于计算器中的^，结果为浮点型或整形，根据结果而定</td></tr><tr><td style=text-align:center>//</td><td style=text-align:left>带余除法，就算是浮点型运算也会保留整数部分，例如3.0//2=1.0</td></tr></tbody></table><h2 id=4逻辑运算>4、逻辑运算<a hidden class=anchor aria-hidden=true href=#4逻辑运算>#</a></h2><table><thead><tr><th>and</th><th>与</th></tr></thead><tbody><tr><td>or</td><td>或</td></tr><tr><td>not</td><td>非</td></tr></tbody></table><p><em>三目运算符</em></p><ul><li>a= 语句1 if 条件 else 语句2</li></ul><p>例如:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=n>x</span> <span class=k>if</span> <span class=n>x</span><span class=o>&lt;</span><span class=n>y</span> <span class=k>else</span> <span class=n>y</span>
+</span></span><span class=line><span class=cl><span class=c1>#a赋值为x,y中小的那个</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=5其余函数>5、其余函数<a hidden class=anchor aria-hidden=true href=#5其余函数>#</a></h2><p>assert: 同C/C++的asset(断言)</p><blockquote><ul><li>同C/C++一样</li><li>assert 1>2</li><li>结果为False，程序直接终止</li></ul></blockquote><h1 id=第二章循环>第二章——循环<a hidden class=anchor aria-hidden=true href=#第二章循环>#</a></h1><h2 id=1for循环>1、for循环<a hidden class=anchor aria-hidden=true href=#1for循环>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#for循环</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>name</span> <span class=o>=</span> <span class=s2>&#34;chasing&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;aa&#34;</span><span class=p>,</span> <span class=s2>&#34;bb&#34;</span><span class=p>,</span> <span class=s2>&#34;cc&#34;</span><span class=p>,</span> <span class=s2>&#34;dd&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>5</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#5表示结束，[0,5)，左闭右开</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span><span class=c1>#end=&#34;&#34;表示不换行，在循环结束以后不执行任何操作</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#输出01234</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>10</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#从1到10，[1,10)，但是不会包括10，左闭右开</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#输出123456789</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>100</span><span class=p>,</span> <span class=mi>10</span><span class=p>):</span><span class=c1>#for(int i=0;i&lt;100;i+=10)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#从1到100，每次i增加10，但是不会包括100，直到100跳出循环，左闭右开</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;，&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#输出0，10，20，30，40，50，60，70，80，90，</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>name</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#遍历字符串</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#输出chasing</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>a</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#遍历每一个列表</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>],</span> <span class=n>end</span><span class=o>=</span><span class=s2>&#34;,&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#输出aa,bb,cc,dd,</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2while循环>2、while循环<a hidden class=anchor aria-hidden=true href=#2while循环>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#while循环</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>count</span><span class=o>=</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=n>count</span><span class=o>&lt;</span><span class=mi>5</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>count</span><span class=p>,</span><span class=s2>&#34;小于5&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>count</span><span class=o>+=</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>count</span><span class=o>&gt;</span><span class=mi>3</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>:</span><span class=c1>#只要进入while循环，正常出来，或者没有进入while循环，则else写不写都一样</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>#触发else 的唯一情况就是while里面有break且被执行，for同理</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>count</span><span class=p>,</span><span class=s2>&#34;大于或等于5&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3break和continue>3、break和continue<a hidden class=anchor aria-hidden=true href=#3break和continue>#</a></h2><table><thead><tr><th>break</th><th>跳出循环</th></tr></thead><tbody><tr><td>continue</td><td>跳过当前循环</td></tr><tr><td>pass</td><td>占位语句，相当于C/C++的;（空语句）， 不做任何事情</td></tr></tbody></table><blockquote><p>样例1</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#输出2019到2100第一个闰年</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2019</span><span class=p>,</span><span class=mi>2100</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span><span class=n>i</span><span class=o>%</span><span class=mi>4</span><span class=o>==</span><span class=mi>0</span><span class=p>)</span> <span class=ow>and</span> <span class=p>(</span><span class=n>i</span><span class=o>%</span><span class=mi>100</span><span class=o>!=</span><span class=mi>0</span><span class=p>)</span> <span class=ow>or</span> <span class=p>(</span><span class=n>i</span><span class=o>%</span><span class=mi>400</span><span class=o>==</span><span class=mi>0</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;2019-2100第一个闰年是</span><span class=si>%d</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#2019-2100第一个闰年是2020</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>样例2</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#打印99乘法表</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>10</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%d</span><span class=s2>*</span><span class=si>%d</span><span class=s2>=</span><span class=si>%d</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>j</span><span class=p>,</span><span class=n>i</span><span class=o>*</span><span class=n>j</span><span class=p>),</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34; &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第三章字符串>第三章——字符串<a hidden class=anchor aria-hidden=true href=#第三章字符串>#</a></h1><p>注意，python3默认是utf-8编码。字符串都是unicode字符串。</p><p>字符串可以使用单引号，双引号，三引号（三个单引号，三个双引号）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>word</span><span class=o>=</span><span class=s1>&#39;zifu&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>sentence</span> <span class=o>=</span><span class=s2>&#34;juzi&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>paragraph</span><span class=o>=</span><span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  duan
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>  luo
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1>#&#34;&#34;&#34;  &#34;&#34;&#34;保存原始的所有格式</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>word</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>sentence</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>paragraph</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>双引号"&ldquo;里面没有转义字符，但是可以使用 &lsquo;，即str=&ldquo;I&rsquo;m a boy&rdquo;，这里的&rsquo;m不会报错</p><p>而使用单引号，则需要str =&lsquo;I\&rsquo;m a boy&rsquo;</p><h2 id=1截取切片>1、截取、切片<a hidden class=anchor aria-hidden=true href=#1截取切片>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>my_str</span><span class=o>=</span><span class=s2>&#34;shu_chasing&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=p>[</span><span class=mi>0</span><span class=p>:</span><span class=mi>3</span><span class=p>])</span><span class=c1>#输出shu</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=p>[</span><span class=mi>1</span><span class=p>:</span><span class=mi>11</span><span class=p>:</span><span class=mi>2</span><span class=p>])</span><span class=c1>#输出h_hsn</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#[起始位置:结束位置:步进值]，这里也是不包括11在内</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=p>[</span><span class=mi>6</span><span class=p>:])</span><span class=c1>#输出从第6个到结尾，即asing，这里不包括第6个</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=p>[:</span><span class=mi>6</span><span class=p>])</span><span class=c1>#输出从第一个到第6个，即shu_ch</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=o>+</span><span class=s2>&#34;,nihao&#34;</span><span class=p>)</span><span class=c1>#输出shu_chasing,nihao</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>my_str</span><span class=o>*</span><span class=mi>3</span><span class=p>)</span><span class=c1>#输出shu_chasingshu_chasingshu_chasing</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2转义字符>2、转义字符<a hidden class=anchor aria-hidden=true href=#2转义字符>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#使用、实现转义字符的功能</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>mystring</span><span class=o>=</span><span class=sa>r</span><span class=s1>&#39;c:\now&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>mystring</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#输出就是c:\now，去掉前面的r则会出现换行</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#在字符串前面加上r表示原始字符串，不会翻译转义字符</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#字符串不能以\结尾</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3字符串常用函数>3、字符串常用函数<a hidden class=anchor aria-hidden=true href=#3字符串常用函数>#</a></h2><h3 id=1大写转小写casefold>1.大写转小写casefold<a hidden class=anchor aria-hidden=true href=#1大写转小写casefold>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;SHU_chasing&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=nb>str</span><span class=o>.</span><span class=n>casefold</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span><span class=c1>#shu_chasing</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=2第一个转大写capitalize>2.第一个转大写capitalize<a hidden class=anchor aria-hidden=true href=#2第一个转大写capitalize>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;shu_chasing&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=nb>str</span><span class=o>.</span><span class=n>casefold</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span><span class=c1>#Shu_chasing</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=3查找find>3.查找find<a hidden class=anchor aria-hidden=true href=#3查找find>#</a></h3><blockquote><p>函数原型find(sub[,start[,end]])
+可以选择范围
+也可以不写范围搜索全部</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;shu_chasing&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s1>&#39;s&#39;</span><span class=p>))</span>           <span class=c1>#输出0</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s1>&#39;s&#39;</span><span class=p>,</span> <span class=mi>3</span> <span class=p>,</span><span class=mi>10</span><span class=p>))</span>    <span class=c1>#7</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=4统计数目count>4.统计数目count<a hidden class=anchor aria-hidden=true href=#4统计数目count>#</a></h3><blockquote><p>函数原型count(sub[,start[,end]])
+可以选择范围
+也可以不写范围搜索全部</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;shu_chasing&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>count</span><span class=p>(</span><span class=s1>&#39;s&#39;</span><span class=p>))</span>           <span class=c1>#输出2</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=o>.</span><span class=n>count</span><span class=p>(</span><span class=s1>&#39;s&#39;</span><span class=p>,</span> <span class=mi>3</span> <span class=p>,</span><span class=mi>10</span><span class=p>))</span>    <span class=c1>#输出1</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=5替换replace>5.替换replace<a hidden class=anchor aria-hidden=true href=#5替换replace>#</a></h3><blockquote><p>函数原型replace(old, new[,count])
+将old的字符串转换为指定的字符串</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;I love math&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=nb>str</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s1>&#39;math&#39;</span><span class=p>,</span><span class=s1>&#39;programming&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>    <span class=c1>#输出I love programming</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=6拆分split>6.拆分split<a hidden class=anchor aria-hidden=true href=#6拆分split>#</a></h3><p>split(sep=None, maxsplit=-1)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;D:\software\python&#39;</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=nb>str</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=n>sep</span><span class=o>=</span><span class=s1>&#39;</span><span class=se>\\</span><span class=s1>&#39;</span><span class=p>)</span>        <span class=c1>#注意这里是两个\\</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>        <span class=c1>#输出[&#39;D:&#39;, &#39;software&#39;, &#39;python&#39;]，转为列表类型</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=7拼接join>7.拼接join<a hidden class=anchor aria-hidden=true href=#7拼接join>#</a></h3><blockquote><p>不能写成str.join(&rsquo;\&rsquo;)
+join被指定为字符串其中的一个用法
+join的参数支持一切可以迭代的对象（列表，元组，字典，文件，集合，生成器）
+推荐使用join替代加号拼接
++会频繁进行内存复制和触发垃圾回收机制</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;D:&#39;</span><span class=p>,</span> <span class=s1>&#39;software&#39;</span><span class=p>,</span> <span class=s1>&#39;python&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;</span><span class=se>\\</span><span class=s1>&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>    <span class=c1>#转义字符</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>              <span class=c1>#D:\software\python</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;D:&#39;</span><span class=p>,</span> <span class=s1>&#39;software&#39;</span><span class=p>,</span> <span class=s1>&#39;python&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span>        <span class=c1>#输出D:softwarepython</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第四章列表list->第四章——列表list[ ]<a hidden class=anchor aria-hidden=true href=#第四章列表list->#</a></h1><blockquote><ul><li>1.非常类似于数组</li></ul></blockquote><blockquote><ul><li>2.可以同时使用字符串，整形，浮点型等等</li></ul></blockquote><blockquote><ul><li>3.可以为负数下标</li></ul></blockquote><blockquote><ul><li>4.可以嵌套，类似二维数组</li></ul></blockquote><h2 id=1遍历列表>1、遍历列表<a hidden class=anchor aria-hidden=true href=#1遍历列表>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#namelist=[] #定义空列表</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>namelist</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;xiaozhang&#34;</span><span class=p>,</span><span class=s2>&#34;2.3&#34;</span><span class=p>,</span><span class=s2>&#34;10&#34;</span><span class=p>]</span><span class=c1>#可以为不同类型的变量，储存混合类型</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=o>-</span><span class=mi>2</span><span class=p>,</span><span class=mi>0</span><span class=p>):</span><span class=c1>#输出最后两个元素</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>namelist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>namelist</span><span class=p>))</span><span class=c1>#输出长度</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>i</span><span class=o>=</span><span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>while</span> <span class=n>i</span><span class=o>&lt;</span><span class=nb>len</span><span class=p>(</span><span class=n>namelist</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=n>namelist</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>i</span><span class=o>+=</span><span class=mi>1</span><span class=c1>#不能写i++</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2数据操作>2、数据操作<a hidden class=anchor aria-hidden=true href=#2数据操作>#</a></h2><h3 id=1-append增加>1. append增加<a hidden class=anchor aria-hidden=true href=#1-append增加>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>namelist</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;xiaozhang&#34;</span><span class=p>,</span><span class=s2>&#34;2.3&#34;</span><span class=p>,</span><span class=s2>&#34;10&#34;</span><span class=p>]</span><span class=c1>#可以为不同类型的变量，储存混合类型</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>namelist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#增加</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>nametemp</span><span class=o>=</span><span class=nb>input</span><span class=p>(</span><span class=s2>&#34;请输入添加的数据&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>namelist</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nametemp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>namelist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#输出结果多了append的内容[&#34;xiaozhang&#34;,&#34;2.3&#34;,&#34;10&#34;, ____]</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>#特别的，使用乘法
+a=[1]
+a=a*3
+#最后a就是[1, 1, 1]</p></blockquote><h3 id=2-append和extend区别>2. append和extend区别<a hidden class=anchor aria-hidden=true href=#2-append和extend区别>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#append和extend的区别</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>b</span><span class=o>=</span><span class=p>[</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#结果为[1,2,[3,4]]，将一个列表作为整个整体，加入列表中</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=n>b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#结果为[1,2,[3,4],3,4]，将b列表中的每一个，逐一加入列表中</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=3-insert用法>3. insert用法<a hidden class=anchor aria-hidden=true href=#3-insert用法>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#insert用法</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>insert</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>200</span><span class=p>)</span><span class=c1>#第一个表示下标，第二个表示元素</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#结果为0,200,1,2</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=4-del删除>4. del删除<a hidden class=anchor aria-hidden=true href=#4-del删除>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#del删除</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>0</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>30</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>40</span><span class=p>,</span><span class=mi>50</span><span class=p>]</span><span class=c1>#可以出现重复数据</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>a</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span><span class=c1>#删除指定下标的元素</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#结果为[0, 10, 30, 10, 40, 50]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>pop</span><span class=p>()</span><span class=c1>#弹出末尾最后一个元素</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#结果为[0, 10, 30, 10, 40]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>remove</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span><span class=c1>#删除第一个值为10的元素</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#结果为[0, 30, 10, 40]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#[]修改</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>b</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;chasing&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>b</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>=</span><span class=s2>&#34;shu_chasing&#34;</span><span class=c1>#直接修改就可以了</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=5-index查找与count计数>5. index查找与count计数<a hidden class=anchor aria-hidden=true href=#5-index查找与count计数>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>0</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>30</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>40</span><span class=p>,</span><span class=mi>50</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>findname</span><span class=o>=</span><span class=nb>int</span><span class=p>(</span><span class=nb>input</span><span class=p>(</span><span class=s2>&#34;请输入想找的元素&#34;</span><span class=p>))</span><span class=c1>#记得修改为整数型</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>findname</span> <span class=ow>in</span> <span class=n>a</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;找到了一样的元素&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>  <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;没有找到相同的元素&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#index查找</span>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>0</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>20</span><span class=p>,</span><span class=mi>30</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mi>40</span><span class=p>,</span><span class=mi>50</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>))</span><span class=c1>#返回下标1，在1-3范围内查找元素10，这个范围左闭右开——[1,4)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>7</span><span class=p>))</span><span class=c1>#返回第一个出现的下标1，在1-6范围内查找元素10，这个范围左闭右开——[1,7)</span>
+</span></span><span class=line><span class=cl><span class=c1>#count计数</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=o>.</span><span class=n>count</span><span class=p>(</span><span class=mi>10</span><span class=p>))</span><span class=c1>#统计查找的元素出现了几次</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>list.index(item) #从头到尾找</p><p>list.index(item, start, end) #在开始和结束之间找</p></blockquote><h3 id=6reverse反转和sort排序>6.reverse反转和sort排序<a hidden class=anchor aria-hidden=true href=#6reverse反转和sort排序>#</a></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#反转和排序</span>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#输出[1, 4, 2, 3]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>reverse</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#输出[3, 2, 4, 1]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>sort</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#输出[1, 2, 3, 4]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>a</span><span class=o>.</span><span class=n>sort</span><span class=p>(</span><span class=n>reverse</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=c1>#输出[4, 3, 2, 1]</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3列表的嵌套>3、列表的嵌套<a hidden class=anchor aria-hidden=true href=#3列表的嵌套>#</a></h2><blockquote><p>类似于二维数组</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=p>[[</span><span class=mi>10</span><span class=p>,</span><span class=mi>20</span><span class=p>],[</span><span class=mi>40</span><span class=p>,</span><span class=mi>50</span><span class=p>],[</span><span class=mi>30</span><span class=p>,</span><span class=mi>60</span><span class=p>,</span><span class=mi>70</span><span class=p>]]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span><span class=c1>#输出[10, 20]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>[</span><span class=mi>1</span><span class=p>][</span><span class=mi>0</span><span class=p>])</span><span class=c1>#输出40</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#test</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl><span class=n>offices</span><span class=o>=</span><span class=p>[[],[],[]]</span>
+</span></span><span class=line><span class=cl><span class=n>names</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>names</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>index</span><span class=o>=</span> <span class=n>random</span><span class=o>.</span><span class=n>randint</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>offices</span><span class=p>[</span><span class=n>index</span><span class=p>]</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>i</span><span class=o>=</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>office</span> <span class=ow>in</span> <span class=n>offices</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;办公室</span><span class=si>%d</span><span class=s2>的人数是：</span><span class=si>%d</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>office</span><span class=p>)))</span>
+</span></span><span class=line><span class=cl>    <span class=n>i</span><span class=o>+=</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>name</span> <span class=ow>in</span> <span class=n>office</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>name</span><span class=p>,</span><span class=n>end</span><span class=o>=</span><span class=s1>&#39;t&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#以下是随机结果</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#办公室1的人数是：0</span>
+</span></span><span class=line><span class=cl><span class=c1>#办公室2的人数是：2</span>
+</span></span><span class=line><span class=cl><span class=c1>#1</span>
+</span></span><span class=line><span class=cl><span class=c1>#5</span>
+</span></span><span class=line><span class=cl><span class=c1>#办公室3的人数是：3</span>
+</span></span><span class=line><span class=cl><span class=c1>#2</span>
+</span></span><span class=line><span class=cl><span class=c1>#3</span>
+</span></span><span class=line><span class=cl><span class=c1>#4    </span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>sort默认是归并排序
+实际上, sort有三个参数
+sort(func, key, reverse)</p></blockquote><h1 id=第五章元组tuple->第五章——元组tuple( )<a hidden class=anchor aria-hidden=true href=#第五章元组tuple->#</a></h1><h2 id=1创建>1、创建<a hidden class=anchor aria-hidden=true href=#1创建>#</a></h2><blockquote><p>tuple(元组)</p><ul><li>与list类似，不同处在于tuple不能修改元素，</li><li>写在小括号里，元素之间用逗号隔开</li><li>元素不可变，但是包含可变对象</li></ul></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>t1</span><span class=o>=</span><span class=p>(</span><span class=mf>2.33</span><span class=p>,</span><span class=s1>&#39;abcd&#39;</span><span class=p>,</span><span class=mi>786</span><span class=p>,)</span>
+</span></span><span class=line><span class=cl><span class=n>t2</span><span class=o>=</span><span class=p>(</span><span class=mi>1</span><span class=p>,)</span>
+</span></span><span class=line><span class=cl><span class=n>t3</span><span class=o>=</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>,</span><span class=s1>&#39;ab&#39;</span><span class=p>,[</span><span class=s1>&#39;a&#39;</span><span class=p>,</span><span class=mf>2.3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>t1</span><span class=p>)</span>    <span class=c1>#(2.33, &#39;abcd&#39;, 786)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>t2</span><span class=p>)</span>    <span class=c1>#(1,)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>t3</span><span class=p>[</span><span class=mi>2</span><span class=p>][</span><span class=mi>1</span><span class=p>])</span>     <span class=c1>#2.3</span>
+</span></span></code></pre></td></tr></table></div></div><p>如果创建空的元组</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>tup1</span><span class=o>=</span><span class=p>()</span>        <span class=c1>#空的元组</span>
+</span></span><span class=line><span class=cl><span class=n>tup2</span><span class=o>=</span><span class=p>(</span><span class=mi>50</span><span class=p>)</span>    <span class=c1>#整形</span>
+</span></span><span class=line><span class=cl><span class=n>tup3</span><span class=o>=</span><span class=p>(</span><span class=mi>100</span><span class=p>,)</span>        <span class=c1>#含有一个元素的元组，如果只有一个，则需要加逗号,在这里也可以写tup3=100,</span>
+</span></span><span class=line><span class=cl><span class=c1>#可以不需要小括号，但是一定要逗号</span>
+</span></span><span class=line><span class=cl><span class=n>tup4</span><span class=o>=</span><span class=p>(</span><span class=mi>150</span><span class=p>,</span><span class=mi>200</span><span class=p>)</span>    <span class=c1>#含有多个元素的元组</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>tup1</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>tup2</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>tup3</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>tup4</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#&lt;class &#39;tuple&#39;&gt;</span>
+</span></span><span class=line><span class=cl><span class=c1>#50</span>
+</span></span><span class=line><span class=cl><span class=c1>#&lt;class &#39;int&#39;&gt;，这里不加，就是整形</span>
+</span></span><span class=line><span class=cl><span class=c1>#(100,)</span>
+</span></span><span class=line><span class=cl><span class=c1>#&lt;class &#39;tuple&#39;&gt;</span>
+</span></span><span class=line><span class=cl><span class=c1>#(150, 200)</span>
+</span></span><span class=line><span class=cl><span class=c1>#&lt;class &#39;tuple&#39;&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2遍历与切片>2、遍历与切片<a hidden class=anchor aria-hidden=true href=#2遍历与切片>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>tup1</span><span class=o>=</span><span class=p>(</span><span class=s2>&#34;abc&#34;</span><span class=p>,</span><span class=mi>10</span><span class=p>,</span><span class=mf>23.4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup1</span><span class=p>)</span>        <span class=c1>#输出(&#39;abc&#39;, 10, 23.4)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup1</span><span class=p>[</span><span class=o>-</span><span class=mi>1</span><span class=p>])</span>        <span class=c1>#输出23.4</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup1</span><span class=p>[</span><span class=mi>0</span><span class=p>:</span><span class=mi>2</span><span class=p>])</span><span class=c1># 输出(&#39;abc&#39;, 10)，这里只有[0,2)，即[0,1]，左闭右开</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3增加>3、增加<a hidden class=anchor aria-hidden=true href=#3增加>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>tup1</span><span class=o>=</span><span class=p>(</span><span class=mi>12</span><span class=p>,</span><span class=mi>34</span><span class=p>,</span><span class=mi>56</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#tup[1]=100</span>
+</span></span><span class=line><span class=cl><span class=c1>#报错，不能修改tup的值，&#39;tuple&#39; object does not support item assignment</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li>不能“新增”</li><li>只能设置新的变量</li><li>分配新的空间</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>tup1</span><span class=o>=</span><span class=p>(</span><span class=mi>12</span><span class=p>,</span><span class=mi>34</span><span class=p>,</span><span class=mi>56</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tup2</span><span class=o>=</span><span class=p>(</span><span class=s1>&#39;a&#39;</span><span class=p>,</span><span class=s1>&#39;b&#39;</span><span class=p>,</span><span class=s1>&#39;c&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tup3</span><span class=o>=</span><span class=n>tup1</span><span class=o>+</span><span class=n>tup2</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup3</span><span class=p>)</span><span class=c1>#(12, 34, 56, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=4删除>4、删除<a hidden class=anchor aria-hidden=true href=#4删除>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>tup1</span><span class=o>=</span><span class=p>(</span><span class=mi>12</span><span class=p>,</span><span class=mi>34</span><span class=p>,</span><span class=mi>56</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;删除前&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tup1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>tup1</span><span class=c1>#删除了整个元组变量，可以完成，以后不能访问tup1</span>
+</span></span><span class=line><span class=cl><span class=c1>#print(&#34;删除后&#34;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#print(tup1)</span>
+</span></span><span class=line><span class=cl><span class=c1>#报错，不能访问tup1的内容，name &#39;tup1&#39; is not defined</span>
+</span></span><span class=line><span class=cl><span class=c1>#del tup[1]</span>
+</span></span><span class=line><span class=cl><span class=c1>#报错，不能删除某一个下标，&#39;tuple&#39; object doesn&#39;t support item deletion</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=5基本操作>5、基本操作<a hidden class=anchor aria-hidden=true href=#5基本操作>#</a></h2><table><thead><tr><th>操作名称</th><th>操作方法</th><th>举例</th></tr></thead><tbody><tr><td>元素成员关系</td><td>in</td><td>2 in list1</td></tr><tr><td>得到重复元素数量</td><td>count</td><td>tup1.count(1)</td></tr></tbody></table><table><thead><tr><th>操作名称</th><th>操作方法</th><th>举例</th></tr></thead><tbody><tr><td>访问元组中的元素</td><td>通过下标直接访问</td><td>print(tup[10])</td></tr><tr><td>遍历元组</td><td>通过for循环</td><td>for i in tup: print(i)</td></tr><tr><td>元组的切片</td><td>使用[ : : ]</td><td>tup[2:10:1]，[::-1]表示倒序</td></tr><tr><td>元组的加法操作</td><td>+</td><td>tup3=tup1+tup2</td></tr></tbody></table><h2 id=6基本函数>6、基本函数<a hidden class=anchor aria-hidden=true href=#6基本函数>#</a></h2><table><thead><tr><th>函数名称</th><th>操作方法</th><th>备注</th></tr></thead><tbody><tr><td>获取数组长度</td><td>len()</td><td>len(tup)-1就是最后一个元素的下标</td></tr><tr><td>获取元组元素最大值</td><td>max()</td><td></td></tr><tr><td>获取元组元素最小值</td><td>min()</td><td></td></tr><tr><td>强制类型转换</td><td>tuple()</td><td></td></tr><tr><td>获取随机元素</td><td>choice()</td><td>加上import random 模块</td></tr></tbody></table><h2 id=7字符串操作>7、字符串操作<a hidden class=anchor aria-hidden=true href=#7字符串操作>#</a></h2><blockquote><p>*同元组一样，字符串也是不能被修改的
+如果必须修改，则需要使用切片和拼接</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s2>&#34;cgasing&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=nb>str</span><span class=p>[:</span><span class=mi>1</span><span class=p>]</span><span class=o>+</span><span class=s2>&#34;h&#34;</span><span class=o>+</span><span class=nb>str</span><span class=p>[</span><span class=mi>2</span><span class=p>:]</span><span class=c1>#修改第二个</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>str</span><span class=p>)</span><span class=c1>#输出chasing</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第六章序列>第六章——序列<a hidden class=anchor aria-hidden=true href=#第六章序列>#</a></h1><h2 id=1总结>1、总结<a hidden class=anchor aria-hidden=true href=#1总结>#</a></h2><p>列表、元组、字符串的共同点</p><blockquote><p>可以通过索引得到每一个元素
+默认索引从0开始
+可以切片得到范围内的集合
+有共同操作符（重复、拼接、成员）
+<em>以上统称为——序列</em></p></blockquote><h2 id=2操作函数>2、操作函数<a hidden class=anchor aria-hidden=true href=#2操作函数>#</a></h2><table><thead><tr><th>函数名</th><th>作用</th><th>示例</th></tr></thead><tbody><tr><td>list([iterable])</td><td>强制将可迭代对象转换为列表</td><td>a=list((1,2,3))</td></tr><tr><td>tuple([iterable])</td><td>强制将可迭代对象转换为元组</td><td>a=tuple((1,2,3))</td></tr><tr><td>str(obj)</td><td>强制将对象转换为字符串</td><td>a=str(10)</td></tr><tr><td>len(sub)</td><td>返回sub参数长度</td><td>len(str1)</td></tr><tr><td>max()</td><td>返回参数集合最大值</td><td>max(list)</td></tr><tr><td>min()</td><td>返回参数集合最小值（保证数据类型统一）</td><td>min(list)</td></tr><tr><td>sum(iterable[, start])</td><td>返回所有元素值的总和</td><td>sum(list,5)</td></tr><tr><td>sorted(iterable,key=None,reverse=False)</td><td>返回排序后的列表</td><td>sorted(list)</td></tr><tr><td>reversed(sequence)</td><td>返回逆向迭代序列的结果</td><td>reversed(list)</td></tr><tr><td>enumerate(iterable)</td><td>生成一个二元组构成的一个迭代对象</td><td>见下文</td></tr><tr><td>zip(iter1[,iter2[&mldr;]])</td><td>返回各个可迭代参数共同组成的元组</td><td>见下文</td></tr></tbody></table><p>enumerate用法，可以单独理解为枚举</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#enumerate</span>
+</span></span><span class=line><span class=cl><span class=nb>str</span><span class=o>=</span><span class=s1>&#39;chasing&#39;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span><span class=p>,</span><span class=n>j</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>j</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(0, &#39;c&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(1, &#39;h&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(2, &#39;a&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(3, &#39;s&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(4, &#39;i&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(5, &#39;n&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(6, &#39;g&#39;)</span>
+</span></span><span class=line><span class=cl><span class=c1># 0 c</span>
+</span></span><span class=line><span class=cl><span class=c1># 1 h</span>
+</span></span><span class=line><span class=cl><span class=c1># 2 a</span>
+</span></span><span class=line><span class=cl><span class=c1># 3 s</span>
+</span></span><span class=line><span class=cl><span class=c1># 4 i</span>
+</span></span><span class=line><span class=cl><span class=c1># 5 n</span>
+</span></span><span class=line><span class=cl><span class=c1># 6 g</span>
+</span></span></code></pre></td></tr></table></div></div><p>zip用法</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>list1</span><span class=o>=</span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>6</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>str1</span><span class=o>=</span><span class=s2>&#34;chasing&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>turple1</span><span class=o>=</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>6</span><span class=p>,</span><span class=mi>8</span><span class=p>,</span><span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>zip</span><span class=p>(</span><span class=n>list1</span><span class=p>,</span> <span class=n>str1</span><span class=p>,</span> <span class=n>turple1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(1, &#39;c&#39;, 2)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(7, &#39;h&#39;, 4)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(3, &#39;a&#39;, 6)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(5, &#39;s&#39;, 8)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(6, &#39;i&#39;, 10)</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第七章字典-->第七章——字典 { }<a hidden class=anchor aria-hidden=true href=#第七章字典-->#</a></h1><h2 id=1字典dict定义>1、字典dict定义<a hidden class=anchor aria-hidden=true href=#1字典dict定义>#</a></h2><blockquote><p>字典，即散列表</p><p>是无序对象的集合，使用键-值(key-value)存储，具有极快的速度</p><p>查找，插入、删除都为O(1)复杂度</p><p>键(key)必须使用不可变类型
+同一个字典的key是唯一的
+类似于json的对象，C++的map，数据结构的红黑树，哈希表</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#字典的定义</span>
+</span></span><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;18&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=p>[</span><span class=s2>&#34;name&#34;</span><span class=p>])</span>    <span class=c1>#输出chasing</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=p>[</span><span class=s2>&#34;age&#34;</span><span class=p>])</span>    <span class=c1>#输出18</span>
+</span></span><span class=line><span class=cl><span class=c1>#print(info[&#34;gender&#34;])</span>
+</span></span><span class=line><span class=cl><span class=c1>#错误，KeyError: &#39;gender&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#直接访问</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;gender&#34;</span><span class=p>))</span>    
+</span></span><span class=line><span class=cl><span class=c1>#输出None，没有找到默认返回None</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;gender&#34;</span><span class=p>,</span><span class=s2>&#34;not found&#34;</span><span class=p>))</span>    <span class=c1>#修改默认的值</span>
+</span></span><span class=line><span class=cl><span class=c1>#输出not found，没有找到返回not found</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2添加>2、添加<a hidden class=anchor aria-hidden=true href=#2添加>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;18&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>newID</span><span class=o>=</span><span class=nb>input</span><span class=p>(</span><span class=s2>&#34;请输入新的学号：&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>info</span><span class=p>[</span><span class=s2>&#34;ID&#34;</span><span class=p>]</span><span class=o>=</span><span class=n>newID</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=p>[</span><span class=s2>&#34;ID&#34;</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3删除>3、删除<a hidden class=anchor aria-hidden=true href=#3删除>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;18&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;删除前：</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>info</span><span class=p>[</span><span class=s2>&#34;name&#34;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=k>del</span> <span class=n>info</span><span class=p>[</span><span class=s2>&#34;name&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=c1>#使用del info则删除整个字典</span>
+</span></span><span class=line><span class=cl><span class=c1>#print(&#34;删除后：%s&#34;%info[&#34;name&#34;])#删除后键值对后，再次访问就会报错</span>
+</span></span><span class=line><span class=cl><span class=c1>#报错KeyError &#39;name&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=4清除>4、清除<a hidden class=anchor aria-hidden=true href=#4清除>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;19&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;删除前：</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>info</span><span class=p>)</span>    <span class=c1>#删除前：{&#39;name&#39;: &#39;chasing&#39;, &#39;age&#39;: &#39;18&#39;}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>info</span><span class=o>.</span><span class=n>clear</span><span class=p>()</span>                   <span class=c1>#只是清空</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;删除后：</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=n>info</span><span class=p>)</span>    <span class=c1>#删除后：{}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=5修改>5、修改<a hidden class=anchor aria-hidden=true href=#5修改>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;19&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>info</span><span class=p>[</span><span class=s2>&#34;age&#34;</span><span class=p>]</span><span class=o>=</span><span class=mi>20</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=p>[</span><span class=s2>&#34;age&#34;</span><span class=p>])</span>    <span class=c1>#输出20</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=6查找>6、查找<a hidden class=anchor aria-hidden=true href=#6查找>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;18&#34;</span><span class=p>,</span><span class=s2>&#34;id&#34;</span><span class=p>:</span><span class=mi>19120397</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=o>.</span><span class=n>keys</span><span class=p>())</span>        <span class=c1>#得到所有的键dict_keys([&#39;name&#39;, &#39;age&#39;, &#39;id&#39;])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=o>.</span><span class=n>values</span><span class=p>())</span>     <span class=c1>#得到所有的值dict_values([&#39;chasing&#39;, &#39;18&#39;, 19120397])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>info</span><span class=o>.</span><span class=n>items</span><span class=p>())</span>        <span class=c1>#得到所有的项dict_items([(&#39;name&#39;, &#39;chasing&#39;), (&#39;age&#39;, &#39;18&#39;), (&#39;id&#39;, 19120397)])</span>
+</span></span><span class=line><span class=cl><span class=c1>#每个键值对都是元组</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=7遍历所有的键值项>7、遍历所有的键、值、项<a hidden class=anchor aria-hidden=true href=#7遍历所有的键值项>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>info</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;chasing&#34;</span><span class=p>,</span><span class=s2>&#34;age&#34;</span><span class=p>:</span><span class=s2>&#34;18&#34;</span><span class=p>,</span><span class=s2>&#34;id&#34;</span><span class=p>:</span><span class=mi>19120397</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>info</span><span class=o>.</span><span class=n>keys</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>info</span><span class=o>.</span><span class=n>values</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span><span class=p>,</span><span class=n>j</span> <span class=ow>in</span> <span class=n>info</span><span class=o>.</span><span class=n>iems</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=si>%s</span><span class=se>\t</span><span class=si>%s</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>j</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># name</span>
+</span></span><span class=line><span class=cl><span class=c1># age</span>
+</span></span><span class=line><span class=cl><span class=c1># id</span>
+</span></span><span class=line><span class=cl><span class=c1># chasing</span>
+</span></span><span class=line><span class=cl><span class=c1># 18</span>
+</span></span><span class=line><span class=cl><span class=c1># 19120397</span>
+</span></span><span class=line><span class=cl><span class=c1># name    chasing</span>
+</span></span><span class=line><span class=cl><span class=c1># age     18</span>
+</span></span><span class=line><span class=cl><span class=c1># id      19120397</span>
+</span></span><span class=line><span class=cl>    
+</span></span></code></pre></td></tr></table></div></div><h1 id=第八章集合-->第八章——集合 { }<a hidden class=anchor aria-hidden=true href=#第八章集合-->#</a></h1><h2 id=1定义>1、定义<a hidden class=anchor aria-hidden=true href=#1定义>#</a></h2><blockquote><p>set和dict类似，也是key的集合，但是不储存value
+同C++一样，set不能存相同的元素，重复元素自动过滤
+但是不同的是，set是无序的
+操作方法与其他相同
+for、update、add、remove、pop、clear、del等等</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>s</span><span class=o>=</span><span class=nb>set</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>s</span><span class=p>)</span>    <span class=c1>#输出{1, 2, 3}</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>=</span><span class=nb>set</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>3</span><span class=p>,</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>s</span><span class=p>)</span>    <span class=c1>#输出{1, 2, 3}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2小结>2、小结<a hidden class=anchor aria-hidden=true href=#2小结>#</a></h2><table><thead><tr><th></th><th>是否有序</th><th>是否可变类型</th></tr></thead><tbody><tr><td><strong>列表[]</strong></td><td>有序</td><td>可变类型</td></tr><tr><td>元组()</td><td>有序</td><td>不可变类型</td></tr><tr><td><strong>字典{}</strong></td><td>无序</td><td>key不可变，value可变</td></tr><tr><td>集合{}</td><td>无序</td><td>可变类型，不重复</td></tr></tbody></table><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=nb>set</span><span class=p>(</span><span class=s1>&#39;abracadabra&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>b</span> <span class=o>=</span> <span class=nb>set</span><span class=p>(</span><span class=s1>&#39;alacazam&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span> <span class=o>-</span> <span class=n>b</span><span class=p>)</span>     <span class=c1># a 和 b 的差集</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span> <span class=o>|</span> <span class=n>b</span><span class=p>)</span>     <span class=c1># a 和 b 的并集</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span> <span class=o>&amp;</span> <span class=n>b</span><span class=p>)</span>     <span class=c1># a 和 b 的交集</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>a</span> <span class=o>^</span> <span class=n>b</span><span class=p>)</span>     <span class=c1># a 和 b 中不同时存在的元素</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第九章函数>第九章——函数<a hidden class=anchor aria-hidden=true href=#第九章函数>#</a></h1><p>提高编码效率，减少重复</p><h2 id=1定义-1>1、定义<a hidden class=anchor aria-hidden=true href=#1定义-1>#</a></h2><ol><li>定义方式：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>func</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>code</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>val</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>demo：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>printname</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;chasing&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>printname</span><span class=p>()</span>        <span class=c1>#输出chasing</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2带参数函数>2、带参数函数<a hidden class=anchor aria-hidden=true href=#2带参数函数>#</a></h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>add</span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=n>b</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span><span class=o>=</span><span class=n>a</span><span class=o>+</span><span class=n>b</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>c</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>add</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span>     <span class=c1>#输出3</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=3带返回值函数>3、带返回值函数<a hidden class=anchor aria-hidden=true href=#3带返回值函数>#</a></h2><ol><li>返回单个值</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>add</span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=n>b</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span><span class=o>=</span><span class=n>a</span><span class=o>+</span><span class=n>b</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>c</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>add</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>))</span>        <span class=c1>#输出3</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>返回多个值
+和lua相同</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>divid</span><span class=p>(</span><span class=n>a</span><span class=p>,</span><span class=n>b</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>shang</span><span class=o>=</span><span class=n>a</span><span class=o>//</span><span class=n>b</span>    
+</span></span><span class=line><span class=cl>    <span class=n>yushu</span><span class=o>=</span><span class=n>a</span><span class=o>%</span><span class=n>b</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>shang</span><span class=p>,</span><span class=n>yushu</span>        <span class=c1>#多个返回值用逗号分隔</span>
+</span></span><span class=line><span class=cl><span class=n>sh</span><span class=p>,</span><span class=n>yu</span><span class=o>=</span><span class=n>devid</span><span class=p>(</span><span class=mi>5</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;商：</span><span class=si>%d</span><span class=s2>，余数：</span><span class=si>%d</span><span class=s2>&#34;</span><span class=o>%</span><span class=p>(</span><span class=n>sh</span><span class=p>,</span><span class=n>yu</span><span class=p>))</span>        <span class=c1>#输出商：2，余数：1</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>局部变量和全局变量
+&lt;1>在函数内的作为局部变量
+&lt;2>在函数外定义的为全局变量</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=mi>5</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>test1</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span><span class=o>=</span><span class=mi>10</span>    <span class=c1>#优先使用全局变量</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span><span class=o>=</span><span class=mi>200</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>test2</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>test1</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>test2</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=c1># 10</span>
+</span></span><span class=line><span class=cl><span class=c1># 200</span>
+</span></span><span class=line><span class=cl><span class=c1># 5</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>在函数中的使用全局变量</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>a</span><span class=o>=</span><span class=mi>5</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>test1</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>a</span><span class=o>=</span><span class=mi>10</span>    <span class=c1>#添加global</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span><span class=o>=</span><span class=mi>200</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>test2</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>test1</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>test2</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=c1># 5</span>
+</span></span><span class=line><span class=cl><span class=c1># 200</span>
+</span></span><span class=line><span class=cl><span class=c1># 200</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=第十章拷贝>第十章——拷贝<a hidden class=anchor aria-hidden=true href=#第十章拷贝>#</a></h1><h2 id=1元组默认深拷贝>1、元组默认深拷贝<a hidden class=anchor aria-hidden=true href=#1元组默认深拷贝>#</a></h2><blockquote><p>直接赋值：其实就是对象的引用（别名）。
+浅拷贝(copy)：拷贝父对象，不会拷贝对象的内部的子对象。
+深拷贝(deepcopy)： copy 模块的 deepcopy 方法，完全拷贝了父对象及其子对象。</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>copy</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tuple1</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tuple2</span> <span class=o>=</span> <span class=nb>tuple</span><span class=p>(</span><span class=n>tuple1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tuple2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1==tuple2 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span><span class=o>==</span><span class=n>tuple2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1 is tuple2 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span> <span class=ow>is</span> <span class=n>tuple2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tuple3</span> <span class=o>=</span> <span class=n>copy</span><span class=o>.</span><span class=n>copy</span><span class=p>(</span><span class=n>tuple1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tuple3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1==tuple3 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span><span class=o>==</span><span class=n>tuple3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1 is tuple3 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span> <span class=ow>is</span> <span class=n>tuple3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tuple4</span> <span class=o>=</span> <span class=n>tuple1</span><span class=p>[:]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>tuple4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1==tuple4 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span><span class=o>==</span><span class=n>tuple4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;tuple1 is tuple4 ?&#34;</span><span class=p>,</span><span class=n>tuple1</span> <span class=ow>is</span> <span class=n>tuple4</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#(1, 2, 3)</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1==tuple2 ? True</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1 is tuple2 ? True</span>
+</span></span><span class=line><span class=cl><span class=c1>#(1, 2, 3)</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1==tuple3 ? True</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1 is tuple3 ? True</span>
+</span></span><span class=line><span class=cl><span class=c1>#(1, 2, 3)</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1==tuple4 ? True</span>
+</span></span><span class=line><span class=cl><span class=c1>#tuple1 is tuple4 ? True</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=2地址类型的传递>2、地址类型的传递<a hidden class=anchor aria-hidden=true href=#2地址类型的传递>#</a></h2><p>Python中对象的赋值都是进行对象引用（内存地址）传递
+使用copy.copy()，可以进行对象的浅拷贝，它复制了对象，但对于对象中的元素，依然使用原始的引用.
+如果需要复制一个容器对象，以及它里面的所有元素（包含元素的子元素），可以使用copy.deepcopy()进行深拷贝
+对于非容器类型（如数字、字符串、和其他&rsquo;原子&rsquo;类型的对象）没有被拷贝一说</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://chasing1020.github.io/tags/python/>Python</a></li></ul><nav class=paginav><a class=prev href=https://chasing1020.github.io/post/crawler-note/><span class=title>« Prev</span>
+<span>Crawler Note</span></a></nav></footer><div class=comments><script>(function(){var t=document.documentElement.dataset.theme,n=t==="dark"?"noborder_dark":"light",e=document.createElement("script");e.src="https://giscus.app/client.js",e.setAttribute("data-repo","Chasing1020/Chasing1020.github.io"),e.setAttribute("data-repo-id","R_kgDOGR5Ifw"),e.setAttribute("data-category","General"),e.setAttribute("data-category-id","DIC_kwDOGR5If84CURCm"),e.setAttribute("data-mapping","url"),e.setAttribute("data-strict","0"),e.setAttribute("data-reactions-enabled","1"),e.setAttribute("data-emit-metadata","0"),e.setAttribute("data-input-position","bottom"),e.setAttribute("data-theme",n),e.setAttribute("data-lang","en"),e.setAttribute("data-loading","lazy"),e.crossOrigin="anonymous",e.async=!0,document.currentScript.parentNode.appendChild(e)})()</script></div></article></main><footer class=footer><span>Copyright 2019-2026 <a href=https://chasing1020.github.io>Jiancong Zhu</a></span>
+<span id=busuanzi_container_site_uv style=display:none>&nbsp;·&nbsp;<span id=busuanzi_value_site_uv></span> visitors
+</span><span id=busuanzi_container_page_pv style=display:none>&nbsp;·&nbsp;<span id=busuanzi_value_page_pv></span> page views
+</span>·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><script async src=https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

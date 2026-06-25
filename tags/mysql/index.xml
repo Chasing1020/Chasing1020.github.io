@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>MySQl on Jiancong Zhu</title><link>https://chasing1020.github.io/tags/mysql/</link><description>Recent content in MySQl on Jiancong Zhu</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright 2019-2026 Jiancong Zhu</copyright><lastBuildDate>Thu, 03 Feb 2022 16:11:16 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>Advanced MySQL</title><link>https://chasing1020.github.io/post/advanced-mysql/</link><pubDate>Thu, 03 Feb 2022 16:11:16 +0800</pubDate><guid>https://chasing1020.github.io/post/advanced-mysql/</guid><description>&lt;h1 id="1-query-engine"&gt;1. Query Engine&lt;/h1&gt;
+&lt;h2 id="11-relational-model"&gt;1.1. Relational Model&lt;/h2&gt;
+&lt;p&gt;关系型数据库是建模现实世界的关联数据的有组织的集合。最早期数据库难于构建，逻辑与物理层强耦合。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;查询流程&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;SQL（Parser）：词法分析和语法分析。&lt;/p&gt;</description></item><item><title>MySQL Basic Note</title><link>https://chasing1020.github.io/post/mysql-basic-note/</link><pubDate>Sat, 20 Mar 2021 10:15:30 +0800</pubDate><guid>https://chasing1020.github.io/post/mysql-basic-note/</guid><description>&lt;h1 id="mysql基础笔记"&gt;MySQL基础笔记&lt;/h1&gt;
+&lt;h2 id="1-数据库简介"&gt;1. 数据库简介&lt;/h2&gt;
+&lt;h3 id="11数据库的优势"&gt;1.1.数据库的优势&lt;/h3&gt;
+&lt;p&gt;使用数据库的优点&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;实现数据持久化
+使用完整的管理系统，易于查询
+成本低，开源，性能高，使用简单
+移植性好
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="12数据库的相关概念"&gt;1.2.数据库的相关概念&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;DB：（Database）即数据库本身，保存有组织数据的容器
+DBMS：（Database Manage System）数据库管理系统，即创建、使用数据库的系统
+SQL：（Structured Quey Language）结构化查询语言
+常用的数据库类型：MySQL，Oracle，DB2，SqlServer（只限win）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：SQL不是某个特定版本才有的，而是泛指一种结构化查询用的语言&lt;/p&gt;</description></item></channel></rss>

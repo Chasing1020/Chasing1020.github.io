@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Pages on Jiancong Zhu</title><link>https://chasing1020.github.io/page/</link><description>Recent content in Pages on Jiancong Zhu</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright 2019-2026 Jiancong Zhu</copyright><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://chasing1020.github.io/page/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://chasing1020.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://chasing1020.github.io/about/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;The word &amp;ldquo;Chasing&amp;rdquo; means &lt;a href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E9%97%B4%E8%AF%8D%E8%AF%9D#%E7%8E%8B%E5%9B%BD%E7%BB%B4%E7%BE%8E%E5%AD%A6"&gt;&amp;ldquo;衣带渐宽终不悔，为伊消得人憔悴&amp;rdquo;&lt;/a&gt;.&lt;br&gt;
+The suffix &amp;ldquo;1020&amp;rdquo; is used only to avoid duplication of names, and &lt;a href="https://en.wikipedia.org/wiki/October_20"&gt;October 20th&lt;/a&gt; is my birthday.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="about-me"&gt;About me&lt;/h2&gt;
+&lt;p&gt;🎓 I am a Ph.D. candidate in Computer Science and Technology at the &lt;a href="http://www.ict.cas.cn/"&gt;Institute of Computing Technology, Chinese Academy of Sciences&lt;/a&gt; (since 2023), co-advised by &lt;a href="https://ictxh.github.io/"&gt;Xiaohui Peng&lt;/a&gt; and &lt;a href="https://novel.ict.ac.cn/zxu/"&gt;Zhiwei Xu&lt;/a&gt;. Prior to that, I received my B.Eng. in Computer Science and Technology from &lt;a href="https://www.shu.edu.cn/"&gt;Shanghai University&lt;/a&gt; (2019 — 2023).&lt;/p&gt;
+&lt;p&gt;🔭 My research focuses on distributed systems and machine learning systems. I am currently working on training and inference optimization for LLMs, with a particular focus on &lt;strong&gt;RL systems for Agentic AI&lt;/strong&gt;.&lt;/p&gt;</description></item><item><title>Friends</title><link>https://chasing1020.github.io/friends/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://chasing1020.github.io/friends/</guid><description>&lt;p&gt;🔗 I would appreciate it if you could add my blog to your links.&lt;/p&gt;
+&lt;p&gt;🤩 You can send me your link by any means, an example of the link is below.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Chasing1020&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://chasing1020.github.io&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;avatar&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;https://avatars.githubusercontent.com/chasing1020&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;description&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;Why there is a universe?&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class="friends-gallary"&gt;
+&lt;a class="friends-list" href="https://blog.zidea.site/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/bear-zd" class="lazyload friend-avatar-img" loading="lazy" alt="zidea"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+zidea
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+For fun!!!
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://picasun.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/picasun" class="lazyload friend-avatar-img" loading="lazy" alt="picasun"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+picasun
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Your youth will be infinitely revived by Picasun！
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://yuban00018.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/yuban00018" class="lazyload friend-avatar-img" loading="lazy" alt="yuban00018"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+yuban00018
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Good Luck Have Fun
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://chinggg.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/chinggg" class="lazyload friend-avatar-img" loading="lazy" alt="chinggg"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+chinggg
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+curious but honest, naive but patient.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://XingZhiang.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/XingZhiang" class="lazyload friend-avatar-img" loading="lazy" alt="XingZhiang"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+XingZhiang
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+人被判为自由
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://1421582341.github.io/learn-note/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/1421582341" class="lazyload friend-avatar-img" loading="lazy" alt="1421582341"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+1421582341
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+生姜烧肉
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://cubercsl.site" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/cubercsl" class="lazyload friend-avatar-img" loading="lazy" alt="cubercsl"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+cubercsl
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+The end is always near.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://Lemon-412.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/Lemon-412" class="lazyload friend-avatar-img" loading="lazy" alt="Lemon-412"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+Lemon-412
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+干啥啥不行，吃饭第一名.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://longfangsong.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/longfangsong" class="lazyload friend-avatar-img" loading="lazy" alt="longfangsong"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+longfangsong
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+一个纯粹的码农
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://syyani.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/syyani" class="lazyload friend-avatar-img" loading="lazy" alt="syyani"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+syyani
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+一些唠叨
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://Henry-Avery.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/Henry-Avery" class="lazyload friend-avatar-img" loading="lazy" alt="Henry-Avery"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+Henry-Avery
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+SHUer | Life Hacker Blog:henryavery.cn
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://chixinn.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/chixinn" class="lazyload friend-avatar-img" loading="lazy" alt="chixinn"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+chixinn
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+加油，打工人
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://CDTong.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/CDTong" class="lazyload friend-avatar-img" loading="lazy" alt="CDTong"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+CDTong
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+To be a rock and not to roll
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://zhoudian64.%e5%bc%ba%e4%ba%ba%e5%b7%a5%e6%99%ba%e8%83%bd.com" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/zhoudian64" class="lazyload friend-avatar-img" loading="lazy" alt="zhoudian64"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+zhoudian64
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+怠惰
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://LuminolT.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/LuminolT" class="lazyload friend-avatar-img" loading="lazy" alt="LuminolT"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+LuminolT
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+encrypt(self)
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://Amadeus1240.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/Amadeus1240" class="lazyload friend-avatar-img" loading="lazy" alt="Amadeus1240"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+Amadeus1240
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Purr for my enjoyment
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://ruanjiancheng.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/ruanjiancheng" class="lazyload friend-avatar-img" loading="lazy" alt="ruanjiancheng"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+ruanjiancheng
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Keep running and Keep loving.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://slhmy.github.io" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/slhmy" class="lazyload friend-avatar-img" loading="lazy" alt="slhmy"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+slhmy
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Driven by interests
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://www.outis9.top" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/Outis9" class="lazyload friend-avatar-img" loading="lazy" alt="Outis9"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+Outis9
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+A CyberSecurity Student From SHU
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://trouvaille0198.github.io/Notes" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/trouvaille0198" class="lazyload friend-avatar-img" loading="lazy" alt="trouvaille0198"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+trouvaille0198
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+伤心肠粉的酱油碟子
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://tcqi.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/tcqi" class="lazyload friend-avatar-img" loading="lazy" alt="tcqi"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+tcqi
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Tian-Cheng Qi
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://shudorcl.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/shudorcl" class="lazyload friend-avatar-img" loading="lazy" alt="shudorcl"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+shudorcl
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+岸旁青草长不歇，空中白雪遥旋灭
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://nephrencake.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/nephrencake" class="lazyload friend-avatar-img" loading="lazy" alt="nephrencake"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+nephrencake
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+求其上者得其中，求其中者得其下，求其下者无所得。
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://oxotn3.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/oxotn3" class="lazyload friend-avatar-img" loading="lazy" alt="OxOtn3"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+OxOtn3
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Amazing things happen.
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://davidxu-jj.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/davidxu-jj" class="lazyload friend-avatar-img" loading="lazy" alt="davidxu-jj"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+davidxu-jj
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Graphics enthusiast
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://LaneGong.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/LaneGong" class="lazyload friend-avatar-img" loading="lazy" alt="LaneGong"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+LaneGong
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Strive to be an excellent white hat!
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://plalyy.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/plalyy" class="lazyload friend-avatar-img" loading="lazy" alt="plalyy"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+plalyy
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Discover fresh context
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://breezecho.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/breezecho" class="lazyload friend-avatar-img" loading="lazy" alt="breezecho"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+breezecho
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+千木成林，知行合一
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://wyhallenwu.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/wyhallenwu" class="lazyload friend-avatar-img" loading="lazy" alt="wyhallenwu"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+wyhallenwu
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+currently an undergraduate student at SHU
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;a class="friends-list" href="https://xu-zhiwei.github.io/" target="_blank"&gt;
+&lt;div class=friend-avatar&gt;
+&lt;img src="https://avatars.githubusercontent.com/xu-zhiwei" class="lazyload friend-avatar-img" loading="lazy" alt="xu-zhiwei"/&gt;
+&lt;/div&gt;
+&lt;div class="friend-info"&gt;
+&lt;div class="friend-name"&gt;
+xu-zhiwei
+&lt;/div&gt;
+&lt;div class="friend-desc"&gt;
+Master Student at Tsinghua University
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;/div&gt;</description></item></channel></rss>

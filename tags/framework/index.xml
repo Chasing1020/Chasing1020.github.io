@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Framework on Jiancong Zhu</title><link>https://chasing1020.github.io/tags/framework/</link><description>Recent content in Framework on Jiancong Zhu</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright 2019-2026 Jiancong Zhu</copyright><lastBuildDate>Wed, 28 Oct 2020 11:13:09 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/framework/index.xml" rel="self" type="application/rss+xml"/><item><title>Selenium Automation</title><link>https://chasing1020.github.io/post/selenium-automation/</link><pubDate>Wed, 28 Oct 2020 11:13:09 +0800</pubDate><guid>https://chasing1020.github.io/post/selenium-automation/</guid><description>&lt;h1 id="selenium3实现网页自动化"&gt;Selenium3实现网页自动化&lt;/h1&gt;
+&lt;h2 id="1初步工作"&gt;1.初步工作&lt;/h2&gt;
+&lt;h3 id="11-环境配置"&gt;1.1 环境配置&lt;/h3&gt;
+&lt;p&gt;安装Selenium&lt;/p&gt;
+&lt;p&gt;本文使用的是python3.8.4 64bit&lt;/p&gt;
+&lt;p&gt;使用pip指令安装selenium&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pip install selenium&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="12-设置浏览器驱动"&gt;1.2 设置浏览器驱动&lt;/h3&gt;
+&lt;p&gt;首先设置浏览器的地址，手动创建一个存放浏览器驱动的目录，如： E:\driver , 将下载的浏览器驱动文件（例如：chromedriver、geckodriver）丢到该目录下。&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Theme on Jiancong Zhu</title><link>https://chasing1020.github.io/tags/theme/</link><description>Recent content in Theme on Jiancong Zhu</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright 2019-2026 Jiancong Zhu</copyright><lastBuildDate>Mon, 04 Jul 2022 10:50:10 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/theme/index.xml" rel="self" type="application/rss+xml"/><item><title>Amend Hugo Theme Even</title><link>https://chasing1020.github.io/post/amend-hugo-theme-even/</link><pubDate>Mon, 04 Jul 2022 10:50:10 +0800</pubDate><guid>https://chasing1020.github.io/post/amend-hugo-theme-even/</guid><description>&lt;p&gt;By default, the theme even doesn&amp;rsquo;t support the search and copy to the clipboard button which is proposed in &lt;a href="https://github.com/olOwOlo/hugo-theme-even/issues/289"&gt;issues#289&lt;/a&gt; and &lt;a href="https://github.com/olOwOlo/hugo-theme-even/issues/339"&gt;issues#399&lt;/a&gt;. So I have finished implementing the features.&lt;/p&gt;
+&lt;h1 id="1-search"&gt;1. Search&lt;/h1&gt;
+&lt;p&gt;Initially, you should add the output of JSON in your &lt;code&gt;./config.toml&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-toml" data-lang="toml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;outputs&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;home&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;HTML&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;RSS&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;JSON&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Then create the file &lt;code&gt;./themes/even/layouts/_default/index.json&lt;/code&gt; and add these lines. Then make sure you can see the output in the &lt;code&gt;localhost:1313/index.json&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{-&lt;/span&gt; &lt;span class="err"&gt;$.Scratch.Add&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;index&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;slice&lt;/span&gt; &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{-&lt;/span&gt; &lt;span class="err"&gt;range&lt;/span&gt; &lt;span class="err"&gt;$index,&lt;/span&gt; &lt;span class="err"&gt;$element&lt;/span&gt; &lt;span class="err"&gt;:=&lt;/span&gt; &lt;span class="err"&gt;.Site.RegularPages.ByTitle&lt;/span&gt; &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{if&lt;/span&gt; &lt;span class="err"&gt;ne&lt;/span&gt; &lt;span class="err"&gt;.Params.tags&lt;/span&gt; &lt;span class="err"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{if&lt;/span&gt; &lt;span class="err"&gt;ne&lt;/span&gt; &lt;span class="err"&gt;.Plain&lt;/span&gt; &lt;span class="err"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{-&lt;/span&gt; &lt;span class="err"&gt;$.Scratch.Add&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;index&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;(dict&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;$index&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;date&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Date&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;tags&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Params.tags&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;categories&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Params.categories&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;title&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Title&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;permalink&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Permalink&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s2"&gt;&amp;#34;contents&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;.Plain&lt;/span&gt; &lt;span class="err"&gt;)&lt;/span&gt; &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{end&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{end&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{-&lt;/span&gt; &lt;span class="err"&gt;end&lt;/span&gt; &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;{-&lt;/span&gt; &lt;span class="err"&gt;$.Scratch.Get&lt;/span&gt; &lt;span class="nt"&gt;&amp;#34;index&amp;#34;&lt;/span&gt; &lt;span class="err"&gt;|&lt;/span&gt; &lt;span class="err"&gt;jsonify&lt;/span&gt; &lt;span class="err"&gt;-&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;And add file &lt;code&gt;./themes/even/static/js/search.js&lt;/code&gt;. I have stored the search object so just need to load the file one time once you enter the search page.&lt;/p&gt;</description></item></channel></rss>

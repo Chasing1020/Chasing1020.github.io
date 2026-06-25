@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Operating System on Jiancong Zhu</title><link>https://chasing1020.github.io/tags/operating-system/</link><description>Recent content in Operating System on Jiancong Zhu</description><generator>Hugo</generator><language>en-US</language><copyright>Copyright 2019-2026 Jiancong Zhu</copyright><lastBuildDate>Mon, 27 Feb 2023 23:00:35 +0800</lastBuildDate><atom:link href="https://chasing1020.github.io/tags/operating-system/index.xml" rel="self" type="application/rss+xml"/><item><title>Operating System</title><link>https://chasing1020.github.io/post/operating-system/</link><pubDate>Fri, 12 Nov 2021 19:33:04 +0800</pubDate><guid>https://chasing1020.github.io/post/operating-system/</guid><description>&lt;h1 id="1-overview"&gt;1. Overview&lt;/h1&gt;
+&lt;p&gt;什么是操作系统？&lt;/p&gt;
+&lt;p&gt;硬件角度：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;管理硬件：将复杂的，具备不同功能的硬件资源纳入统一管理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;对硬件进行抽象：抽象成不依赖具体硬件特性的资源。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;将有限的，离散的资源高效地抽象成无限的、连续的资源，并提交接口给上层系统调用。&lt;/p&gt;</description></item></channel></rss>
